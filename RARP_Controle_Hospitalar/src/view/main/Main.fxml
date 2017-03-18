@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="467.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.main.MainController">
+   <top>
+      <BorderPane prefHeight="80.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+         <top>
+            <MenuBar fx:id="mbnMenu" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="mnArquivo" mnemonicParsing="false" text="Arquivo">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu fx:id="mnCadastros" mnemonicParsing="false" text="Cadastros">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <ToolBar fx:id="tlbBarraFerramentas" prefHeight="49.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+              <items>
+                <Button fx:id="btnFuncionarios" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Funcionários" />
+                  <Button fx:id="btnPacientes" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Pacientes" />
+                  <Button fx:id="btnMedicos" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Médicos" />
+                  <Button fx:id="btnLeitos" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Leitos" />
+                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
+                  <Button fx:id="btnEncaminhar" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Encaminhar" />
+                  <Button fx:id="btnAgendar" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Agendar" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                  <Button fx:id="btnAjuda" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Ajuda" />
+                  <Button fx:id="btnSair" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" text="Sair" />
+              </items>
+            </ToolBar>
+         </center>
+      </BorderPane>
+   </top>
+   <center>
+      <AnchorPane fx:id="pnMain" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgMain" fitHeight="373.0" fitWidth="737.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="view/img/ImagemMain.jpg" />
+               </image></ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
