@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -39,7 +40,7 @@ public class MainController implements Initializable {
 		btnPacientes.setGraphic(new ImageView(imgPacientes));
 		btnPacientes.setAlignment(Pos.BOTTOM_CENTER);
 		
-		Image imgMedicos = new Image("view/img/medicos.png");
+		Image imgMedicos = new Image("view/img/medico.png");
 		btnMedicos.setGraphic(new ImageView(imgMedicos));
 		btnMedicos.setAlignment(Pos.BOTTOM_CENTER);
 		
@@ -55,7 +56,7 @@ public class MainController implements Initializable {
 		btnAgendar.setGraphic(new ImageView(imgAgendar));
 		btnAgendar.setAlignment(Pos.BOTTOM_CENTER);
 		
-		Image imgAjuda = new Image("view/img/ajuda.png");
+		Image imgAjuda = new Image("view/img/Ajuda.png");
 		btnAjuda.setGraphic(new ImageView(imgAjuda));
 		btnAjuda.setAlignment(Pos.BOTTOM_CENTER);
 		
