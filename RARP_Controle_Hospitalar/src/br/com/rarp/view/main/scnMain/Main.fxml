@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="pnMain" prefHeight="467.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.main.scnMain.MainController">
+   <top>
+      <BorderPane prefHeight="80.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+         <top>
+            <MenuBar fx:id="mbnMenu" styleClass="panel" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="mnArquivo" mnemonicParsing="false" text="Arquivo">
+                  <items>
+                        <MenuItem fx:id="mniOpcoes" mnemonicParsing="false" text="Opções" />
+                    <MenuItem fx:id="mniSair" mnemonicParsing="false" text="Sair" />
+                  </items>
+                </Menu>
+                <Menu fx:id="mnCadastros" mnemonicParsing="false" text="Cadastros">
+                  <items>
+                    <MenuItem fx:id="mniFuncionarios" mnemonicParsing="false" text="Cadastro de funcionários" />
+                        <MenuItem fx:id="mniPacientes" mnemonicParsing="false" text="Cadastro de pacientes" />
+                        <MenuItem fx:id="mniMedicos" mnemonicParsing="false" text="Cadastro de médicos" />
+                        <MenuItem fx:id="mniLeitos" mnemonicParsing="false" text="Cadastro de leitos" />
+                  </items>
+                </Menu>
+                <Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <ToolBar fx:id="tlbBarraFerramentas" prefHeight="49.0" prefWidth="591.0" styleClass="panel" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
+              <items>
+                <Button fx:id="btnFuncionarios" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Funcionários" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/funcionarios.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="btnPacientes" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Pacientes" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/pacientes.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="btnMedicos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Médicos" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/medico.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="btnLeitos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Leitos" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/leitos.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
+                  <Button fx:id="btnEntrada" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#darEntrada" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Entrada" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/entrada.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="btnSaida" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Saida" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/fracture.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                  <Button fx:id="btnAjuda" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Ajuda" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/Ajuda.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnSair" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#sair" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Sair" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/sair.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+              </items>
+            </ToolBar>
+         </center>
+      </BorderPane>
+   </top>
+   <center>
+      <AnchorPane fx:id="pnContent" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgMain" fitHeight="373.0" fitWidth="737.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../../img/ImagemMain.jpg" />
+               </image></ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
