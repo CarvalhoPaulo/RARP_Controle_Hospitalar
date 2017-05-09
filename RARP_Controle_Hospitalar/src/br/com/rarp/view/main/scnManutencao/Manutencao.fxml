@@ -38,7 +38,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="519.0" layoutY="24.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="114.0" text="Pesquisar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnPesquisar" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="519.0" layoutY="24.0" mnemonicParsing="false" onAction="#pesquisar" prefHeight="60.0" prefWidth="114.0" text="Pesquisar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -62,14 +62,14 @@
             <Insets bottom="8.0" left="8.0" />
          </padding>
          <center>
-            <TableView fx:id="tvMovimentacao" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <TableView fx:id="tvManutencao" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </center>
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="130.0" BorderPane.alignment="CENTER">
          <children>
-            <Button contentDisplay="TOP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="60.0" text="Inserir" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnInserir" contentDisplay="TOP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserir" prefHeight="60.0" text="Inserir" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -81,7 +81,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="8.0" layoutY="68.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" text="Alterar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+            <Button fx:id="btnAlterar" contentDisplay="TOP" layoutX="8.0" layoutY="68.0" mnemonicParsing="false" onAction="#alterar" prefHeight="60.0" prefWidth="98.0" text="Alterar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -93,7 +93,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="17.0" layoutY="150.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" text="Visualizar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0">
+            <Button fx:id="btnVisualizar" contentDisplay="TOP" layoutX="17.0" layoutY="150.0" mnemonicParsing="false" onAction="#visualizar" prefHeight="60.0" prefWidth="98.0" text="Visualizar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -105,7 +105,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="27.0" layoutY="160.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Button fx:id="btnVoltar" contentDisplay="TOP" layoutX="27.0" layoutY="160.0" mnemonicParsing="false" onAction="#voltar" prefHeight="60.0" prefWidth="98.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="14.0" />
                </font>
