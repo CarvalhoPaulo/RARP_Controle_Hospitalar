@@ -1,7 +1,10 @@
 package br.com.rarp.control.interfaces;
 
-import javafx.scene.control.TableView;
-
 public interface Manutencao {
-	public void criaColuna(TableView<?> tv);
+	public void preparaTela();
+	public void pesquisar();
+	public void inserir();
+	public void alterar();
+	public void voltar();
+	public void visualizar();
 }
