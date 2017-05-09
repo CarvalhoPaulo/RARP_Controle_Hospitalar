@@ -10,7 +10,7 @@ public class EntradaPacienteController extends ManutencaoController {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void preparaTela() {
+	public void prepararTela() {
 		TableColumn<EntradaPaciente, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<EntradaPaciente, String> data = new TableColumn<>("Data");
