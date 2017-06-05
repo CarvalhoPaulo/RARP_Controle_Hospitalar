@@ -1,8 +1,8 @@
-package br.com.rarp.view.main.scnManutencao.Entrada;
+package br.com.rarp.view.scnManutencao.Entrada;
 
 import br.com.rarp.model.EntradaPaciente;
-import br.com.rarp.view.main.scnManutencao.ManutencaoController;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -11,6 +11,7 @@ public class EntradaPacienteController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
+		getLblTitle().setText("Manutenção de Entrada de paciente");
 		TableColumn<EntradaPaciente, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<EntradaPaciente, String> data = new TableColumn<>("Data");

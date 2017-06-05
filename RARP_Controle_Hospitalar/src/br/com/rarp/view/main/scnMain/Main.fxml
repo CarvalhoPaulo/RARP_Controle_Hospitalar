@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -10,6 +15,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="pnMain" prefHeight="467.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.main.scnMain.MainController">
    <top>
@@ -43,7 +49,9 @@
                   </Menu>
                   <Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <CheckMenuItem fx:id="mniControleAcesso" mnemonicParsing="false" onAction="#ativarDesativarControleAcesso" text="Controle de Acesso" />
+                        <MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#manterUsuario" text="Usuário" />
+                        <MenuItem fx:id="mniPerfilUsuario" mnemonicParsing="false" onAction="#manterPerfilUsuario" text="Perfil de Usuário" />
                     </items>
                   </Menu>
                   <Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre">
@@ -90,7 +98,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
-                  <Button fx:id="btnEntrada" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#darEntrada" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Entrada" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEntrada" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#manterEntrada" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Entrada" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -129,13 +137,56 @@
          </center>
       </BorderPane>
    </top>
+   <bottom>
+      <BorderPane prefHeight="25.0" prefWidth="644.0" styleClass="status-bar" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
+         <left>
+            <BorderPane prefHeight="24.0" BorderPane.alignment="CENTER">
+               <left>
+                  <AnchorPane prefHeight="24.0" prefWidth="24.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="imgControleAcesso" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                           <image>
+                              <Image url="@../../img/security-system-desativada-16x16.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <Label fx:id="lblUsuarioSessao" text="Usuário da Sessão" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </left>
+         <right>
+            <Label fx:id="lblRelogio" text="11/05/2017 21:30" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="4.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </BorderPane>
+   </bottom>
    <center>
-      <AnchorPane fx:id="pnContent" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="pnContent" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imgMain" fitHeight="373.0" fitWidth="737.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fx:id="imgMain" fitHeight="400.0" fitWidth="780.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../img/ImagemMain.jpg" />
-               </image></ImageView>
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>

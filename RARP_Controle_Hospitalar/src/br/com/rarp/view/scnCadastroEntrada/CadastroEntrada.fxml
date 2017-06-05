@@ -23,14 +23,14 @@
          <children>
             <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
                <image>
-                  <Image url="@../../img/patient128x128.png" />
+                  <Image url="@../img/patient128x128.png" />
                </image>
             </ImageView>
             <Button alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="138.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="124.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/disquette.png" />
+                        <Image url="@../img/disquette.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/back.png" />
+                        <Image url="@../img/back.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -111,7 +111,7 @@
          </top>
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <top>
+               <center>
                   <BorderPane prefHeight="137.0" prefWidth="612.0" BorderPane.alignment="CENTER">
                      <center>
                         <TableView prefHeight="108.0" prefWidth="545.0" BorderPane.alignment="CENTER">
@@ -150,51 +150,14 @@
                                  </BorderPane.margin>
                               </ToolBar>
                            </center>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
                         </BorderPane>
                      </right>
-                  </BorderPane>
-               </top>
-               <center>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <center>
-                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets bottom="8.0" left="8.0" />
-                           </BorderPane.margin>
-                           <columns>
-                              <TableColumn prefWidth="63.0" text="Código" />
-                              <TableColumn prefWidth="78.0" text="Data" />
-                              <TableColumn prefWidth="84.0" text="Hora" />
-                              <TableColumn prefWidth="148.0" text="Origem" />
-                              <TableColumn prefWidth="143.0" text="Destino" />
-                           </columns>
-                        </TableView>
-                     </center>
-                     <top>
-                        <Label text="Encaminhamentos:" BorderPane.alignment="CENTER_LEFT">
-                           <BorderPane.margin>
-                              <Insets left="8.0" right="8.0" top="8.0" />
-                           </BorderPane.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </top>
-                     <right>
-                        <BorderPane prefHeight="117.0" prefWidth="71.0" BorderPane.alignment="CENTER">
-                           <center>
-                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="117.0" prefWidth="62.0" BorderPane.alignment="CENTER">
-                                 <items>
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Inserir" />
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Alterar" />
-                                 </items>
-                                 <BorderPane.margin>
-                                    <Insets bottom="8.0" right="8.0" />
-                                 </BorderPane.margin>
-                              </ToolBar>
-                           </center>
-                        </BorderPane>
-                     </right>
+                     <BorderPane.margin>
+                        <Insets bottom="8.0" />
+                     </BorderPane.margin>
                   </BorderPane>
                </center>
             </BorderPane>

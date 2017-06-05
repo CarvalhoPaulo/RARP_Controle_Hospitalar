@@ -1,34 +1,42 @@
-package br.com.rarp.view.main.scnManutencao;
+package br.com.rarp.view.scnManutencao;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.interfaces.Manutencao;
-import br.com.rarp.model.EntradaPaciente;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
 
-public abstract class ManutencaoController extends Application implements Initializable, Manutencao {
+public abstract class ManutencaoController implements Initializable, Manutencao {
+	
+	private Node node;
 
-	private FXMLLoader loader;
-	private Stage stage;
-	@FXML private TableView<EntradaPaciente> tvManutencao;
+	@SuppressWarnings("rawtypes")
+	@FXML private TableView tvManutencao;
 	
 	@FXML private Button btnPesquisar;
 	@FXML private Button btnInserir;
 	@FXML private Button btnAlterar;
 	@FXML private Button btnVisualizar;
-	
+	@FXML private Label lblTitle;
+
 	public ManutencaoController() {
-		loader = new FXMLLoader();
+		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../Manutencao.fxml"));
 		loader.setController(this);
+		try {
+			node = loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -42,20 +50,17 @@ public abstract class ManutencaoController extends Application implements Initia
 
 	@Override
 	public void voltar() {
-		try {
-			this.finalize();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene(loader.load()));
-		this.setStage(stage);
+		((BorderPane) node.getParent()).setCenter(null);
 	}
 	
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
 	public Button getBtnPesquisar() {
 		return btnPesquisar;
 	}
@@ -87,28 +92,20 @@ public abstract class ManutencaoController extends Application implements Initia
 	public void setBtnVisualizar(Button btnVisualizar) {
 		this.btnVisualizar = btnVisualizar;
 	}
-
-	public FXMLLoader getLoader() {
-		return loader;
+	
+	public Label getLblTitle() {
+		return lblTitle;
 	}
 
-	public void setLoader(FXMLLoader loader) {
-		this.loader = loader;
+	public void setLblTitle(Label lblTitle) {
+		this.lblTitle = lblTitle;
 	}
 
-	public Stage getStage() {
-		return stage;
-	}
-
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
-	public TableView<EntradaPaciente> getTvManutencao() {
+	public TableView getTvManutencao() {
 		return tvManutencao;
 	}
 
-	public void setTvManutencao(TableView<EntradaPaciente> tvManutencao) {
+	public void setTvManutencao(TableView tvManutencao) {
 		this.tvManutencao = tvManutencao;
 	}
 
