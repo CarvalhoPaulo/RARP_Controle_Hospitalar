@@ -2,6 +2,11 @@ package br.com.rarp.model;
 
 import java.util.List;
 
+/**
+ * 
+ * @author rober
+ *classe edico
+ */
 public class Medico extends Funcionario {
 
 	private String CRM;
