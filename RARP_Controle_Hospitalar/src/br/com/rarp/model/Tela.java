@@ -4,10 +4,20 @@ public class Tela {
 
 	private int codigo;
 	private String nome;
+	private String descricao;
 	private boolean podeInserir;
 	private boolean podeAlterar;
 	private boolean podeVisualizar;
-	private boolean podeAtivar;
+	private boolean podeDesativar;
+	private boolean status;
+	
+	public Tela() {}
+	
+	public Tela(String nome, String descricao) {
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -38,12 +48,41 @@ public class Tela {
 	public void setPodeVisualizar(boolean podeVisualizar) {
 		this.podeVisualizar = podeVisualizar;
 	}
-	public boolean isPodeAtivar() {
-		return podeAtivar;
+	public boolean isPodeDesativar() {
+		return podeDesativar;
 	}
-	public void setPodeAtivar(boolean podeAtivar) {
-		this.podeAtivar = podeAtivar;
+	public void setPodeDesativar(boolean podeDesativar) {
+		this.podeDesativar = podeDesativar;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	
+	@Override
+	public String toString() {
+		return descricao;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			Tela tela = (Tela) obj;
+			return tela.getNome() == this.getNome();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 }

@@ -7,7 +7,8 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
-import br.com.rarp.view.scnManutencao.Entrada.EntradaPacienteController;
+import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
+import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnSplash.SplashController;
 import javafx.application.Application;
@@ -36,31 +37,30 @@ public class MainController extends Application implements Initializable {
 	private ManutencaoController manutencao;
 	
 	@Override
-	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
-		stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
-		stage.setMaximized(true);
-		SplashController splash = new SplashController();
-		splash.abrir();
-		
-		//Conecta ao banco de dados caso existe senão cria um novo
+	public void start(Stage stage) throws Exception {		
 		try {
-			SistemaCtrl.getInstance().getConexao().getConexao();
-		} catch (SQLException e) {
+			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
+			stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
+			stage.setMaximized(true);
+			SplashController splash = new SplashController();
+			splash.abrir();	
 			try {
-				SistemaCtrl.getInstance().getConexao().criarDataBase();
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				SistemaCtrl.getInstance().getConexao().getConexao();
+			} catch (Exception e) {
+				try {
+					SistemaCtrl.getInstance().getConexao().criarDataBase();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
+			SistemaCtrl.getInstance().criarTabelas();
+			splash.getStage().close();
+			stage.show();	
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		
-		//Cria as tabelas do banco de dados se elas não existirem
-		SistemaCtrl.getInstance().criarTabelas();
-		
-		splash.getStage().close();
-		stage.show();		
+		}	
 	}
 	
 	public static void abrir(String[] args) {
@@ -98,7 +98,13 @@ public class MainController extends Application implements Initializable {
 	}
 	
 	public void manterPerfilUsuario() {
-		Utilitarios.atencao("Manutenção de Perfil de Usuário");
+		try {
+			manutencao = new PerfilUsuarioController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao criar tela de manutenção de entradas de pacientes");
+			e.printStackTrace();
+		}		
 	}
 	
 	public void sair() {

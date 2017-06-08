@@ -4,10 +4,19 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.rarp.model.dao.CargoDAO;
+import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
+import br.com.rarp.model.dao.ConvenioDAO;
+import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
 import br.com.rarp.model.dao.PerfilUsuarioDAO;
+import br.com.rarp.model.dao.PessoaDAO;
+import br.com.rarp.model.dao.PessoaFisicaDAO;
+import br.com.rarp.model.dao.PessoaJuridicaDAO;
 import br.com.rarp.model.dao.Propriedades;
+import br.com.rarp.model.dao.TelaDAO;
+import br.com.rarp.model.dao.TelefoneDAO;
 import br.com.rarp.model.dao.UsuarioDAO;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,10 +57,18 @@ public class SistemaCtrl {
 	}
 	
 	public void criarTabelas() throws ClassNotFoundException, SQLException, Exception {
-		FuncionarioDAO.criarTabela();
 		PerfilUsuarioDAO.criarTabela();
+		EstadoDAO.criarTabela();
+		CidadeDAO.criarTabela();
+		PessoaDAO.criarTabela();
+		TelefoneDAO.criarTabela();
+		PessoaFisicaDAO.criarTabela();
+		PessoaJuridicaDAO.criarTabela();
+		ConvenioDAO.criarTabela();
+		CargoDAO.criarTabela();
+		FuncionarioDAO.criarTabela();
+		TelaDAO.criarTabela();
 		UsuarioDAO.criarTabela();
-		
 	}
 
 }

@@ -48,7 +48,6 @@ public class CadastroUsuarioController extends Application implements Initializa
 		this.stage = stage;
 	}
 	
-
 	public void alterar(UsuarioCtrl usuarioCtrl) throws Exception {
 		this.usuarioCtrl = usuarioCtrl;
 		start(SistemaCtrl.getInstance().getStage());

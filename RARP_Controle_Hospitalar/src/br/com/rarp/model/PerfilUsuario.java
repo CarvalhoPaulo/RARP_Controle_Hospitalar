@@ -1,5 +1,6 @@
 package br.com.rarp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PerfilUsuario {
@@ -7,7 +8,11 @@ public class PerfilUsuario {
 	private int codigo;
 	private String nome;
 	private List<Tela> telas;
-	private List<Usuario> usuarios;
+	private boolean status;
+	
+	public PerfilUsuario() {
+		telas = new ArrayList<>();
+	}
 	
 	public int getCodigo() {
 		return codigo;
@@ -27,12 +32,13 @@ public class PerfilUsuario {
 	public void setTelas(List<Tela> telas) {
 		this.telas = telas;
 	}
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+
+	public boolean isStatus() {
+		return status;
 	}
 
-	
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 }

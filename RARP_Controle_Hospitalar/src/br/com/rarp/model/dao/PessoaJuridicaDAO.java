@@ -5,21 +5,18 @@ import java.sql.Statement;
 
 import br.com.rarp.control.SistemaCtrl;
 
-public class FuncionarioDAO {
-	
+public class PessoaJuridicaDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
-		if(!SistemaCtrl.getInstance().tabelaExiste("pessoafisica"))
-			throw new Exception("Crie a tabela de pessoa fisica antes de criar a tabela de funcionarios");
+		if(!SistemaCtrl.getInstance().tabelaExiste("pessoa"))
+			throw new Exception("Crie a tabela de pessoa antes de criar a tabela de pessoa juridica");
 		
-		if(!SistemaCtrl.getInstance().tabelaExiste("cargo"))
-			throw new Exception("Crie a tabela de cargo antes de criar a tabela de funcionarios");
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
-		sql += "funcionario(";
+		sql += "pessoaJuridica(";
 		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
-		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
+		sql += "cnpj VARCHAR(11) UNIQUE, ";
+		sql += "codigo_pj INTEGER REFERENCES pessoa(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
 	}
-
 }

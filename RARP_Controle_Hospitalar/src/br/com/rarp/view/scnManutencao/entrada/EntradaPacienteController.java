@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnManutencao.Entrada;
+package br.com.rarp.view.scnManutencao.entrada;
 
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.utils.Utilitarios;
