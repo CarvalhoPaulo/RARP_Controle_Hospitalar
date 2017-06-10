@@ -17,7 +17,7 @@ public class UsuarioDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "usuario(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(225), ";
 		sql += "usuario VARCHAR(225) NOT NULL UNIQUE, ";
 		sql += "password VARCHAR(225), ";

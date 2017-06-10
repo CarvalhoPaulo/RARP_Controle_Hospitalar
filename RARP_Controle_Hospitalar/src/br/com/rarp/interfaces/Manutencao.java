@@ -1,4 +1,4 @@
-package br.com.rarp.control.interfaces;
+package br.com.rarp.interfaces;
 
 public interface Manutencao {
 	public void prepararTela();

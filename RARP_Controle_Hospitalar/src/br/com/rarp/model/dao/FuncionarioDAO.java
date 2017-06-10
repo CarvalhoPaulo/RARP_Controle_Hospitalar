@@ -16,7 +16,7 @@ public class FuncionarioDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "funcionario(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);

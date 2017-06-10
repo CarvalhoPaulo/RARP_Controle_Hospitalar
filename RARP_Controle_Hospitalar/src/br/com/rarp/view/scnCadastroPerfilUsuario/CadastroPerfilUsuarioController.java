@@ -71,10 +71,10 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	public void initialize(URL location, ResourceBundle resources) {
 		adicionarTelas();
 		
+		sbAtivado.switchOnProperty().set(true);
 		if(perfilUsuarioCtrl != null)
 			preencheTela();
 		
-		sbAtivado.switchOnProperty().set(true);
 		lvTelas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvTelasPermitidas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvTelasPermitidas.getSelectionModel().getSelectedItems().addListener(changeListener);
@@ -151,16 +151,34 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 			perfilUsuarioCtrl.novoPerfilUsuario();
 		
 		perfilUsuarioCtrl.getPerfilUsuario().setNome(edtNome.getText());
-		perfilUsuarioCtrl.getPerfilUsuario().setTelas(lvTelasPermitidas.getItems());
+		
+		//Adiciona telas permitidas
+		for(Tela tela: lvTelasPermitidas.getItems()) {
+			tela.setStatus(true);
+			perfilUsuarioCtrl.getPerfilUsuario().getTelas().add(tela);
+		}
+		//Adiciona telas não permitidas
+		for(Tela tela: lvTelas.getItems()) {
+			tela.setStatus(false);
+			tela.setPodeAlterar(false);
+			tela.setPodeInserir(false);
+			tela.setPodeVisualizar(false);
+			tela.setPodeDesativar(false);
+			perfilUsuarioCtrl.getPerfilUsuario().getTelas().add(tela);
+		}
 		perfilUsuarioCtrl.getPerfilUsuario().setStatus(sbAtivado.switchOnProperty().get());
 	}
 	
 	@FXML
 	private void lvTelasSelecionadas() {
-		ckbInserir.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeInserir());
-		ckbAlterar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeAlterar());
-		ckbVisualizar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeVisualizar());
-		ckbDesativar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeDesativar());
+		if(lvTelasPermitidas.getSelectionModel().getSelectedItem() != null)
+			ckbInserir.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeInserir());
+		if(lvTelasPermitidas.getSelectionModel().getSelectedItem() != null)
+			ckbAlterar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeAlterar());
+		if(lvTelasPermitidas.getSelectionModel().getSelectedItem() != null)
+			ckbVisualizar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeVisualizar());
+		if(lvTelasPermitidas.getSelectionModel().getSelectedItem() != null)
+			ckbDesativar.setSelected(lvTelasPermitidas.getSelectionModel().getSelectedItem().isPodeDesativar());
 	}
 	
 	@FXML
@@ -182,11 +200,14 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		edtNome.setText(perfilUsuarioCtrl.getPerfilUsuario().getNome());
 		edtCodigo.setText(perfilUsuarioCtrl.getPerfilUsuario().getCodigo() + "");
 		for(Tela tela: perfilUsuarioCtrl.getPerfilUsuario().getTelas()){
-			if(lvTelas.getItems().contains(tela)) {
-				lvTelas.getItems().set(lvTelas.getItems().indexOf(tela), tela);
-				lvTelas.getSelectionModel().select(tela);
-				add(new ActionEvent());
-			}
+			if(lvTelas.getItems().contains(tela))
+				if(tela.isStatus()) {
+					lvTelas.getItems().set(lvTelas.getItems().indexOf(tela), tela);
+					lvTelas.getSelectionModel().select(tela);
+					add(new ActionEvent());
+				} else {
+					lvTelas.getItems().set(lvTelas.getItems().indexOf(tela), tela);
+				}
 		}
 	}
 

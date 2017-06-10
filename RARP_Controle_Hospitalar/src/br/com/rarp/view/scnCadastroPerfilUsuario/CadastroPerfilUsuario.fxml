@@ -206,12 +206,12 @@
                         </GridPane>
                      </center>
                   </BorderPane>
-                  <SwitchButton fx:id="sbAtivado" layoutX="470.0" layoutY="24.0" AnchorPane.leftAnchor="480.0" AnchorPane.rightAnchor="4.0" />
-                  <Label layoutX="470.0" layoutY="10.0" text="Ativado:" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="0.0">
+                  <Label layoutX="485.0" prefHeight="20.0" prefWidth="68.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <SwitchButton fx:id="sbAtivado" layoutX="480.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
                </children>
             </AnchorPane>
          </center>

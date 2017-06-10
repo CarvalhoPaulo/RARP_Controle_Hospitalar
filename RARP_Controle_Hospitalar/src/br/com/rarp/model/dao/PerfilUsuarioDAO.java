@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.PerfilUsuario;
@@ -14,10 +16,33 @@ public class PerfilUsuarioDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "perfilUsuario(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
+	}
+	
+	public List<PerfilUsuario> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
+		List<PerfilUsuario> perfilUsuarios = new ArrayList<>();
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+        	String sql = "SELECT codigo, nome, status FROM perfilusuario WHERE " + campo + comparacao + termo;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	PerfilUsuario perfilUsuario = new PerfilUsuario();
+            	perfilUsuario.setCodigo(rs.getInt("codigo"));
+            	perfilUsuario.setNome(rs.getString("nome"));
+            	perfilUsuario.setStatus(rs.getBoolean("status"));
+            	perfilUsuario.setTelas(new TelaDAO().getTelas(perfilUsuario));
+            	perfilUsuarios.add(perfilUsuario);
+            }
+            ps.close();
+        } finally{
+            conexao.getConexao().close();
+        }
+		return perfilUsuarios;
 	}
 
 	public void salvar(PerfilUsuario perfilUsuario) throws Exception {
@@ -37,25 +62,37 @@ public class PerfilUsuarioDAO {
             ps.setString(1, perfilUsuario.getNome());
             ps.setBoolean(2, perfilUsuario.isStatus());            
             ps.executeUpdate();
-            
-            ResultSet rs = ps.executeQuery("SELECT MAX(codigo) FROM perfilusuario");
+            ps.close();
+           
+            ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM perfilusuario");
+            ResultSet rs = ps.executeQuery();
             if(rs.next())
-            	perfilUsuario.setCodigo(rs.getInt(0));
+            	perfilUsuario.setCodigo(rs.getInt("lastCodigo"));
             
             TelaDAO telaDAO = new TelaDAO();
             telaDAO.salvar(perfilUsuario);
             ps.close();
-            
-            
-        } catch (Exception ex) {
-            throw new Exception("Erro ao gravar perfil de usuario");
-        }finally{
+        } finally{
             conexao.getConexao().close();
         }
 	}
 	
-	private void alterar(PerfilUsuario perfilUsuario) {
-		
+	private void alterar(PerfilUsuario perfilUsuario) throws Exception {
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+            String sql= "UPDATE perfilusuario SET nome=?, status=? WHERE codigo=?";
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, perfilUsuario.getNome());
+            ps.setBoolean(2, perfilUsuario.isStatus());
+            ps.setInt(3, perfilUsuario.getCodigo());
+            ps.executeUpdate();   
+            TelaDAO telaDAO = new TelaDAO();
+            telaDAO.salvar(perfilUsuario);
+            ps.close();
+        } finally{
+            conexao.getConexao().close();
+        }		
 	}
 	
 }

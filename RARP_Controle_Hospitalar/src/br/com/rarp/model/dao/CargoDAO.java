@@ -10,7 +10,7 @@ public class CargoDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "cargo(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "funcao VARCHAR(100), ";
 		sql += "requisitos VARCHAR(255), ";

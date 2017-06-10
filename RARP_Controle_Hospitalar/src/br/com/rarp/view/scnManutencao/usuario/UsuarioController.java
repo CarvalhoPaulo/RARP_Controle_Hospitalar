@@ -25,7 +25,7 @@ public class UsuarioController extends ManutencaoController {
 		TableColumn<Usuario, String> perfilUsuario = new TableColumn<>("Perfil");
 		perfilUsuario.setCellValueFactory(new PropertyValueFactory<>("perfilUsuario"));
 		
-		getTvManutencao().getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
+		tvManutencao.getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
 	}
 
 	@Override

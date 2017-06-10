@@ -21,7 +21,7 @@ public class EntradaPacienteController extends ManutencaoController {
 		TableColumn<EntradaPaciente, String> paciente = new TableColumn<>("Paciente");
 		paciente.setCellValueFactory(new PropertyValueFactory<>("paciente"));
 		
-		getTvManutencao().getColumns().addAll(codigo, data, hora, paciente);
+		tvManutencao.getColumns().addAll(codigo, data, hora, paciente);
 		
 	}
 

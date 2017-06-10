@@ -72,7 +72,7 @@ public class Tela {
 	public boolean equals(Object obj) {
 		try {
 			Tela tela = (Tela) obj;
-			return tela.getNome() == this.getNome();
+			return tela.getNome().equals(this.getNome());
 		} catch (Exception e) {
 			return false;
 		}

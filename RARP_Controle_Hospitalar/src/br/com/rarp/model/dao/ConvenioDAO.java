@@ -13,7 +13,7 @@ public class ConvenioDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "convenio(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(50), ";
 		sql += "ans VARCHAR(50), ";
 		sql += "tipo INTEGER, ";

@@ -1,6 +1,7 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class TelaDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "tela(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "descricao VARCHAR(255), ";
 		sql += "podeInserir BOOLEAN, ";
@@ -68,14 +69,65 @@ public class TelaDAO {
                 }
             }
         	ps.executeBatch();
-		} catch (Exception e) {
-			throw new Exception("Erro ao gravar telas do perfil de usuario");
 		} finally {
 			ps.close();
 		}         
 	}
 	
-	public void alterar(List<Tela> telas, int codigo_perfilUsuario) {
-		
+	public void alterar(List<Tela> telas, int codigo_perfilUsuario) throws Exception {
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		String sql= "UPDATE tela SET nome=?, descricao=?, podeInserir=?, podeAlterar=?, podeVisualizar=?, podeDesativar=?, codigo_perfilusuario=?, status=? WHERE codigo=?";
+		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+        try {
+        	int i = 0;
+        	for (Tela tela : telas) { 
+        		ps.setString(1, tela.getNome());
+        		ps.setString(2, tela.getDescricao());
+        		ps.setBoolean(3, tela.isPodeInserir());
+        		ps.setBoolean(4, tela.isPodeAlterar());
+        		ps.setBoolean(5, tela.isPodeVisualizar());
+        		ps.setBoolean(6, tela.isPodeDesativar());
+        		ps.setInt(7, codigo_perfilUsuario);
+        		ps.setBoolean(8, tela.isStatus());
+        		ps.setInt(9, tela.getCodigo());
+        		ps.addBatch();
+                i++;
+
+                if (i == telas.size()) {
+                	ps.executeBatch();
+                }
+            }
+        	ps.executeBatch();
+		} finally {
+			ps.close();
+		}  
+	}
+
+	public List<Tela> getTelas(PerfilUsuario perfilUsuario) throws Exception {
+		List<Tela> telas = new ArrayList<>();
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+        	String sql = "SELECT codigo, nome, descricao, podeInserir, podeAlterar, podeVisualizar, podeDesativar, status FROM tela WHERE codigo_perfilusuario = ?";
+            ps = conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, perfilUsuario.getCodigo());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	Tela tela = new Tela();
+            	tela.setCodigo(rs.getInt("codigo"));
+            	tela.setNome(rs.getString("nome"));
+            	tela.setDescricao(rs.getString("descricao"));
+            	tela.setPodeInserir(rs.getBoolean("podeInserir"));
+            	tela.setPodeAlterar(rs.getBoolean("podeAlterar"));
+            	tela.setPodeDesativar(rs.getBoolean("podeDesativar"));
+            	tela.setPodeVisualizar(rs.getBoolean("podeVisualizar"));
+            	tela.setStatus(rs.getBoolean("status"));
+            	telas.add(tela);
+            }
+            ps.close();
+        } finally{
+            conexao.getConexao().close();
+        }
+		return telas;
 	}
 }

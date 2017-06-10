@@ -13,7 +13,7 @@ public class PessoaFisicaDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "pessoaFisica(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "cpf VARCHAR(11) UNIQUE, ";
 		sql += "rg VARCHAR(20), ";
 		sql += "sexo VARCHAR(20), ";

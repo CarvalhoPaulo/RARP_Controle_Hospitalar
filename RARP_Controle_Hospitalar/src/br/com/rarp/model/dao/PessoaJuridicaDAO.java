@@ -13,7 +13,7 @@ public class PessoaJuridicaDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "pessoaJuridica(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "cnpj VARCHAR(11) UNIQUE, ";
 		sql += "codigo_pj INTEGER REFERENCES pessoa(codigo), ";
 		sql += "status boolean)";

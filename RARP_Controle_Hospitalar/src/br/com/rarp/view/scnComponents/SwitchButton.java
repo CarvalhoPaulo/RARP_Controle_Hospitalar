@@ -51,7 +51,7 @@ public class SwitchButton extends Label
                     		+ "-fx-text-fill: white;"
                     		+ "-fx-background-radius: 4px;"
                     		+ "-fx-font-weight: bold;"
-                    		+ "-fx-label-padding: 2px 3px 3px 3px;");
+                    		+ "-fx-label-padding: 2px 3px 3px 2px;");
                     setContentDisplay(ContentDisplay.LEFT);
                 }
             }

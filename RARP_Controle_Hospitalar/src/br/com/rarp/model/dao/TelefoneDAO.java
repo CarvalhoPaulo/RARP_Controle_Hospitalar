@@ -12,7 +12,7 @@ public class TelefoneDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "telefone(";
-		sql += "codigo INTEGER NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "ddd VARCHAR(3), ";
 		sql += "numero VARCHAR(12), ";
 		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo), ";
