@@ -11,7 +11,7 @@ public class Main {
 		} catch (Exception e) {
 			new Alert(AlertType.ERROR, "Erro ao inicializar a aplicação. "
 					+ "\n\tEntre em contato com o grupo RARP telefone: (62)"
-					+ " 98526-4619", ButtonType.OK).showAndWait();
+					+ " 98526-4619\\ (62) 98548-3271", ButtonType.OK).showAndWait();
 			e.printStackTrace();
 		}
 	}
