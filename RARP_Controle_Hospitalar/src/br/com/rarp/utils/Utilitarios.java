@@ -2,9 +2,6 @@ package br.com.rarp.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.postgresql.core.SqlCommand;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;

@@ -3,24 +3,17 @@ package br.com.rarp.view.scnCadastroUsuario;
 import java.awt.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javax.sound.midi.ControllerEventListener;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.PerfilUsuario;
-import br.com.rarp.view.scnCadastroEntrada.CadastroEntradaController;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class CadastroUsuarioController extends Application implements Initializable {
 
