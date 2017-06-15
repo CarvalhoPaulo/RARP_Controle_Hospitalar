@@ -4,6 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
 import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
@@ -25,6 +26,7 @@ import javafx.stage.StageStyle;
 public class SistemaCtrl {
 	private static final SistemaCtrl INSTANCE = new SistemaCtrl();
 	private Conexao conexao;
+	private Usuario usuarioSessao;
 	
 	private SistemaCtrl() {
 		getPropriedades();
@@ -42,6 +44,14 @@ public class SistemaCtrl {
 		if (conexao == null)
 			conexao = new Conexao();
 		return conexao;
+	}
+	
+	public void configuraConexao() throws Exception {
+		try {
+			SistemaCtrl.getInstance().getConexao().getConexao();
+		} catch (Exception e) {
+			SistemaCtrl.getInstance().getConexao().criarDataBase();
+		}
 	}
 
 	public Stage getStage() {
@@ -69,6 +79,15 @@ public class SistemaCtrl {
 		FuncionarioDAO.criarTabela();
 		TelaDAO.criarTabela();
 		UsuarioDAO.criarTabela();
+	}
+
+	public Usuario getUsuarioSessao() {
+		return usuarioSessao;
+	}
+
+	public void setUsuarioSessao(Usuario usuarioSessao) {
+		getPropriedades().setControleAcesso(usuarioSessao != null);
+		this.usuarioSessao = usuarioSessao;
 	}
 
 }

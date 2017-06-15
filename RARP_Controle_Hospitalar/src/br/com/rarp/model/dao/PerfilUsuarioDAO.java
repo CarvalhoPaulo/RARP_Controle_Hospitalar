@@ -22,6 +22,14 @@ public class PerfilUsuarioDAO {
 		st.executeUpdate(sql);
 	}
 	
+	public PerfilUsuario consultar(int codigo) throws SQLException, Exception {
+		List<PerfilUsuario> perfilUsuarios =  consultar("codigo", " = ", codigo + "");
+		if(perfilUsuarios.size() > 0)
+			return perfilUsuarios.get(0);
+		else
+			return null;
+	}
+	
 	public List<PerfilUsuario> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
 		List<PerfilUsuario> perfilUsuarios = new ArrayList<>();
         PreparedStatement ps;

@@ -8,6 +8,8 @@ public class Funcionario extends PessoaFisica {
 	private Date dtUltimaAdmissao;
 	private Currency salarioContratual;
 	private Cargo cargo;
+	private boolean status;
+	
 	public Date getDtUltimaAdmissao() {
 		return dtUltimaAdmissao;
 	}
@@ -25,6 +27,12 @@ public class Funcionario extends PessoaFisica {
 	}
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	

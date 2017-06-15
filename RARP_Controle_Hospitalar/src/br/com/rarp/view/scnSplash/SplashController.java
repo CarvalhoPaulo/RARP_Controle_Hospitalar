@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
-public class SplashController  extends Application implements Initializable{
+public class SplashController extends Application implements Initializable {
 
 	private Stage stage;
-	@FXML private ProgressBar pgsSplash;
+	private static Integer count = 1;
+	private static double progress = 0.0;
+
+	@FXML
+	private ProgressBar pgsSplash;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -32,22 +37,36 @@ public class SplashController  extends Application implements Initializable{
 		this.stage = stage;
 	}
 
-	public ProgressBar getPgsSplash() {
-		return pgsSplash;
+	public void next() {
+		if (progress < 1.0)
+			progress = progress + (1.0 / count);
 	}
 
-	public void setPgsSplash(ProgressBar pgsSplash) {
-		this.pgsSplash = pgsSplash;
-	}
-	
-	public void abrir() throws Exception {
+	@SuppressWarnings("static-access")
+	public void abrir(Integer count) throws Exception {
+		if (count > 0)
+			this.count = count;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.show();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		pgsSplash = new ProgressBar(0);
+		initProgress();
+	}
+
+	private void initProgress() {
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				while (progress < 1.0) {
+					updateProgress(progress, 1);
+				}
+				return null;
+			}
+		};
+		pgsSplash.progressProperty().bind(task.progressProperty());
+		new Thread(task).start();
 	}
 
 }

@@ -1,23 +1,65 @@
 package br.com.rarp.control;
 
+import java.util.List;
+
+import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Usuario;
+import br.com.rarp.model.bo.UsuarioBusiness;
+import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.comparacao.Igual;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class UsuarioCtrl {
 	private Usuario usuario;
+	private List<Usuario> usuarios;
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
-	public void Salvar() {
-		
+	public void setUsuario(Object object) {
+		this.usuario = (Usuario) object;
 	}
 	
 	public void novoUsuario() {
 		usuario = new Usuario();
+	}
+
+	public void salvar() throws Exception {
+		UsuarioBusiness perfilUsuarioBusiness = new UsuarioBusiness();
+		validarDadosObrigatorios();
+		perfilUsuarioBusiness.salvar(usuario);
+	}
+
+	private void validarDadosObrigatorios() throws Exception {
+		if(usuario.getNome().equals(""))
+			throw new Exception("Para cadastrar um usuário é necessário informar o nome");
+		if(usuario.getUsuario().equals(""))
+			throw new Exception("Para cadastrar um usuário é necessário informar o usuário");
+		if(usuario.getPerfilUsuario() == null)
+			throw new Exception("Para cadastrar um usuário é necessário informar o perfil de usuário");
+	}
+
+	@SuppressWarnings("rawtypes")
+	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+		return FXCollections.observableArrayList(usuarioBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
+	}
+
+	public void consultar(String usuario) throws Exception {
+		UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+		List<Usuario> usuarios = usuarioBusiness.consultar("usuario", new Igual().getComparacao(), new Igual().getTermo(usuario));
+		if(usuarios != null && usuarios.size() > 0) {
+			this.usuario = usuarios.get(0);
+		} else {
+			this.usuario = null;
+		}
+	}
+
+	public boolean isEmpty() throws Exception {
+		UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+		usuarios = usuarioBusiness.consultar("status", new Igual().getComparacao(), "TRUE");
+		return usuarios.size() == 0;
 	}
 }

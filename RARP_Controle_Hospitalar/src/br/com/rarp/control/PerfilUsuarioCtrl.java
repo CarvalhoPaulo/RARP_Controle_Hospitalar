@@ -3,6 +3,7 @@ package br.com.rarp.control;
 import java.sql.SQLException;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.PerfilUsuario;
+import br.com.rarp.model.Tela;
 import br.com.rarp.model.bo.PerfilUsuarioBusiness;
 import br.com.rarp.utils.Campo;
 import javafx.collections.FXCollections;
@@ -21,7 +22,23 @@ public class PerfilUsuarioCtrl extends Object {
 
 	public void salvar() throws Exception {
 		PerfilUsuarioBusiness perfilUsuarioBusiness = new PerfilUsuarioBusiness();
+		validarDadosObrigatorios();
 		perfilUsuarioBusiness.salvar(perfilUsuario);
+	}
+
+	private void validarDadosObrigatorios() throws Exception {
+		if(perfilUsuario.getNome().equals("")) 
+			throw new Exception("Para cadastrar um perfil de usuário é necessário informar o nome");
+		
+		int telasPermitidas = 0;
+		for(Tela tela: perfilUsuario.getTelas()) {
+			if(tela.isStatus()) {
+				telasPermitidas++;
+				break;
+			}
+		}
+		if(telasPermitidas == 0)
+			throw new Exception("Para cadastrar um perfil de usuário é necessário ter ao menos uma tela permitida");
 	}
 
 	public ObservableList<PerfilUsuario> consultar(Campo campo, Comparacao comparacao, String termo) throws SQLException, Exception {

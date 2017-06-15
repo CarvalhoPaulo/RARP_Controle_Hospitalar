@@ -67,7 +67,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="3.0" layoutY="50.0" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
+                  <Label layoutX="3.0" layoutY="50.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -84,7 +84,7 @@
                               <ListView fx:id="lvTelas" editable="true" prefHeight="284.0" prefWidth="250.0" />
                            </center>
                            <top>
-                              <Label text="Telas" BorderPane.alignment="CENTER">
+                              <Label stylesheets="@../style/style.css" text="Telas não permitidas" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -95,10 +95,10 @@
                      <right>
                         <BorderPane BorderPane.alignment="CENTER">
                            <center>
-                              <ListView fx:id="lvTelasPermitidas" editable="true" prefHeight="312.0" prefWidth="250.0" />
+                              <ListView fx:id="lvTelasPermitidas" editable="true" onMouseClicked="#remove" prefHeight="312.0" prefWidth="250.0" />
                            </center>
                            <top>
-                              <Label text="Telas Permitidas" BorderPane.alignment="CENTER">
+                              <Label styleClass="obrigatorio" stylesheets="@../style/style.css" text="Telas Permitidas" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -118,22 +118,22 @@
                             <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox fx:id="ckbInserir" mnemonicParsing="false" onAction="#ckbClick" prefHeight="17.0" prefWidth="108.0" text="Inserir" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <CheckBox fx:id="ckbInserir" accessibleText="Permite a realização da insersão na tela selecionada" mnemonicParsing="false" onAction="#ckbClick" prefHeight="17.0" prefWidth="108.0" text="Inserir" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox fx:id="ckbAlterar" mnemonicParsing="false" onAction="#ckbClick" text="Alterar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <CheckBox fx:id="ckbAlterar" accessibleText="Permite a realização da alteração na tela selecionada" mnemonicParsing="false" onAction="#ckbClick" text="Alterar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox fx:id="ckbVisualizar" mnemonicParsing="false" onAction="#ckbClick" text="Visualizar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <CheckBox fx:id="ckbVisualizar" accessibleText="Permite a realização da visualização na tela selecionada" mnemonicParsing="false" onAction="#ckbClick" text="Visualizar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox fx:id="ckbDesativar" mnemonicParsing="false" onAction="#ckbClick" text="Desativar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <CheckBox fx:id="ckbDesativar" accessibleText="Permite a realização da desativação na tela selecionada" mnemonicParsing="false" onAction="#ckbClick" text="Desativar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -154,7 +154,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnSelectAll" mnemonicParsing="false" onAction="#selectAll" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Button fx:id="btnSelectAll" accessibleText="Seleciona todas as telas permitidas" mnemonicParsing="false" onAction="#selectAll" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -163,7 +163,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnAddAll" mnemonicParsing="false" onAction="#addAll" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Button fx:id="btnAddAll" accessibleText="Move todas as telas para telas permitidas" mnemonicParsing="false" onAction="#addAll" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -172,7 +172,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="31.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <Button fx:id="btnAdd" accessibleText="Move a tela selecionada para as telas permitidas" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="31.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -181,7 +181,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#remove" prefHeight="25.0" prefWidth="31.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                              <Button fx:id="btnRemove" accessibleText="Move a(s) tela(s) selecionada(s) para as telas não permitidas" mnemonicParsing="false" onAction="#remove" prefHeight="25.0" prefWidth="31.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -190,7 +190,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnRemoveAll" mnemonicParsing="false" onAction="#removeAll" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                              <Button fx:id="btnRemoveAll" accessibleText="Move todas as telas para telas não permitidas" mnemonicParsing="false" onAction="#removeAll" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

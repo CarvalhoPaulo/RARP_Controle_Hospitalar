@@ -3,6 +3,7 @@ package br.com.rarp.model.dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Propriedades {
@@ -13,6 +14,8 @@ public class Propriedades {
 	private String user;
 	private String password;
 	private Boolean controleAcesso;
+
+	private String lastUsername;
 	
 	private Propriedades() {
 		prop = new TypedProperties();
@@ -38,6 +41,7 @@ public class Propriedades {
 		user = prop.getProperty("conexao.user", "postgres");
 		password = prop.getProperty("conexao.password", "1234");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
+		lastUsername = prop.getProperty("login.lastUsername", "");
 	}
 	
 	public void setPropriedades() {
@@ -46,8 +50,20 @@ public class Propriedades {
 		 prop.setProperty("conexao.user", user);
 		 prop.setProperty("conexao.password", password);
 		 
+		 //Propriedades do login
+		 prop.setProperty("login.lastUsername", lastUsername);
+		 
 		 //Opções do sistema
 		 prop.setProperty("sistema.controleAcesso", controleAcesso);
+		 try {
+			prop.store(new FileOutputStream("./properties/RARP.Properties"), "");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public TypedProperties getProp() {
@@ -75,10 +91,6 @@ public class Propriedades {
 		return controleAcesso;
 	}
 
-	public void setControleAcesso(Boolean controleAcesso) {
-		this.controleAcesso = controleAcesso;
-	}
-
 	public void setDatabase(String database) {
 		this.database = database;
 	}
@@ -99,9 +111,15 @@ public class Propriedades {
 		this.password = password;
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		setPropriedades();
+	public String getLastUsername() {
+		return lastUsername;
+	}
+
+	public void setLastUsername(String lastUsername) {
+		this.lastUsername = lastUsername;
+	}
+	
+	public void setControleAcesso(Boolean controleAcesso) {
+		this.controleAcesso = controleAcesso;
 	}
 }

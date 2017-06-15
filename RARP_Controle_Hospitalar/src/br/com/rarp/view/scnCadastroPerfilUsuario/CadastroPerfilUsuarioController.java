@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +24,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CadastroPerfilUsuarioController extends Application implements Initializable {
@@ -39,9 +42,11 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	@FXML private Button btnRemoveAll;
 	@FXML private Button btnAdd;
 	@FXML private Button btnAddAll;
+	@FXML private Button btnGravar;
 	@FXML private SwitchButton sbAtivado;
 	
 	private static PerfilUsuarioCtrl perfilUsuarioCtrl;
+	private static boolean visualizando;
 	private static Stage stage;
 	
 	@Override
@@ -62,6 +67,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	@SuppressWarnings("static-access")
 	public void alterar(PerfilUsuarioCtrl perfilUsuarioCtrl) throws Exception {
 		this.perfilUsuarioCtrl = perfilUsuarioCtrl;
+		visualizando = false;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.setResizable(false);
 		stage.showAndWait();
@@ -72,14 +78,55 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		adicionarTelas();
 		
 		sbAtivado.switchOnProperty().set(true);
-		if(perfilUsuarioCtrl != null)
+		if(perfilUsuarioCtrl != null && perfilUsuarioCtrl.getPerfilUsuario() != null)
 			preencheTela();
 		
 		lvTelas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvTelasPermitidas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvTelasPermitidas.getSelectionModel().getSelectedItems().addListener(changeListener);
+		
+		lvTelas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		                add(new ActionEvent());
+		            }
+		        }
+		    }
+		});
+		
+		lvTelasPermitidas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		                remove(new ActionEvent());
+		            }
+		        }
+		    }
+		});
+		
+		if(visualizando)
+			bloquearCampos();
 	}
 	
+	private void bloquearCampos() {
+		edtCodigo.setDisable(true);
+		edtNome.setDisable(true);
+		btnAdd.setDisable(true);
+		btnAddAll.setDisable(true);
+		btnRemove.setDisable(true);
+		btnRemoveAll.setDisable(true);
+		btnSelectAll.setDisable(true);
+		btnGravar.setDisable(true);
+		sbAtivado.setDisable(true);
+		ckbAlterar.setDisable(true);
+		ckbDesativar.setDisable(true);
+		ckbInserir.setDisable(true);
+		ckbVisualizar.setDisable(true);
+	}
+
 	ListChangeListener<Tela> changeListener = new ListChangeListener<Tela>() {
 		@Override
 		public void onChanged(javafx.collections.ListChangeListener.Change<? extends Tela> c) {
@@ -97,6 +144,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	}
 
 	public void inserir() throws Exception {
+		perfilUsuarioCtrl = null;
+		visualizando = false;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.setResizable(false);
 		stage.showAndWait();		
@@ -133,7 +182,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	
 	@FXML
 	private void salvar() {
-		preencheObjeto();
+		preencherObjeto();
 		try {
 			perfilUsuarioCtrl.salvar();
 			Utilitarios.message("Perfil de usuário salvo com sucesso.");
@@ -143,13 +192,14 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		}
 	}
 	
-	private void preencheObjeto() {
+	private void preencherObjeto() {
 		if (perfilUsuarioCtrl == null)
 			perfilUsuarioCtrl = new PerfilUsuarioCtrl();
 		
 		if (perfilUsuarioCtrl.getPerfilUsuario() == null)
 			perfilUsuarioCtrl.novoPerfilUsuario();
 		
+		perfilUsuarioCtrl.getPerfilUsuario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
 		perfilUsuarioCtrl.getPerfilUsuario().setNome(edtNome.getText());
 		
 		//Adiciona telas permitidas
@@ -209,6 +259,16 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 					lvTelas.getItems().set(lvTelas.getItems().indexOf(tela), tela);
 				}
 		}
+		sbAtivado.switchOnProperty().set(perfilUsuarioCtrl.getPerfilUsuario().isStatus());
+	}
+
+	@SuppressWarnings("static-access")
+	public void visualizar(PerfilUsuarioCtrl perfilUsuarioCtrl) throws Exception {
+		this.perfilUsuarioCtrl = perfilUsuarioCtrl;
+		visualizando = true;
+		start(SistemaCtrl.getInstance().getStage());
+		stage.setResizable(false);
+		stage.showAndWait();
 	}
 
 }

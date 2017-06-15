@@ -84,7 +84,19 @@ public class PerfilUsuarioController extends ManutencaoController {
 
 	@Override
 	public void visualizar() {
-		Utilitarios.atencao("Função do botão Visualizar");
+		try {
+			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
+			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+				Utilitarios.erro("Nenhum registro foi selecionado");
+			else {
+				PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
+				perfilUsuarioCtrl.setPerfilUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.visualizar(perfilUsuarioCtrl);
+			}
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");
+			e.printStackTrace();
+		}
 	}
 
 }

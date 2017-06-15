@@ -4,7 +4,6 @@ public class Estado {
 
 	private String nome;
 	private String UF;
-	private Pessoa pessoa;
 	public String getNome() {
 		return nome;
 	}
@@ -17,12 +16,4 @@ public class Estado {
 	public void setUF(String uF) {
 		UF = uF;
 	}
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	
 }

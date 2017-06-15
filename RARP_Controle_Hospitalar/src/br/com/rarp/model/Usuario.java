@@ -11,6 +11,8 @@ public class Usuario {
 	private Funcionario funcionario;
 	private PerfilUsuario perfilUsuario;
 	private List<Movimentacao> movimentacoes;
+	private boolean status;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -52,6 +54,12 @@ public class Usuario {
 	}
 	public void setMovimentacoes(List<Movimentacao> movimentacoes) {
 		this.movimentacoes = movimentacoes;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	

@@ -4,7 +4,8 @@ public class Cidade {
 
 	private int codigo;
 	private String nome;
-	private String codigoIBGE;
+	private Estado estado;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -17,13 +18,10 @@ public class Cidade {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getCodigoIBGE() {
-		return codigoIBGE;
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setCodigoIBGE(String codigoIBGE) {
-		this.codigoIBGE = codigoIBGE;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
-	
-	
-
 }

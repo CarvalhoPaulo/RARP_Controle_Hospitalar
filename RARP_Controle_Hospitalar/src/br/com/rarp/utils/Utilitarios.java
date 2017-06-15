@@ -39,6 +39,22 @@ public class Utilitarios {
 		return sql;
 	}
 	
+	public static int strToInt(String val, int valDefault) {
+		try {
+			return Integer.parseInt(val);
+		} catch (Exception e) {
+			return valDefault;
+		}
+	}
+	
+	public static int strToInt(String val) {
+		try {
+			return Integer.parseInt(val);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+	
 	public static Node getNodeById(Parent parent, String id) {
 		if(parent != null)
 			for(Node node : parent.getChildrenUnmodifiable()) {
