@@ -1,7 +1,9 @@
 package br.com.rarp.view.scnManutencao.usuario;
 
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -61,6 +63,7 @@ public class UsuarioController extends ManutencaoController {
 	@Override
 	public void inserir() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.insercao);
 			CadastroUsuarioController controler = new CadastroUsuarioController();
 			controler.inserir();
 		} catch (Exception e) {
@@ -72,6 +75,7 @@ public class UsuarioController extends ManutencaoController {
 	@Override
 	public void alterar() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
 			CadastroUsuarioController controller = new CadastroUsuarioController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
@@ -89,6 +93,7 @@ public class UsuarioController extends ManutencaoController {
 	@Override
 	public void visualizar() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
 			CadastroUsuarioController controller = new CadastroUsuarioController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
