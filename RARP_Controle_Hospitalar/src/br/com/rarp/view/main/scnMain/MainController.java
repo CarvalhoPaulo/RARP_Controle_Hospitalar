@@ -3,11 +3,12 @@ package br.com.rarp.view.main.scnMain;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
+import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
@@ -15,9 +16,11 @@ import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnSplash.SplashController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class MainController extends Application implements Initializable {
 	
@@ -87,10 +91,11 @@ public class MainController extends Application implements Initializable {
 	
 	public void manterEntrada() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EntradaPacienteController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de manutenção de entradas de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -116,6 +121,7 @@ public class MainController extends Application implements Initializable {
 	
 	public void manterUsuario() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
 			manutencao = new UsuarioController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
@@ -126,6 +132,7 @@ public class MainController extends Application implements Initializable {
 	
 	public void manterPerfilUsuario() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
 			manutencao = new PerfilUsuarioController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
@@ -133,6 +140,16 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}		
 	}
+	
+    @FXML
+    private void trocarUsuario(ActionEvent event) {
+		LoginController login = new LoginController();
+		try {
+			login.logar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 	
 	public void sair() {
 		SistemaCtrl.getInstance().getPropriedades().setPropriedades();
@@ -142,22 +159,20 @@ public class MainController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		initRelogio();
 		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
 		mniControleAcesso.fire();
+		initRelogio();
 	}
 
 	private void initRelogio() {
-		Task<Void> relogio = new Task<Void>() {
+		KeyFrame frame = new KeyFrame(Duration.millis(1000), e -> atualizaHora());
+		Timeline timeline = new Timeline(frame);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
 
-			@Override
-			protected Void call() throws Exception {
-				while(true) {
-					lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy HH:MM:SS").format(Calendar.getInstance()));
-				}
-			}
-		};
-		new Thread(relogio).run();
+	private void atualizaHora() {
+		lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date().getTime())); 
 	}
 
 }

@@ -37,28 +37,17 @@
                         <MenuItem fx:id="mniLeitos" mnemonicParsing="false" text="Cadastro de leitos" />
                   </items>
                 </Menu>
-                <Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-                  <Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
-                  </Menu>
+                <Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações" />
+                  <Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios" />
                   <Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
                     <items>
                         <CheckMenuItem fx:id="mniControleAcesso" mnemonicParsing="false" onAction="#ativarDesativarControleAcesso" text="Controle de Acesso" />
                         <MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#manterUsuario" text="Usuário" />
                         <MenuItem fx:id="mniPerfilUsuario" mnemonicParsing="false" onAction="#manterPerfilUsuario" text="Perfil de Usuário" />
+                        <MenuItem fx:id="mniTrocarUsuario" mnemonicParsing="false" onAction="#trocarUsuario" text="Trocar Usuário" />
                     </items>
                   </Menu>
-                  <Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
-                  </Menu>
+                  <Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre" />
               </menus>
             </MenuBar>
          </top>

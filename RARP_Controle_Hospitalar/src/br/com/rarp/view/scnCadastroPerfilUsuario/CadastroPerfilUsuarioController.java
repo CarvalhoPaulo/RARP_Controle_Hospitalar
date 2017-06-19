@@ -1,8 +1,6 @@
 package br.com.rarp.view.scnCadastroPerfilUsuario;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.PerfilUsuarioCtrl;
@@ -135,12 +133,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	};
 	
 	private void adicionarTelas() {
-		List<Tela> telas = new ArrayList<>();
-		
-		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuários"));
-		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
-		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
-		lvTelas.setItems(FXCollections.observableArrayList(telas));
+		lvTelas.setItems(FXCollections.observableArrayList(SistemaCtrl.getInstance().getTelas()));
 	}
 
 	public void inserir() throws Exception {

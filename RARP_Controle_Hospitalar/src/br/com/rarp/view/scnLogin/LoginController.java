@@ -76,35 +76,40 @@ public class LoginController extends Application implements Initializable {
 		edtUsuario.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		        if (!newValue) {
 		            try {
-						usuarioCtrl.consultar(edtUsuario.getText());
-						if(usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null || usuarioCtrl.getUsuario().getSenha().isEmpty())) {
-							pnContent.setPrefHeight(pnContent.getPrefHeight() + 116);
-							pnFrame.setPrefHeight(pnFrame.getPrefHeight() + 120);
-							stage.sizeToScene();
-							lblNovaSenha.setVisible(true);
-							lblConfirmaSenha.setVisible(true);
-							edtNovaSenha.setVisible(true);
-							edtConfirmaSenha.setVisible(true);
-							edtSenha.setText("");
-							edtSenha.setDisable(true);
-						} else {
-							if(lblNovaSenha.isVisible()) {
-								pnContent.setPrefHeight(pnContent.getPrefHeight() - 116);
-								pnFrame.setPrefHeight(pnFrame.getPrefHeight() - 120);
-								lblNovaSenha.setVisible(false);
-								lblConfirmaSenha.setVisible(false);
-								edtNovaSenha.setVisible(false);
-								edtConfirmaSenha.setVisible(false);
-								edtSenha.setDisable(false);
-							}
+		            	if(newValue) {
+		            		usuarioCtrl.consultar(edtUsuario.getText());
+		            		if(usuarioCtrl.getUsuario() != null)
+		            			edtSenha.requestFocus();
+		            	}
+						if (!newValue) {
+							if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null
+									|| usuarioCtrl.getUsuario().getSenha().isEmpty())) {
+								pnContent.setPrefHeight(pnContent.getPrefHeight() + 116);
+								pnFrame.setPrefHeight(pnFrame.getPrefHeight() + 120);
+								stage.sizeToScene();
+								lblNovaSenha.setVisible(true);
+								lblConfirmaSenha.setVisible(true);
+								edtNovaSenha.setVisible(true);
+								edtConfirmaSenha.setVisible(true);
+								edtSenha.setText("");
+								edtSenha.setDisable(true);
+							} else {
+								if (lblNovaSenha.isVisible()) {
+									pnContent.setPrefHeight(pnContent.getPrefHeight() - 116);
+									pnFrame.setPrefHeight(pnFrame.getPrefHeight() - 120);
+									lblNovaSenha.setVisible(false);
+									lblConfirmaSenha.setVisible(false);
+									edtNovaSenha.setVisible(false);
+									edtConfirmaSenha.setVisible(false);
+									edtSenha.setDisable(false);
+								}
+							} 
 						}
 		            } catch (Exception e) {
 						e.printStackTrace();
 					}
 		        }
-			}
 		});
 	}
 	

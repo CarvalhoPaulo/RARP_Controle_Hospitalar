@@ -18,6 +18,10 @@ public class Tela {
 		this.descricao = descricao;
 	}
 	
+	public Tela(String nome) {
+		this.nome = nome;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}

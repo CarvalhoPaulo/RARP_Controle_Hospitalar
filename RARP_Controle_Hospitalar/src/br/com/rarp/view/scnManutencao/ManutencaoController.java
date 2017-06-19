@@ -62,7 +62,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 		try {
 			prepararTela();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Utilitarios.atencao(e.getMessage());
 		}
 	}
 	
