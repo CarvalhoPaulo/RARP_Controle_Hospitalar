@@ -54,6 +54,26 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		setStage(stage);
 	}
 	
+	private void limparCampos() {
+		ckbAlterar.setSelected(false);
+		ckbDesativar.setSelected(false);
+		ckbInserir.setSelected(false);
+		ckbVisualizar.setSelected(false);
+		
+		edtCodigo.clear();
+		edtNome.clear();
+		
+		btnRemoveAll.arm();
+		for(Tela tela: lvTelas.getSelectionModel().getSelectedItems()) {
+			tela.setPodeAlterar(false);
+			tela.setPodeInserir(false);
+			tela.setPodeDesativar(false);
+			tela.setPodeVisualizar(false);
+		}
+		
+		sbAtivado.switchOnProperty().set(true);
+	}
+	
 	public static void setStage(Stage stage) {
 		CadastroPerfilUsuarioController.stage = stage;
 	}
@@ -179,6 +199,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		try {
 			perfilUsuarioCtrl.salvar();
 			Utilitarios.message("Perfil de usuário salvo com sucesso.");
+			limparCampos();
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
 						   + "Descrição: " + e.getMessage());

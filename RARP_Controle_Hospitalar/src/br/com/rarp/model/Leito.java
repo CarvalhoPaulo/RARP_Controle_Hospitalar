@@ -4,6 +4,11 @@ public class Leito {
 
 	private int codigo;
 	private int numero;
+	
+	public Leito(int numero) {
+		this.numero = numero;
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -17,5 +22,9 @@ public class Leito {
 		this.numero = numero;
 	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return numero == ((Leito) obj).getNumero();
+	}
 }

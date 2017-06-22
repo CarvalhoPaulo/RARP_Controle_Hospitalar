@@ -9,8 +9,8 @@ public class Espaco {
 	private String bloco;
 	private int andar;
 	private List<Leito> leitos;
-	private List<Encaminhamento> encaminhamentos;
-	private List<Limpeza> limpezas;
+	private boolean status;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -41,17 +41,11 @@ public class Espaco {
 	public void setLeitos(List<Leito> leitos) {
 		this.leitos = leitos;
 	}
-	public List<Encaminhamento> getEncaminhamentos() {
-		return encaminhamentos;
+	public boolean isStatus() {
+		return status;
 	}
-	public void setEncaminhamentos(List<Encaminhamento> encaminhamentos) {
-		this.encaminhamentos = encaminhamentos;
-	}
-	public List<Limpeza> getLimpezas() {
-		return limpezas;
-	}
-	public void setLimpezas(List<Limpeza> limpezas) {
-		this.limpezas = limpezas;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

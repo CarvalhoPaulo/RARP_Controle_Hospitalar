@@ -55,12 +55,15 @@ public class CadastroUsuarioController extends Application implements Initializa
 		CadastroUsuarioController.stage = stage;
 	}
 	
-	@SuppressWarnings("static-access")
-	public void alterar(UsuarioCtrl usuarioCtrl) throws Exception {
-		this.usuarioCtrl = usuarioCtrl;
-		visualizando = false;
-		start(SistemaCtrl.getInstance().getStage());
-		stage.showAndWait();
+	private void limparCampos() {
+		edtCodigo.clear();
+		edtNome.clear();
+		edtUsuario.clear();
+		
+		cmbFuncionario.getSelectionModel().select(-1);
+		cmbPerfilUsuario.getSelectionModel().select(-1);
+		
+		sbAtivado.switchOnProperty().set(true);
 	}
 
 	@Override
@@ -96,14 +99,21 @@ public class CadastroUsuarioController extends Application implements Initializa
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();		
 	}
-
-	private void preencheTela() {
-		edtCodigo.setText(usuarioCtrl.getUsuario().getCodigo() + "");
-		edtNome.setText(usuarioCtrl.getUsuario().getNome());
-		edtUsuario.setText(usuarioCtrl.getUsuario().getUsuario());
-		cmbFuncionario.setValue(usuarioCtrl.getUsuario().getFuncionario());
-		cmbPerfilUsuario.setValue(usuarioCtrl.getUsuario().getPerfilUsuario());
-		sbAtivado.switchOnProperty().set(usuarioCtrl.getUsuario().isStatus());
+	
+	@SuppressWarnings("static-access")
+	public void alterar(UsuarioCtrl usuarioCtrl) throws Exception {
+		this.usuarioCtrl = usuarioCtrl;
+		visualizando = false;
+		start(SistemaCtrl.getInstance().getStage());
+		stage.showAndWait();
+	}
+	
+	@SuppressWarnings("static-access")
+	public void visualizar(UsuarioCtrl usuarioCtrl) throws Exception {
+		visualizando = true;
+		this.usuarioCtrl = usuarioCtrl;
+		start(SistemaCtrl.getInstance().getStage());
+		stage.showAndWait();
 	}
 	
     @FXML
@@ -112,10 +122,16 @@ public class CadastroUsuarioController extends Application implements Initializa
 		try {
 			usuarioCtrl.salvar();
 			Utilitarios.message("Usuário salvo com sucesso.");
+			limparCampos();
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
 						   + "Descrição: " + e.getMessage());
 		}
+    }
+    
+	@FXML
+    private void voltar(ActionEvent event) {
+    	stage.hide();
     }
 
     private void preencherObjeto() {
@@ -132,18 +148,14 @@ public class CadastroUsuarioController extends Application implements Initializa
 		usuarioCtrl.getUsuario().setFuncionario(cmbFuncionario.getValue());
 		usuarioCtrl.getUsuario().setStatus(sbAtivado.switchOnProperty().get());
 	}
-
-	@FXML
-    private void voltar(ActionEvent event) {
-    	stage.hide();
-    }
-
-	@SuppressWarnings("static-access")
-	public void visualizar(UsuarioCtrl usuarioCtrl) throws Exception {
-		visualizando = true;
-		this.usuarioCtrl = usuarioCtrl;
-		start(SistemaCtrl.getInstance().getStage());
-		stage.showAndWait();
+    
+	private void preencheTela() {
+		edtCodigo.setText(usuarioCtrl.getUsuario().getCodigo() + "");
+		edtNome.setText(usuarioCtrl.getUsuario().getNome());
+		edtUsuario.setText(usuarioCtrl.getUsuario().getUsuario());
+		cmbFuncionario.setValue(usuarioCtrl.getUsuario().getFuncionario());
+		cmbPerfilUsuario.setValue(usuarioCtrl.getUsuario().getPerfilUsuario());
+		sbAtivado.switchOnProperty().set(usuarioCtrl.getUsuario().isStatus());
 	}
 
 }

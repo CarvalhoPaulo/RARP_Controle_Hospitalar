@@ -15,7 +15,7 @@ public class SwitchButton extends Label
 
     public SwitchButton()
     {
-        Button switchBtn = new Button();
+    	Button switchBtn = new Button();
         switchBtn.setPrefWidth(35);
         switchBtn.setOnAction(new EventHandler<ActionEvent>()
         {

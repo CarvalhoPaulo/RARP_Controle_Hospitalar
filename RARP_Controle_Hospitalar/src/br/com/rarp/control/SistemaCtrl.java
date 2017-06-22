@@ -40,7 +40,8 @@ public class SistemaCtrl {
 		if (usuarioSessao != null && usuarioSessao.getPerfilUsuario() != null && usuarioSessao.getPerfilUsuario().getTelas().size() > 0) {
 			switch (tipo) {
 			case acesso:
-				return usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela));
+				return usuarioSessao.getPerfilUsuario().getTelas()
+						.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isStatus();
 
 			case insercao:
 				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
@@ -77,6 +78,7 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuários"));
 		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
 		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
+		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
 		return telas;
 	}
 	
@@ -91,9 +93,14 @@ public class SistemaCtrl {
 	}
 	
 	public void liberarManutencaoEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
-		if(!podeLiberar("manutencaoPerfilUsuario", tipoMovimentacao))
+		if(!podeLiberar("manutencaoEntradaPaciente", tipoMovimentacao))
 			throw new Exception("Ação indisponivel para este usuario");
-	}	
+	}
+	
+	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
+			throw new Exception("Ação indisponivel para este usuario");
+	}
 	
 	public Propriedades getPropriedades() {
 		return Propriedades.getInstance();

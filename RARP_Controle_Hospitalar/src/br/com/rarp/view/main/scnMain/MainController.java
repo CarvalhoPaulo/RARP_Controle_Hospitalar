@@ -13,6 +13,7 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
+import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnSplash.SplashController;
@@ -49,7 +50,7 @@ public class MainController extends Application implements Initializable {
 	private ManutencaoController manutencao;
 	
 	@Override
-	public void start(Stage stage) throws Exception {		
+	public void start(Stage stage) throws Exception {
 		try {
 			SplashController splash = new SplashController();
 			splash.abrir(2);	
@@ -100,6 +101,18 @@ public class MainController extends Application implements Initializable {
 		}
 	}
 	
+	@FXML
+	private void manterEspacos(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			manutencao = new EspacoController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	public void ativarDesativarControleAcesso() {
 		if(mniControleAcesso.isSelected()) {
 			imgControleAcesso.setImage(new Image(getClass().getResource("..\\..\\img\\security-system-ativada-16x16.png").toString()));
@@ -125,7 +138,7 @@ public class MainController extends Application implements Initializable {
 			manutencao = new UsuarioController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de manutenção de entradas de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -136,7 +149,7 @@ public class MainController extends Application implements Initializable {
 			manutencao = new PerfilUsuarioController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de manutenção de entradas de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}		
 	}
@@ -162,6 +175,8 @@ public class MainController extends Application implements Initializable {
 		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
 		mniControleAcesso.fire();
 		initRelogio();
+		imgMain.fitHeightProperty().bind(pnContent.heightProperty());
+		imgMain.fitWidthProperty().bind(pnContent.widthProperty());
 	}
 
 	private void initRelogio() {

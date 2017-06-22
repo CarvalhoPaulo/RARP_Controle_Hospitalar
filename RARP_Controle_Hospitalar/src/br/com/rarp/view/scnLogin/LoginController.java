@@ -72,17 +72,21 @@ public class LoginController extends Application implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		edtUsuario.setText(SistemaCtrl.getInstance().getPropriedades().getLastUsername());
 		pnFrame.setPrefSize(342, 251);
+		try {
+			usuarioCtrl.consultar(edtUsuario.getText());
+			if(usuarioCtrl.getUsuario() != null)
+				edtSenha.requestFocus();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		edtUsuario.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 		            try {
-		            	if(newValue) {
-		            		usuarioCtrl.consultar(edtUsuario.getText());
-		            		if(usuarioCtrl.getUsuario() != null)
-		            			edtSenha.requestFocus();
-		            	}
 						if (!newValue) {
+							usuarioCtrl.consultar(edtUsuario.getText());
 							if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null
 									|| usuarioCtrl.getUsuario().getSenha().isEmpty())) {
 								pnContent.setPrefHeight(pnContent.getPrefHeight() + 116);
@@ -115,12 +119,12 @@ public class LoginController extends Application implements Initializable {
 	
 
     @FXML
-    void cancelar(ActionEvent event) {
+    private void cancelar(ActionEvent event) {
     	stage.hide();
     }
 
     @FXML
-    void entrar(ActionEvent event) {
+    private void entrar(ActionEvent event) {
     	try {
 	    	if(edtNovaSenha.isVisible()) {
     			if(edtNovaSenha.getText().isEmpty())

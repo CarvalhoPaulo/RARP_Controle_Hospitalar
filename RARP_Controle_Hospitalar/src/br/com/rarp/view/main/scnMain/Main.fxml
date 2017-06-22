@@ -78,11 +78,11 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnLeitos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Leitos" textAlignment="CENTER">
+                  <Button fx:id="btnLeitos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#manterEspacos" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Espaços" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/leitos.png" />
+                              <Image url="@../../img/room.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
