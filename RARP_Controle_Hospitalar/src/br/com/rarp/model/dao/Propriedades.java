@@ -1,6 +1,5 @@
 package br.com.rarp.model.dao;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class Propriedades {
 	private String user;
 	private String password;
 	private Boolean controleAcesso;
-	
+
 	private Propriedades() {
 		prop = new TypedProperties();
 		try {
@@ -27,29 +26,29 @@ public class Propriedades {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Propriedades getInstance() {
 		return INSTANCE;
 	}
-	
+
 	public void getPropriedades() {
 		url = prop.getProperty("conexao.url", "jdbc:postgresql://localhost:5432/");
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
-		password = prop.getProperty("conexao.password", "1234");
+		password = prop.getProperty("conexao.password", "admin");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
 	}
-	
+
 	public void setPropriedades() {
-		 prop.setProperty("conexao.url", url);
-		 prop.setProperty("conexao.database", database);
-		 prop.setProperty("conexao.user", user);
-		 prop.setProperty("conexao.password", password);
-		 
-		 //Opções do sistema
-		 prop.setProperty("sistema.controleAcesso", controleAcesso);
+		prop.setProperty("conexao.url", url);
+		prop.setProperty("conexao.database", database);
+		prop.setProperty("conexao.user", user);
+		prop.setProperty("conexao.password", password);
+
+		// Opções do sistema
+		prop.setProperty("sistema.controleAcesso", controleAcesso);
 	}
-	
+
 	public TypedProperties getProp() {
 		return prop;
 	}
@@ -70,7 +69,6 @@ public class Propriedades {
 		return database;
 	}
 
-	
 	public Boolean getControleAcesso() {
 		return controleAcesso;
 	}
