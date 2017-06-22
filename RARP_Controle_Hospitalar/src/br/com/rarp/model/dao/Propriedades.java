@@ -1,6 +1,5 @@
 package br.com.rarp.model.dao;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,9 +13,7 @@ public class Propriedades {
 	private String user;
 	private String password;
 	private Boolean controleAcesso;
-
 	private String lastUsername;
-	
 	private Propriedades() {
 		prop = new TypedProperties();
 		try {
@@ -30,20 +27,20 @@ public class Propriedades {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Propriedades getInstance() {
 		return INSTANCE;
 	}
-	
+
 	public void getPropriedades() {
 		url = prop.getProperty("conexao.url", "jdbc:postgresql://localhost:5432/");
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
-		password = prop.getProperty("conexao.password", "1234");
+		password = prop.getProperty("conexao.password", "admin");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
 		lastUsername = prop.getProperty("login.lastUsername", "");
 	}
-	
+
 	public void setPropriedades() {
 		 prop.setProperty("conexao.url", url);
 		 prop.setProperty("conexao.database", database);
@@ -65,7 +62,7 @@ public class Propriedades {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public TypedProperties getProp() {
 		return prop;
 	}
@@ -86,7 +83,6 @@ public class Propriedades {
 		return database;
 	}
 
-	
 	public Boolean getControleAcesso() {
 		return controleAcesso;
 	}
