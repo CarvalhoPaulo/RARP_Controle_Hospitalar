@@ -5,8 +5,6 @@ import java.util.Date;
 
 public class Funcionario extends PessoaFisica {
 
-	// Primeiro commit testando
-
 	private Date dtUltimaAdmissao;
 	private Currency salarioContratual;
 	private Cargo cargo;
