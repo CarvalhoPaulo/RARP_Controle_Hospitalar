@@ -1,28 +1,36 @@
 package br.com.rarp.model;
 
-import java.util.Currency;
 import java.util.Date;
 
 public class Funcionario extends PessoaFisica {
 
-	private Date dtUltimaAdmissao;
-	private Currency salarioContratual;
+	private Date dtAdmissao;
+	private double salarioContratual;
 	private Cargo cargo;
 	private boolean status;
+	private String estadoCivil;
 
-	public Date getDtUltimaAdmissao() {
-		return dtUltimaAdmissao;
+	public String getEstadoCivil() {
+		return estadoCivil;
 	}
 
-	public void setDtUltimaAdmissao(Date dtUltimaAdmissao) {
-		this.dtUltimaAdmissao = dtUltimaAdmissao;
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
-	public Currency getSalarioContratual() {
+	public Date getDtAdmissao() {
+		return dtAdmissao;
+	}
+
+	public void setDtAdmissao(Date dtAdmissao) {
+		this.dtAdmissao = dtAdmissao;
+	}
+
+	public double getSalarioContratual() {
 		return salarioContratual;
 	}
 
-	public void setSalarioContratual(Currency salarioContratual) {
+	public void setSalarioContratual(double salarioContratual) {
 		this.salarioContratual = salarioContratual;
 	}
 
