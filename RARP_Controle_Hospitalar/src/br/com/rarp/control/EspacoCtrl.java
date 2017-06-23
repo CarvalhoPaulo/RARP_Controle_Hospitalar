@@ -2,6 +2,7 @@ package br.com.rarp.control;
 
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.bo.EspacoBusiness;
 import br.com.rarp.utils.Campo;
 import javafx.collections.ObservableList;
 
@@ -23,7 +24,7 @@ public class EspacoCtrl {
 	}
 	
 	public void salvar() {
-		
+		EspacoBusiness espacoBusiness = new EspacoBusiness();
 	}
 
 	public void setUsuario(Object object) {

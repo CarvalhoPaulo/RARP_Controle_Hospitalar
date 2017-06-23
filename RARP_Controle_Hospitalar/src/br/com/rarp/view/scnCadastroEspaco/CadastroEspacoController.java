@@ -7,6 +7,7 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Leito;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.ImageCard;
+import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -25,15 +26,41 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	private static Stage stage;
 	
-    @FXML private Button btnGravar;
-    @FXML private Button btnVoltar;
-    @FXML private TextField edtCodigo;
-    @FXML private SwitchButton sbAtivado;
-	@FXML private TextField edtNumeroLeito;
-	@FXML private Button btnAdicionar;
-	@FXML private Button btnRemover;
-    @FXML private FlowPane pnlLeitos;
-    @FXML private ScrollPane sclLeitos;
+    @FXML
+    private Button btnGravar;
+
+    @FXML
+    private Button btnVoltar;
+
+    @FXML
+    private IntegerTextField edtCodigo;
+
+    @FXML
+    private SwitchButton sbAtivado;
+
+    @FXML
+    private IntegerTextField edtNumero;
+
+    @FXML
+    private TextField edtBloco;
+
+    @FXML
+    private TextField edtAndar;
+
+    @FXML
+    private IntegerTextField edtNumeroLeito;
+
+    @FXML
+    private Button btnAdicionar;
+
+    @FXML
+    private Button btnRemover;
+
+    @FXML
+    private ScrollPane sclLeitos;
+
+    @FXML
+    private FlowPane pnlLeitos;
     
 	private static EspacoCtrl espacoCtrl;
 	private static boolean visualizando;
@@ -41,7 +68,6 @@ public class CadastroEspacoController extends Application implements Initializab
 	@FXML
 	private void adicionar(ActionEvent event) {
 		ImageCard imageCard = new ImageCard();
-		imageCard.getLabel().set(edtNumeroLeito.getText());
 		imageCard.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
 		imageCard.setLeito(new Leito(Utilitarios.strToInt(edtNumeroLeito.getText())));
 		boolean existe = false;
@@ -57,7 +83,10 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@FXML
 	private void remover(ActionEvent event) {
-
+		ImageCard imageCard = new ImageCard();
+		imageCard.setLeito(new Leito(Utilitarios.strToInt(edtNumeroLeito.getText())));
+		if(pnlLeitos.getChildren().contains(imageCard))
+			pnlLeitos.getChildren().remove(imageCard);
 	}
 
 	@Override
@@ -78,6 +107,11 @@ public class CadastroEspacoController extends Application implements Initializab
 	
 	private void limparCampos() {
 		edtCodigo.clear();
+		edtNumeroLeito.clear();
+		edtNumero.clear();
+		edtAndar.clear();
+		edtBloco.clear();
+		pnlLeitos.getChildren().clear();
 		sbAtivado.switchOnProperty().set(true);
 	}
 
@@ -86,7 +120,7 @@ public class CadastroEspacoController extends Application implements Initializab
 		sbAtivado.switchOnProperty().set(true);
 		edtCodigo.setDisable(true);
 		if(espacoCtrl != null && espacoCtrl.getClass() != null)
-			preencheTela();
+			preencherTela();
 		if(visualizando)
 			bloquearTela();
 		pnlLeitos.prefWidthProperty().bind(sclLeitos.prefWidthProperty());
@@ -95,8 +129,13 @@ public class CadastroEspacoController extends Application implements Initializab
 	
 	private void bloquearTela() {
 		edtCodigo.setDisable(true);
+		edtAndar.setDisable(true);
+		edtNumero.setDisable(true);
+		edtBloco.setDisable(true);
+		edtNumeroLeito.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnGravar.setDisable(true);
+		sbAtivado.setDisable(true);
 	}
 
 	public void inserir() throws Exception {
@@ -147,12 +186,28 @@ public class CadastroEspacoController extends Application implements Initializab
 		if(espacoCtrl.getEspaco() == null)
 			espacoCtrl.novoEspaco();
 		
-		espacoCtrl.getEspaco().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
+		espacoCtrl.getEspaco().setCodigo(edtCodigo.getValue());
+		espacoCtrl.getEspaco().setAndar(edtAndar.getText());
+		espacoCtrl.getEspaco().setNumero(edtNumero.getValue());
+		espacoCtrl.getEspaco().setBloco(edtBloco.getText());
+		
+		for(Node n: pnlLeitos.getChildren())
+			espacoCtrl.getEspaco().getLeitos().add(((ImageCard) n).getLeito());
 		espacoCtrl.getEspaco().setStatus(sbAtivado.switchOnProperty().get());
 	}
     
-	private void preencheTela() {
+	private void preencherTela() {
 		edtCodigo.setText(espacoCtrl.getEspaco().getCodigo() + "");
+		edtNumero.setValue(espacoCtrl.getEspaco().getNumero());
+		edtBloco.setText(espacoCtrl.getEspaco().getBloco());
+		edtAndar.setText(espacoCtrl.getEspaco().getAndar());
+		
+		for(Leito l: espacoCtrl.getEspaco().getLeitos()) {
+			ImageCard img = new ImageCard();
+			img.setLeito(l);
+			pnlLeitos.getChildren().add(img);
+		}
+		
 		sbAtivado.switchOnProperty().set(espacoCtrl.getEspaco().isStatus());
 	}
 

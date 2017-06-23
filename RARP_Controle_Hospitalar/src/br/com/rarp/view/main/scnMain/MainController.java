@@ -14,6 +14,7 @@ import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
+import br.com.rarp.view.scnManutencao.funcionario.FuncionarioController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnSplash.SplashController;
@@ -31,6 +32,7 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -48,7 +50,7 @@ public class MainController extends Application implements Initializable {
     @FXML private Label lblUsuarioSessao;
 
 	private ManutencaoController manutencao;
-	
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
@@ -78,18 +80,32 @@ public class MainController extends Application implements Initializable {
 					SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 				}
 			});
+			
+			try {
+				SistemaCtrl.getInstance().getConexao().getConexao();
+			} catch (Exception e) {
+				try {
+					SistemaCtrl.getInstance().getConexao().criarDataBase();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			
 			stage.show();	
+			}
+			SistemaCtrl.getInstance().criarTabelas();
+			splash.getStage().close();
+			stage.show();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	public static void abrir(String[] args) {
 		launch(args);
 	}
-	
+
 	public void manterEntrada() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
@@ -112,7 +128,7 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void ativarDesativarControleAcesso() {
 		if(mniControleAcesso.isSelected()) {
 			imgControleAcesso.setImage(new Image(getClass().getResource("..\\..\\img\\security-system-ativada-16x16.png").toString()));
@@ -131,7 +147,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().setUsuarioSessao(null);
 		}
 	}
-	
+
 	public void manterUsuario() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
@@ -142,7 +158,7 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void manterPerfilUsuario() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
@@ -151,7 +167,7 @@ public class MainController extends Application implements Initializable {
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
-		}		
+		}
 	}
 	
     @FXML
@@ -163,11 +179,11 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
     }
-	
+
 	public void sair() {
 		SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 		Platform.exit();
-        System.exit(0);
+		System.exit(0);
 	}
 
 	@Override
@@ -190,4 +206,14 @@ public class MainController extends Application implements Initializable {
 		lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date().getTime())); 
 	}
 
+	@FXML
+	public void manterFuncionario(MouseEvent event) {
+		try {
+			manutencao = new FuncionarioController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			e.printStackTrace();
+		}
+	}
 }

@@ -4,11 +4,16 @@ public class Leito {
 
 	private int codigo;
 	private int numero;
+	private boolean status;
 	
 	public Leito(int numero) {
 		this.numero = numero;
 	}
 	
+	public Leito() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
@@ -26,5 +31,13 @@ public class Leito {
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		return numero == ((Leito) obj).getNumero();
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

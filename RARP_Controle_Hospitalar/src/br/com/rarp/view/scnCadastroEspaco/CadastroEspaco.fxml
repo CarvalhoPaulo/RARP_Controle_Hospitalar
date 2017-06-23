@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -63,11 +64,11 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="edtCodigo" accessibleText="Codigo interno do usuário" layoutY="24.0" prefHeight="30.0" prefWidth="102.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+                  <IntegerTextField fx:id="edtCodigo" accessibleText="Codigo interno do usuário" disable="true" editable="false" layoutY="24.0" prefHeight="30.0" prefWidth="102.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </TextField>
+                  </IntegerTextField>
                   <Label layoutX="264.0" layoutY="9.0" prefHeight="20.0" prefWidth="68.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />
@@ -91,11 +92,11 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+                              <IntegerTextField fx:id="edtNumero" layoutY="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
-                              </TextField>
+                              </IntegerTextField>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -105,7 +106,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+                              <TextField fx:id="edtBloco" layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -119,7 +120,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="-15.0" layoutY="30.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                              <TextField fx:id="edtAndar" layoutX="-15.0" layoutY="30.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -167,11 +168,11 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="edtNumeroLeito" layoutY="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
+                                          <IntegerTextField fx:id="edtNumeroLeito" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
-                                          </TextField>
+                                          </IntegerTextField>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane GridPane.columnIndex="1">

@@ -1,9 +1,8 @@
 package br.com.rarp.view.scnManutencao.funcionario;
 
 import br.com.rarp.model.Funcionario;
-import br.com.rarp.model.Usuario;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController;
+import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,20 +12,19 @@ public class FuncionarioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Usuários");
+		getLblTitle().setText("Manutenção de Funcionários");
 
 		TableColumn<Funcionario, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-		TableColumn<Usuario, String> nome = new TableColumn<>("Nome");
-		nome.setCellValueFactory(new PropertyValueFactory<>("data"));
-		TableColumn<Usuario, String> usuario = new TableColumn<>("Usuário");
-		usuario.setCellValueFactory(new PropertyValueFactory<>("hora"));
-		TableColumn<Usuario, String> funcionario = new TableColumn<>("Funcionário");
-		funcionario.setCellValueFactory(new PropertyValueFactory<>("funcionario"));
-		TableColumn<Usuario, String> perfilUsuario = new TableColumn<>("Perfil");
-		perfilUsuario.setCellValueFactory(new PropertyValueFactory<>("perfilUsuario"));
-
-		tvManutencao.getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
+		TableColumn<Funcionario, String> nome = new TableColumn<>("Nome");
+		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		TableColumn<Funcionario, String> cpf = new TableColumn<>("CPF");
+		cpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+		TableColumn<Funcionario, String> cargo = new TableColumn<>("Cargo");
+		cargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+		TableColumn<Funcionario, String> telefone = new TableColumn<>("Telefone");
+		telefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+		tvManutencao.getColumns().addAll(codigo, nome, cpf, cargo, telefone);
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class FuncionarioController extends ManutencaoController {
 	@Override
 	public void inserir() {
 		try {
-			CadastroUsuarioController controler = new CadastroUsuarioController();
+			CadastroFuncionarioController controler = new CadastroFuncionarioController();
 			controler.inserir();
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");

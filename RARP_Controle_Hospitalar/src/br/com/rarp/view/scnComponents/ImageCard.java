@@ -47,14 +47,6 @@ public class ImageCard extends BorderPane {
 		setPrefWidth(48);
 		setPrefHeight(60);
 	}
-	
-	public SimpleStringProperty getLabel() {
-		return label;
-	}
-
-	public void setLabel(SimpleStringProperty label) {
-		this.label = label;
-	}
 
 	public SimpleStringProperty getPathImage() {
 		return pathImage;
@@ -70,6 +62,7 @@ public class ImageCard extends BorderPane {
 
 	public void setLeito(Leito leito) {
 		this.leito = leito;
+		label.set(leito.getNumero()+"");
 	}
 	
 	@Override

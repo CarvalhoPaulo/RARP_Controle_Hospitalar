@@ -13,7 +13,6 @@ public class Pessoa {
 	private String numero;
 	private String bairro;
 	private String cep;
-	private Estado estado;
 	private List<Telefone> telefones;
 	private Cidade cidade;
 	public int getCodigo() {
@@ -64,12 +63,6 @@ public class Pessoa {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public Estado getEstado() {
-		return estado;
-	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
@@ -83,6 +76,4 @@ public class Pessoa {
 		this.cidade = cidade;
 	}
 	
-	
-
 }

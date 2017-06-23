@@ -7,7 +7,7 @@ public class Espaco {
 	private int codigo;
 	private int numero;
 	private String bloco;
-	private int andar;
+	private String andar;
 	private List<Leito> leitos;
 	private boolean status;
 	
@@ -29,10 +29,10 @@ public class Espaco {
 	public void setBloco(String bloco) {
 		this.bloco = bloco;
 	}
-	public int getAndar() {
+	public String getAndar() {
 		return andar;
 	}
-	public void setAndar(int andar) {
+	public void setAndar(String andar) {
 		this.andar = andar;
 	}
 	public List<Leito> getLeitos() {
