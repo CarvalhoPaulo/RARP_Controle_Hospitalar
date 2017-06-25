@@ -39,7 +39,7 @@ public class CadastroEspacoController extends Application implements Initializab
     private SwitchButton sbAtivado;
 
     @FXML
-    private IntegerTextField edtNumero;
+    private TextField edtNome;
 
     @FXML
     private TextField edtBloco;
@@ -79,6 +79,7 @@ public class CadastroEspacoController extends Application implements Initializab
 		}
 		if(!existe)
 			pnlLeitos.getChildren().add(imageCard);
+		edtNumeroLeito.setValue(edtNumeroLeito.getValue() + 1);
 	}
 
 	@FXML
@@ -108,7 +109,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void limparCampos() {
 		edtCodigo.clear();
 		edtNumeroLeito.clear();
-		edtNumero.clear();
+		edtNome.clear();
 		edtAndar.clear();
 		edtBloco.clear();
 		pnlLeitos.getChildren().clear();
@@ -130,7 +131,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void bloquearTela() {
 		edtCodigo.setDisable(true);
 		edtAndar.setDisable(true);
-		edtNumero.setDisable(true);
+		edtNome.setDisable(true);
 		edtBloco.setDisable(true);
 		edtNumeroLeito.setDisable(true);
 		sbAtivado.setDisable(true);
@@ -168,10 +169,10 @@ public class CadastroEspacoController extends Application implements Initializab
     	preencherObjeto();
 		try {
 			espacoCtrl.salvar();
-			Utilitarios.message("Usuário salvo com sucesso.");
+			Utilitarios.message("Espaço salvo com sucesso.");
 			limparCampos();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
+			Utilitarios.erro("Erro ao salvar espaço.\n"
 						   + "Descrição: " + e.getMessage());
 		}
     }
@@ -190,7 +191,7 @@ public class CadastroEspacoController extends Application implements Initializab
 		
 		espacoCtrl.getEspaco().setCodigo(edtCodigo.getValue());
 		espacoCtrl.getEspaco().setAndar(edtAndar.getText());
-		espacoCtrl.getEspaco().setNumero(edtNumero.getValue());
+		espacoCtrl.getEspaco().setNome(edtNome.getText());
 		espacoCtrl.getEspaco().setBloco(edtBloco.getText());
 		
 		for(Leito l: espacoCtrl.getEspaco().getLeitos())
@@ -207,7 +208,7 @@ public class CadastroEspacoController extends Application implements Initializab
     
 	private void preencherTela() {
 		edtCodigo.setText(espacoCtrl.getEspaco().getCodigo() + "");
-		edtNumero.setValue(espacoCtrl.getEspaco().getNumero());
+		edtNome.setText(espacoCtrl.getEspaco().getNome());
 		edtBloco.setText(espacoCtrl.getEspaco().getBloco());
 		edtAndar.setText(espacoCtrl.getEspaco().getAndar());
 		

@@ -6,7 +6,7 @@ import java.util.List;
 public class Espaco {
 
 	private int codigo;
-	private int numero;
+	private String nome;
 	private String bloco;
 	private String andar;
 	private List<Leito> leitos = new ArrayList<Leito>();
@@ -17,12 +17,6 @@ public class Espaco {
 	}
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
-	}
-	public int getNumero() {
-		return numero;
-	}
-	public void setNumero(int numero) {
-		this.numero = numero;
 	}
 	public String getBloco() {
 		return bloco;
@@ -47,6 +41,12 @@ public class Espaco {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

@@ -15,7 +15,7 @@ public class EspacoDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "espaco(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "numero INTEGER, ";
+		sql += "nome VARCHAR(100), ";
 		sql += "bloco VARCHAR(50), ";
 		sql += "andar VARCHAR(50), ";
 		sql += "status boolean)";
@@ -33,9 +33,9 @@ public class EspacoDAO {
 		PreparedStatement ps;
         Conexao conexao = SistemaCtrl.getInstance().getConexao();
         try {
-        	String sql= "INSERT INTO espaco(numero, bloco, andar, status) VALUES(?,?,?,?)";
+        	String sql= "INSERT INTO espaco(nome, bloco, andar, status) VALUES(?,?,?,?)";
             ps = conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1, espaco.getNumero());
+            ps.setString(1, espaco.getNome());
             ps.setString(2, espaco.getBloco());
             ps.setString(3, espaco.getAndar());
             ps.setBoolean(4, espaco.isStatus());
@@ -58,9 +58,9 @@ public class EspacoDAO {
 		PreparedStatement ps;
         Conexao conexao = SistemaCtrl.getInstance().getConexao();
         try {
-        	String sql= "Update espaco SET numero=?, bloco=?, andar=?, status=? WHERE codigo=?";
+        	String sql= "Update espaco SET nome=?, bloco=?, andar=?, status=? WHERE codigo=?";
             ps = conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1, espaco.getNumero());
+            ps.setString(1, espaco.getNome());
             ps.setString(2, espaco.getBloco());
             ps.setString(3, espaco.getAndar());
             ps.setBoolean(4, espaco.isStatus());
@@ -81,13 +81,13 @@ public class EspacoDAO {
         PreparedStatement ps;
         Conexao conexao = SistemaCtrl.getInstance().getConexao();
         try {
-        	String sql = "SELECT codigo, numero, bloco, andar, status FROM espaco WHERE " + campo + comparacao + termo;
+        	String sql = "SELECT codigo, nome, bloco, andar, status FROM espaco WHERE " + campo + comparacao + termo;
             ps = conexao.getConexao().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Espaco espaco = new Espaco();
             	espaco.setCodigo(rs.getInt("codigo"));
-            	espaco.setNumero(rs.getInt("numero"));
+            	espaco.setNome(rs.getString("nome"));
             	espaco.setBloco(rs.getString("bloco"));
             	espaco.setAndar(rs.getString("andar"));
             	espaco.setStatus(rs.getBoolean("status"));

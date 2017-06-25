@@ -26,7 +26,19 @@ public class EspacoCtrl {
 	
 	public void salvar() throws Exception {
 		EspacoBusiness espacoBusiness = new EspacoBusiness();
+		validarDadosObrigatorios();
 		espacoBusiness.salvar(espaco);
+	}
+	
+	private void validarDadosObrigatorios() throws Exception {
+		if(espaco.getNome().isEmpty()) 
+			throw new Exception("Para cadastrar um espaço é necessário informar o nome");
+		if(espaco.getAndar().isEmpty())
+			throw new Exception("Para cadastrar um espaço é necessário informar o andar. Dica: Coloque 1 caso só possua um andar.");
+		if(espaco.getBloco().isEmpty())
+			throw new Exception("Para cadastrar um espaço é necessário informar o bloco. Dica: Coloque 1 caso só possua um bloco");
+		if(espaco.getLeitos().size() == 0) 
+			throw new Exception("Para cadastrar um espaço é necessário informar pelo menos um leito.");
 	}
 
 	public void setUsuario(Object object) {

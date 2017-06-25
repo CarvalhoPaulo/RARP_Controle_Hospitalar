@@ -191,8 +191,6 @@ public class MainController extends Application implements Initializable {
 		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
 		mniControleAcesso.fire();
 		initRelogio();
-		imgMain.fitHeightProperty().bind(pnContent.heightProperty());
-		imgMain.fitWidthProperty().bind(pnContent.widthProperty());
 	}
 
 	private void initRelogio() {

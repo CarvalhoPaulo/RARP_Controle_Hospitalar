@@ -87,21 +87,21 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="7.0" layoutY="6.0" text="Número:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                              <Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <IntegerTextField fx:id="edtNumero" layoutY="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+                              <TextField fx:id="edtNome" layoutY="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
-                              </IntegerTextField>
+                              </TextField>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Label layoutY="6.0" text="Bloco:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                              <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Bloco:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -115,7 +115,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                            <children>
-                              <Label layoutX="6.0" layoutY="6.0" text="Andar:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                              <Label layoutX="6.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Andar:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -133,7 +133,7 @@
                      <top>
                         <AnchorPane prefHeight="32.0" prefWidth="410.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutY="6.0" text="Leitos:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Leitos:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

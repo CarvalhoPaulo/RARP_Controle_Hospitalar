@@ -93,7 +93,7 @@ public class LeitoDAO {
         PreparedStatement ps;
         Conexao conexao = SistemaCtrl.getInstance().getConexao();
         try {
-        	String sql = "SELECT codigo, numero, status FROM leito WHERE codigo_espaco = ?";
+        	String sql = "SELECT codigo, numero, status FROM leito WHERE codigo_espaco = ? ORDER BY numero ASC";
             ps = conexao.getConexao().prepareStatement(sql);
             ps.setInt(1, espaco.getCodigo());
             ResultSet rs = ps.executeQuery();

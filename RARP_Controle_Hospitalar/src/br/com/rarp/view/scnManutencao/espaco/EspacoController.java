@@ -23,10 +23,14 @@ public class EspacoController extends ManutencaoController {
 
 		TableColumn<Espaco, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-		TableColumn<Espaco, String> numero = new TableColumn<>("Número");
-		numero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+		
+		TableColumn<Espaco, String> numero = new TableColumn<>("Nome");
+		numero.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		numero.setPrefWidth(150);
+		
 		TableColumn<Espaco, String> bloco = new TableColumn<>("Bloco");
 		bloco.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+		
 		TableColumn<Espaco, String> andar = new TableColumn<>("Andar");
 		andar.setCellValueFactory(new PropertyValueFactory<>("andar"));
 		
@@ -40,7 +44,7 @@ public class EspacoController extends ManutencaoController {
 
 	private void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("numero", "Número", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("bloco", "Bloco", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("andar", "Andar", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
