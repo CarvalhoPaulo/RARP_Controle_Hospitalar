@@ -9,8 +9,6 @@ import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Espaco;
-import br.com.rarp.model.Leito;
-
 public class EspacoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
@@ -48,6 +46,9 @@ public class EspacoDAO {
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             	espaco.setCodigo(rs.getInt("lastCodigo"));
+            
+            LeitoDAO leitoDAO = new LeitoDAO();
+            leitoDAO.salvar(espaco);
         } finally {
         	conexao.getConexao().close();
 		}

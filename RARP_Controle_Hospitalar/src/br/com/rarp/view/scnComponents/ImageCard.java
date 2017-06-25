@@ -67,7 +67,11 @@ public class ImageCard extends BorderPane {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return leito.equals(((ImageCard) obj).getLeito());
+		try {
+			return leito.equals(((ImageCard) obj).getLeito());
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 }

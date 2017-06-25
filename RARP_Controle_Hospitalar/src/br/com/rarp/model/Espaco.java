@@ -1,5 +1,6 @@
 package br.com.rarp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Espaco {
@@ -8,7 +9,7 @@ public class Espaco {
 	private int numero;
 	private String bloco;
 	private String andar;
-	private List<Leito> leitos;
+	private List<Leito> leitos = new ArrayList<Leito>();
 	private boolean status;
 	
 	public int getCodigo() {

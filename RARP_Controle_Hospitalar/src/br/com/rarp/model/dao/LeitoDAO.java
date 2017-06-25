@@ -37,6 +37,8 @@ public class LeitoDAO {
 			else
 				leitosAlterar.add(l);
 		}	
+		inserir(leitosInserir, espaco.getCodigo());
+		alterar(leitosAlterar, espaco.getCodigo());
 	}
 	
 	public void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {

@@ -13,8 +13,10 @@ import br.com.rarp.model.dao.CargoDAO;
 import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
 import br.com.rarp.model.dao.ConvenioDAO;
+import br.com.rarp.model.dao.EspacoDAO;
 import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
+import br.com.rarp.model.dao.LeitoDAO;
 import br.com.rarp.model.dao.PerfilUsuarioDAO;
 import br.com.rarp.model.dao.PessoaDAO;
 import br.com.rarp.model.dao.PessoaFisicaDAO;
@@ -84,22 +86,22 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoUsuario", tipoMovimentacao))
-			throw new Exception("Ação indisponivel para este usuario");
+			throw new Exception("Ação indisponível para este usuario");
 	}
 	
 	public void liberarManutencaoPerfilUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPerfilUsuario", tipoMovimentacao))
-			throw new Exception("Ação indisponivel para este usuario");
+			throw new Exception("Ação indisponível para este usuario");
 	}
 	
 	public void liberarManutencaoEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEntradaPaciente", tipoMovimentacao))
-			throw new Exception("Ação indisponivel para este usuario");
+			throw new Exception("Ação indisponível para este usuario");
 	}
 	
 	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
-			throw new Exception("Ação indisponivel para este usuario");
+			throw new Exception("Ação indisponível para este usuario");
 	}
 	
 	public Propriedades getPropriedades() {
@@ -145,6 +147,8 @@ public class SistemaCtrl {
 		FuncionarioDAO.criarTabela();
 		TelaDAO.criarTabela();
 		UsuarioDAO.criarTabela();
+		EspacoDAO.criarTabela();
+		LeitoDAO.criarTabela();
 	}
 
 	public Usuario getUsuarioSessao() {

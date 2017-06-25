@@ -8,10 +8,11 @@ public class Leito {
 	
 	public Leito(int numero) {
 		this.numero = numero;
+		this.status = true;
 	}
 	
 	public Leito() {
-		// TODO Auto-generated constructor stub
+		this.status = true;
 	}
 
 	public int getCodigo() {

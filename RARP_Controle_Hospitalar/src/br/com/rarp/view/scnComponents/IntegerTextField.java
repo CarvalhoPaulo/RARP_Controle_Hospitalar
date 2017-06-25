@@ -11,12 +11,22 @@ public class IntegerTextField extends TextField {
 
 			@Override
 			public void handle(KeyEvent event) {
-				switch (event.getCode()) {
-				case UP:
-					setText(String.valueOf(Integer.parseInt(event.getText()) + 1));
+				switch (event.getCharacter()) {
+				case "+":
+					event.consume();
+					try {
+						setText(String.valueOf(Integer.parseInt(getText()) + 1));
+					} catch (NumberFormatException e1) {
+						setText("1");
+					}
 					break;
-				case DOWN:
-					setText(String.valueOf(Integer.parseInt(event.getText()) - 1));
+				case "-":
+					event.consume();
+					try {
+						setText(String.valueOf(Integer.parseInt(getText()) - 1));
+					} catch (NumberFormatException e1) {
+						setText("-1");
+					}
 					break;
 				default:
 					try {
@@ -32,7 +42,11 @@ public class IntegerTextField extends TextField {
 	}
 	
 	public Integer getValue() {
-		return Integer.parseInt(getText());
+		try {
+			return Integer.parseInt(getText());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 	
 	public void setValue(Integer value) {

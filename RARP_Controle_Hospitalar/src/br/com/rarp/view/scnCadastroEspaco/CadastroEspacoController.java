@@ -86,7 +86,7 @@ public class CadastroEspacoController extends Application implements Initializab
 		ImageCard imageCard = new ImageCard();
 		imageCard.setLeito(new Leito(Utilitarios.strToInt(edtNumeroLeito.getText())));
 		if(pnlLeitos.getChildren().contains(imageCard))
-			pnlLeitos.getChildren().remove(imageCard);
+			pnlLeitos.getChildren().remove(pnlLeitos.getChildren().indexOf(imageCard));
 	}
 
 	@Override
@@ -136,6 +136,8 @@ public class CadastroEspacoController extends Application implements Initializab
 		sbAtivado.setDisable(true);
 		btnGravar.setDisable(true);
 		sbAtivado.setDisable(true);
+		btnAdicionar.setDisable(true);
+		btnRemover.setDisable(true);
 	}
 
 	public void inserir() throws Exception {
@@ -191,8 +193,15 @@ public class CadastroEspacoController extends Application implements Initializab
 		espacoCtrl.getEspaco().setNumero(edtNumero.getValue());
 		espacoCtrl.getEspaco().setBloco(edtBloco.getText());
 		
-		for(Node n: pnlLeitos.getChildren())
-			espacoCtrl.getEspaco().getLeitos().add(((ImageCard) n).getLeito());
+		for(Leito l: espacoCtrl.getEspaco().getLeitos())
+			l.setStatus(false);
+		
+		for(Node n: pnlLeitos.getChildren()) {
+			if(espacoCtrl.getEspaco().getLeitos().contains(((ImageCard) n).getLeito()))
+				espacoCtrl.getEspaco().getLeitos().get(espacoCtrl.getEspaco().getLeitos().indexOf(((ImageCard) n).getLeito())).setStatus(true);
+			else
+				espacoCtrl.getEspaco().getLeitos().add(((ImageCard) n).getLeito());
+		}
 		espacoCtrl.getEspaco().setStatus(sbAtivado.switchOnProperty().get());
 	}
     
@@ -204,8 +213,11 @@ public class CadastroEspacoController extends Application implements Initializab
 		
 		for(Leito l: espacoCtrl.getEspaco().getLeitos()) {
 			ImageCard img = new ImageCard();
-			img.setLeito(l);
-			pnlLeitos.getChildren().add(img);
+			img.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
+			if(l.isStatus()) {
+				img.setLeito(l);
+				pnlLeitos.getChildren().add(img);
+			}
 		}
 		
 		sbAtivado.switchOnProperty().set(espacoCtrl.getEspaco().isStatus());

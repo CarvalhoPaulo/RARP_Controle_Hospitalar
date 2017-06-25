@@ -2,13 +2,12 @@ package br.com.rarp.view.scnManutencao.espaco;
 
 import br.com.rarp.control.EspacoCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.model.Espaco;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController;
-import br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController;
 
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
@@ -22,10 +21,17 @@ public class EspacoController extends ManutencaoController {
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Espaços");
 
-		TableColumn<EspacoController, String> codigo = new TableColumn<>("Código");
+		TableColumn<Espaco, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		TableColumn<Espaco, String> numero = new TableColumn<>("Número");
+		numero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+		TableColumn<Espaco, String> bloco = new TableColumn<>("Bloco");
+		bloco.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+		TableColumn<Espaco, String> andar = new TableColumn<>("Andar");
+		andar.setCellValueFactory(new PropertyValueFactory<>("andar"));
+		
 
-		tvManutencao.getColumns().addAll(codigo);
+		tvManutencao.getColumns().addAll(codigo, numero, bloco, andar);
 		tvManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
@@ -34,7 +40,9 @@ public class EspacoController extends ManutencaoController {
 
 	private void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
-
+		cmbCampo.getItems().add(new Campo("numero", "Número", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("bloco", "Bloco", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("andar", "Andar", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
@@ -67,7 +75,7 @@ public class EspacoController extends ManutencaoController {
 	@Override
 	public void alterar() {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
+			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.alteracao);
 			CadastroEspacoController controller = new CadastroEspacoController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
@@ -85,14 +93,14 @@ public class EspacoController extends ManutencaoController {
 	@Override
 	public void visualizar() {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
-			CadastroUsuarioController controller = new CadastroUsuarioController();
+			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.visualizaco);
+			CadastroEspacoController controller = new CadastroEspacoController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
-				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
-				usuarioCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
-				controller.visualizar(usuarioCtrl);
+				EspacoCtrl espacoCtrl = new EspacoCtrl();
+				espacoCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.visualizar(espacoCtrl);
 			}
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
