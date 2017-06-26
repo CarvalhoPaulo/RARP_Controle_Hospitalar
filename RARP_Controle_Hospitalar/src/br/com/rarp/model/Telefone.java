@@ -23,7 +23,15 @@ public class Telefone {
 
 	@Override
 	public boolean equals(Object obj) {
-		return numero == ((Telefone) obj).getNumero();
+		try {
+			return numero == ((Telefone) obj).getNumero();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
+	@Override
+	public String toString() {
+		return numero;
+	}
 }

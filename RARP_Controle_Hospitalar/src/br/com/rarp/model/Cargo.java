@@ -6,38 +6,55 @@ public class Cargo {
 	private String nome;
 	private String funcao;
 	private String requisitos;
-	private int nivel;
+	private String nivel;
+	private boolean status;
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
+
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getFuncao() {
 		return funcao;
 	}
+
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
 	}
+
 	public String getRequisitos() {
 		return requisitos;
 	}
+
 	public void setRequisitos(String requisitos) {
 		this.requisitos = requisitos;
 	}
-	public int getNivel() {
+
+	public String getNivel() {
 		return nivel;
 	}
-	public void setNivel(int nivel) {
+
+	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
-	
-	
-	
+
 }

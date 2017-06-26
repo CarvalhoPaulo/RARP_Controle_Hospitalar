@@ -54,7 +54,7 @@
          <center>
             <ToolBar fx:id="tlbBarraFerramentas" prefHeight="49.0" prefWidth="591.0" styleClass="panel" stylesheets="@../../style/style.css" BorderPane.alignment="CENTER">
               <items>
-                <Button fx:id="btnFuncionarios" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Funcionários" textAlignment="CENTER">
+                <Button fx:id="btnFuncionarios" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#manterFuncionario" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Funcionários" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>

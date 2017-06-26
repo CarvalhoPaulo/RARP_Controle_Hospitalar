@@ -21,13 +21,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
 public class CadastroFuncionarioController extends Application implements Initializable {
 
-	private Stage stage;
+	private static boolean visualizando;
+	private static Stage stage;
 
 	@FXML
 	private Button btnGravar;
@@ -101,7 +101,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	@FXML
 	private TextField edtCodigo;
 
-	private FuncionarioCtrl funcionarioCtrl;
+	private static FuncionarioCtrl funcionarioCtrl;
 
 	@FXML
 	private SwitchButton sbAtivado;
@@ -109,6 +109,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	@FXML
 	private ListView<Telefone> lsTelefones;
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
@@ -120,10 +121,12 @@ public class CadastroFuncionarioController extends Application implements Initia
 		return stage;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 
+	@SuppressWarnings("static-access")
 	public void alterar(FuncionarioCtrl funcionarioCtrl) throws Exception {
 		this.funcionarioCtrl = funcionarioCtrl;
 		start(SistemaCtrl.getInstance().getStage());
@@ -133,19 +136,18 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (funcionarioCtrl != null)
-			preencheTela();
+		sbAtivado.switchOnProperty().set(true);
+		edtCodigo.setDisable(true);
+		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null)
+			preencherTela();
+		if (visualizando)
+			bloquearTela();
 	}
 
 	public void inserir() throws Exception {
 		start(SistemaCtrl.getInstance().getStage());
 		stage.setResizable(false);
 		stage.showAndWait();
-	}
-
-	private void preencheTela() {
-		edtCodigo.setText(funcionarioCtrl.getFuncinario().getCodigo() + "");
-		edtNome.setText(funcionarioCtrl.getFuncinario().getNome());
 	}
 
 	private void limparCampos() {
@@ -205,64 +207,76 @@ public class CadastroFuncionarioController extends Application implements Initia
 		if (funcionarioCtrl == null) {
 			funcionarioCtrl = new FuncionarioCtrl();
 		}
-		if (funcionarioCtrl.getFuncinario() == null) {
+		if (funcionarioCtrl.getFuncionario() == null) {
 			funcionarioCtrl.novoFuncionario();
 		}
-		funcionarioCtrl.getFuncinario().setBairro(edtBairro.getText());
-		funcionarioCtrl.getFuncinario().setCargo(cmbCargo.getSelectionModel().getSelectedItem());
-		funcionarioCtrl.getFuncinario().setCep(edtCEP.getText());
-		funcionarioCtrl.getFuncinario().setCpf(edtCPF.getText());
-		funcionarioCtrl.getFuncinario().setCTPS(edtCTPS.getText());
-		funcionarioCtrl.getFuncinario().setDtNascimento(edtDataNasc.getCalendar().getTime());
-		funcionarioCtrl.getFuncinario().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
-		funcionarioCtrl.getFuncinario().setNumero(edtNumero.getText());
-		funcionarioCtrl.getFuncinario().setRg(edtRG.getText());
-		funcionarioCtrl.getFuncinario().setSalarioContratual(Double.parseDouble(edtSalarioContratual.getText()));
-		funcionarioCtrl.getFuncinario().setComplemento(edtComplemento.getText());
-		funcionarioCtrl.getFuncinario().setCodigo(Integer.parseInt(edtCodigo.getText()));
-		funcionarioCtrl.getFuncinario().setLogradouro(edtLogradouro.getText());
-		funcionarioCtrl.getFuncinario().setStatus(sbAtivado.switchOnProperty().get());
-		funcionarioCtrl.getFuncinario().setEstadoCivil(cmbEstadoCivil.getSelectionModel().getSelectedItem());
-		funcionarioCtrl.getFuncinario().setNome(edtNome.getText());
-		funcionarioCtrl.getFuncinario().setDtAdmissao(edtDataAdmissao.getCalendar().getTime());
-		funcionarioCtrl.getFuncinario().setPossuiNecessidades(rbSim.isSelected());
-		funcionarioCtrl.getFuncinario().setSexo(rbMasculino.isSelected() ? "M" : "F");
+		funcionarioCtrl.getFuncionario().setBairro(edtBairro.getText());
+		funcionarioCtrl.getFuncionario().setCargo(cmbCargo.getSelectionModel().getSelectedItem());
+		funcionarioCtrl.getFuncionario().setCep(edtCEP.getText());
+		funcionarioCtrl.getFuncionario().setCpf(edtCPF.getText());
+		funcionarioCtrl.getFuncionario().setCTPS(edtCTPS.getText());
+		if (edtDataNasc.getCalendar() != null)
+			funcionarioCtrl.getFuncionario().setDtNascimento(edtDataNasc.getCalendar().getTime());
+		funcionarioCtrl.getFuncionario().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
+		funcionarioCtrl.getFuncionario().setNumero(edtNumero.getText());
+		funcionarioCtrl.getFuncionario().setRg(edtRG.getText());
+		funcionarioCtrl.getFuncionario().setSalarioContratual(Utilitarios.strToDouble(edtSalarioContratual.getText()));
+		funcionarioCtrl.getFuncionario().setComplemento(edtComplemento.getText());
+		funcionarioCtrl.getFuncionario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
+		funcionarioCtrl.getFuncionario().setLogradouro(edtLogradouro.getText());
+		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.switchOnProperty().get());
+		funcionarioCtrl.getFuncionario().setEstadoCivil(cmbEstadoCivil.getSelectionModel().getSelectedItem());
+		funcionarioCtrl.getFuncionario().setNome(edtNome.getText());
+		if (edtDataAdmissao.getCalendar() != null)
+			funcionarioCtrl.getFuncionario().setDtAdmissao(edtDataAdmissao.getCalendar().getTime());
+		funcionarioCtrl.getFuncionario().setPossuiNecessidades(rbSim.isSelected());
+		funcionarioCtrl.getFuncionario().setSexo(rbMasculino.isSelected() ? "M" : "F");
 	}
 
 	private void preencherTela() {
-		edtBairro.setText(funcionarioCtrl.getFuncinario().getBairro());
-		edtCEP.setText(funcionarioCtrl.getFuncinario().getCep());
-		edtCodigo.setText(funcionarioCtrl.getFuncinario().getCodigo() + "");
-		edtComplemento.setText(funcionarioCtrl.getFuncinario().getComplemento());
-		edtCPF.setText(funcionarioCtrl.getFuncinario().getCpf());
-		edtCTPS.setText(funcionarioCtrl.getFuncinario().getCTPS());
-		edtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncinario().getDtAdmissao()));
-		edtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncinario().getDtNascimento());
-		edtLogradouro.setText(funcionarioCtrl.getFuncinario().getLogradouro());
-		edtNome.setText(funcionarioCtrl.getFuncinario().getNome());
-		edtNumero.setText(funcionarioCtrl.getFuncinario().getNumero());
-		edtRG.setText(funcionarioCtrl.getFuncinario().getRg());
-		edtSalarioContratual.setText(funcionarioCtrl.getFuncinario().getSalarioContratual() + "");
-		cmbCargo.getSelectionModel().select(funcionarioCtrl.getFuncinario().getCargo());
-		cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncinario().getCidade());
-		rbSim.setSelected(funcionarioCtrl.getFuncinario().isPossuiNecessidades());
-		rbMasculino.setSelected(funcionarioCtrl.getFuncinario().getSexo() == "M");
+		edtBairro.setText(funcionarioCtrl.getFuncionario().getBairro());
+		edtCEP.setText(funcionarioCtrl.getFuncionario().getCep());
+		edtCodigo.setText(funcionarioCtrl.getFuncionario().getCodigo() + "");
+		edtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
+		edtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
+		edtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
+		edtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
+		edtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());
+		edtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
+		edtNome.setText(funcionarioCtrl.getFuncionario().getNome());
+		edtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
+		edtRG.setText(funcionarioCtrl.getFuncionario().getRg());
+		edtSalarioContratual.setText(funcionarioCtrl.getFuncionario().getSalarioContratual() + "");
+		cmbCargo.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCargo());
+		cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCidade());
+		rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
+		rbMasculino.setSelected(funcionarioCtrl.getFuncionario().getSexo() == "M");
+	}
+
+	@SuppressWarnings("static-access")
+	public void visualizar(FuncionarioCtrl funcionarioCtrl) throws Exception {
+		visualizando = true;
+		this.funcionarioCtrl = funcionarioCtrl;
+		start(SistemaCtrl.getInstance().getStage());
+		stage.showAndWait();
 	}
 
 	@FXML
-	private void adicionarTelefone(MouseEvent event) {
+	private void adicionarTelefone() {
 		Telefone telefone = new Telefone();
 		telefone.setNumero(edtTelefone.getText());
-		lsTelefones.getItems().add(telefone);
+		if (!telefone.getNumero().isEmpty())
+			lsTelefones.getItems().add(telefone);
+		edtTelefone.setText("");
 	}
 
 	@FXML
-	private void removerTelefone(MouseEvent event) {
+	private void removerTelefone() {
 		lsTelefones.getItems().remove(lsTelefones.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML
-	private void salvar(MouseEvent event) {
+	private void salvar() {
 		preencherObjeto();
 		try {
 			funcionarioCtrl.salvar();
