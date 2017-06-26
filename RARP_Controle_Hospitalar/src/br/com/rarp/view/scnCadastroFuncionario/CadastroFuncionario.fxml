@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.CalendarTextField?>
+<?import jfxtras.scene.control.ImageViewButton?>
 <?import jfxtras.scene.control.ListView?>
 
 <AnchorPane prefHeight="530.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
@@ -30,7 +31,7 @@
                         <Image url="@../img/Usuario_128x128.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                  <Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,7 +67,7 @@
                            <content>
                               <AnchorPane prefHeight="447.0" prefWidth="515.0">
                                  <children>
-                                    <Label layoutY="58.0" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                    <Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -87,7 +88,7 @@
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label layoutX="-142.0" layoutY="-22.0" text="CPF:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CPF:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -101,7 +102,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                              <children>
-                                                <Label layoutX="-121.0" layoutY="11.0" text="RG:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="-121.0" layoutY="11.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="RG:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -126,7 +127,7 @@
                                        <children>
                                           <AnchorPane prefHeight="63.0" prefWidth="240.0">
                                              <children>
-                                                <Label layoutX="-197.0" layoutY="-10.0" text="Sexo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="-197.0" layoutY="-10.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Sexo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -156,7 +157,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                              <children>
-                                                <Label layoutX="21.0" layoutY="16.0" text="Data de Nascimento:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="21.0" layoutY="16.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Nascimento:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -180,7 +181,7 @@
                                        <children>
                                           <AnchorPane prefHeight="28.0" prefWidth="240.0">
                                              <children>
-                                                <Label layoutX="7.0" layoutY="6.0" text="Logradouro:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Logradouro:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -208,7 +209,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                              <children>
-                                                <Label layoutY="6.0" text="Número:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Número:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -222,7 +223,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="65.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <children>
-                                                <Label layoutY="6.0" text="Bairro:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Bairro:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -236,7 +237,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                              <children>
-                                                <Label layoutX="7.0" layoutY="6.0" text="Cidade:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Cidade:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -270,7 +271,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <children>
-                                                <Label layoutX="8.0" layoutY="6.0" text="Possui Necessidades Especiais:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="8.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Possui Necessidades Especiais:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -332,7 +333,7 @@
                                                    <children>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                          <children>
-                                                            <Label layoutX="7.0" layoutY="6.0" text="CTPS:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                            <Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CTPS:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                                <font>
                                                                   <Font size="14.0" />
                                                                </font>
@@ -346,7 +347,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                          <children>
-                                                            <Label layoutX="42.0" layoutY="12.0" text="Salário Contratual:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                            <Label layoutX="42.0" layoutY="12.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Salário Contratual:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                                <font>
                                                                   <Font size="14.0" />
                                                                </font>
@@ -360,7 +361,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="93.0" prefWidth="261.0" GridPane.rowIndex="2">
                                                          <children>
-                                                            <Label layoutX="48.0" layoutY="11.0" text="Data de Admissão:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                            <Label layoutX="48.0" layoutY="11.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Admissão:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                                <font>
                                                                   <Font size="14.0" />
                                                                </font>
@@ -370,7 +371,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                                          <children>
-                                                            <Label layoutX="27.0" layoutY="19.0" text="Cargo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                            <Label layoutX="27.0" layoutY="19.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Cargo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                                <font>
                                                                   <Font size="14.0" />
                                                                </font>
@@ -403,20 +404,20 @@
                                                    <children>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                                                          <children>
-                                                            <ImageView layoutX="7.0" layoutY="30.0">
+                                                            <ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="-1.0" layoutY="26.0" onMouseClicked="#removerTelefone">
                                                                <image>
-                                                                  <Image url="@../../../../../../../../../Downloads/rubbish-bin%20(3).png" />
+                                                                  <Image url="@../img/rubbish-bin%20(3).png" />
                                                                </image>
-                                                            </ImageView>
+                                                            </ImageViewButton>
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                                          <children>
-                                                            <ImageView layoutX="11.0" layoutY="30.0">
+                                                            <ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="27.0" onMouseClicked="#adicionarTelefone">
                                                                <image>
-                                                                  <Image url="@../../../../../../../../../Downloads/add-button-inside-black-circle%20(2).png" />
+                                                                  <Image url="@../img/add-button-inside-black-circle%20(2).png" />
                                                                </image>
-                                                            </ImageView>
+                                                            </ImageViewButton>
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="60.0" prefWidth="166.0">
@@ -426,7 +427,7 @@
                                                                   <Font size="14.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField layoutX="3.0" layoutY="24.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                                                            <TextField fx:id="edtTelefone" layoutX="3.0" layoutY="24.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                                                                <font>
                                                                   <Font size="14.0" />
                                                                </font>
@@ -437,7 +438,7 @@
                                                 </GridPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <ListView layoutX="-39.0" layoutY="-97.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+                                                      <ListView fx:id="lsTelefones" layoutX="-39.0" layoutY="-97.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>

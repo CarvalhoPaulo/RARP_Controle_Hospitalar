@@ -8,7 +8,6 @@ public class Funcionario extends PessoaFisica {
 	private double salarioContratual;
 	private Cargo cargo;
 	private String estadoCivil;
-	private boolean status;
 
 	public String getEstadoCivil() {
 		return estadoCivil;
@@ -40,13 +39,5 @@ public class Funcionario extends PessoaFisica {
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 }

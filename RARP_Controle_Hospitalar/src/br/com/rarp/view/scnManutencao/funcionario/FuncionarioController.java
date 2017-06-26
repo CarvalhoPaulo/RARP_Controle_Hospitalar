@@ -1,9 +1,12 @@
 package br.com.rarp.view.scnManutencao.funcionario;
 
+import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Funcionario;
+import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -24,7 +27,19 @@ public class FuncionarioController extends ManutencaoController {
 		cargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
 		TableColumn<Funcionario, String> telefone = new TableColumn<>("Telefone");
 		telefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+
 		tvManutencao.getColumns().addAll(codigo, nome, cpf, cargo, telefone);
+		tvManutencao.setEditable(false);
+		adicionarCampos();
+		cmbCampo.getSelectionModel().select(0);
+		cmbCampo.getOnAction().handle(new ActionEvent());
+	}
+
+	public void adicionarCampos() {
+		// Adicionar todos os campos que são strings numéricos ou booleanos,
+		// para pesquisa.
+		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
 	@Override

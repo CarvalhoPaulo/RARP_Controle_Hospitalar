@@ -32,7 +32,6 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -40,14 +39,21 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 public class MainController extends Application implements Initializable {
-	
-	@FXML private ImageView imgMain;
-	@FXML private AnchorPane pnContent;
-	@FXML private BorderPane pnMain;
-	@FXML private CheckMenuItem mniControleAcesso;
-	@FXML private ImageView imgControleAcesso;
-	@FXML private Label lblRelogio;
-    @FXML private Label lblUsuarioSessao;
+
+	@FXML
+	private ImageView imgMain;
+	@FXML
+	private AnchorPane pnContent;
+	@FXML
+	private BorderPane pnMain;
+	@FXML
+	private CheckMenuItem mniControleAcesso;
+	@FXML
+	private ImageView imgControleAcesso;
+	@FXML
+	private Label lblRelogio;
+	@FXML
+	private Label lblUsuarioSessao;
 
 	private ManutencaoController manutencao;
 
@@ -55,21 +61,21 @@ public class MainController extends Application implements Initializable {
 	public void start(Stage stage) throws Exception {
 		try {
 			SplashController splash = new SplashController();
-			splash.abrir(2);	
+			splash.abrir(2);
 			SistemaCtrl.getInstance().configuraConexao();
 			splash.next();
 			SistemaCtrl.getInstance().criarTabelas();
 			splash.next();
 			splash.getStage().close();
-			if(SistemaCtrl.getInstance().getPropriedades().getControleAcesso()) {
+			if (SistemaCtrl.getInstance().getPropriedades().getControleAcesso()) {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
-				if(!usuarioCtrl.isEmpty()) {
+				if (!usuarioCtrl.isEmpty()) {
 					LoginController login = new LoginController();
-					if(!login.logar())
+					if (!login.logar())
 						System.exit(0);
 				}
 			}
-			
+
 			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
 			stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
 			stage.setMaximized(true);
@@ -80,7 +86,7 @@ public class MainController extends Application implements Initializable {
 					SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 				}
 			});
-			
+
 			try {
 				SistemaCtrl.getInstance().getConexao().getConexao();
 			} catch (Exception e) {
@@ -89,8 +95,8 @@ public class MainController extends Application implements Initializable {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-			
-			stage.show();	
+
+				stage.show();
 			}
 			SistemaCtrl.getInstance().criarTabelas();
 			splash.getStage().close();
@@ -116,7 +122,7 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	private void manterEspacos(ActionEvent event) {
 		try {
@@ -130,9 +136,10 @@ public class MainController extends Application implements Initializable {
 	}
 
 	public void ativarDesativarControleAcesso() {
-		if(mniControleAcesso.isSelected()) {
-			imgControleAcesso.setImage(new Image(getClass().getResource("..\\..\\img\\security-system-ativada-16x16.png").toString()));
-			if(SistemaCtrl.getInstance().getUsuarioSessao() == null) {
+		if (mniControleAcesso.isSelected()) {
+			imgControleAcesso.setImage(
+					new Image(getClass().getResource("..\\..\\img\\security-system-ativada-16x16.png").toString()));
+			if (SistemaCtrl.getInstance().getUsuarioSessao() == null) {
 				LoginController login = new LoginController();
 				try {
 					login.logar();
@@ -143,7 +150,8 @@ public class MainController extends Application implements Initializable {
 			mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
 			lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
 		} else {
-			imgControleAcesso.setImage(new Image(getClass().getResource("..\\..\\img\\security-system-desativada-16x16.png").toString()));
+			imgControleAcesso.setImage(
+					new Image(getClass().getResource("..\\..\\img\\security-system-desativada-16x16.png").toString()));
 			SistemaCtrl.getInstance().setUsuarioSessao(null);
 		}
 	}
@@ -169,16 +177,16 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-    @FXML
-    private void trocarUsuario(ActionEvent event) {
+
+	@FXML
+	private void trocarUsuario(ActionEvent event) {
 		LoginController login = new LoginController();
 		try {
 			login.logar();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	public void sair() {
 		SistemaCtrl.getInstance().getPropriedades().setPropriedades();
@@ -203,11 +211,11 @@ public class MainController extends Application implements Initializable {
 	}
 
 	private void atualizaHora() {
-		lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date().getTime())); 
+		lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date().getTime()));
 	}
 
 	@FXML
-	public void manterFuncionario(MouseEvent event) {
+	public void manterFuncionario(ActionEvent event) {
 		try {
 			manutencao = new FuncionarioController();
 			pnMain.setCenter(manutencao.getNode());
