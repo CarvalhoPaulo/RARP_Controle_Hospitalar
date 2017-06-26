@@ -4,7 +4,7 @@ public class Especialidade {
 
 	private int codigo;
 	private String nome;
-	private int tipo;
+
 	public int getCodigo() {
 		return codigo;
 	}
@@ -16,12 +16,6 @@ public class Especialidade {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
 	}
 
 }
