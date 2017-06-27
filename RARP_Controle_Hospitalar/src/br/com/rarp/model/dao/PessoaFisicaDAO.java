@@ -22,7 +22,6 @@ public class PessoaFisicaDAO {
 		sql += "sexo VARCHAR(20), ";
 		sql += "possuiNecessidades BOOLEAN, ";
 		sql += "certidaoNascimento VARCHAR(50), ";
-		sql += "ctps VARCHAR(20), ";
 		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -46,12 +45,13 @@ public class PessoaFisicaDAO {
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setInt(1, pessoaFisica.getCodigo());
 			ps.setString(2, pessoaFisica.getCpf());
-			ps.setString(3, pessoaFisica.getSexo());
-			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
-			ps.setString(5, pessoaFisica.getCertidaoNascimento());
-			ps.setString(6, pessoaFisica.getCTPS());
-			ps.setInt(7, pessoaFisica.getCodigo());
-			ps.setBoolean(7, pessoaFisica.isStatus());
+			ps.setString(3, pessoaFisica.getRg());
+			ps.setString(4, pessoaFisica.getSexo());
+			ps.setBoolean(5, pessoaFisica.isPossuiNecessidades());
+			ps.setString(6, pessoaFisica.getCertidaoNascimento());
+			ps.setString(7, pessoaFisica.getCTPS());
+			ps.setInt(8, pessoaFisica.getCodigo());
+			ps.setBoolean(9, pessoaFisica.isStatus());
 			ps.executeUpdate();
 			ps.close();
 
@@ -71,17 +71,16 @@ public class PessoaFisicaDAO {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "INSERT INTO pessoaFisica(codigo_pf, cpf, rg, sexo, possuiNecessidades, certidaoNascimento, ctps, codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento, ctps, codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, pessoaFisica.getCodigo());
-			ps.setString(2, pessoaFisica.getCpf());
-			ps.setString(3, pessoaFisica.getRg());
-			ps.setString(4, pessoaFisica.getSexo());
-			ps.setBoolean(5, pessoaFisica.isPossuiNecessidades());
-			ps.setString(6, pessoaFisica.getCertidaoNascimento());
-			ps.setString(7, pessoaFisica.getCpf());
-			ps.setInt(8, pessoaFisica.getCodigo());
-			ps.setBoolean(9, pessoaFisica.isStatus());
+			ps.setString(1, pessoaFisica.getCpf());
+			ps.setString(2, pessoaFisica.getRg());
+			ps.setString(3, pessoaFisica.getSexo());
+			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
+			ps.setString(5, pessoaFisica.getCertidaoNascimento());
+			ps.setString(6, pessoaFisica.getCTPS());
+			ps.setInt(7, pessoaFisica.getCodigo());
+			ps.setBoolean(8, pessoaFisica.isStatus());
 
 			ps.executeUpdate();
 			ps.close();

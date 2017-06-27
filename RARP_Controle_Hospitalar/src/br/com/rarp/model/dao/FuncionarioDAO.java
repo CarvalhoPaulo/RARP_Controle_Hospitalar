@@ -25,6 +25,7 @@ public class FuncionarioDAO {
 		sql += "funcionario(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "dataAdmissao TIMESTAMP, ";
+		sql += "ctps VARCHAR(20), ";
 		sql += "codigo_cargo INTEGER REFERENCES cargo(codigo), ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";

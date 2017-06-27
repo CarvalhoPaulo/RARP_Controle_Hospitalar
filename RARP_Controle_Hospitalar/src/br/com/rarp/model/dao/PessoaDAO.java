@@ -1,7 +1,6 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -52,11 +51,6 @@ public class PessoaDAO {
 			ps.setInt(9, pessoa.getCodigo());
 			ps.executeUpdate();
 			ps.close();
-
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoa.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -67,7 +61,7 @@ public class PessoaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO pessoa(nome,logradouro,complemento,numero,bairro,cep,codigo_cidade,status) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, codigo_cidade, status) VALUES(?,?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
