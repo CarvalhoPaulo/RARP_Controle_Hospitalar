@@ -1,5 +1,6 @@
 package br.com.rarp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,11 @@ public class Pessoa {
 	private List<Telefone> telefones;
 	private Cidade cidade;
 	private boolean status;
+	
+	public Pessoa() {
+		cidade = new Cidade();
+		telefones = new ArrayList<>();
+	}
 
 	public int getCodigo() {
 		return codigo;

@@ -1,9 +1,12 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class FuncionarioDAO {
 		sql += "funcionario(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "dataAdmissao TIMESTAMP, ";
+		sql += "salarioContratual NUMERIC(13, 2), ";
 		sql += "codigo_cargo INTEGER REFERENCES cargo(codigo), ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";
@@ -43,7 +47,7 @@ public class FuncionarioDAO {
 					+ "RIGHT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
 					+ "RIGHT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
 					+ "RIGHT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "RIGHT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE FUNC." + campo + comparacao + termo;
+					+ "RIGHT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE " + campo + comparacao + termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -61,7 +65,6 @@ public class FuncionarioDAO {
 				funcionario.setNumero(rs.getString(rs.getString("PE.numero")));
 				funcionario.setBairro(rs.getString("PE.bairro"));
 				funcionario.setCep(rs.getString("PE.cep"));
-
 				Cidade cidade = new Cidade();
 				cidade.setCodigo(rs.getInt("CID.codigo"));
 				cidade.setNome(rs.getString("CID.nome"));
@@ -106,10 +109,16 @@ public class FuncionarioDAO {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 			pessoaFisicaDAO.salvar(funcionario);
 
-			String sql = "INSERT INTO funcionario(codigo_pf, status) VALUES(?,?)";
+			String sql = "INSERT INTO funcionario(dataAdmissao, salarioContratual, codigo_cargo, status) VALUES(?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, funcionario.getCodigo());
-			ps.setBoolean(2, funcionario.isStatus());
+			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
+			ps.setDouble(2, funcionario.getSalarioContratual());
+			if(funcionario.getCargo() != null)
+				ps.setInt(3, funcionario.getCargo().getCodigo());
+			else
+				ps.setNull(3, Types.INTEGER);
+			ps.setBoolean(4, funcionario.isStatus());
+
 			ps.executeUpdate();
 			ps.close();
 		} finally {
@@ -124,11 +133,25 @@ public class FuncionarioDAO {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 			pessoaFisicaDAO.salvar(funcionario);
 
-			String sql = "UPDATE funcionario SET status=? WHERE codigo=?";
+			String sql = "UPDATE funcionario SET nome=?, cpf =?, rg =?, dtAdmissao =?, salarioContratual =?, cargo =?, estadoCivil =?, sexo =?, possuiNecessidades =?, ctps =?, logradouro =?, complemento =?, numero =?, bairro =?, cep =?, cidade =?, status =? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, funcionario.getNome());
-
-			ps.setBoolean(6, funcionario.isStatus());
+			ps.setString(2, funcionario.getCep());
+			ps.setString(3, funcionario.getRg());
+			ps.setDate(4, new Date(funcionario.getDtAdmissao().getTime()));
+			ps.setDouble(5, funcionario.getSalarioContratual());
+			ps.setInt(6, funcionario.getCargo().getCodigo());
+			ps.setString(7, funcionario.getEstadoCivil());
+			ps.setBoolean(8, funcionario.isPossuiNecessidades());
+			ps.setString(9, funcionario.getCTPS());
+			ps.setString(10, funcionario.getLogradouro());
+			ps.setString(11, funcionario.getComplemento());
+			ps.setString(12, funcionario.getNumero());
+			ps.setString(13, funcionario.getBairro());
+			ps.setString(14, funcionario.getCep());
+			ps.setString(15, funcionario.getComplemento());
+			ps.setInt(16, funcionario.getCidade().getCodigo());
+			ps.setBoolean(17, funcionario.isStatus());
 			ps.executeUpdate();
 			ps.close();
 		} finally {

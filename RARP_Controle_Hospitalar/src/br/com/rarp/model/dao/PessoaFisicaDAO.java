@@ -17,7 +17,7 @@ public class PessoaFisicaDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "pessoaFisica(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "cpf VARCHAR(11) UNIQUE, ";
+		sql += "cpf VARCHAR(11), ";
 		sql += "rg VARCHAR(20), ";
 		sql += "sexo VARCHAR(20), ";
 		sql += "possuiNecessidades BOOLEAN, ";
@@ -42,23 +42,19 @@ public class PessoaFisicaDAO {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "UPDATE pessoaFisica SET codigo = ?, cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, ctps=?, codigo_pessoa=?, status=? WHERE codigo = ?";
+			String sql = "UPDATE pessoaFisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, ctps=?, codigo_pessoa=?, status=? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, pessoaFisica.getCodigo());
-			ps.setString(2, pessoaFisica.getCpf());
+			ps.setString(1, pessoaFisica.getCpf());
+			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
 			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
 			ps.setString(5, pessoaFisica.getCertidaoNascimento());
 			ps.setString(6, pessoaFisica.getCTPS());
 			ps.setInt(7, pessoaFisica.getCodigo());
-			ps.setBoolean(7, pessoaFisica.isStatus());
+			ps.setBoolean(8, pessoaFisica.isStatus());
+			
 			ps.executeUpdate();
 			ps.close();
-
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoaFisica.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -71,17 +67,16 @@ public class PessoaFisicaDAO {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "INSERT INTO pessoaFisica(codigo_pf, cpf, rg, sexo, possuiNecessidades, certidaoNascimento, ctps, codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento, ctps, codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, pessoaFisica.getCodigo());
-			ps.setString(2, pessoaFisica.getCpf());
-			ps.setString(3, pessoaFisica.getRg());
-			ps.setString(4, pessoaFisica.getSexo());
-			ps.setBoolean(5, pessoaFisica.isPossuiNecessidades());
-			ps.setString(6, pessoaFisica.getCertidaoNascimento());
-			ps.setString(7, pessoaFisica.getCpf());
-			ps.setInt(8, pessoaFisica.getCodigo());
-			ps.setBoolean(9, pessoaFisica.isStatus());
+			ps.setString(1, pessoaFisica.getCpf());
+			ps.setString(2, pessoaFisica.getRg());
+			ps.setString(3, pessoaFisica.getSexo());
+			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
+			ps.setString(5, pessoaFisica.getCertidaoNascimento());
+			ps.setString(6, pessoaFisica.getCTPS());
+			ps.setInt(7, pessoaFisica.getCodigo());
+			ps.setBoolean(8, pessoaFisica.isStatus());
 
 			ps.executeUpdate();
 			ps.close();

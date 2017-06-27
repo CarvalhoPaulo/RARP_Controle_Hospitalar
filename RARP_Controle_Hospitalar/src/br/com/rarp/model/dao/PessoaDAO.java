@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Pessoa;
@@ -52,11 +53,6 @@ public class PessoaDAO {
 			ps.setInt(9, pessoa.getCodigo());
 			ps.executeUpdate();
 			ps.close();
-
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoa.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -75,10 +71,18 @@ public class PessoaDAO {
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
 			ps.setString(6, pessoa.getCep());
-			ps.setInt(7, pessoa.getCidade().getCodigo());
+			if(pessoa.getCidade() != null)
+				ps.setInt(7, pessoa.getCidade().getCodigo());
+			else
+				ps.setNull(7, Types.INTEGER);
 			ps.setBoolean(8, pessoa.isStatus());
 			ps.executeUpdate();
 			ps.close();
+			
+			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				pessoa.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
 			conexao.getConexao().close();
 		}

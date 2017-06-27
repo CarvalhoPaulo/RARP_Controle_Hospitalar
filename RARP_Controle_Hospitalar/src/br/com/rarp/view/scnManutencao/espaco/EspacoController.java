@@ -8,8 +8,7 @@ import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController;
-import br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController;
-
+import br.com.rarp.view.scnCadastroUsuario.CadastroCidadeController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
@@ -86,7 +85,7 @@ public class EspacoController extends ManutencaoController {
 	public void visualizar() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
-			CadastroUsuarioController controller = new CadastroUsuarioController();
+			CadastroCidadeController controller = new CadastroCidadeController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {

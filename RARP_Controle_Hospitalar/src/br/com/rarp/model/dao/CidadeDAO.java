@@ -1,8 +1,11 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cidade;
@@ -65,5 +68,28 @@ public class CidadeDAO {
 		} finally {
 			conexao.getConexao().close();
 		}
+	}
+
+	public List<Cidade> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
+		List<Cidade> cidades = new ArrayList<>();
+		PreparedStatement ps;
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		try {
+			String sql = "SELECT nome FROM cidade WHERE " + campo + comparacao + termo;
+			ps = conexao.getConexao().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				// Cidade cidade = new Cidade();
+				// cidade.setCodigo(rs.getInt("codigo"));
+				// cidade.setNome(rs.getString("nome"));
+				// cidade.setStatus(rs.getBoolean("status"));
+				// cidade.setTelas(new TelaDAO().getTelas(cidade));
+				// cidades.add(cidade);
+			}
+			ps.close();
+		} finally {
+			conexao.getConexao().close();
+		}
+		return cidades;
 	}
 }

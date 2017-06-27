@@ -3,15 +3,20 @@ package br.com.rarp.view.scnCadastroFuncionario;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
 import br.com.rarp.model.Telefone;
+import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
@@ -138,10 +144,28 @@ public class CadastroFuncionarioController extends Application implements Initia
 	public void initialize(URL location, ResourceBundle resources) {
 		sbAtivado.switchOnProperty().set(true);
 		edtCodigo.setDisable(true);
+		CidadeCtrl cidadeCtrl = new CidadeCtrl();
+		try {
+			cmbCidade.setItems(
+					cidadeCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null)
 			preencherTela();
 		if (visualizando)
 			bloquearTela();
+		
+		ToggleGroup tgPossuiNecessidades = new ToggleGroup();
+		tgPossuiNecessidades.getToggles().add(rbSim);
+		tgPossuiNecessidades.getToggles().add(rbNao);
+		tgPossuiNecessidades.selectToggle(rbNao);
+		
+		ToggleGroup tgSexo = new ToggleGroup();
+		tgSexo.getToggles().add(rbMasculino);
+		tgSexo.getToggles().add(rbFeminimo);
+		tgSexo.selectToggle(rbMasculino);
 	}
 
 	public void inserir() throws Exception {
@@ -178,7 +202,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	private void bloquearTela() {
 		edtBairro.setDisable(true);
-		cmbCargo.setDisable(true);
+		// cmbCargo.setDisable(true);
 		edtCEP.setDisable(true);
 		edtCodigo.setDisable(true);
 		edtComplemento.setDisable(true);
@@ -257,6 +281,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	public void visualizar(FuncionarioCtrl funcionarioCtrl) throws Exception {
 		visualizando = true;
 		this.funcionarioCtrl = funcionarioCtrl;
+		rbNao.setSelected(true);
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
 	}

@@ -7,7 +7,7 @@ import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController;
+import br.com.rarp.view.scnCadastroUsuario.CadastroCidadeController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
@@ -64,7 +64,7 @@ public class UsuarioController extends ManutencaoController {
 	public void inserir() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.insercao);
-			CadastroUsuarioController controler = new CadastroUsuarioController();
+			CadastroCidadeController controler = new CadastroCidadeController();
 			controler.inserir();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -76,7 +76,7 @@ public class UsuarioController extends ManutencaoController {
 	public void alterar() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
-			CadastroUsuarioController controller = new CadastroUsuarioController();
+			CadastroCidadeController controller = new CadastroCidadeController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
@@ -94,7 +94,7 @@ public class UsuarioController extends ManutencaoController {
 	public void visualizar() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
-			CadastroUsuarioController controller = new CadastroUsuarioController();
+			CadastroCidadeController controller = new CadastroCidadeController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {

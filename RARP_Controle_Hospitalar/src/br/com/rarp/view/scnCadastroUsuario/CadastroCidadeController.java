@@ -24,7 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CadastroUsuarioController extends Application implements Initializable {
+public class CadastroCidadeController extends Application implements Initializable {
 
 	private static Stage stage;
 	
@@ -52,7 +52,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 	}
 
 	public void setStage(Stage stage) {
-		CadastroUsuarioController.stage = stage;
+		CadastroCidadeController.stage = stage;
 	}
 	
 	private void limparCampos() {

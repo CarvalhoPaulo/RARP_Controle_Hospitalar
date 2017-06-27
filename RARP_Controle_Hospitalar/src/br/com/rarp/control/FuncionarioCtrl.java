@@ -1,7 +1,11 @@
 package br.com.rarp.control;
 
+import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.bo.FuncionarioBusiness;
+import br.com.rarp.utils.Campo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class FuncionarioCtrl {
 	private Funcionario funcionario;
@@ -14,10 +18,19 @@ public class FuncionarioCtrl {
 		this.funcionario = funcionario;
 	}
 
+	public void setFuncionario(Object object) {
+		this.funcionario = (Funcionario) object;
+	}
+
 	public void salvar() throws Exception {
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		validarDadosObrigatorios();
 		funcionarioBusiness.salvar(funcionario);
+	}
+
+	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+		return FXCollections.observableList(funcionarioBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
@@ -27,42 +40,16 @@ public class FuncionarioCtrl {
 		if (funcionario.getCpf().isEmpty()) {
 			throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
 		}
-		if (funcionario.getCTPS().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o CTPS");
-		}
-		if (funcionario.getLogradouro().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o endereço");
-		}
-		if (funcionario.getCargo().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
-		}
+		// if (funcionario.getCargo().equals("")) {
+		// throw new Exception("Para cadastrar um funcionário é necessário
+		// informar o cargo");
+		// }
 		if (funcionario.getDtAdmissao().toString().equals("")) {
 			throw new Exception("Para cadastrar um funcionário é necessário informar a data de admissão");
 		}
-		if (funcionario.getRg().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o RG");
-		}
+
 		if (funcionario.getSexo().equals("")) {
 			throw new Exception("Para cadastrar um funcionário é necessário informar o sexo");
-		}
-		if (funcionario.getCidade().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar uma cidade");
-		}
-		if (funcionario.getBairro().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar um bairro");
-		}
-		if (funcionario.getDtNascimento().toString().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar a data de nascimento");
-		}
-		if (funcionario.getNumero().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o número da casa");
-		}
-		// if (funcionario.getSalarioContratual() == null) {
-		// throw new Exception("Para cadastrar um funcionário é necessário
-		// informar o salário");
-		// }
-		if (!funcionario.isPossuiNecessidades()) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar se possui necessidades");
 		}
 	}
 
