@@ -6,11 +6,11 @@ import java.sql.Statement;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
-import br.com.rarp.model.Funcionario;
 
-public class EspecialidadeDAO {
+public class MedicoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
-	
+		if (!SistemaCtrl.getInstance().tabelaExiste("funcionario"))
+			throw new Exception("Crie a tabela de funcionario fisica antes de criar a tabela de funcionarios");
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "especialidade(";
@@ -52,4 +52,5 @@ public class EspecialidadeDAO {
 			conexao.getConexao().close();
 		}
 	}
+
 }

@@ -11,6 +11,13 @@ public class Medico extends Funcionario {
 
 	private String CRM;
 	private List<Especialidade> especialidades;
+	private boolean status ;
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public String getCRM() {
 		return CRM;
 	}
