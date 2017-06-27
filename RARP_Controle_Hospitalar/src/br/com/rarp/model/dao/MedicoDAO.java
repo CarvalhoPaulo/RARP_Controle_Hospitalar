@@ -15,7 +15,7 @@ public class MedicoDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "especialidade(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome varchar(250) , ";
+		sql += "nome varchar(250)  ";
 		sql  += ")";
 		st.executeUpdate(sql);
 	}

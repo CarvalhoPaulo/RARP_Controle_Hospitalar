@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.model.Medico;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
@@ -14,9 +15,11 @@ import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
 import br.com.rarp.model.dao.ConvenioDAO;
 import br.com.rarp.model.dao.EspacoDAO;
+import br.com.rarp.model.dao.EspecialidadeDAO;
 import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
 import br.com.rarp.model.dao.LeitoDAO;
+import br.com.rarp.model.dao.MedicoDAO;
 import br.com.rarp.model.dao.PerfilUsuarioDAO;
 import br.com.rarp.model.dao.PessoaDAO;
 import br.com.rarp.model.dao.PessoaFisicaDAO;
@@ -149,6 +152,8 @@ public class SistemaCtrl {
 		UsuarioDAO.criarTabela();
 		EspacoDAO.criarTabela();
 		LeitoDAO.criarTabela();
+		EspecialidadeDAO.criarTabela();
+		MedicoDAO.criarTabela();
 	}
 
 	public Usuario getUsuarioSessao() {

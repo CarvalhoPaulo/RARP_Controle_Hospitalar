@@ -43,13 +43,7 @@ public class EspecialidadeController extends ManutencaoController {
 
 	@Override
 	public void inserir() {
-		try {
-			CadastroFuncionarioController controler = new CadastroFuncionarioController();
-			controler.inserir();
-		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");
-			e.printStackTrace();
-		}
+		
 	}
 
 	@Override
