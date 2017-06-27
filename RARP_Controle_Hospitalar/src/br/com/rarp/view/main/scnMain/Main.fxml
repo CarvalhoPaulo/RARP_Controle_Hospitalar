@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pnMain" prefHeight="467.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.main.scnMain.MainController">
+<BorderPane fx:id="pnMain" prefHeight="467.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.main.scnMain.MainController">
    <top>
       <BorderPane prefHeight="80.0" prefWidth="591.0" BorderPane.alignment="CENTER">
          <top>
@@ -35,6 +35,7 @@
                         <MenuItem fx:id="mniPacientes" mnemonicParsing="false" text="Cadastro de pacientes" />
                         <MenuItem fx:id="mniMedicos" mnemonicParsing="false" text="Cadastro de médicos" />
                         <MenuItem fx:id="mniLeitos" mnemonicParsing="false" text="Cadastro de leitos" />
+                        <MenuItem mnemonicParsing="false" text="Cadastro Especialidade" />
                   </items>
                 </Menu>
                 <Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações" />

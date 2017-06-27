@@ -14,6 +14,7 @@ import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
+import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
 import br.com.rarp.view.scnManutencao.funcionario.FuncionarioController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
@@ -30,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -55,6 +57,9 @@ public class MainController extends Application implements Initializable {
 	@FXML
 	private Label lblUsuarioSessao;
 
+	@FXML
+	private MenuItem mniEspecialidade;
+	
 	private ManutencaoController manutencao;
 
 	@Override
@@ -216,6 +221,17 @@ public class MainController extends Application implements Initializable {
 	public void manterFuncionario(ActionEvent event) {
 		try {
 			manutencao = new FuncionarioController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void manterEspecialidade(){
+		try {
+			manutencao = new EspecialidadeController();
 			pnMain.setCenter(manutencao.getNode());
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
