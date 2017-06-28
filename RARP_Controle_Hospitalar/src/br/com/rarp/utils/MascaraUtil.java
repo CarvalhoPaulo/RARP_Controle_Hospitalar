@@ -198,6 +198,7 @@ public enum MascaraUtil {
 	}
 
 
+	@SuppressWarnings("unused")
 	private static void positionCaret(final TextField textField) {
 		Platform.runLater(new Runnable() {
 			@Override
