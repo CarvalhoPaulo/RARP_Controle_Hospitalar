@@ -36,7 +36,7 @@ public class Propriedades {
 		url = prop.getProperty("conexao.url", "jdbc:postgresql://localhost:5432/");
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
-		password = prop.getProperty("conexao.password", "admin");
+		password = prop.getProperty("conexao.password", "robert");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
 		lastUsername = prop.getProperty("login.lastUsername", "");
 	}
