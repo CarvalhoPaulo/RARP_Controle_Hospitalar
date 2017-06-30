@@ -36,6 +36,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	@FXML
 	private IntegerTextField edtCodigo;
 
+
     @FXML
     private TextField edtNome;
 
@@ -65,6 +66,7 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@FXML
 	private FlowPane pnlLeitos;
+
 	private static EspacoCtrl espacoCtrl;
 	private static boolean visualizando;
 

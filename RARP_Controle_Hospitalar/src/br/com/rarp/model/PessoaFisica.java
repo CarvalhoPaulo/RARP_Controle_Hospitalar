@@ -7,7 +7,6 @@ public class PessoaFisica extends Pessoa {
 	private String sexo;
 	private boolean possuiNecessidades;
 	private String certidaoNascimento;
-	private String CTPS;
 	public String getCpf() {
 		return cpf;
 	}
@@ -38,12 +37,7 @@ public class PessoaFisica extends Pessoa {
 	public void setCertidaoNascimento(String certidaoNascimento) {
 		this.certidaoNascimento = certidaoNascimento;
 	}
-	public String getCTPS() {
-		return CTPS;
+	public PessoaFisica clone() throws CloneNotSupportedException {
+		return (PessoaFisica) super.clone();
 	}
-	public void setCTPS(String cTPS) {
-		CTPS = cTPS;
-	}
-	
-	
 }

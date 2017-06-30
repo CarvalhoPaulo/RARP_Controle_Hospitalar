@@ -1,15 +1,20 @@
 package br.com.rarp.view.scnCadastroFuncionario;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
 import br.com.rarp.model.Telefone;
+import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -21,6 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
@@ -76,9 +82,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	@FXML
 	private TextField edtTelefone;
-
-	@FXML
-	private ComboBox<String> cmbEstadoCivil;
 
 	@FXML
 	private RadioButton rbSim;
@@ -138,10 +141,31 @@ public class CadastroFuncionarioController extends Application implements Initia
 	public void initialize(URL location, ResourceBundle resources) {
 		sbAtivado.switchOnProperty().set(true);
 		edtCodigo.setDisable(true);
+		edtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+		edtDataNasc.setDateFormat(edtDataAdmissao.getDateFormat());
+		edtDataAdmissao.setCalendar(Calendar.getInstance());
+		CidadeCtrl cidadeCtrl = new CidadeCtrl();
+		try {
+			cmbCidade.setItems(cidadeCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null)
 			preencherTela();
 		if (visualizando)
 			bloquearTela();
+		
+		ToggleGroup tgPossuiNecessidades = new ToggleGroup();
+		tgPossuiNecessidades.getToggles().add(rbSim);
+		tgPossuiNecessidades.getToggles().add(rbNao);
+		tgPossuiNecessidades.selectToggle(rbNao);
+		
+		ToggleGroup tgSexo = new ToggleGroup();
+		tgSexo.getToggles().add(rbMasculino);
+		tgSexo.getToggles().add(rbFeminimo);
+		tgSexo.selectToggle(rbMasculino);
+
 	}
 
 	public void inserir() throws Exception {
@@ -158,7 +182,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtComplemento.clear();
 		edtCPF.clear();
 		edtCTPS.clear();
-		edtDataAdmissao.setText("");
+		edtDataAdmissao.setText("");;
 		edtDataNasc.setText("");
 		edtLogradouro.clear();
 		edtNome.clear();
@@ -168,7 +192,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
 		cmbEstado.getSelectionModel().select(-1);
-		cmbEstadoCivil.getSelectionModel().select(-1);
 		rbFeminimo.setSelected(false);
 		rbMasculino.setSelected(false);
 		rbSim.setSelected(false);
@@ -178,7 +201,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	private void bloquearTela() {
 		edtBairro.setDisable(true);
-		cmbCargo.setDisable(true);
+		// cmbCargo.setDisable(true);
 		edtCEP.setDisable(true);
 		edtCodigo.setDisable(true);
 		edtComplemento.setDisable(true);
@@ -196,7 +219,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 		btnGravar.setDisable(true);
 		cmbCidade.setDisable(true);
 		cmbEstado.setDisable(true);
-		cmbEstadoCivil.setDisable(true);
 		rbFeminimo.setDisable(true);
 		rbMasculino.setDisable(true);
 		rbSim.setDisable(true);
@@ -225,7 +247,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
 		funcionarioCtrl.getFuncionario().setLogradouro(edtLogradouro.getText());
 		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.switchOnProperty().get());
-		funcionarioCtrl.getFuncionario().setEstadoCivil(cmbEstadoCivil.getSelectionModel().getSelectedItem());
 		funcionarioCtrl.getFuncionario().setNome(edtNome.getText());
 		if (edtDataAdmissao.getCalendar() != null)
 			funcionarioCtrl.getFuncionario().setDtAdmissao(edtDataAdmissao.getCalendar().getTime());
@@ -257,6 +278,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	public void visualizar(FuncionarioCtrl funcionarioCtrl) throws Exception {
 		visualizando = true;
 		this.funcionarioCtrl = funcionarioCtrl;
+		rbNao.setSelected(true);
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
 	}

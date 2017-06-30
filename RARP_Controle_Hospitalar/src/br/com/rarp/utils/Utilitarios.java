@@ -7,8 +7,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class Utilitarios {
+	static boolean resultPergunta = false;
+	
 	public static void atencao(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setContentText(message);
@@ -38,6 +41,21 @@ public class Utilitarios {
 		sql = sql.replaceAll("\"", "");
 		sql = sql.replaceAll("'", "");
 		return sql;
+	}
+	
+	public static boolean pergunta(String message) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		ButtonType btnSim = new ButtonType("Sim");
+		ButtonType btnNao = new ButtonType("Não");
+		alert.getButtonTypes().addAll(btnSim, btnNao);
+		alert.showAndWait().ifPresent(b -> {
+			if(b == btnSim) {
+				resultPergunta = true;
+			} else if(b == btnNao) {
+				resultPergunta = false;
+			}
+		});
+		return resultPergunta;
 	}
 
 	public static Double strToDouble(String value) {

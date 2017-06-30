@@ -1,6 +1,9 @@
 package br.com.rarp.view.scnManutencao.funcionario;
 
 import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.control.FuncionarioCtrl;
+import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -33,6 +36,7 @@ public class FuncionarioController extends ManutencaoController {
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
+
 	}
 
 	public void adicionarCampos() {
@@ -42,9 +46,18 @@ public class FuncionarioController extends ManutencaoController {
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void pesquisar() {
-		Utilitarios.atencao("Função do botão Pesquisar");
+		FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
+		try {
+			tvManutencao.setItems(funcionarioCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+					cmbComparacao.getSelectionModel().getSelectedItem(),
+					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
+							: edtTermo.getText()));
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao salvar perfil de usuario.\n" + "Descrição: " + e.getMessage());
+		}
 	}
 
 	@Override
@@ -60,11 +73,37 @@ public class FuncionarioController extends ManutencaoController {
 
 	@Override
 	public void alterar() {
-		Utilitarios.atencao("Função do botão Alterar");
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
+			CadastroFuncionarioController controller = new CadastroFuncionarioController();
+			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+				Utilitarios.erro("Nenhum registro foi selecionado");
+			else {
+				FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
+				funcionarioCtrl.setFuncionario(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.alterar(funcionarioCtrl);
+			}
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void visualizar() {
-		Utilitarios.atencao("Função do botão Visualizar");
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
+			CadastroFuncionarioController controller = new CadastroFuncionarioController();
+			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+				Utilitarios.erro("Nenhum registro foi selecionado");
+			else {
+				FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
+				funcionarioCtrl.setFuncionario(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.visualizar(funcionarioCtrl);
+			}
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }

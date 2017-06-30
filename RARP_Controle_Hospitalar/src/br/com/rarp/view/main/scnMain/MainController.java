@@ -73,6 +73,8 @@ public class MainController extends Application implements Initializable {
 					LoginController login = new LoginController();
 					if (!login.logar())
 						System.exit(0);
+				} else {
+					SistemaCtrl.getInstance().getPropriedades().setControleAcesso(false);
 				}
 			}
 

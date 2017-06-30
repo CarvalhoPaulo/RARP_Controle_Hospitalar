@@ -7,15 +7,7 @@ public class Funcionario extends PessoaFisica {
 	private Date dtAdmissao;
 	private double salarioContratual;
 	private Cargo cargo;
-	private String estadoCivil;
-
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
+	private String CTPS;
 
 	public Date getDtAdmissao() {
 		return dtAdmissao;
@@ -39,5 +31,18 @@ public class Funcionario extends PessoaFisica {
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+	
+	@Override
+	public Funcionario clone() throws CloneNotSupportedException {
+		return (Funcionario) super.clone();
+	}
+
+	public String getCTPS() {
+		return CTPS;
+	}
+
+	public void setCTPS(String cTPS) {
+		CTPS = cTPS;
 	}
 }
