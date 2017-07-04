@@ -45,8 +45,10 @@ public class Utilitarios {
 	
 	public static boolean pergunta(String message) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setContentText(message);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
+		alert.getButtonTypes().clear();
 		alert.getButtonTypes().addAll(btnSim, btnNao);
 		alert.showAndWait().ifPresent(b -> {
 			if(b == btnSim) {

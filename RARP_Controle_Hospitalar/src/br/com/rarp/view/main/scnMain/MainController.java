@@ -12,6 +12,7 @@ import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import br.com.rarp.view.scnManutencao.cargo.CargoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
@@ -56,7 +57,6 @@ public class MainController extends Application implements Initializable {
 	private Label lblRelogio;
 	@FXML
 	private Label lblUsuarioSessao;
-
 	@FXML
 	private MenuItem mniEspecialidade;
 	
@@ -119,29 +119,6 @@ public class MainController extends Application implements Initializable {
 		launch(args);
 	}
 
-	public void manterEntrada() {
-		try {
-			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
-			manutencao = new EntradaPacienteController();
-			pnMain.setCenter(manutencao.getNode());
-		} catch (Exception e) {
-			Utilitarios.erro(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	private void manterEspacos(ActionEvent event) {
-		try {
-			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
-			manutencao = new EspacoController();
-			pnMain.setCenter(manutencao.getNode());
-		} catch (Exception e) {
-			Utilitarios.erro(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
 	public void ativarDesativarControleAcesso() {
 		if (mniControleAcesso.isSelected()) {
 			imgControleAcesso.setImage(
@@ -160,28 +137,6 @@ public class MainController extends Application implements Initializable {
 			imgControleAcesso.setImage(
 					new Image(getClass().getResource("..\\..\\img\\security-system-desativada-16x16.png").toString()));
 			SistemaCtrl.getInstance().setUsuarioSessao(null);
-		}
-	}
-
-	public void manterUsuario() {
-		try {
-			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
-			manutencao = new UsuarioController();
-			pnMain.setCenter(manutencao.getNode());
-		} catch (Exception e) {
-			Utilitarios.erro(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-
-	public void manterPerfilUsuario() {
-		try {
-			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
-			manutencao = new PerfilUsuarioController();
-			pnMain.setCenter(manutencao.getNode());
-		} catch (Exception e) {
-			Utilitarios.erro(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -218,9 +173,79 @@ public class MainController extends Application implements Initializable {
 	private void atualizaHora() {
 		lblRelogio.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date().getTime()));
 	}
+	
+	@FXML
+	private void manterUsuario(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
+			manutencao = new UsuarioController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
-	public void manterFuncionario(ActionEvent event) {
+	private void manterPerfilUsuario() {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
+			manutencao = new PerfilUsuarioController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+    @FXML
+    private void manterCargos(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.acesso);
+			manutencao = new CargoController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+	private void manterEntrada(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			manutencao = new EntradaPacienteController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	private void manterEspacos(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			manutencao = new EspacoController();
+			pnMain.setCenter(manutencao.getNode());
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+    @FXML
+    private void manterMedicos(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void manterPacientes(ActionEvent event) {
+
+    }
+
+	@FXML
+	private void manterFuncionario(ActionEvent event) {
 		try {
 			manutencao = new FuncionarioController();
 			pnMain.setCenter(manutencao.getNode());
@@ -231,7 +256,7 @@ public class MainController extends Application implements Initializable {
 	}
 	
 	@FXML
-	private void manterEspecialidade(){
+	private void manterEspecialidade(ActionEvent event){
 		try {
 			manutencao = new EspecialidadeController();
 			pnMain.setCenter(manutencao.getNode());

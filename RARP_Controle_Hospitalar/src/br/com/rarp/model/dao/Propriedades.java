@@ -1,8 +1,10 @@
 package br.com.rarp.model.dao;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Propriedades {
@@ -14,17 +16,25 @@ public class Propriedades {
 	private String password;
 	private Boolean controleAcesso;
 	private String lastUsername;
+	@SuppressWarnings("resource")
 	private Propriedades() {
 		prop = new TypedProperties();
 		try {
 			prop.load(new FileInputStream("./properties/RARP.Properties"));
 			getPropriedades();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				new BufferedWriter(new FileWriter("./properties/RARP.Properties")).write("");
+			} catch (IOException e1) {
+				System.out.print("Erro ao criar arquivo de propriedades");
+			}
+			try {
+				prop.load(new FileInputStream("./properties/RARP.Properties"));
+			} catch (IOException e1) {
+				System.out.print("Erro ao criar arquivo de propriedades");
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.print("Erro ao criar arquivo de propriedades");
 		}
 	}
 
@@ -36,7 +46,7 @@ public class Propriedades {
 		url = prop.getProperty("conexao.url", "jdbc:postgresql://localhost:5432/");
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
-		password = prop.getProperty("conexao.password", "robert");
+		password = prop.getProperty("conexao.password", "1234");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
 		lastUsername = prop.getProperty("login.lastUsername", "");
 	}

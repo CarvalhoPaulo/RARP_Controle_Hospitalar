@@ -56,5 +56,10 @@ public class Cargo {
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 
 }

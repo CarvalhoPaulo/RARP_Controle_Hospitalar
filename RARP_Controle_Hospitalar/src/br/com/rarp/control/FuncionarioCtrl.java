@@ -4,6 +4,7 @@ import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.bo.FuncionarioBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,8 +21,10 @@ public class FuncionarioCtrl {
 
 	public void salvar() throws Exception {
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		validarDadosObrigatorios();
-		funcionarioBusiness.salvar(funcionario);
+		if (verificarDesativacao()) {
+			validarDadosObrigatorios();
+			funcionarioBusiness.salvar(funcionario);
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -51,6 +54,12 @@ public class FuncionarioCtrl {
 		if (funcionario.getSexo().equals("")) {
 			throw new Exception("Para cadastrar um funcionário é necessário informar o sexo");
 		}
+	}
+	
+	private boolean verificarDesativacao() {
+		if(!funcionario.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este funcionário?");
+		return true;
 	}
 
 	public void novoFuncionario() {

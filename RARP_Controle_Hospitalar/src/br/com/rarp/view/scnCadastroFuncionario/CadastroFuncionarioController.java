@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
@@ -17,6 +18,7 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -137,6 +139,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		stage.showAndWait();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sbAtivado.switchOnProperty().set(true);
@@ -147,6 +150,13 @@ public class CadastroFuncionarioController extends Application implements Initia
 		CidadeCtrl cidadeCtrl = new CidadeCtrl();
 		try {
 			cmbCidade.setItems(cidadeCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -308,4 +318,9 @@ public class CadastroFuncionarioController extends Application implements Initia
 			Utilitarios.erro("Erro ao salvar o funcionário.\n" + "Descrição: " + e.getMessage());
 		}
 	}
+	
+    @FXML
+    private void voltar(ActionEvent event) {
+    	stage.hide();
+    }
 }

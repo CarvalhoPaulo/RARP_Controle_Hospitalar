@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.Enum.TipoMovimentacao;
-import br.com.rarp.model.Medico;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
@@ -80,10 +79,11 @@ public class SistemaCtrl {
 	public List<Tela> getTelas() {
 		List<Tela> telas = new ArrayList<>();
 		
-		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuários"));
+		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuário"));
 		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
 		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
 		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
+		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
 		return telas;
 	}
 	
@@ -104,6 +104,11 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoCargo(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoCargo", tipoMovimentacao))
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	

@@ -41,7 +41,7 @@ public class IntegerTextField extends TextField {
 		});
 	}
 	
-	public Integer getValue() {
+	public int getValue() {
 		try {
 			return Integer.parseInt(getText());
 		} catch (NumberFormatException e) {
@@ -49,7 +49,7 @@ public class IntegerTextField extends TextField {
 		}
 	}
 	
-	public void setValue(Integer value) {
-		setText(value.toString());
+	public void setValue(int value) {
+		setText(value+"");
 	}
 }

@@ -1,9 +1,11 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.ArrayList;
+import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cargo;
 
@@ -33,27 +35,7 @@ public class CargoDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO cargo(codigo, nome, funcao, requisitos, nivel, status) VALUES(?,?,?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, cargo.getCodigo());
-			ps.setString(2, cargo.getNome());
-			ps.setString(3, cargo.getFuncao());
-			ps.setString(4, cargo.getRequisitos());
-			ps.setString(5, cargo.getNivel());
-			ps.setBoolean(6, cargo.isStatus());
-
-			ps.executeUpdate();
-			ps.close();
-		} finally {
-			conexao.getConexao().close();
-		}
-	}
-
-	private void alterar(Cargo cargo) throws Exception {
-		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		try {
-			String sql = "UPDATE cargo SET codigo=?, nome = ?, funcao = ?, requisitos = ?, nivel = ?, status = ? WHERE codigo=?";
+			String sql = "INSERT INTO cargo(nome, funcao, requisitos, nivel, status) VALUES(?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
 			ps.setString(2, cargo.getFuncao());
@@ -66,5 +48,50 @@ public class CargoDAO {
 		} finally {
 			conexao.getConexao().close();
 		}
+	}
+
+	private void alterar(Cargo cargo) throws Exception {
+		PreparedStatement ps;
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		try {
+			String sql = "UPDATE cargo SET nome = ?, funcao = ?, requisitos = ?, nivel = ?, status = ? WHERE codigo=?";
+			ps = conexao.getConexao().prepareStatement(sql);
+			ps.setString(1, cargo.getNome());
+			ps.setString(2, cargo.getFuncao());
+			ps.setString(3, cargo.getRequisitos());
+			ps.setString(4, cargo.getNivel());
+			ps.setBoolean(5, cargo.isStatus());
+			ps.setInt(6, cargo.getCodigo());
+
+			ps.executeUpdate();
+			ps.close();
+		} finally {
+			conexao.getConexao().close();
+		}
+	}
+
+	public List<Cargo> consultar(String campo, String comparacao, String termo) throws Exception {
+		List<Cargo> cargos = new ArrayList<>();
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+        	String sql = "SELECT codigo, nome, funcao, nivel, requisitos, status FROM cargo WHERE " + campo + comparacao + termo;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	Cargo cargo = new Cargo();
+            	cargo.setCodigo(rs.getInt("codigo"));
+            	cargo.setNome(rs.getString("nome"));
+            	cargo.setFuncao(rs.getString("funcao"));
+            	cargo.setRequisitos(rs.getString("requisitos"));
+            	cargo.setNivel(rs.getString("nivel"));
+            	cargo.setStatus(rs.getBoolean("status"));
+            	cargos.add(cargo);
+            }
+            ps.close();
+        } finally{
+            conexao.getConexao().close();
+        }
+		return cargos;
 	}
 }

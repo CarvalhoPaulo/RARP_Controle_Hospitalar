@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 public class CadastroEspecialidadeController extends Application implements Initializable{
 	private static boolean visualizando;
+	
 	private static Stage stage;
 	public void inserir() throws Exception {
 		start(SistemaCtrl.getInstance().getStage());
@@ -26,7 +27,7 @@ public class CadastroEspecialidadeController extends Application implements Init
 	
 	@SuppressWarnings("static-access")
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
