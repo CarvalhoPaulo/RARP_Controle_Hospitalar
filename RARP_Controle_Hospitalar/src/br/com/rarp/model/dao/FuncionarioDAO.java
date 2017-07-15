@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
 import br.com.rarp.model.Funcionario;
@@ -42,68 +42,88 @@ public class FuncionarioDAO {
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
 			String sql = "SELECT " 
-					+ "FUNC.codigo, " 
+					+ "FUNC.codigo AS codigo_func, " 
 					+ "FUNC.dataAdmissao, "
 					+ "FUNC.ctps, "
 					+ "FUNC.salarioContratual, "
-					+ "FUNC.status, "
+					+ "FUNC.status AS status_func, "
 					+ "PF.cpf, " 
 					+ "PF.rg, "
 					+ "PF.sexo, "
 					+ "PF.possuinecessidades, " 
 					+ "PF.certidaonascimento, " 
-					+ "PF.status, " 
-					+ "PE.nome, "
+					+ "PF.status AS status_pf, "
+					+ "PE.codigo AS codigo_pessoa, " 
+					+ "PE.nome AS nome_pessoa, "
 					+ "PE.logradouro, "
 					+ "PE.complemento, " 
 					+ "PE.numero, " 
 					+ "PE.bairro, " 
 					+ "PE.cep, "
-					+ "PE.status, "
-					+ "CID.codigo, " 
-					+ "CID.nome, "
-					+ "CID.status, "
+					+ "PE.status AS status_pessoa, "
+					+ "CID.codigo AS codigo_cidade, " 
+					+ "CID.nome AS nome_cidade, "
+					+ "CID.status AS status_cidade, "
 					+ "ES.uf, "
-					+ "ES.nome, "
-					+ "ES.status "
+					+ "ES.nome AS nome_estado, "
+					+ "CA.codigo AS codigo_cargo, "
+					+ "CA.nome AS nome_cargo, "
+					+ "CA.funcao, "
+					+ "CA.nivel, "
+					+ "CA.requisitos, "
+					+ "CA.status AS status_cargo "
 					+ "FROM funcionario AS FUNC "
-					+ "RIGHT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
-					+ "RIGHT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
-					+ "RIGHT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "RIGHT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE " + campo + comparacao + termo;
+					+ "LEFT JOIN cargo AS CA ON FUNC.codigo_cargo = CA.codigo "
+					+ "LEFT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
+					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
+					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
+					+ "LEFT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE " + campo + comparacao + termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Funcionario funcionario = new Funcionario();
-				funcionario.setCodigo(rs.getInt("FUNC.codigo"));
-				funcionario.setDtAdmissao(new java.util.Date(rs.getDate("FUNC.dataAdmissao").getTime()));
-				funcionario.setCTPS(rs.getString("FUNC.ctps"));
-				funcionario.setSalarioContratual(rs.getDouble("FUNC.salarioContratual"));
+				funcionarios.add(funcionario);
+				
+				funcionario.setCodigo(rs.getInt("codigo_func"));
+				funcionario.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
+				funcionario.setCTPS(rs.getString("ctps"));
+				funcionario.setSalarioContratual(rs.getDouble("salarioContratual"));
 				funcionario.setStatus(rs.getBoolean("status_func"));
-				funcionario.setCpf(rs.getString("PF.cpf"));
-				funcionario.setRg(rs.getString("PF.rg"));
-				funcionario.setSexo(rs.getString("PF.sexo"));
-				funcionario.setPossuiNecessidades(rs.getBoolean("PF.possuinecessidades"));
-				funcionario.setCertidaoNascimento(rs.getString("PF.certidaonascimento"));
-				funcionario.setNome(rs.getString("PE.nome"));
-				funcionario.setLogradouro(rs.getString("PE.logradouro"));
-				funcionario.setComplemento(rs.getString("PE.complemento"));
-				funcionario.setNumero(rs.getString(rs.getString("PE.numero")));
-				funcionario.setBairro(rs.getString("PE.bairro"));
-				funcionario.setCep(rs.getString("PE.cep"));
+				funcionario.setCpf(rs.getString("cpf"));
+				funcionario.setRg(rs.getString("rg"));
+				funcionario.setSexo(rs.getString("sexo"));
+				funcionario.setPossuiNecessidades(rs.getBoolean("possuinecessidades"));
+				funcionario.setCertidaoNascimento(rs.getString("certidaonascimento"));
+				funcionario.setNome(rs.getString("nome_pessoa"));
+				funcionario.setLogradouro(rs.getString("logradouro"));
+				funcionario.setComplemento(rs.getString("complemento"));
+				funcionario.setNumero(rs.getString("numero"));
+				funcionario.setBairro(rs.getString("bairro"));
+				funcionario.setCep(rs.getString("cep"));
 				
 				Cidade cidade = new Cidade();
-				cidade.setCodigo(rs.getInt("CID.codigo"));
-				cidade.setNome(rs.getString("CID.nome"));
+				cidade.setCodigo(rs.getInt("codigo_cidade"));
+				cidade.setNome(rs.getString("nome_cidade"));
+				cidade.setStatus(rs.getBoolean("status_cidade"));
 
 				Estado estado = new Estado();
-				estado.setNome(rs.getString("ES.nome"));
-				estado.setUF(rs.getString("ES.uf"));
+				estado.setNome(rs.getString("nome_estado"));
+				estado.setUF(rs.getString("uf"));
 
 				cidade.setEstado(estado);
-
 				funcionario.setCidade(cidade);
-				funcionarios.add(funcionario);
+				
+				Cargo cargo = new Cargo();
+				cargo.setCodigo(rs.getInt("codigo_cargo"));
+				cargo.setNome(rs.getString("nome_cargo"));
+				cargo.setFuncao(rs.getString("funcao"));
+				cargo.setNivel(rs.getString("nivel"));
+				cargo.setRequisitos(rs.getString("requisitos"));
+				cargo.setStatus(rs.getBoolean("status_cargo"));
+				funcionario.setCargo(cargo);
+				
+				TelefoneDAO telefoneDAO = new TelefoneDAO();
+				funcionario.setTelefones(telefoneDAO.getTelefones(rs.getInt("codigo_pessoa")));
 			}
 			ps.close();
 		} finally {
@@ -113,7 +133,7 @@ public class FuncionarioDAO {
 	}
 
 	public Funcionario consultar(int codigo) throws Exception {
-		List<Funcionario> funcionarios = consultar("codigo", " = ", codigo + "");
+		List<Funcionario> funcionarios = consultar("func.codigo", " = ", codigo + "");
 		if (funcionarios.size() > 0)
 			return funcionarios.get(0);
 		else
@@ -162,7 +182,7 @@ public class FuncionarioDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO funcionario SET dataAdmissao = ?, salarioContratual = ?, ctps = ?, codigo_cargo = ?, status = ? WHERE codigo = ?";
+			String sql = "UPDATE funcionario SET dataAdmissao = ?, salarioContratual = ?, ctps = ?, codigo_cargo = ?, status = ? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
@@ -176,11 +196,13 @@ public class FuncionarioDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			PessoaFisica pf = funcionario.clone();
-			pf.setCodigo(conexao.getConexao().createStatement().executeQuery("SELECT codigo_pf FROM funcionario WHERE codigo = " + funcionario.getCodigo()).getInt("codigo_pf"));
-			
-			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-			pessoaFisicaDAO.salvar(pf);
+			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pf FROM funcionario WHERE codigo = " + funcionario.getCodigo());
+			if(rs.next()) {
+				PessoaFisica pf = funcionario.clone();
+				pf.setCodigo(rs.getInt("codigo_pf"));
+				PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+				pessoaFisicaDAO.salvar(pf);
+			}
 		} finally {
 			conexao.getConexao().close();
 		}

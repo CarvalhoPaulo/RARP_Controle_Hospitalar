@@ -3,6 +3,7 @@ package br.com.rarp.view.scnCadastroFuncionario;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.CargoCtrl;
@@ -12,7 +13,6 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
-import br.com.rarp.model.Estado;
 import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -20,6 +20,7 @@ import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.MaskTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -77,9 +78,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	@FXML
 	private ComboBox<Cidade> cmbCidade;
-
-	@FXML
-	private ComboBox<Estado> cmbEstado;
 
 	@FXML
 	private MaskTextField edtCEP;
@@ -194,8 +192,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtComplemento.clear();
 		edtCPF.clear();
 		edtCTPS.clear();
-		edtDataAdmissao.setText("");;
-		edtDataNasc.setText("");
+		edtDataAdmissao.setCalendar(new GregorianCalendar());
+		edtDataNasc.setCalendar(new GregorianCalendar());
 		edtLogradouro.clear();
 		edtNome.clear();
 		edtNumero.clear();
@@ -203,17 +201,14 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtSalarioContratual.clear();
 		edtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
-		cmbEstado.getSelectionModel().select(-1);
-		rbFeminimo.setSelected(false);
-		rbMasculino.setSelected(false);
-		rbSim.setSelected(false);
-		rbNao.setSelected(false);
+		rbMasculino.setSelected(true);
+		rbNao.setSelected(true);
 		sbAtivado.setValue(true);
 	}
 
 	private void bloquearTela() {
 		edtBairro.setDisable(true);
-		// cmbCargo.setDisable(true);
+		cmbCargo.setDisable(true);
 		edtCEP.setDisable(true);
 		edtCodigo.setDisable(true);
 		edtComplemento.setDisable(true);
@@ -230,7 +225,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 		sbAtivado.setDisable(true);
 		btnGravar.setDisable(true);
 		cmbCidade.setDisable(true);
-		cmbEstado.setDisable(true);
 		rbFeminimo.setDisable(true);
 		rbMasculino.setDisable(true);
 		rbSim.setDisable(true);
@@ -273,8 +267,12 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
 		edtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
 		edtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
-		edtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
-		edtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());
+		
+		if(funcionarioCtrl.getFuncionario().getDtAdmissao() != null)
+			edtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
+		if(funcionarioCtrl.getFuncionario().getDtNascimento() != null)
+			edtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());	
+		
 		edtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
 		edtNome.setText(funcionarioCtrl.getFuncionario().getNome());
 		edtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
@@ -284,6 +282,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCidade());
 		rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
 		rbMasculino.setSelected(funcionarioCtrl.getFuncionario().getSexo() == "M");
+		lsTelefones.setItems(FXCollections.observableList(funcionarioCtrl.getFuncionario().getTelefones()));
 	}
 
 	@SuppressWarnings("static-access")
@@ -313,9 +312,10 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private void salvar() {
 		preencherObjeto();
 		try {
-			funcionarioCtrl.salvar();
-			Utilitarios.message("Funcionário salvo com sucesso.");
-			limparCampos();
+			if(funcionarioCtrl.salvar()) {
+				Utilitarios.message("Funcionário salvo com sucesso.");
+				limparCampos();
+			}
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar o funcionário.\n" + "Descrição: " + e.getMessage());
 		}

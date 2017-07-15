@@ -42,7 +42,7 @@ public class PessoaFisicaDAO {
 
 			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?,  codigo_pessoa=?, status=? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setString(1, pessoaFisica.getCpf());
+			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
 			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
@@ -53,11 +53,15 @@ public class PessoaFisicaDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			Pessoa pessoa = pessoaFisica.clone();
-			pessoa.setCodigo(conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo()).getInt("codigo_pessoa"));
 			
-			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoaDAO.salvar(pessoa);
+			
+			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
+			if (rs.next()) {
+				Pessoa pessoa = pessoaFisica.clone();
+				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
+				PessoaDAO pessoaDAO = new PessoaDAO();
+				pessoaDAO.salvar(pessoa);
+			}
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -72,7 +76,7 @@ public class PessoaFisicaDAO {
 
 			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setString(1, pessoaFisica.getCpf());
+			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
 			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());

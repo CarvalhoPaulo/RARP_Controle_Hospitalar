@@ -319,7 +319,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<CurrencyTextField layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																				<CurrencyTextField fx:id="edtSalarioContratual" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																					<font>
 																						<Font size="14.0" />
 																					</font>

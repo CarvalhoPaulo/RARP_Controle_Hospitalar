@@ -58,6 +58,15 @@ public class Cargo {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		try {
+			return codigo == ((Cargo) obj).getCodigo();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
 	public String toString() {
 		return nome;
 	}

@@ -80,11 +80,16 @@ public class Pessoa {
 	}
 
 	public String getCep() {
-		return cep;
+		String cep = getCepSemMascara();
+		return String.format("%s-%s", cep.substring(0, 5), cep.substring(5));
+	}
+	
+	public String getCepSemMascara() {
+		return cep.replaceAll("[\\D]", "");
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = cep.replaceAll("[\\D]", "");
 	}
 
 	public List<Telefone> getTelefones() {

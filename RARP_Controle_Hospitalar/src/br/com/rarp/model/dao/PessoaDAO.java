@@ -47,12 +47,18 @@ public class PessoaDAO {
 			ps.setString(3, pessoa.getComplemento());
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCep());
-			ps.setInt(7, pessoa.getCidade().getCodigo());
+			ps.setString(6, pessoa.getCepSemMascara());
+			if(pessoa.getCidade() != null)
+				ps.setInt(7, pessoa.getCidade().getCodigo());
+			else
+				ps.setNull(7, Types.INTEGER);
 			ps.setBoolean(8, pessoa.isStatus());
 			ps.setInt(9, pessoa.getCodigo());
 			ps.executeUpdate();
 			ps.close();
+			
+			TelefoneDAO telefoneDAO = new TelefoneDAO();
+			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -63,14 +69,14 @@ public class PessoaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO pessoa(nome,logradouro,complemento,numero,bairro,cep,codigo_cidade,status) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
 			ps.setString(3, pessoa.getComplemento());
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCep());
+			ps.setString(6, pessoa.getCepSemMascara());
 			if(pessoa.getCidade() != null)
 				ps.setInt(7, pessoa.getCidade().getCodigo());
 			else

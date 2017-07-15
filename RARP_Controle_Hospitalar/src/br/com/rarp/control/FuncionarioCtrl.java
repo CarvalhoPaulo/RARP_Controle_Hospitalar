@@ -19,11 +19,14 @@ public class FuncionarioCtrl {
 		this.funcionario = (Funcionario) object;
 	}
 
-	public void salvar() throws Exception {
+	public boolean salvar() throws Exception {
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		if (verificarDesativacao()) {
 			validarDadosObrigatorios();
 			funcionarioBusiness.salvar(funcionario);
+			return true;
+		} else {
+			return false;
 		}
 	}
 

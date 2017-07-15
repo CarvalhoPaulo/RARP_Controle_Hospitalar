@@ -40,10 +40,8 @@ public class FuncionarioController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		// Adicionar todos os campos que são strings numéricos ou booleanos,
-		// para pesquisa.
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
+		cmbCampo.getItems().add(new Campo("func.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("func.status", "Ativado", TipoCampo.booleano));
 	}
 
 	@SuppressWarnings("unchecked")

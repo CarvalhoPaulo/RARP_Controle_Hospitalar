@@ -35,7 +35,28 @@ public class Funcionario extends PessoaFisica {
 	
 	@Override
 	public Funcionario clone() throws CloneNotSupportedException {
-		return (Funcionario) super.clone();
+		Funcionario f = new Funcionario();
+		f.setBairro(getBairro());
+		f.setCargo(getCargo());
+		f.setCep(getCep());
+		f.setCertidaoNascimento(getCertidaoNascimento());
+		f.setCidade(getCidade());
+		f.setCodigo(getCodigo());
+		f.setComplemento(getComplemento());
+		f.setCpf(getCpf());
+		f.setCTPS(getCTPS());
+		f.setDtAdmissao(getDtAdmissao());
+		f.setDtNascimento(getDtAdmissao());
+		f.setLogradouro(getLogradouro());
+		f.setNome(getNome());
+		f.setNumero(getNumero());
+		f.setPossuiNecessidades(isPossuiNecessidades());
+		f.setRg(getRg());
+		f.setSalarioContratual(getSalarioContratual());
+		f.setSexo(getSexo());
+		f.setStatus(isStatus());
+		f.setTelefones(getTelefones());
+		return f;
 	}
 
 	public String getCTPS() {
