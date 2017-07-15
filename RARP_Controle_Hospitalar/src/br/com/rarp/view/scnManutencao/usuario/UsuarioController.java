@@ -7,7 +7,7 @@ import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroUsuario.CadastroCidadeController;
+import br.com.rarp.view.scnCadastroCidade.CadastroCidadeController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;

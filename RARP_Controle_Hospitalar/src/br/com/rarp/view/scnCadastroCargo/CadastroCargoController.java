@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnCadastroFuncionario;
+package br.com.rarp.view.scnCadastroCargo;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,6 @@ import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
-import br.com.rarp.view.scnComponents.MaskTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -34,7 +33,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
-public class CadastroFuncionarioController extends Application implements Initializable {
+public class CadastroCargoController extends Application implements Initializable {
 
 	private static boolean visualizando;
 	private static Stage stage;
@@ -49,7 +48,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private TextField edtNome;
 
 	@FXML
-	private MaskTextField edtCPF;
+	private TextField edtCPF;
 
 	@FXML
 	private TextField edtRG;
@@ -82,10 +81,10 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private ComboBox<Estado> cmbEstado;
 
 	@FXML
-	private MaskTextField edtCEP;
+	private TextField edtCEP;
 
 	@FXML
-	private MaskTextField edtTelefone;
+	private TextField edtTelefone;
 
 	@FXML
 	private RadioButton rbSim;
