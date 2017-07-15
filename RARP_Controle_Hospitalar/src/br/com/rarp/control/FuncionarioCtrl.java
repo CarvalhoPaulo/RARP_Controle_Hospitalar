@@ -35,7 +35,7 @@ public class FuncionarioCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (funcionario.getNome().equals("")) {
+		if (funcionario.getNome().isEmpty()) {
 			throw new Exception("Para cadastrar um funcionário é necessário informar o nome");
 		}
 		
@@ -43,16 +43,8 @@ public class FuncionarioCtrl {
 			throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
 		}
 		
-		if (funcionario.getCargo().equals("")) {
+		if (funcionario.getCargo() == null) {
 			 throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
-		}
-		
-		if (funcionario.getDtAdmissao().toString().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar a data de admissão");
-		}
-
-		if (funcionario.getSexo().equals("")) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o sexo");
 		}
 	}
 	

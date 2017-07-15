@@ -419,7 +419,7 @@
 							</font>
 						</TextField>
 						<SwitchButton fx:id="sbAtivado" layoutX="433.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-						<Label layoutX="449.0" layoutY="5.0" text="Ativado" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<Label layoutX="449.0" layoutY="5.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
 							</font>

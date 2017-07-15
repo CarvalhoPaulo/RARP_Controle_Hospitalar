@@ -208,7 +208,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		rbMasculino.setSelected(false);
 		rbSim.setSelected(false);
 		rbNao.setSelected(false);
-		sbAtivado.switchOnProperty().set(true);
+		sbAtivado.setValue(true);
 	}
 
 	private void bloquearTela() {
@@ -258,7 +258,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setComplemento(edtComplemento.getText());
 		funcionarioCtrl.getFuncionario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
 		funcionarioCtrl.getFuncionario().setLogradouro(edtLogradouro.getText());
-		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.switchOnProperty().get());
+		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.getValue());
 		funcionarioCtrl.getFuncionario().setNome(edtNome.getText());
 		if (edtDataAdmissao.getCalendar() != null)
 			funcionarioCtrl.getFuncionario().setDtAdmissao(edtDataAdmissao.getCalendar().getTime());
