@@ -83,6 +83,7 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
 		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
 		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
+		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
 		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
 		return telas;
 	}
@@ -109,6 +110,11 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoCargo(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCargo", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoFuncionario(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoFuncionario", tipoMovimentacao))
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	

@@ -40,15 +40,15 @@ public class PessoaFisicaDAO {
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
 
-			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?,  codigo_pessoa=?, status=? WHERE codigo = ?";
+			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, status=? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
 			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
 			ps.setString(5, pessoaFisica.getCertidaoNascimento());
-			ps.setInt(6, pessoaFisica.getCodigo());
-			ps.setBoolean(7, pessoaFisica.isStatus());
+			ps.setBoolean(6, pessoaFisica.isStatus());
+			ps.setInt(7, pessoaFisica.getCodigo());
 			
 			ps.executeUpdate();
 			ps.close();

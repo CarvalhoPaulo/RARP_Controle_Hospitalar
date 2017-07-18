@@ -14,8 +14,11 @@ import br.com.rarp.utils.comparacao.Iniciado;
 import br.com.rarp.utils.comparacao.Maior;
 import br.com.rarp.utils.comparacao.Menor;
 import br.com.rarp.utils.comparacao.Terminado;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +28,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 public abstract class ManutencaoController implements Initializable, Manutencao {
@@ -51,6 +56,25 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 		loader.setController(this);
 		try {
 			node = loader.load();
+			
+			node.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					if(newValue) {
+						cmbCampo.requestFocus();
+					}
+				}
+			});
+			
+			node.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode() == KeyCode.ESCAPE)
+						voltar();
+					}
+			});
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

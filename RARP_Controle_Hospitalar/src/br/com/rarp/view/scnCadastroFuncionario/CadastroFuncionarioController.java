@@ -3,9 +3,7 @@ package br.com.rarp.view.scnCadastroFuncionario;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
-
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
@@ -17,11 +15,13 @@ import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
+import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.MaskTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,8 +30,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
@@ -39,6 +42,9 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	private static boolean visualizando;
 	private static Stage stage;
+	
+    @FXML
+    private TabPane tbPane;
 
 	@FXML
 	private Button btnGravar;
@@ -104,7 +110,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private ComboBox<Cargo> cmbCargo;
 
 	@FXML
-	private TextField edtCodigo;
+	private IntegerTextField edtCodigo;
 
 	private static FuncionarioCtrl funcionarioCtrl;
 
@@ -117,9 +123,20 @@ public class CadastroFuncionarioController extends Application implements Initia
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
+		this.stage = stage;
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
-		this.stage = stage;
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
 	}
 
 	public Stage getStage() {
@@ -139,43 +156,45 @@ public class CadastroFuncionarioController extends Application implements Initia
 		stage.showAndWait();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		sbAtivado.setValue(true);
-		edtCodigo.setDisable(true);
-		edtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
-		edtDataNasc.setDateFormat(edtDataAdmissao.getDateFormat());
-		edtDataAdmissao.setCalendar(Calendar.getInstance());
-		CidadeCtrl cidadeCtrl = new CidadeCtrl();
-		try {
-			cmbCidade.setItems(cidadeCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tbPane.setOnKeyTyped(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				System.out.println("");
+			}
+		});
+		prepararTela();
 		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null)
 			preencherTela();
 		if (visualizando)
 			bloquearTela();
-		
-		ToggleGroup tgPossuiNecessidades = new ToggleGroup();
-		tgPossuiNecessidades.getToggles().add(rbSim);
-		tgPossuiNecessidades.getToggles().add(rbNao);
-		tgPossuiNecessidades.selectToggle(rbNao);
-		
-		ToggleGroup tgSexo = new ToggleGroup();
-		tgSexo.getToggles().add(rbMasculino);
-		tgSexo.getToggles().add(rbFeminimo);
-		tgSexo.selectToggle(rbMasculino);
+	}
 
+	@SuppressWarnings("unchecked")
+	private void prepararTela() {
+		try {
+			sbAtivado.setValue(true);
+			edtCodigo.setDisable(true);
+			edtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			edtDataNasc.setDateFormat(edtDataAdmissao.getDateFormat());
+			edtDataAdmissao.setCalendar(Calendar.getInstance());
+			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+			
+			ToggleGroup tgPossuiNecessidades = new ToggleGroup();
+			tgPossuiNecessidades.getToggles().add(rbSim);
+			tgPossuiNecessidades.getToggles().add(rbNao);
+			tgPossuiNecessidades.selectToggle(rbNao);
+			
+			ToggleGroup tgSexo = new ToggleGroup();
+			tgSexo.getToggles().add(rbMasculino);
+			tgSexo.getToggles().add(rbFeminimo);
+			tgSexo.selectToggle(rbMasculino);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void inserir() throws Exception {
@@ -192,8 +211,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtComplemento.clear();
 		edtCPF.clear();
 		edtCTPS.clear();
-		edtDataAdmissao.setCalendar(new GregorianCalendar());
-		edtDataNasc.setCalendar(new GregorianCalendar());
+		edtDataAdmissao.setText("");
+		edtDataNasc.setText("");
 		edtLogradouro.clear();
 		edtNome.clear();
 		edtNumero.clear();
@@ -238,6 +257,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		if (funcionarioCtrl.getFuncionario() == null) {
 			funcionarioCtrl.novoFuncionario();
 		}
+		funcionarioCtrl.getFuncionario().setCodigo(edtCodigo.getValue());
 		funcionarioCtrl.getFuncionario().setBairro(edtBairro.getText());
 		funcionarioCtrl.getFuncionario().setCargo(cmbCargo.getSelectionModel().getSelectedItem());
 		funcionarioCtrl.getFuncionario().setCep(edtCEP.getText());
@@ -250,7 +270,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setRg(edtRG.getText());
 		funcionarioCtrl.getFuncionario().setSalarioContratual(Utilitarios.strToDouble(edtSalarioContratual.getText()));
 		funcionarioCtrl.getFuncionario().setComplemento(edtComplemento.getText());
-		funcionarioCtrl.getFuncionario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
 		funcionarioCtrl.getFuncionario().setLogradouro(edtLogradouro.getText());
 		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.getValue());
 		funcionarioCtrl.getFuncionario().setNome(edtNome.getText());
@@ -283,6 +302,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
 		rbMasculino.setSelected(funcionarioCtrl.getFuncionario().getSexo() == "M");
 		lsTelefones.setItems(FXCollections.observableList(funcionarioCtrl.getFuncionario().getTelefones()));
+		sbAtivado.setValue(funcionarioCtrl.getFuncionario().isStatus());
 	}
 
 	@SuppressWarnings("static-access")

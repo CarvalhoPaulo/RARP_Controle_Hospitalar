@@ -9,9 +9,13 @@ import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class FuncionarioController extends ManutencaoController {
 
@@ -29,7 +33,26 @@ public class FuncionarioController extends ManutencaoController {
 		TableColumn<Funcionario, String> cargo = new TableColumn<>("Cargo");
 		cargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
 		TableColumn<Funcionario, String> telefone = new TableColumn<>("Telefone");
-		telefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+		telefone.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Funcionario,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Funcionario, String> param) {
+				String value = "";
+				if(param.getValue() != null && param.getValue().getTelefones() != null)
+					for (int i = 0; i < param.getValue().getTelefones().size() ; i++) {
+						if(i == (param.getValue().getTelefones().size() - 1))
+							value += param.getValue().getTelefones().get(i).getNumero();
+						else
+							value += param.getValue().getTelefones().get(i).getNumero() + " - ";
+					}			
+				return new SimpleStringProperty(value);
+			}
+		});
+		
+		nome.setPrefWidth(250);
+		cpf.setPrefWidth(200);
+		cargo.setPrefWidth(250);
+		telefone.setPrefWidth(250);
 
 		tvManutencao.getColumns().addAll(codigo, nome, cpf, cargo, telefone);
 		tvManutencao.setEditable(false);
@@ -41,6 +64,9 @@ public class FuncionarioController extends ManutencaoController {
 
 	public void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("func.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("pe.nome", "Nome", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("pf.cpf", "CPF", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("ca.nome", "Nome do Cargo", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("func.status", "Ativado", TipoCampo.booleano));
 	}
 

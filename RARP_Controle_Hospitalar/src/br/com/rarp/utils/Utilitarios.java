@@ -1,17 +1,21 @@
 package br.com.rarp.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
+import javafx.scene.layout.Pane;
 
 public class Utilitarios {
 	static boolean resultPergunta = false;
-	
+
 	public static void atencao(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setContentText(message);
@@ -42,7 +46,7 @@ public class Utilitarios {
 		sql = sql.replaceAll("'", "");
 		return sql;
 	}
-	
+
 	public static boolean pergunta(String message) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setContentText(message);
@@ -51,9 +55,9 @@ public class Utilitarios {
 		alert.getButtonTypes().clear();
 		alert.getButtonTypes().addAll(btnSim, btnNao);
 		alert.showAndWait().ifPresent(b -> {
-			if(b == btnSim) {
+			if (b == btnSim) {
 				resultPergunta = true;
-			} else if(b == btnNao) {
+			} else if (b == btnNao) {
 				resultPergunta = false;
 			}
 		});
@@ -100,4 +104,19 @@ public class Utilitarios {
 			}
 		return null;
 	}
+
+	public static ArrayList<Node> getAllNodes(Parent root) {
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		addAllDescendents(root, nodes);
+		return nodes;
+	}
+
+	private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+		for (Node node : parent.getChildrenUnmodifiable()) {
+			nodes.add(node);
+			if (node instanceof Parent)
+				addAllDescendents((Parent) node, nodes);
+		}
+	}
+
 }

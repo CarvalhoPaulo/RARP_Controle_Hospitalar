@@ -28,7 +28,7 @@
 			<center>
 				<AnchorPane BorderPane.alignment="CENTER">
 					<children>
-						<TabPane prefHeight="458.0" prefWidth="515.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+						<TabPane fx:id="tbPane" prefHeight="458.0" prefWidth="515.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
 							<tabs>
 								<Tab closable="false" style="-fx-font-size: 14;" text="1 - Informações">
 									<content>
@@ -162,6 +162,30 @@
 														<RowConstraints maxHeight="96.0" minHeight="0.0" prefHeight="51.0" vgrow="SOMETIMES" />
 													</rowConstraints>
 													<children>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0">
+															<children>
+																<Label layoutX="-121.0" layoutY="11.0" stylesheets="@../style/style.css" text="RG:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="edtRG" layoutX="-121.0" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</TextField>
+															</children>
+														</AnchorPane>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+															<children>
+																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="174.0" stylesheets="@../style/style.css" text="Data de Nascimento:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="4.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Label>
+																<CalendarTextField fx:id="edtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+															</children>
+														</AnchorPane>
 														<AnchorPane prefHeight="28.0" prefWidth="240.0" GridPane.rowIndex="1">
 															<children>
 																<Label layoutX="7.0" layoutY="6.0" stylesheets="@../style/style.css" text="Logradouro:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
@@ -190,6 +214,20 @@
 																</TextField>
 															</children>
 														</AnchorPane>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+															<children>
+																<Label layoutX="14.0" layoutY="14.0" text="Complemento:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="edtComplemento" layoutX="4.0" layoutY="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</TextField>
+															</children>
+														</AnchorPane>
 														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
 															<children>
 																<Label layoutX="7.0" layoutY="6.0" stylesheets="@../style/style.css" text="Cidade:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
@@ -212,44 +250,6 @@
 																		<Font size="14.0" />
 																	</font>
 																</MaskTextField>
-															</children>
-														</AnchorPane>
-														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-															<children>
-																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="174.0" stylesheets="@../style/style.css" text="Data de Nascimento:" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="4.0">
-																	<font>
-																		<Font size="14.0" />
-																	</font>
-																</Label>
-																<CalendarTextField fx:id="edtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
-															</children>
-														</AnchorPane>
-														<AnchorPane prefHeight="200.0" prefWidth="200.0">
-															<children>
-																<Label layoutX="-121.0" layoutY="11.0" stylesheets="@../style/style.css" text="RG:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
-																	<font>
-																		<Font size="14.0" />
-																	</font>
-																</Label>
-																<TextField fx:id="edtRG" layoutX="-121.0" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
-																	<font>
-																		<Font size="14.0" />
-																	</font>
-																</TextField>
-															</children>
-														</AnchorPane>
-														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-															<children>
-																<Label layoutX="14.0" layoutY="14.0" text="Complemento:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
-																	<font>
-																		<Font size="14.0" />
-																	</font>
-																</Label>
-																<TextField fx:id="edtComplemento" layoutX="4.0" layoutY="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
-																	<font>
-																		<Font size="14.0" />
-																	</font>
-																</TextField>
 															</children>
 														</AnchorPane>
 														<AnchorPane prefHeight="65.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -359,24 +359,6 @@
 																		<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 																	</rowConstraints>
 																	<children>
-																		<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-																			<children>
-																				<ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="-1.0" layoutY="26.0" onMouseClicked="#removerTelefone">
-																					<image>
-																						<Image url="@../img/rubbish-bin.png" />
-																					</image>
-																				</ImageViewButton>
-																			</children>
-																		</AnchorPane>
-																		<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-																			<children>
-																				<ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="27.0" onMouseClicked="#adicionarTelefone">
-																					<image>
-																						<Image url="@../img/add.png" />
-																					</image>
-																				</ImageViewButton>
-																			</children>
-																		</AnchorPane>
 																		<AnchorPane prefHeight="60.0" prefWidth="166.0">
 																			<children>
 																				<Label layoutX="14.0" layoutY="14.0" text="Telefone" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
@@ -389,6 +371,24 @@
 																						<Font size="14.0" />
 																					</font>
 																				</MaskTextField>
+																			</children>
+																		</AnchorPane>
+																		<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+																			<children>
+																				<ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="27.0" onMouseClicked="#adicionarTelefone">
+																					<image>
+																						<Image url="@../img/add.png" />
+																					</image>
+																				</ImageViewButton>
+																			</children>
+																		</AnchorPane>
+																		<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+																			<children>
+																				<ImageViewButton fitHeight="30.0" fitWidth="30.0" layoutX="-1.0" layoutY="26.0" onMouseClicked="#removerTelefone">
+																					<image>
+																						<Image url="@../img/rubbish-bin.png" />
+																					</image>
+																				</ImageViewButton>
 																			</children>
 																		</AnchorPane>
 																	</children>
@@ -413,12 +413,12 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="edtCodigo" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<TextField fx:id="edtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</TextField>
-						<SwitchButton fx:id="sbAtivado" layoutX="433.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="433.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
 						<Label layoutX="449.0" layoutY="5.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
@@ -435,7 +435,7 @@
 								<Image url="@../img/Usuario_128x128.png" />
 							</image>
 						</ImageView>
-						<Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+						<Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -447,7 +447,7 @@
 								<Font size="14.0" />
 							</font>
 						</Button>
-						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
+						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

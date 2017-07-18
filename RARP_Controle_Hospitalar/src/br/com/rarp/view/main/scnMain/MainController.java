@@ -24,17 +24,22 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -108,6 +113,14 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().criarTabelas();
 			splash.getStage().close();
 			stage.show();
+			stage.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getTarget() instanceof Button && event.getCharacter().equals("\r"))
+						((Button) event.getTarget()).fire();
+				}
+			});
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -161,6 +174,31 @@ public class MainController extends Application implements Initializable {
 		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
 		mniControleAcesso.fire();
 		initRelogio();
+		
+		pnContent.heightProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				imgMain.setFitHeight(pnContent.getHeight());
+			}
+		});
+		
+		pnContent.widthProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				imgMain.setFitWidth(pnContent.getWidth());
+			}
+		});
+		
+		pnMain.centerProperty().addListener(new ChangeListener<Node>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
+				if(newValue == null)
+					pnMain.setCenter(imgMain);
+			}
+		});
 	}
 
 	private void initRelogio() {
@@ -180,6 +218,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
 			manutencao = new UsuarioController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
@@ -192,6 +231,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
 			manutencao = new PerfilUsuarioController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
@@ -204,6 +244,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.acesso);
 			manutencao = new CargoController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
@@ -216,6 +257,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EntradaPacienteController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
@@ -228,6 +270,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EspacoController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
@@ -247,8 +290,10 @@ public class MainController extends Application implements Initializable {
 	@FXML
 	private void manterFuncionario(ActionEvent event) {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoFuncionario(TipoMovimentacao.acesso);
 			manutencao = new FuncionarioController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
 			e.printStackTrace();
@@ -260,6 +305,7 @@ public class MainController extends Application implements Initializable {
 		try {
 			manutencao = new EspecialidadeController();
 			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
 			e.printStackTrace();
