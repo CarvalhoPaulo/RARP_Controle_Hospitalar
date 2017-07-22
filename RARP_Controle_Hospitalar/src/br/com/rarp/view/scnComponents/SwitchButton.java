@@ -37,7 +37,8 @@ public class SwitchButton extends Label
                 if (t1)
                 {
                     setText("SIM");
-                    setStyle( "-fx-background-color: green;"
+                    setStyle( "-fx-font-size: 12px;"
+                    		+ "-fx-background-color: green;"
                     		+ "-fx-text-fill: white;"
                     		+ "-fx-background-radius: 4px;"
                     		+ "-fx-font-weight: bold;"
@@ -47,7 +48,8 @@ public class SwitchButton extends Label
                 else
                 {
                     setText("NÃO");
-                    setStyle( "-fx-background-color: red;"
+                    setStyle( "-fx-font-size: 12px;"
+                    		+ "-fx-background-color: red;"
                     		+ "-fx-text-fill: white;"
                     		+ "-fx-background-radius: 4px;"
                     		+ "-fx-font-weight: bold;"

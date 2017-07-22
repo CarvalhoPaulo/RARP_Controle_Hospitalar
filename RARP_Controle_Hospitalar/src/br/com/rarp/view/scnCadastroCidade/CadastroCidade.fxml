@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,7 +14,7 @@
 
 <AnchorPane prefHeight="268.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
 	<children>
-		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="453.0" prefWidth="568.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="453.0" prefWidth="568.0" style="-fx-font-size: 14px;" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
 				<AnchorPane BorderPane.alignment="CENTER">
 					<children>
@@ -26,12 +28,38 @@
 								<Font size="14.0" />
 							</font>
 						</TextField>
-						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="433.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="433.0" layoutY="24.0" prefHeight="35.0" prefWidth="76.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
 						<Label layoutX="449.0" layoutY="5.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
+                  <TextField fx:id="edtNome" layoutY="101.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutY="66.0" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <IntegerTextField fx:id="edtIBGE" layoutY="141.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </IntegerTextField>
+                  <Label layoutX="7.0" layoutY="126.0" text="Codigo do IBGE:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="182.0" text="Estado:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="175.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbEstado" layoutY="202.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="199.0" />
 					</children>
 				</AnchorPane>
 			</center>

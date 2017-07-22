@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.Estado;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
@@ -15,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -23,15 +26,27 @@ public class CadastroCidadeController extends Application implements Initializab
 
 	private static boolean visualizando;
 	
+	private static CidadeCtrl cidadeCtrl;
+	
 	private static Stage stage;
 
 	@FXML
 	private IntegerTextField edtCodigo;
+	
+    @FXML
+    private TextField edtNome;
 
-	private static CidadeCtrl cidadeCtrl;
+    @FXML
+    private IntegerTextField edtIBGE;
+
+    @FXML
+    private ComboBox<Estado> cmbEstado;
 
 	@FXML
 	private SwitchButton sbAtivado;
+	
+	@FXML
+    private Button btnGravar;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -102,12 +117,19 @@ public class CadastroCidadeController extends Application implements Initializab
 
 	private void limparCampos() {
 		edtCodigo.clear();
+		edtNome.clear();
+		edtIBGE.clear();
+		cmbEstado.getSelectionModel().select(-1);
 		sbAtivado.setValue(true);
 	}
 
 	private void bloquearTela() {
 		edtCodigo.setDisable(true);
 		sbAtivado.setDisable(true);
+		btnGravar.setDisable(true);
+		edtNome.setDisable(true);
+		edtIBGE.setDisable(true);
+		cmbEstado.setDisable(true);
 	}
 
 	private void preencherObjeto() {
@@ -118,19 +140,27 @@ public class CadastroCidadeController extends Application implements Initializab
 			cidadeCtrl.novaCidade();
 		}
 		cidadeCtrl.getCidade().setCodigo(edtCodigo.getValue());
+		cidadeCtrl.getCidade().setNome(edtNome.getText());
+		cidadeCtrl.getCidade().setCodigoIBGE(edtIBGE.getValue());
+		cidadeCtrl.getCidade().setEstado(cmbEstado.getSelectionModel().getSelectedItem());
 		cidadeCtrl.getCidade().setStatus(sbAtivado.getValue());
 	}
 
 	private void preencherTela() {
-		edtCodigo.setText(cidadeCtrl.getCidade().getCodigo() + "");
-		sbAtivado.setValue(cidadeCtrl.getCidade().isStatus());
+		if (cidadeCtrl != null && cidadeCtrl.getCidade() != null) {
+			edtCodigo.setText(cidadeCtrl.getCidade().getCodigo() + "");
+			edtNome.setText(cidadeCtrl.getCidade().getNome());
+			edtIBGE.setValue(cidadeCtrl.getCidade().getCodigoIBGE());
+			if(cidadeCtrl.getCidade().getEstado() != null)
+				cmbEstado.getSelectionModel().select(cidadeCtrl.getCidade().getEstado());
+			sbAtivado.setValue(cidadeCtrl.getCidade().isStatus());
+		}
 	}
 
 	@SuppressWarnings("static-access")
 	public void visualizar(CidadeCtrl cidadeCtrl) throws Exception {
 		visualizando = true;
 		this.cidadeCtrl = cidadeCtrl;
-		
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
 	}

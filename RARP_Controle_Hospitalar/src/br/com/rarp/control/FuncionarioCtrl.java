@@ -20,8 +20,8 @@ public class FuncionarioCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		if (verificarDesativacao()) {
+			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 			validarDadosObrigatorios();
 			funcionarioBusiness.salvar(funcionario);
 			return true;
@@ -52,7 +52,7 @@ public class FuncionarioCtrl {
 	}
 	
 	private boolean verificarDesativacao() {
-		if(!funcionario.isStatus())
+		if(funcionario != null && !funcionario.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este funcionário?");
 		return true;
 	}
