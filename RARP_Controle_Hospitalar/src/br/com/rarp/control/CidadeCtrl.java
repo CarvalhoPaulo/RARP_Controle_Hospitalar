@@ -1,9 +1,12 @@
 package br.com.rarp.control;
 
+import java.sql.SQLException;
+
+import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.bo.CidadeBusiness;
 import br.com.rarp.utils.Campo;
-import br.com.rarp.utils.comparacao.Ativado;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CidadeCtrl {
@@ -11,9 +14,8 @@ public class CidadeCtrl {
 	private Cidade cidade;
 
 	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo campo, Ativado ativado, String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws SQLException, Exception {
+		return FXCollections.observableList(new CidadeBusiness().consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 
 	public boolean salvar() throws Exception {
@@ -49,8 +51,8 @@ public class CidadeCtrl {
 		return cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
+	public void setCidade(Object object) {
+		this.cidade = (Cidade) object;
 	}
 
 

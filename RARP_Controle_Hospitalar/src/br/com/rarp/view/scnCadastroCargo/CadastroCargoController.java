@@ -9,19 +9,27 @@ import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class CadastroCargoController extends Application implements Initializable {
 
 	private static boolean visualizando;
 	private static Stage stage;
+	
+    @FXML
+    private AnchorPane pnlPrincipal;
 
 	@FXML
 	private Button btnGravar;
@@ -78,6 +86,30 @@ public class CadastroCargoController extends Application implements Initializabl
 	public void initialize(URL location, ResourceBundle resources) {
 		sbAtivado.setValue(true);
 		edtCodigo.setDisable(true);
+		
+		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getTarget() != null 
+						&& event.getTarget() instanceof Node 
+						&& ((Node) event.getTarget()).getId() != null
+						&& event.getCode() == KeyCode.TAB) {
+					String id = ((Node) event.getTarget()).getId();
+					if (!event.isShiftDown()) {
+						
+						if(id.equals("edtRequisitos")) {
+							btnGravar.requestFocus();
+						}
+					}
+					if (event.isShiftDown()) {	
+						if(id.equals("btnGravar")) {
+							edtRequisitos.requestFocus();
+						}
+					} 
+				}
+			}
+		});
 
 		if (cargoCtrl != null && cargoCtrl.getCargo() != null)
 			preencherTela();

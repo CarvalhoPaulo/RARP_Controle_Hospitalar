@@ -10,6 +10,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,11 +32,13 @@
 						</Menu>
 						<Menu fx:id="mnCadastros" mnemonicParsing="false" text="Cadastros">
 							<items>
-                        <MenuItem mnemonicParsing="false" onAction="#manterCargos" text="Cadastro de Cargos" />
 								<MenuItem fx:id="mniFuncionarios" mnemonicParsing="false" onAction="#manterFuncionario" text="Cadastro de Funcionários" />
 								<MenuItem fx:id="mniPacientes" mnemonicParsing="false" onAction="#manterPacientes" text="Cadastro de Pacientes" />
 								<MenuItem fx:id="mniMedicos" mnemonicParsing="false" onAction="#manterMedicos" text="Cadastro de Médicos" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#manterCargos" text="Cadastro de Cargos" />
 								<MenuItem fx:id="mniLeitos" mnemonicParsing="false" onAction="#manterEspacos" text="Cadastro de Espaços" />
+                      <MenuItem fx:id="mniCidades" mnemonicParsing="false" onAction="#manterCidades" text="Cadastro de Cidades" />
 								<MenuItem fx:id="mniEspecialidade" mnemonicParsing="false" onAction="#manterEspecialidade" text="Cadastro de Especialidade" />
 							</items>
 						</Menu>

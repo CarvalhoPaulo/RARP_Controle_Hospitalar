@@ -14,12 +14,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class CadastroCidadeController extends Application implements Initializable {
@@ -48,19 +50,18 @@ public class CadastroCidadeController extends Application implements Initializab
 	@FXML
     private Button btnGravar;
 	
+	@FXML
+    private Button btnVoltar;
+	
+    @FXML
+    private AnchorPane pnlPrincipal;
+	
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
-		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
+		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroCidade.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
-		stage.getScene().setOnKeyTyped(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				System.out.println("");
-			}
-		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -93,6 +94,33 @@ public class CadastroCidadeController extends Application implements Initializab
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		edtCodigo.requestFocus();
+		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getTarget() != null 
+						&& event.getTarget() instanceof Node 
+						&& ((Node) event.getTarget()).getId() != null
+						&& event.getCode() == KeyCode.TAB) {
+					String id = ((Node) event.getTarget()).getId();
+					if (!event.isShiftDown()) {
+						if(id.equals("cmbEstado"))
+							btnGravar.requestFocus();
+						
+						if(id.equals("btnGravar"))
+							edtNome.requestFocus();
+					}
+					if (event.isShiftDown()) {	
+						if(id.equals("edtNome"))
+							btnGravar.requestFocus();
+						
+						if(id.equals("btnGravar"))
+							cmbEstado.requestFocus();
+					} 
+				}
+			}
+		});
 		prepararTela();
 		if (cidadeCtrl != null && cidadeCtrl.getCidade() != null)
 			preencherTela();

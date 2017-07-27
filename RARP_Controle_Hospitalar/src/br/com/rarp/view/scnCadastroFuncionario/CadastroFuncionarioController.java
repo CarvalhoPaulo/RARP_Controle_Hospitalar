@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -35,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.CalendarTextField;
 
@@ -43,8 +45,11 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private static boolean visualizando;
 	private static Stage stage;
 	
+	@FXML
+	private TabPane tbPane;
+	
     @FXML
-    private TabPane tbPane;
+    private AnchorPane pnlPrincipal;
 
 	@FXML
 	private Button btnGravar;
@@ -158,13 +163,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tbPane.setOnKeyTyped(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				System.out.println("");
-			}
-		});
 		prepararTela();
 		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null)
 			preencherTela();
@@ -177,6 +175,11 @@ public class CadastroFuncionarioController extends Application implements Initia
 		try {
 			sbAtivado.setValue(true);
 			edtCodigo.setDisable(true);
+			edtCodigo.setFocusTraversable(true);
+			
+			tbPane.requestFocus();
+			edtNome.requestFocus();
+			
 			edtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 			edtDataNasc.setDateFormat(edtDataAdmissao.getDateFormat());
 			edtDataAdmissao.setCalendar(Calendar.getInstance());
@@ -192,6 +195,56 @@ public class CadastroFuncionarioController extends Application implements Initia
 			tgSexo.getToggles().add(rbMasculino);
 			tgSexo.getToggles().add(rbFeminimo);
 			tgSexo.selectToggle(rbMasculino);
+			
+			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if (event.getTarget() != null 
+							&& event.getTarget() instanceof Node 
+							&& ((Node) event.getTarget()).getId() != null
+							&& event.getCode() == KeyCode.TAB) {
+						String id = ((Node) event.getTarget()).getId();
+						if (!event.isShiftDown()) {
+							
+							if(id.equals("edtBairro")) {
+								tbPane.getSelectionModel().select(1);
+								edtCTPS.requestFocus();
+								event.consume();
+							}
+							
+							if(id.equals("lsTelefones")) {
+								btnGravar.requestFocus();
+								event.consume();
+							}
+							
+							if(id.equals("btnGravar")) {
+								tbPane.getSelectionModel().select(0);
+								edtNome.requestFocus();
+								event.consume();
+							}
+						}
+						if (event.isShiftDown()) {	
+							if(id.equals("edtNome")) {
+								btnGravar.requestFocus();
+								event.consume();
+							}
+							
+							if(id.equals("edtCTPS")) {
+								tbPane.getSelectionModel().select(0);
+								edtBairro.requestFocus();
+								event.consume();
+							}
+							
+							if(id.equals("btnGravar")) {
+								tbPane.getSelectionModel().select(1);
+								lsTelefones.requestFocus();
+								event.consume();
+							}
+						} 
+					}
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

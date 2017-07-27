@@ -41,6 +41,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	@FXML private Button btnAdd;
 	@FXML private Button btnAddAll;
 	@FXML private Button btnGravar;
+	@FXML private Button btnVoltar;
 	@FXML private SwitchButton sbAtivado;
 	
 	private static PerfilUsuarioCtrl perfilUsuarioCtrl;

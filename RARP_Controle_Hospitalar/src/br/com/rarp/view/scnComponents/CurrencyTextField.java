@@ -41,6 +41,8 @@ public class CurrencyTextField extends TextField {
 	}
 	
 	private String putMask(String text) {
+		if(!text.equals(""))
+			text = "0";
 		return String.format("R$ %,.2f", Double.parseDouble(text));
 	}
 	

@@ -16,6 +16,7 @@ public class SwitchButton extends Label
     public SwitchButton()
     {
     	Button switchBtn = new Button();
+    	switchBtn.setFocusTraversable(false);
         switchBtn.setPrefWidth(35);
         switchBtn.setOnAction(new EventHandler<ActionEvent>()
         {
@@ -42,7 +43,7 @@ public class SwitchButton extends Label
                     		+ "-fx-text-fill: white;"
                     		+ "-fx-background-radius: 4px;"
                     		+ "-fx-font-weight: bold;"
-                    		+ "-fx-label-padding: 2px 3px 3px 3px;");
+                    		+ "-fx-label-padding: 2px 2px 3px 3px;");
                     setContentDisplay(ContentDisplay.RIGHT);
                 }
                 else

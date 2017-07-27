@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import br.com.rarp.view.scnComponents.CurrencyTextField?>
+<?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.MaskTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.scene.control.Button?>
@@ -22,13 +23,13 @@
 <?import jfxtras.scene.control.ImageViewButton?>
 <?import jfxtras.scene.control.ListView?>
 
-<AnchorPane prefHeight="538.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
+<AnchorPane fx:id="pnlPrincipal" prefHeight="538.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="461.0" prefWidth="599.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
 				<AnchorPane BorderPane.alignment="CENTER">
 					<children>
-						<TabPane fx:id="tbPane" prefHeight="458.0" prefWidth="515.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+						<TabPane fx:id="tbPane" focusTraversable="false" prefHeight="458.0" prefWidth="515.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
 							<tabs>
 								<Tab closable="false" style="-fx-font-size: 14;" text="1 - Informações">
 									<content>
@@ -272,7 +273,7 @@
 										</AnchorPane>
 									</content>
 								</Tab>
-								<Tab style="-fx-font-size: 14;" text="2 - Informações">
+								<Tab closable="false" style="-fx-font-size: 14;" text="2 - Informações">
 									<content>
 										<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="343.0" prefWidth="515.0">
 											<children>
@@ -413,11 +414,11 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="edtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="edtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
-						</TextField>
+						</IntegerTextField>
 						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="433.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
 						<Label layoutX="449.0" layoutY="5.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
@@ -428,14 +429,14 @@
 				</AnchorPane>
 			</center>
 			<right>
-				<AnchorPane prefHeight="384.0" prefWidth="106.0" BorderPane.alignment="CENTER">
+				<AnchorPane focusTraversable="true" prefHeight="384.0" prefWidth="106.0" BorderPane.alignment="CENTER">
 					<children>
 						<ImageView fitHeight="108.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<image>
 								<Image url="@../img/Usuario_128x128.png" />
 							</image>
 						</ImageView>
-						<Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+						<Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -447,7 +448,7 @@
 								<Font size="14.0" />
 							</font>
 						</Button>
-						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
+						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

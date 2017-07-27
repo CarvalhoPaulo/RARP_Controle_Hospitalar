@@ -13,6 +13,7 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
+import br.com.rarp.view.scnManutencao.cidade.CidadeController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
@@ -311,4 +312,17 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+    @FXML
+    private void manterCidades(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoCidade(TipoMovimentacao.acesso);
+			manutencao = new CidadeController();
+			pnMain.setCenter(manutencao.getNode());
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			e.printStackTrace();
+		}
+    }
 }
