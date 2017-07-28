@@ -48,7 +48,7 @@ public class CadastroCidadeController extends Application implements Initializab
 	private SwitchButton sbAtivado;
 	
 	@FXML
-    private Button btnGravar;
+    private Button btnSalvar;
 	
 	@FXML
     private Button btnVoltar;
@@ -56,10 +56,9 @@ public class CadastroCidadeController extends Application implements Initializab
     @FXML
     private AnchorPane pnlPrincipal;
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
-		this.stage = stage;
+		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroCidade.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -106,16 +105,16 @@ public class CadastroCidadeController extends Application implements Initializab
 					String id = ((Node) event.getTarget()).getId();
 					if (!event.isShiftDown()) {
 						if(id.equals("cmbEstado"))
-							btnGravar.requestFocus();
+							btnSalvar.requestFocus();
 						
-						if(id.equals("btnGravar"))
+						if(id.equals("btnSalvar"))
 							edtNome.requestFocus();
 					}
 					if (event.isShiftDown()) {	
 						if(id.equals("edtNome"))
-							btnGravar.requestFocus();
+							btnSalvar.requestFocus();
 						
-						if(id.equals("btnGravar"))
+						if(id.equals("btnSalvar"))
 							cmbEstado.requestFocus();
 					} 
 				}
@@ -154,7 +153,7 @@ public class CadastroCidadeController extends Application implements Initializab
 	private void bloquearTela() {
 		edtCodigo.setDisable(true);
 		sbAtivado.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 		edtNome.setDisable(true);
 		edtIBGE.setDisable(true);
 		cmbEstado.setDisable(true);

@@ -6,10 +6,16 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class CadastroEntradaController extends Application implements Initializable {
@@ -19,8 +25,26 @@ public class CadastroEntradaController extends Application implements Initializa
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		setStage(stage);
 		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("CadastroEntrada.fxml"))));
-		this.stage = stage;
+		stage.setTitle("Cadastro de Funcionários");
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
+	}
+	
+	@FXML
+	private void voltar(ActionEvent actionEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public Stage getStage() {

@@ -5,9 +5,14 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class CadastroEspecialidadeController extends Application implements Initializable{
@@ -45,6 +50,5 @@ public class CadastroEspecialidadeController extends Application implements Init
 	public static void setStage(Stage stage) {
 		CadastroEspecialidadeController.stage = stage;
 	}
-
 
 }

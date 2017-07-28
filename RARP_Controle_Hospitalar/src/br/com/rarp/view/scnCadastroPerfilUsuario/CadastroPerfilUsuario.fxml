@@ -269,9 +269,9 @@
 								<Image url="@../img/perfil-usuario-128x128.png" />
 							</image>
 						</ImageView>
-						<Button fx:id="btnGravar" alignment="CENTER"
+						<Button fx:id="btnSalvar" alignment="CENTER"
 							contentDisplay="TOP" mnemonicParsing="false" onAction="#salvar"
-							prefHeight="66.0" prefWidth="108.0" text="Gravar"
+							prefHeight="66.0" prefWidth="108.0" text="Salvar"
 							AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0"
 							AnchorPane.topAnchor="116.0">
 							<graphic>

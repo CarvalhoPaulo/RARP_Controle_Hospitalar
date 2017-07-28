@@ -19,7 +19,9 @@ public class EspacoController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Espaços");
-
+		getLblTitle().setStyle("-fx-background-color: #FDE10C;"
+				+ "-fx-font-weight: bold");
+		
 		TableColumn<Espaco, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		

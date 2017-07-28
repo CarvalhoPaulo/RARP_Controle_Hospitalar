@@ -296,7 +296,7 @@ public class MainController extends Application implements Initializable {
 			pnMain.setCenter(manutencao.getNode());
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -308,7 +308,7 @@ public class MainController extends Application implements Initializable {
 			pnMain.setCenter(manutencao.getNode());
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -321,7 +321,7 @@ public class MainController extends Application implements Initializable {
 			pnMain.setCenter(manutencao.getNode());
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar a tela de manutenção de cadastro de funcionários");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
     }

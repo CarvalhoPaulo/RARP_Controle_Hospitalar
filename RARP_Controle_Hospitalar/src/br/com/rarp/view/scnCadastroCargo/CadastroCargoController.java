@@ -32,7 +32,7 @@ public class CadastroCargoController extends Application implements Initializabl
     private AnchorPane pnlPrincipal;
 
 	@FXML
-	private Button btnGravar;
+	private Button btnSalvar;
 
 	@FXML
 	private Button btnVoltar;
@@ -57,12 +57,22 @@ public class CadastroCargoController extends Application implements Initializabl
 	
 	private static CargoCtrl cargoCtrl;
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
+		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroCargo.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
-		this.stage = stage;
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
 	}
 
 	public Stage getStage() {
@@ -99,11 +109,11 @@ public class CadastroCargoController extends Application implements Initializabl
 					if (!event.isShiftDown()) {
 						
 						if(id.equals("edtRequisitos")) {
-							btnGravar.requestFocus();
+							btnSalvar.requestFocus();
 						}
 					}
 					if (event.isShiftDown()) {	
-						if(id.equals("btnGravar")) {
+						if(id.equals("btnSalvar")) {
 							edtRequisitos.requestFocus();
 						}
 					} 
@@ -140,7 +150,7 @@ public class CadastroCargoController extends Application implements Initializabl
 		edtNivel.setDisable(true);
 		edtRequisitos.setDisable(true);
 		sbAtivado.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 	}
 
 	private void preencherObjeto() {

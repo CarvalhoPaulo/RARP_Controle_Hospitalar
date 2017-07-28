@@ -67,7 +67,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				}
 			});
 			
-			node.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+			node.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 				@Override
 				public void handle(KeyEvent event) {

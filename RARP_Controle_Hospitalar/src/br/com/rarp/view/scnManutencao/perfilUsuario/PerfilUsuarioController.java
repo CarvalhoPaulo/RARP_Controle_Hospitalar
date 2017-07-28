@@ -17,6 +17,8 @@ public class PerfilUsuarioController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Perfil de Usuário");
+		getLblTitle().setStyle("-fx-background-color: #F34227;"
+				+ "-fx-font-weight: bold");
 		
 		TableColumn<PerfilUsuario, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));

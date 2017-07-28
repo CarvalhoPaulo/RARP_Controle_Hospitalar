@@ -52,7 +52,7 @@ public class CadastroFuncionarioController extends Application implements Initia
     private AnchorPane pnlPrincipal;
 
 	@FXML
-	private Button btnGravar;
+	private Button btnSalvar;
 
 	@FXML
 	private Button btnVoltar;
@@ -125,10 +125,9 @@ public class CadastroFuncionarioController extends Application implements Initia
 	@FXML
 	private ListView<Telefone> lsTelefones;
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
-		this.stage = stage;
+		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
 		stage.setTitle("Cadastro de Funcionários");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -214,11 +213,11 @@ public class CadastroFuncionarioController extends Application implements Initia
 							}
 							
 							if(id.equals("lsTelefones")) {
-								btnGravar.requestFocus();
+								btnSalvar.requestFocus();
 								event.consume();
 							}
 							
-							if(id.equals("btnGravar")) {
+							if(id.equals("btnSalvar")) {
 								tbPane.getSelectionModel().select(0);
 								edtNome.requestFocus();
 								event.consume();
@@ -226,7 +225,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 						}
 						if (event.isShiftDown()) {	
 							if(id.equals("edtNome")) {
-								btnGravar.requestFocus();
+								btnSalvar.requestFocus();
 								event.consume();
 							}
 							
@@ -236,7 +235,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 								event.consume();
 							}
 							
-							if(id.equals("btnGravar")) {
+							if(id.equals("btnSalvar")) {
 								tbPane.getSelectionModel().select(1);
 								lsTelefones.requestFocus();
 								event.consume();
@@ -295,7 +294,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		edtSalarioContratual.setDisable(true);
 		edtTelefone.setDisable(true);
 		sbAtivado.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 		cmbCidade.setDisable(true);
 		rbFeminimo.setDisable(true);
 		rbMasculino.setDisable(true);

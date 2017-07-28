@@ -23,6 +23,8 @@ public class FuncionarioController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Funcionários");
+		getLblTitle().setStyle("-fx-background-color: #5AFF57;"
+				+ "-fx-font-weight: bold");
 
 		TableColumn<Funcionario, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));

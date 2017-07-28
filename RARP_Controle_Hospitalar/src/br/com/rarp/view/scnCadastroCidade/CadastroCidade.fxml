@@ -68,10 +68,10 @@
 					<children>
 						<ImageView fitHeight="108.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<image>
-								<Image url="@../img/Usuario_128x128.png" />
+								<Image url="@../img/cityscape.png" />
 							</image>
 						</ImageView>
-						<Button fx:id="btnGravar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+						<Button fx:id="btnSalvar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

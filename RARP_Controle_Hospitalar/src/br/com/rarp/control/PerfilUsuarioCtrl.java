@@ -25,7 +25,7 @@ public class PerfilUsuarioCtrl extends Object {
 		PerfilUsuarioBusiness perfilUsuarioBusiness = new PerfilUsuarioBusiness();
 		if (verificarDesativacao()) {
 			validarDadosObrigatorios();
-			perfilUsuarioBusiness.salvar(perfilUsuario); 
+			perfilUsuarioBusiness.salvar(perfilUsuario);
 		}
 	}
 	

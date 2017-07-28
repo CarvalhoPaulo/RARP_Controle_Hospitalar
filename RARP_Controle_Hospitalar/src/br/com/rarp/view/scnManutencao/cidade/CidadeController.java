@@ -23,6 +23,8 @@ public class CidadeController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Cidades");
+		getLblTitle().setStyle("-fx-background-color: #471B1B;"
+				+ "-fx-font-weight: bold");
 		
 		TableColumn<Cidade, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));

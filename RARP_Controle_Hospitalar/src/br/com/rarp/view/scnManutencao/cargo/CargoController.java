@@ -22,7 +22,9 @@ public class CargoController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Funcionários");
+		getLblTitle().setText("Manutenção de Cargos");
+		getLblTitle().setStyle("-fx-background-color: #8F929C;"
+				+ "-fx-font-weight: bold");
 
 		TableColumn<Cargo, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));

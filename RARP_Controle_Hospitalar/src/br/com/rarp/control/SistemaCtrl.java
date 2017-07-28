@@ -44,29 +44,39 @@ public class SistemaCtrl {
 		if (usuarioSessao != null && usuarioSessao.getPerfilUsuario() != null && usuarioSessao.getPerfilUsuario().getTelas().size() > 0) {
 			switch (tipo) {
 			case acesso:
-				return usuarioSessao.getPerfilUsuario().getTelas()
-						.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isStatus();
+				boolean permitido = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						permitido = t.isStatus();
+				return permitido;
 
 			case insercao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeInserir();
+				boolean podeInserir = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeInserir = t.isPodeInserir();
+				return podeInserir;
 
 			case alteracao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeAlterar();
+				boolean podeAlterar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeAlterar = t.isPodeAlterar();
+				return podeAlterar;
 
 			case visualizaco:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela)))
-							.isPodeVisualizar();
+				boolean podeVisualizar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeVisualizar = t.isPodeVisualizar();
+				return podeVisualizar;
 
 			case desativacao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeDesativar();
+				boolean podeDesativar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeDesativar = t.isPodeDesativar();
+				return podeDesativar;
 			}
 		}
 		return !getPropriedades().getControleAcesso();
