@@ -19,6 +19,7 @@ import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
 import br.com.rarp.model.dao.LeitoDAO;
 import br.com.rarp.model.dao.MedicoDAO;
+import br.com.rarp.model.dao.PacienteDAO;
 import br.com.rarp.model.dao.PerfilUsuarioDAO;
 import br.com.rarp.model.dao.PessoaDAO;
 import br.com.rarp.model.dao.PessoaFisicaDAO;
@@ -96,6 +97,8 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
 		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
 		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
+		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
+		
 		return telas;
 	}
 	
@@ -131,6 +134,11 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoCidade(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCidade", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoPaciente", tipoMovimentacao))
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	
@@ -181,6 +189,7 @@ public class SistemaCtrl {
 		LeitoDAO.criarTabela();
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
+		PacienteDAO.criarTabela();
 	}
 
 	public Usuario getUsuarioSessao() {

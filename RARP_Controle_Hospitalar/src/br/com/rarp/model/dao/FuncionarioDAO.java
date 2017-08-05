@@ -56,6 +56,7 @@ public class FuncionarioDAO {
 					+ "PE.codigo AS codigo_pessoa, " 
 					+ "PE.nome AS nome_pessoa, "
 					+ "PE.logradouro, "
+					+ "PE.datanascimento, "
 					+ "PE.complemento, " 
 					+ "PE.numero, " 
 					+ "PE.bairro, " 
@@ -96,6 +97,7 @@ public class FuncionarioDAO {
 				funcionario.setCertidaoNascimento(rs.getString("certidaonascimento"));
 				funcionario.setNome(rs.getString("nome_pessoa"));
 				funcionario.setLogradouro(rs.getString("logradouro"));
+				funcionario.setDtNascimento(new Date(rs.getDate("datanascimento").getTime()));
 				funcionario.setComplemento(rs.getString("complemento"));
 				funcionario.setNumero(rs.getString("numero"));
 				funcionario.setBairro(rs.getString("bairro"));

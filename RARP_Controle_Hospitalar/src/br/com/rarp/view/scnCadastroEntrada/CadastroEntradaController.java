@@ -20,14 +20,15 @@ import javafx.stage.Stage;
 
 public class CadastroEntradaController extends Application implements Initializable {
 
-	private Stage stage;
-	private EntradaPacienteCtrl entradaPacienteCtrl;
+	private static Stage stage;
+	private static EntradaPacienteCtrl entradaPacienteCtrl;
+	private static boolean visualizando;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("CadastroEntrada.fxml"))));
-		stage.setTitle("Cadastro de Funcionários");
+		stage.setTitle("Cadastro de Entrada de Pacientes");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -43,14 +44,17 @@ public class CadastroEntradaController extends Application implements Initializa
 	
 	@FXML
 	private void voltar(ActionEvent actionEvent) {
-		// TODO Auto-generated method stub
-		
+		entradaPacienteCtrl = null;
+		stage.hide();
+		stage = null;
+		setVisualizando(false);
 	}
 
 	public Stage getStage() {
 		return stage;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
@@ -60,6 +64,7 @@ public class CadastroEntradaController extends Application implements Initializa
 		stage.showAndWait();
 	}
 	
+	@SuppressWarnings("static-access")
 	public void alterar(EntradaPacienteCtrl entradaPacienteCtrl) throws Exception {
 		this.entradaPacienteCtrl = entradaPacienteCtrl;
 		start(SistemaCtrl.getInstance().getStage());
@@ -72,6 +77,14 @@ public class CadastroEntradaController extends Application implements Initializa
 			
 		}
 		
+	}
+
+	public static boolean isVisualizando() {
+		return visualizando;
+	}
+
+	public static void setVisualizando(boolean visualizando) {
+		CadastroEntradaController.visualizando = visualizando;
 	}
 
 }

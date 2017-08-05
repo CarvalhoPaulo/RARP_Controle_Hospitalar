@@ -61,7 +61,7 @@ public class CadastroCargoController extends Application implements Initializabl
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroCargo.fxml"))));
-		stage.setTitle("Cadastro de Funcionários");
+		stage.setTitle("Cadastro de Cargo");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -195,12 +195,14 @@ public class CadastroCargoController extends Application implements Initializabl
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o funcionário.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o cargo.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 	
     @FXML
     private void voltar(ActionEvent event) {
+    	cargoCtrl = null;
     	stage.hide();
+    	visualizando = false;
     }
 }

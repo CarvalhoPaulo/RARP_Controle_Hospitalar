@@ -18,6 +18,7 @@ import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
 import br.com.rarp.view.scnManutencao.funcionario.FuncionarioController;
+import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnSplash.SplashController;
@@ -37,7 +38,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -49,23 +53,108 @@ import javafx.util.Duration;
 
 public class MainController extends Application implements Initializable {
 
-	@FXML
-	private ImageView imgMain;
-	@FXML
-	private AnchorPane pnContent;
-	@FXML
-	private BorderPane pnMain;
-	@FXML
-	private CheckMenuItem mniControleAcesso;
-	@FXML
-	private ImageView imgControleAcesso;
-	@FXML
-	private Label lblRelogio;
-	@FXML
-	private Label lblUsuarioSessao;
-	@FXML
-	private MenuItem mniEspecialidade;
-	
+    @FXML
+    private BorderPane pnMain;
+
+    @FXML
+    private MenuBar mnbMenu;
+
+    @FXML
+    private Menu mnArquivo;
+
+    @FXML
+    private MenuItem mniOpcoes;
+
+    @FXML
+    private MenuItem mniSair;
+
+    @FXML
+    private Menu mnCadastros;
+
+    @FXML
+    private MenuItem mniFuncionarios;
+
+    @FXML
+    private MenuItem mniPacientes;
+
+    @FXML
+    private MenuItem mniMedicos;
+
+    @FXML
+    private MenuItem mniLeitos;
+
+    @FXML
+    private MenuItem mniCidades;
+
+    @FXML
+    private MenuItem mniEspecialidade;
+
+    @FXML
+    private Menu mnMovimentacoes;
+
+    @FXML
+    private Menu mnRelatorios;
+
+    @FXML
+    private Menu mnSeguranca;
+
+    @FXML
+    private CheckMenuItem mniControleAcesso;
+
+    @FXML
+    private MenuItem mniUsuario;
+
+    @FXML
+    private MenuItem mniPerfilUsuario;
+
+    @FXML
+    private MenuItem mniTrocarUsuario;
+
+    @FXML
+    private Menu mnSobre;
+
+    @FXML
+    private ToolBar tlbBarraFerramentas;
+
+    @FXML
+    private Button btnFuncionarios;
+
+    @FXML
+    private Button btnPacientes;
+
+    @FXML
+    private Button btnMedicos;
+
+    @FXML
+    private Button btnLeitos;
+
+    @FXML
+    private Button btnEntrada;
+
+    @FXML
+    private Button btnSaida;
+
+    @FXML
+    private Button btnAjuda;
+
+    @FXML
+    private Button btnSair;
+
+    @FXML
+    private ImageView imgControleAcesso;
+
+    @FXML
+    private Label lblUsuarioSessao;
+
+    @FXML
+    private Label lblRelogio;
+
+    @FXML
+    private AnchorPane pnContent;
+
+    @FXML
+    private ImageView imgMain;
+    
 	private ManutencaoController manutencao;
 
 	@Override
@@ -196,10 +285,25 @@ public class MainController extends Application implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
-				if(newValue == null)
+				if(newValue == null) {
 					pnMain.setCenter(imgMain);
+					focarToolBar(true);
+					tlbBarraFerramentas.requestFocus();
+					btnFuncionarios.requestFocus();
+				}
 			}
 		});
+	}
+	
+	private void focarToolBar(boolean value) {
+		btnAjuda.setFocusTraversable(value);
+		btnEntrada.setFocusTraversable(value);
+		btnFuncionarios.setFocusTraversable(value);
+		btnLeitos.setFocusTraversable(value);
+		btnMedicos.setFocusTraversable(value);
+		btnPacientes.setFocusTraversable(value);
+		btnSaida.setFocusTraversable(value);
+		btnSair.setFocusTraversable(value);
 	}
 
 	private void initRelogio() {
@@ -219,6 +323,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.acesso);
 			manutencao = new UsuarioController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -232,6 +337,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.acesso);
 			manutencao = new PerfilUsuarioController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -245,6 +351,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.acesso);
 			manutencao = new CargoController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -258,6 +365,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EntradaPacienteController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -268,9 +376,10 @@ public class MainController extends Application implements Initializable {
 	@FXML
 	private void manterEspacos(ActionEvent event) {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.acesso);
 			manutencao = new EspacoController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -285,7 +394,16 @@ public class MainController extends Application implements Initializable {
 
     @FXML
     private void manterPacientes(ActionEvent event) {
-
+    	try {
+			SistemaCtrl.getInstance().liberarManutencaoPaciente(TipoMovimentacao.acesso);
+			manutencao = new PacienteController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
 	@FXML
@@ -294,6 +412,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoFuncionario(TipoMovimentacao.acesso);
 			manutencao = new FuncionarioController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -306,6 +425,7 @@ public class MainController extends Application implements Initializable {
 		try {
 			manutencao = new EspecialidadeController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -319,6 +439,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().liberarManutencaoCidade(TipoMovimentacao.acesso);
 			manutencao = new CidadeController();
 			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());

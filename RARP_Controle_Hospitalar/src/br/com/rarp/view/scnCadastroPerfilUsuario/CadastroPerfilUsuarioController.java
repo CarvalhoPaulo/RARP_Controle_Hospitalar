@@ -271,7 +271,9 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	
 	@FXML
 	private void voltar(ActionEvent event) {
+		perfilUsuarioCtrl = null;
 		stage.hide();
+    	visualizando = false;
 	}
 
 	private void preencheTela() {

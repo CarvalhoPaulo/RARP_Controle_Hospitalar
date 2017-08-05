@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public abstract class ManutencaoController implements Initializable, Manutencao {
@@ -37,18 +38,41 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	private Node node;
 
 	@SuppressWarnings("rawtypes")
-	@FXML protected TableView tvManutencao;
+	@FXML
+	protected TableView tvManutencao;
+
+	@FXML
+	private Button btnPesquisar;
 	
-	@FXML private Button btnPesquisar;
-	@FXML private Button btnInserir;
-	@FXML private Button btnAlterar;
-	@FXML private Button btnVisualizar;
-	@FXML private Label lblTitle;
-    @FXML protected ComboBox<Campo> cmbCampo;
-    @FXML protected ComboBox<Comparacao> cmbComparacao;
-    @FXML protected TextField edtTermo;
-    @FXML protected ComboBox<String> cmbTermo;
+	@FXML
+	private Button btnInserir;
 	
+	@FXML
+	private Button btnAlterar;
+	
+	@FXML
+	private Button btnVisualizar;
+	
+    @FXML
+    private Button btnVoltar;
+    
+	@FXML
+	private Label lblTitle;
+	
+	@FXML
+	protected ComboBox<Campo> cmbCampo;
+	
+	@FXML
+	protected ComboBox<Comparacao> cmbComparacao;
+	
+	@FXML
+	protected TextField edtTermo;
+	
+	@FXML
+	protected ComboBox<String> cmbTermo;
+
+	@FXML
+	private BorderPane pnlPrincipal;
 
 	public ManutencaoController() {
 		FXMLLoader loader = new FXMLLoader();
@@ -85,6 +109,38 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			prepararTela();
+			tvManutencao.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					if(newValue && tvManutencao.getItems().size() > 0) {
+						tvManutencao.getSelectionModel().select(0);
+					}
+				}
+			});
+			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					if(event.getCode() == KeyCode.INSERT)
+						inserir();
+					
+					if(!(event.getTarget() instanceof Button) && tvManutencao.getItems().size() > 0) {
+						if (event.getCode() == KeyCode.ENTER && !event.isControlDown())
+							visualizar();
+						if (event.getCode() == KeyCode.ENTER && event.isControlDown())
+							alterar();
+					}
+				}
+			});
+			tvManutencao.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(event.getClickCount() == 2)
+						alterar();
+				}
+			});
 		} catch (Exception e) {
 			Utilitarios.atencao(e.getMessage());
 		}

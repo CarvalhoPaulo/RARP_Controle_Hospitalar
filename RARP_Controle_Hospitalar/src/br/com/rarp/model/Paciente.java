@@ -1,28 +1,23 @@
 package br.com.rarp.model;
 
-import java.util.List;
-
 public class Paciente extends PessoaFisica {
-	private List<Convenio> convenios;
-	private List<EntradaPaciente> entradas;
-	private List<EvolucaoClinica> evolucoesClinica;
-	public List<Convenio> getConvenios() {
-		return convenios;
+	private Convenio convenio;
+	private Paciente responsavel;
+
+	public Convenio getConvenio() {
+		return convenio;
 	}
-	public void setConvenios(List<Convenio> convenios) {
-		this.convenios = convenios;
+
+	public void setConvenio(Convenio convenio) {
+		this.convenio = convenio;
 	}
-	public List<EntradaPaciente> getEntradas() {
-		return entradas;
+
+	public Paciente getResponsavel() {
+		return responsavel;
 	}
-	public void setEntradas(List<EntradaPaciente> entradas) {
-		this.entradas = entradas;
-	}
-	public List<EvolucaoClinica> getEvolucoesClinica() {
-		return evolucoesClinica;
-	}
-	public void setEvolucoesClinica(List<EvolucaoClinica> evolucoesClinica) {
-		this.evolucoesClinica = evolucoesClinica;
+
+	public void setResponsavel(Paciente responsavel) {
+		this.responsavel = responsavel;
 	}
 	
 }

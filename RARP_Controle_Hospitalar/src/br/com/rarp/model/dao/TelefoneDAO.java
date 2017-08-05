@@ -18,71 +18,48 @@ public class TelefoneDAO {
 		sql += "telefone(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "numero VARCHAR(12), ";
-		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo), ";
-		sql += "status boolean)";
+		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo))";
 		st.executeUpdate(sql);
 	}
 
 	public void salvar(List<Telefone> telefones, int codigo_pessoa) throws Exception {
-		List<Telefone> telefonesInserir = new ArrayList<>();
-		List<Telefone> telefonesAlterar = new ArrayList<>();
-		for(Telefone t : telefones) {
-			if(t != null) {
-				if(t.getCodigo() == 0)
-					telefonesInserir.add(t);
-				else
-					telefonesAlterar.add(t);
-			}
+		remover(codigo_pessoa);
+		inserir(telefones, codigo_pessoa);
+	}
+	
+	private void remover(int codigo_pessoa) throws Exception {
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		PreparedStatement ps = conexao.getConexao().prepareStatement("DELETE FROM telefone WHERE codigo_pessoa = ?");
+		try {
+			ps.setInt(1, codigo_pessoa);
+			ps.executeUpdate();
+		} finally {
+			ps.close();
 		}
-		inserir(telefonesInserir, codigo_pessoa);
-		alterar(telefonesInserir, codigo_pessoa);
 	}
-	
+
 	public void inserir(List<Telefone> telefones, int codigo_pessoa) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		String sql= "INSERT INTO telefone(numero, codigo_pessoa, status) VALUES(?,?,?)";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
-        try {
-        	int i = 0;
-        	for (Telefone t : telefones) { 
-        		ps.setString(1, t.getNumeroSemMascara());
-        		ps.setInt(2, codigo_pessoa);
-        		ps.setBoolean(3, t.isStatus());
-        		ps.addBatch();
-                i++;
+		if (telefones.size() > 0) {
+			Conexao conexao = SistemaCtrl.getInstance().getConexao();
+			String sql = "INSERT INTO telefone(numero, codigo_pessoa) VALUES(?,?)";
+			PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+			try {
+				int i = 0;
+				for (Telefone t : telefones) {
+					ps.setString(1, t.getNumeroSemMascara());
+					ps.setInt(2, codigo_pessoa);
+					ps.addBatch();
+					i++;
 
-                if (i == telefones.size()) {
-                	ps.executeBatch();
-                }
-            }
-        	ps.executeBatch();
-		} finally {
-			ps.close();
+					if (i == telefones.size()) {
+						ps.executeBatch();
+					}
+				}
+				ps.executeBatch();
+			} finally {
+				ps.close();
+			} 
 		}         
-	}
-	
-	public void alterar(List<Telefone> telefones, int codigo_pessoa) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		String sql= "UPDATE telefone SET numero=?, codigo_usuario=?, status=? WHERE codigo=?";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
-        try {
-        	int i = 0;
-        	for (Telefone t : telefones) { 
-        		ps.setString(1, t.getNumeroSemMascara());
-        		ps.setInt(2, codigo_pessoa);
-        		ps.setBoolean(3, t.isStatus());
-        		ps.setInt(4, t.getCodigo());
-        		ps.addBatch();
-                i++;
-
-                if (i == telefones.size()) {
-                	ps.executeBatch();
-                }
-            }
-        	ps.executeBatch();
-		} finally {
-			ps.close();
-		}  
 	}
 
 	public List<Telefone> getTelefones(int codigo_pessoa) throws Exception {
@@ -90,7 +67,7 @@ public class TelefoneDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "SELECT codigo, numero, status FROM telefone WHERE codigo_pessoa = " + codigo_pessoa;
+			String sql = "SELECT codigo, numero FROM telefone WHERE codigo_pessoa = " + codigo_pessoa;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -98,7 +75,6 @@ public class TelefoneDAO {
 				telefones.add(t);
 				t.setCodigo(rs.getInt("codigo"));
 				t.setNumero(rs.getString("numero"));
-				t.setStatus(rs.getBoolean("status"));
 			}
 			ps.close();
 		} finally {

@@ -81,7 +81,9 @@ public class Pessoa {
 
 	public String getCep() {
 		String cep = getCepSemMascara();
-		return String.format("%s-%s", cep.substring(0, 5), cep.substring(5));
+		if(cep.length() == 8)
+			cep = String.format("%s-%s", cep.substring(0, 5), cep.substring(5));
+		return cep;
 	}
 	
 	public String getCepSemMascara() {

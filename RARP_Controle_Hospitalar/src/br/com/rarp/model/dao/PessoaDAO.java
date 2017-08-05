@@ -24,7 +24,7 @@ public class PessoaDAO {
 		sql += "complemento VARCHAR(255), ";
 		sql += "numero VARCHAR(50), ";
 		sql += "bairro VARCHAR(255), ";
-		sql += "cep VARCHAR(9), ";
+		sql += "cep CHAR(9), ";
 		sql += "datanascimento TIMESTAMP WITHOUT TIME ZONE, ";
 		sql += "codigo_cidade INTEGER REFERENCES cidade(codigo), ";
 		sql += "status boolean)";
@@ -75,7 +75,7 @@ public class PessoaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, datanascimento, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
@@ -83,11 +83,15 @@ public class PessoaDAO {
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
 			ps.setString(6, pessoa.getCepSemMascara());
-			if(pessoa.getCidade() != null)
-				ps.setInt(7, pessoa.getCidade().getCodigo());
+			if(pessoa.getDtNascimento() != null)
+				ps.setDate(7, new Date(pessoa.getDtNascimento().getTime()));
 			else
-				ps.setNull(7, Types.INTEGER);
-			ps.setBoolean(8, pessoa.isStatus());
+				ps.setNull(7, Types.TIMESTAMP);
+			if(pessoa.getCidade() != null)
+				ps.setInt(8, pessoa.getCidade().getCodigo());
+			else
+				ps.setNull(8, Types.INTEGER);
+			ps.setBoolean(9, pessoa.isStatus());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -95,6 +99,9 @@ public class PessoaDAO {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				pessoa.setCodigo(rs.getInt("lastCodigo"));
+			
+			TelefoneDAO telefoneDAO = new TelefoneDAO();
+			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
 		} finally {
 			conexao.getConexao().close();
 		}

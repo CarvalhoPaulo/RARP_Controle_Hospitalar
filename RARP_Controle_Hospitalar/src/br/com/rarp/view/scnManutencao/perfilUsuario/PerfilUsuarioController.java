@@ -1,7 +1,9 @@
 package br.com.rarp.view.scnManutencao.perfilUsuario;
 
 import br.com.rarp.control.PerfilUsuarioCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.PerfilUsuario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -59,6 +61,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 	@Override
 	public void inserir() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.insercao);
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
 			controller.inserir();
 		} catch (Exception e) {
@@ -70,6 +73,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 	@Override
 	public void alterar() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.alteracao);
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
@@ -79,7 +83,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 				controller.alterar(perfilUsuarioCtrl);
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -87,6 +91,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 	@Override
 	public void visualizar() {
 		try {
+			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.visualizaco);
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
 			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");

@@ -60,7 +60,7 @@ public class CadastroCidadeController extends Application implements Initializab
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroCidade.fxml"))));
-		stage.setTitle("Cadastro de Funcionários");
+		stage.setTitle("Cadastro de Cidades");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -197,16 +197,18 @@ public class CadastroCidadeController extends Application implements Initializab
 		preencherObjeto();
 		try {
 			if(cidadeCtrl.salvar()) {
-				Utilitarios.message("Funcionário salvo com sucesso.");
+				Utilitarios.message("Cidade salva com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o funcionário.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar a cidade.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 	
     @FXML
     private void voltar(ActionEvent event) {
+    	cidadeCtrl = null;
     	stage.hide();
+    	visualizando = false;
     }
 }

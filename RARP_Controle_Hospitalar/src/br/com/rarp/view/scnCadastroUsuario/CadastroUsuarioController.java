@@ -146,7 +146,9 @@ public class CadastroUsuarioController extends Application implements Initializa
     
 	@FXML
     private void voltar(ActionEvent event) {
+		usuarioCtrl = null;
     	stage.hide();
+    	visualizando = false;
     }
 
     private void preencherObjeto() {

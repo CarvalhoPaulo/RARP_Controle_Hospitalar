@@ -4,7 +4,6 @@ public class Telefone {
 
 	private int Codigo;
 	private String numero;
-	private boolean status;
 
 	public int getCodigo() {
 		return Codigo;
@@ -36,7 +35,7 @@ public class Telefone {
 	@Override
 	public boolean equals(Object obj) {
 		try {
-			return numero == ((Telefone) obj).getNumero();
+			return numero == ((Telefone) obj).getNumeroSemMascara();
 		} catch (Exception e) {
 			return false;
 		}
@@ -45,13 +44,5 @@ public class Telefone {
 	@Override
 	public String toString() {
 		return getNumero();
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 }

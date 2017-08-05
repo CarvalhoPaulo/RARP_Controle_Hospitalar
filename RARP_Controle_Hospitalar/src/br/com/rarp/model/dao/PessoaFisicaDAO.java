@@ -18,7 +18,7 @@ public class PessoaFisicaDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "pessoaFisica(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "cpf VARCHAR(11), ";
+		sql += "cpf CHAR(11), ";
 		sql += "rg VARCHAR(20), ";
 		sql += "sexo VARCHAR(20), ";
 		sql += "possuiNecessidades BOOLEAN, ";
@@ -52,9 +52,7 @@ public class PessoaFisicaDAO {
 			
 			ps.executeUpdate();
 			ps.close();
-			
-			
-			
+				
 			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
 			if (rs.next()) {
 				Pessoa pessoa = pessoaFisica.clone();

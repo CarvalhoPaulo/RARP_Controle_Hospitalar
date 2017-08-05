@@ -3,6 +3,7 @@ package br.com.rarp.model;
 public class PessoaJuridica extends Pessoa {
 
 	private String cnpj;
+	private String razaoSocial;
 
 	public String getCnpj() {
 		String cnpj = getCnpjSemMascara();
@@ -20,8 +21,33 @@ public class PessoaJuridica extends Pessoa {
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj.replaceAll("[\\D]", "");;
+		this.cnpj = cnpj.replaceAll("[\\D]", "");
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 	
-
+	@Override
+	public PessoaJuridica clone() throws CloneNotSupportedException {
+		PessoaJuridica pessoaJuridica = new PessoaJuridica();
+		pessoaJuridica.setBairro(getBairro());
+		pessoaJuridica.setCep(getCep());
+		pessoaJuridica.setCidade(getCidade());
+		pessoaJuridica.setCnpj(getCnpj());
+		pessoaJuridica.setCodigo(getCodigo());
+		pessoaJuridica.setComplemento(getComplemento());
+		pessoaJuridica.setDtNascimento(getDtNascimento());
+		pessoaJuridica.setLogradouro(getLogradouro());
+		pessoaJuridica.setNome(getNome());
+		pessoaJuridica.setNumero(getNumero());
+		pessoaJuridica.setRazaoSocial(getRazaoSocial());
+		pessoaJuridica.setStatus(isStatus());
+		pessoaJuridica.setTelefones(getTelefones());
+		return pessoaJuridica;
+	}
 }
