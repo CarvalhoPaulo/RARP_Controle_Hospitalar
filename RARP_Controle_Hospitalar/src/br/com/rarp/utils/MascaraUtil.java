@@ -3,7 +3,6 @@ package br.com.rarp.utils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public enum MascaraUtil {

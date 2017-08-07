@@ -35,7 +35,7 @@ public class EspecialidadeDAO {
 		}
 	}
 	
-	private void alterar(Especialidade especialidade) throws Exception {
+	public void  alterar(Especialidade especialidade) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
@@ -46,6 +46,21 @@ public class EspecialidadeDAO {
 			ps.setString(1, especialidade.getNome());
 
 			ps.setInt(2, especialidade.getCodigo());
+			ps.executeUpdate();
+			ps.close();
+		} finally {
+			conexao.getConexao().close();
+		}
+	}
+	
+	public void deletar(Especialidade especialidade) throws Exception {
+		PreparedStatement ps;
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		try {
+			
+			String sql = "DELETE especialidade WHERE codigo=?";
+			ps = conexao.getConexao().prepareStatement(sql);
+			ps.setInt(1, especialidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
 		} finally {

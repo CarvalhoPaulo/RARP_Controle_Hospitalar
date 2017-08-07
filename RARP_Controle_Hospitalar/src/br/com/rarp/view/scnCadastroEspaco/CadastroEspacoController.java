@@ -12,6 +12,7 @@ import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -28,13 +31,14 @@ public class CadastroEspacoController extends Application implements Initializab
 	private static Stage stage;
 
 	@FXML
-	private Button btnGravar;
+	private Button btnSalvar;
 
 	@FXML
 	private Button btnVoltar;
 
 	@FXML
 	private IntegerTextField edtCodigo;
+
 
     @FXML
     private TextField edtNome;
@@ -65,6 +69,7 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@FXML
 	private FlowPane pnlLeitos;
+
 	private static EspacoCtrl espacoCtrl;
 	private static boolean visualizando;
 
@@ -98,6 +103,17 @@ public class CadastroEspacoController extends Application implements Initializab
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEspaco.fxml"))));
 		stage.setTitle("Cadastro de Usuários");
 		setStage(stage);
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
 		stage.setResizable(false);
 	}
 
@@ -138,7 +154,7 @@ public class CadastroEspacoController extends Application implements Initializab
 		edtBloco.setDisable(true);
 		edtNumeroLeito.setDisable(true);
 		sbAtivado.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnAdicionar.setDisable(true);
 		btnRemover.setDisable(true);
@@ -168,7 +184,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	}
 
 	@FXML
-	private void gravar(ActionEvent event) {
+	private void salvar(ActionEvent event) {
 		preencherObjeto();
 		try {
 			espacoCtrl.salvar();
