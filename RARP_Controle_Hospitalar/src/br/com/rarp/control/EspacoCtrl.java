@@ -4,6 +4,7 @@ import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Espaco;
 import br.com.rarp.model.bo.EspacoBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,8 +27,10 @@ public class EspacoCtrl {
 	
 	public void salvar() throws Exception {
 		EspacoBusiness espacoBusiness = new EspacoBusiness();
-		validarDadosObrigatorios();
-		espacoBusiness.salvar(espaco);
+		if(verificarDesativacao()) {
+			validarDadosObrigatorios();
+			espacoBusiness.salvar(espaco);
+		}
 	}
 	
 	private void validarDadosObrigatorios() throws Exception {
@@ -43,6 +46,12 @@ public class EspacoCtrl {
 
 	public void setUsuario(Object object) {
 		this.espaco = (Espaco) object;
+	}
+	
+	private boolean verificarDesativacao() {
+		if(!espaco.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este espaço?");
+		return true;
 	}
 	
 }

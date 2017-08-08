@@ -11,7 +11,9 @@ public class Menor implements Comparacao {
 	}
 
 	@Override
-	public String getTermo(String termo) {
+	public String getTermo(String termo) throws Exception {
+		if(termo.isEmpty())
+			throw new Exception("O termo da consulta é obrigatório");
 		return Utilitarios.formatStringSQL(termo);
 	}
 	

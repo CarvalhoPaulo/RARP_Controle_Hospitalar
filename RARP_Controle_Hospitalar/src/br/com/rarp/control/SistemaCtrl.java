@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.Enum.TipoMovimentacao;
-import br.com.rarp.model.Medico;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
@@ -20,6 +19,7 @@ import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
 import br.com.rarp.model.dao.LeitoDAO;
 import br.com.rarp.model.dao.MedicoDAO;
+import br.com.rarp.model.dao.PacienteDAO;
 import br.com.rarp.model.dao.PerfilUsuarioDAO;
 import br.com.rarp.model.dao.PessoaDAO;
 import br.com.rarp.model.dao.PessoaFisicaDAO;
@@ -45,29 +45,39 @@ public class SistemaCtrl {
 		if (usuarioSessao != null && usuarioSessao.getPerfilUsuario() != null && usuarioSessao.getPerfilUsuario().getTelas().size() > 0) {
 			switch (tipo) {
 			case acesso:
-				return usuarioSessao.getPerfilUsuario().getTelas()
-						.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isStatus();
+				boolean permitido = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						permitido = t.isStatus();
+				return permitido;
 
 			case insercao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeInserir();
+				boolean podeInserir = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeInserir = t.isPodeInserir();
+				return podeInserir;
 
 			case alteracao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeAlterar();
+				boolean podeAlterar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeAlterar = t.isPodeAlterar();
+				return podeAlterar;
 
 			case visualizaco:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela)))
-							.isPodeVisualizar();
+				boolean podeVisualizar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeVisualizar = t.isPodeVisualizar();
+				return podeVisualizar;
 
 			case desativacao:
-				if (usuarioSessao.getPerfilUsuario().getTelas().contains(new Tela(tela)))
-					return usuarioSessao.getPerfilUsuario().getTelas()
-							.get(usuarioSessao.getPerfilUsuario().getTelas().indexOf(new Tela(tela))).isPodeDesativar();
+				boolean podeDesativar = false;
+				for(Tela t: usuarioSessao.getPerfilUsuario().getTelas())
+					if(t.getNome().equals(tela))
+						podeDesativar = t.isPodeDesativar();
+				return podeDesativar;
 			}
 		}
 		return !getPropriedades().getControleAcesso();
@@ -80,10 +90,15 @@ public class SistemaCtrl {
 	public List<Tela> getTelas() {
 		List<Tela> telas = new ArrayList<>();
 		
-		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuários"));
+		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuário"));
 		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
 		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
 		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
+		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
+		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
+		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
+		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
+		
 		return telas;
 	}
 	
@@ -104,6 +119,26 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoCargo(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoCargo", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoFuncionario(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoFuncionario", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoCidade(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoCidade", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoPaciente", tipoMovimentacao))
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	
@@ -154,6 +189,7 @@ public class SistemaCtrl {
 		LeitoDAO.criarTabela();
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
+		PacienteDAO.criarTabela();
 	}
 
 	public Usuario getUsuarioSessao() {

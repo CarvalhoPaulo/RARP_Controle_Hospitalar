@@ -12,9 +12,11 @@ import br.com.rarp.model.PerfilUsuario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
+import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,15 +24,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class CadastroUsuarioController extends Application implements Initializable {
 
 	private static Stage stage;
 	
-    @FXML private Button btnGravar;
+    @FXML private Button btnSalvar;
     @FXML private Button btnVoltar;
-    @FXML private TextField edtCodigo;
+    @FXML private IntegerTextField edtCodigo;
     @FXML private TextField edtNome;
     @FXML private TextField edtUsuario;
     @FXML private ComboBox<PerfilUsuario> cmbPerfilUsuario;
@@ -42,9 +46,20 @@ public class CadastroUsuarioController extends Application implements Initializa
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroUsuario.fxml"))));
 		stage.setTitle("Cadastro de Usuários");
-		setStage(stage);
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
 	}
 
 	public Stage getStage() {
@@ -90,7 +105,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 		cmbFuncionario.setDisable(true);
 		cmbPerfilUsuario.setDisable(true);
 		sbAtivado.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 	}
 
 	public void inserir() throws Exception {
@@ -117,7 +132,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 	}
 	
     @FXML
-    private void gravar(ActionEvent event) {
+    private void salvar(ActionEvent event) {
     	preencherObjeto();
 		try {
 			usuarioCtrl.salvar();
@@ -131,7 +146,9 @@ public class CadastroUsuarioController extends Application implements Initializa
     
 	@FXML
     private void voltar(ActionEvent event) {
+		usuarioCtrl = null;
     	stage.hide();
+    	visualizando = false;
     }
 
     private void preencherObjeto() {

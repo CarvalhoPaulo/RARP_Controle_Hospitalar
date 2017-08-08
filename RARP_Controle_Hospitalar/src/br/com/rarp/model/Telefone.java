@@ -14,17 +14,28 @@ public class Telefone {
 	}
 
 	public String getNumero() {
+		String numero = getNumeroSemMascara();
+		if(numero.length() == 8)
+			numero = numero.substring(0, 4) + "-" + numero.substring(4, 8);
+		else if(numero.length() == 10)
+			numero = "(" + numero.substring(0, 2) + ") " + numero.substring(2, 6) + "-" + numero.substring(6, 10);
+		else if(numero.length() == 11)
+			numero = "(" + numero.substring(0, 2) + ") " + numero.substring(2, 7) + "-" + numero.substring(7, 11);
 		return numero;
+	}
+	
+	public String getNumeroSemMascara() {
+		return numero.replaceAll("[\\D]", "");
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = numero.replaceAll("[\\D]", "");
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		try {
-			return numero == ((Telefone) obj).getNumero();
+			return numero == ((Telefone) obj).getNumeroSemMascara();
 		} catch (Exception e) {
 			return false;
 		}
@@ -32,6 +43,6 @@ public class Telefone {
 
 	@Override
 	public String toString() {
-		return numero;
+		return getNumero();
 	}
 }

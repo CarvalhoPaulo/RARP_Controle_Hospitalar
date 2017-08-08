@@ -6,6 +6,7 @@ import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.UsuarioBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Igual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,9 +29,18 @@ public class UsuarioCtrl {
 
 	public void salvar() throws Exception {
 		UsuarioBusiness perfilUsuarioBusiness = new UsuarioBusiness();
-		validarDadosObrigatorios();
-		perfilUsuarioBusiness.salvar(usuario);
+		if(verificarDesativacao()) {
+			validarDadosObrigatorios();
+			perfilUsuarioBusiness.salvar(usuario);
+		}
 	}
+	
+	private boolean verificarDesativacao() {
+		if(!usuario.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este usuário?");
+		return true;
+	}
+
 
 	private void validarDadosObrigatorios() throws Exception {
 		if(usuario.getNome().equals(""))

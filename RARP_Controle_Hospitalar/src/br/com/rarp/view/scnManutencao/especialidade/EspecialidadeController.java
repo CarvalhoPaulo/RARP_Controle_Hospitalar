@@ -1,17 +1,13 @@
 package br.com.rarp.view.scnManutencao.especialidade;
 
-import java.io.IOException;
-
 import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController;
-import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 

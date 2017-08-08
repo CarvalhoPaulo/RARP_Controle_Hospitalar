@@ -2,10 +2,15 @@
 
 .obrigatorio {
 	-fx-font-weight: bold;
+	-fx-font-size: 14px;
 }
 
 .panel {
 	-fx-background-color: #F5F5F5 ;
+}
+
+TextField, Label  {
+	-fx-font-size: 14px;
 }
 
 .status-bar {

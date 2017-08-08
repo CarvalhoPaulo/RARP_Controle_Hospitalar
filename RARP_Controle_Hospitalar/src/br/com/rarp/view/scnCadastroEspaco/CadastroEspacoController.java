@@ -198,7 +198,9 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@FXML
 	private void voltar(ActionEvent event) {
+		espacoCtrl = null;
 		stage.hide();
+		visualizando = false;
 	}
 
 	private void preencherObjeto() {

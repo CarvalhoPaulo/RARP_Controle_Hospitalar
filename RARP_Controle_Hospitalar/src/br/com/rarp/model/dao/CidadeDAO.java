@@ -1,11 +1,16 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cidade;
+import br.com.rarp.model.Estado;
 
 public class CidadeDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -24,46 +29,78 @@ public class CidadeDAO {
 	}
 
 	public void salvar(Cidade cidade) throws Exception {
-		if (cidade.getCodigo() == 0)
-			inserir(cidade);
-		else
-			alterar(cidade);
+		if (cidade != null) {
+			if (cidade.getCodigo() == 0)
+				inserir(cidade);
+			else
+				alterar(cidade);
+		}
 	}
 
 	private void inserir(Cidade cidade) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO cidade(codigo, nome, codigo_ibge, uf_estado, status) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO cidade(nome, codigo_ibge, uf_estado, status) VALUES(?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, cidade.getCodigo());
-			ps.setString(2, cidade.getNome());
-			ps.setInt(3, cidade.getCodigoIBGE());
-			ps.setString(4, cidade.getEstado().getUF());
-			ps.setBoolean(5, cidade.isStatus());
+			ps.setString(1, cidade.getNome());
+			ps.setInt(2, cidade.getCodigoIBGE());
+			if (cidade.getEstado() != null)
+				ps.setString(3, cidade.getEstado().getUF());
+			else
+				ps.setNull(3, Types.VARCHAR);
+			ps.setBoolean(4, cidade.isStatus());
 			ps.executeUpdate();
 			ps.close();
 		} finally {
 			conexao.getConexao().close();
-		}
+		} 
 	}
 
 	private void alterar(Cidade cidade) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "UPDATE cidade SET codigo = ?, nome = ?, codigo_ibge = ?, uf_estado, status=? WHERE codigo=?";
+			String sql = "UPDATE cidade SET nome = ?, codigo_ibge = ?, uf_estado=?, status=? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cidade.getNome());
-			ps.setString(2, cidade.getNome());
-			ps.setInt(3, cidade.getCodigoIBGE());
-			ps.setString(4, cidade.getEstado().getUF());
-			ps.setBoolean(5, cidade.isStatus());
-			ps.setBoolean(6, cidade.isStatus());
+			ps.setInt(2, cidade.getCodigoIBGE());
+			if (cidade.getEstado() != null)
+				ps.setString(3, cidade.getEstado().getUF());
+			else
+				ps.setNull(3, Types.VARCHAR);
+			ps.setBoolean(4, cidade.isStatus());
+			ps.setInt(5, cidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
 		} finally {
 			conexao.getConexao().close();
-		}
+		} 
 	}
+
+	public List<Cidade> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
+		List<Cidade> cidades = new ArrayList<>();
+		PreparedStatement ps;
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		try {
+			String sql = "SELECT codigo, nome, codigo_ibge, uf_estado, status  FROM cidade WHERE " + campo + comparacao + termo;
+			ps = conexao.getConexao().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Cidade cidade = new Cidade();
+				cidade.setCodigo(rs.getInt("codigo"));
+				cidade.setNome(rs.getString("nome"));
+				cidade.setCodigoIBGE(rs.getInt("codigo_ibge"));
+				Estado estado = new EstadoDAO().get(rs.getString("uf_estado"));
+				cidade.setEstado(estado);
+				cidade.setStatus(rs.getBoolean("status"));
+				cidades.add(cidade);
+			}
+			ps.close();
+		} finally {
+			conexao.getConexao().close();
+		}
+		return cidades;
+	}
+
 }

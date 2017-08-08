@@ -5,13 +5,19 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 
 public class EntradaPacienteController extends ManutencaoController {
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() throws Exception {
-		getLblTitle().setText("Manutenção de Entrada de paciente");
+		getLblTitle().setText("Manutenção de Espaços");
+		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
+		getLblTitle().setStyle("-fx-background-color: #006F4C;"
+				+ "-fx-font-weight: bold;"
+				+ "-fx-color: white");
+		
 		TableColumn<EntradaPaciente, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<EntradaPaciente, String> data = new TableColumn<>("Data");

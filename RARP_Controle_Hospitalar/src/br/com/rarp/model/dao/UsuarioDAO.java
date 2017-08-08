@@ -131,4 +131,9 @@ public class UsuarioDAO {
 		return usuarios;
 	}
 
+	public Usuario getUsuario(int codigo) throws Exception {
+		List<Usuario> usuarios = consultar("codigo", " = ", ""+ codigo);
+		return usuarios.get(0);
+	}
+
 }

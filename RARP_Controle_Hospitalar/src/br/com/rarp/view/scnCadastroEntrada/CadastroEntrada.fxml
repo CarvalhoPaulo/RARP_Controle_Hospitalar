@@ -26,7 +26,7 @@
                   <Image url="@../img/patient128x128.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="138.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Gravar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="124.0">
+            <Button alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="138.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="124.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>

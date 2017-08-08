@@ -4,7 +4,20 @@ public class Especialidade {
 
 	private int codigo;
 	private String nome;
-
+	private String observacoes;
+	private boolean status;
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
 	public int getCodigo() {
 		return codigo;
 	}

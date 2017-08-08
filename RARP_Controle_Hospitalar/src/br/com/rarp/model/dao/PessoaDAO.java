@@ -1,9 +1,11 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Pessoa;
@@ -22,7 +24,8 @@ public class PessoaDAO {
 		sql += "complemento VARCHAR(255), ";
 		sql += "numero VARCHAR(50), ";
 		sql += "bairro VARCHAR(255), ";
-		sql += "cep VARCHAR(9), ";
+		sql += "cep CHAR(9), ";
+		sql += "datanascimento TIMESTAMP WITHOUT TIME ZONE, ";
 		sql += "codigo_cidade INTEGER REFERENCES cidade(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -39,24 +42,29 @@ public class PessoaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "UPDATE pessoa SET nome = ?,logradouro = ?, complemento = ?, numero = ?, bairro = ?, cep = ?, codigo_cidade = ?, status = ? WHERE codigo = ?";
+			String sql = "UPDATE pessoa SET nome = ?,logradouro = ?, complemento = ?, numero = ?, bairro = ?, cep = ?, codigo_cidade = ?, datanascimento = ?, status = ? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
 			ps.setString(3, pessoa.getComplemento());
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCep());
-			ps.setInt(7, pessoa.getCidade().getCodigo());
-			ps.setBoolean(8, pessoa.isStatus());
-			ps.setInt(9, pessoa.getCodigo());
+			ps.setString(6, pessoa.getCepSemMascara());
+			if(pessoa.getCidade() != null && pessoa.getCidade().getCodigo() > 0)
+				ps.setInt(7, pessoa.getCidade().getCodigo());
+			else
+				ps.setNull(7, Types.INTEGER);
+			if(pessoa.getDtNascimento() != null)
+				ps.setDate(8, new Date(pessoa.getDtNascimento().getTime()));
+			else
+				ps.setNull(8, Types.TIMESTAMP);
+			ps.setBoolean(9, pessoa.isStatus());
+			ps.setInt(10, pessoa.getCodigo());
 			ps.executeUpdate();
 			ps.close();
-
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoa.setCodigo(rs.getInt("lastCodigo"));
+			
+			TelefoneDAO telefoneDAO = new TelefoneDAO();
+			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -67,18 +75,33 @@ public class PessoaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO pessoa(nome,logradouro,complemento,numero,bairro,cep,codigo_cidade,status) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, datanascimento, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
 			ps.setString(3, pessoa.getComplemento());
 			ps.setString(4, pessoa.getNumero());
 			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCep());
-			ps.setInt(7, pessoa.getCidade().getCodigo());
-			ps.setBoolean(8, pessoa.isStatus());
+			ps.setString(6, pessoa.getCepSemMascara());
+			if(pessoa.getDtNascimento() != null)
+				ps.setDate(7, new Date(pessoa.getDtNascimento().getTime()));
+			else
+				ps.setNull(7, Types.TIMESTAMP);
+			if(pessoa.getCidade() != null)
+				ps.setInt(8, pessoa.getCidade().getCodigo());
+			else
+				ps.setNull(8, Types.INTEGER);
+			ps.setBoolean(9, pessoa.isStatus());
 			ps.executeUpdate();
 			ps.close();
+			
+			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				pessoa.setCodigo(rs.getInt("lastCodigo"));
+			
+			TelefoneDAO telefoneDAO = new TelefoneDAO();
+			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
 		} finally {
 			conexao.getConexao().close();
 		}

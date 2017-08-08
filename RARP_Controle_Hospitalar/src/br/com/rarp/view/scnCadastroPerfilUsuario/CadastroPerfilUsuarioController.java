@@ -22,6 +22,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -40,7 +42,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	@FXML private Button btnRemoveAll;
 	@FXML private Button btnAdd;
 	@FXML private Button btnAddAll;
-	@FXML private Button btnGravar;
+	@FXML private Button btnSalvar;
+	@FXML private Button btnVoltar;
 	@FXML private SwitchButton sbAtivado;
 	
 	private static PerfilUsuarioCtrl perfilUsuarioCtrl;
@@ -49,9 +52,20 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroPerfilUsuario.fxml"))));
 		stage.setTitle("Cadastro de Perfil de Usuário");
-		setStage(stage);
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getTarget() instanceof Button && event.getCode() == KeyCode.ENTER)
+					((Button) event.getTarget()).arm();
+				
+				if(event.getCode() == KeyCode.ESCAPE)
+					voltar(new ActionEvent());
+			}
+		});
 	}
 	
 	private void limparCampos() {
@@ -137,7 +151,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		btnRemove.setDisable(true);
 		btnRemoveAll.setDisable(true);
 		btnSelectAll.setDisable(true);
-		btnGravar.setDisable(true);
+		btnSalvar.setDisable(true);
 		sbAtivado.setDisable(true);
 		ckbAlterar.setDisable(true);
 		ckbDesativar.setDisable(true);
@@ -256,8 +270,10 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	}
 	
 	@FXML
-	private void voltar() {
+	private void voltar(ActionEvent event) {
+		perfilUsuarioCtrl = null;
 		stage.hide();
+    	visualizando = false;
 	}
 
 	private void preencheTela() {

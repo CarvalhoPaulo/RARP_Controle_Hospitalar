@@ -3,14 +3,51 @@ package br.com.rarp.model;
 public class PessoaJuridica extends Pessoa {
 
 	private String cnpj;
+	private String razaoSocial;
 
 	public String getCnpj() {
-		return cnpj;
+		String cnpj = getCnpjSemMascara();
+		
+		return String.format("%s.%s.%s/%s-%s",
+				cnpj.substring(0, 2), 
+				cnpj.substring(2, 5), 
+				cnpj.substring(5, 8), 
+				cnpj.substring(8, 12), 
+				cnpj.substring(12, 14));
+	}
+	
+	public String getCnpjSemMascara() {
+		return cnpj.replaceAll("[\\D]", "");
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = cnpj.replaceAll("[\\D]", "");
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 	
-
+	@Override
+	public PessoaJuridica clone() throws CloneNotSupportedException {
+		PessoaJuridica pessoaJuridica = new PessoaJuridica();
+		pessoaJuridica.setBairro(getBairro());
+		pessoaJuridica.setCep(getCep());
+		pessoaJuridica.setCidade(getCidade());
+		pessoaJuridica.setCnpj(getCnpj());
+		pessoaJuridica.setCodigo(getCodigo());
+		pessoaJuridica.setComplemento(getComplemento());
+		pessoaJuridica.setDtNascimento(getDtNascimento());
+		pessoaJuridica.setLogradouro(getLogradouro());
+		pessoaJuridica.setNome(getNome());
+		pessoaJuridica.setNumero(getNumero());
+		pessoaJuridica.setRazaoSocial(getRazaoSocial());
+		pessoaJuridica.setStatus(isStatus());
+		pessoaJuridica.setTelefones(getTelefones());
+		return pessoaJuridica;
+	}
 }

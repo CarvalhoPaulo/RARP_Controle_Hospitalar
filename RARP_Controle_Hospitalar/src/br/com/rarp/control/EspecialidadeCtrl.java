@@ -4,25 +4,25 @@ import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.dao.EspecialidadeDAO;
 
 public class EspecialidadeCtrl {
-	private Especialidade especialida;
+	private Especialidade especialidade;
 
 	public Especialidade getEspecialida() {
-		return especialida;
+		return especialidade;
 	}
 
 	public void setEspecialida(Especialidade especialida) {
-		this.especialida = especialida;
+		this.especialidade = especialida;
 	}
 	
 	private void validarDadosObrigatorios() throws Exception {
-		if (especialida == null ){
+		if (especialidade == null ){
 			throw new  Exception("Favor criar nova Especialidade");
 		}
 		
-		if (especialida.getNome().equals("")) {
+		if (especialidade.getNome().equals("")) {
 			throw new  Exception("Favor Inserir um nome");
 		}
-		
+		 
 		
 	}
 	
@@ -31,18 +31,14 @@ public class EspecialidadeCtrl {
 		
 		EspecialidadeDAO especialidadeDAO = new EspecialidadeDAO();
 		
-		if (this.especialida.getCodigo() > 0) {
-			especialidadeDAO.alterar(this.especialida);
-		}else {
-			especialidadeDAO.inserir(this.especialida);
-		}
+		especialidadeDAO.salvar(especialidade);
 
 		
 		
 	}
 	
 	public void novaEspecialidade() {
-		this.especialida  = new Especialidade();
+		this.especialidade  = new Especialidade();
 	}
 
 }

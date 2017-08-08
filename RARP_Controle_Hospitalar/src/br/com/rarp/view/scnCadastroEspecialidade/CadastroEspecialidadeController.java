@@ -7,12 +7,14 @@ import br.com.rarp.control.EspecialidadeCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.IntegerTextField;
+import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,10 +25,16 @@ public class CadastroEspecialidadeController extends Application implements Init
 	private static EspecialidadeCtrl especialidadeCtrl;
 	
     @FXML // fx:id="txtCodigo"
-    private TextField txtCodigo; // Value injected by FXMLLoader
+    private IntegerTextField txtCodigo; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtNome"
     private TextField txtNome; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="txtObservacoes"
+    private TextArea txtObservacoes; // Value injected by FXMLLoader
+
+    @FXML // fx:id="sbtStatus"
+    private SwitchButton sbtStatus; // Value injected by FXMLLoader
 
 	public void inserir() throws Exception {
 		start(SistemaCtrl.getInstance().getStage());
@@ -73,18 +81,29 @@ public class CadastroEspecialidadeController extends Application implements Init
 		  if (this.especialidadeCtrl == null ) {
 			  this.especialidadeCtrl = new EspecialidadeCtrl(); 
 			  this.especialidadeCtrl.novaEspecialidade(); 
+		  }else {
+			  this.especialidadeCtrl.novaEspecialidade();
 		  }
+			  
 		  
 		  
-		  
+		  this.especialidadeCtrl.getEspecialida().setNome(txtNome.getText());
+		  this.especialidadeCtrl.getEspecialida().setObservacoes(txtObservacoes.getText());
+		  this.especialidadeCtrl.getEspecialida().setCodigo(txtCodigo.getValue());
 		  this.especialidadeCtrl.getEspecialida().setNome(txtNome.getText());
 	  }
 	
 	@FXML
 	private void OkAction(Event e) throws Exception {
-		PreencherObjeto();
-		especialidadeCtrl.salvar();
-		Utilitarios.atencao("Especialidade Inserida Com Sucesso");
+		try {
+			PreencherObjeto();
+			especialidadeCtrl.salvar();
+			Utilitarios.atencao("Especialidade Inserida Com Sucesso");
+		}catch(Exception e2){
+			Utilitarios.erro(e2.getMessage());
+		}
+			
+		
 	
 		
 	}

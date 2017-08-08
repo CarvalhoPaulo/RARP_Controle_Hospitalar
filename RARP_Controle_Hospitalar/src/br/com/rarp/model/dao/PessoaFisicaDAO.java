@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.Pessoa;
 import br.com.rarp.model.PessoaFisica;
 
 public class PessoaFisicaDAO {
@@ -17,12 +18,11 @@ public class PessoaFisicaDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "pessoaFisica(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "cpf VARCHAR(11) UNIQUE, ";
+		sql += "cpf CHAR(11), ";
 		sql += "rg VARCHAR(20), ";
 		sql += "sexo VARCHAR(20), ";
 		sql += "possuiNecessidades BOOLEAN, ";
 		sql += "certidaoNascimento VARCHAR(50), ";
-		sql += "ctps VARCHAR(20), ";
 		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -39,26 +39,27 @@ public class PessoaFisicaDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "UPDATE pessoaFisica SET codigo = ?, cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, ctps=?, codigo_pessoa=?, status=? WHERE codigo = ?";
+			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, status=? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, pessoaFisica.getCodigo());
-			ps.setString(2, pessoaFisica.getCpf());
+			ps.setString(1, pessoaFisica.getCpfSemMascara());
+			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
 			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
 			ps.setString(5, pessoaFisica.getCertidaoNascimento());
-			ps.setString(6, pessoaFisica.getCTPS());
+			ps.setBoolean(6, pessoaFisica.isStatus());
 			ps.setInt(7, pessoaFisica.getCodigo());
-			ps.setBoolean(7, pessoaFisica.isStatus());
+			
 			ps.executeUpdate();
 			ps.close();
-
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoaFisica.setCodigo(rs.getInt("lastCodigo"));
+				
+			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
+			if (rs.next()) {
+				Pessoa pessoa = pessoaFisica.clone();
+				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
+				PessoaDAO pessoaDAO = new PessoaDAO();
+				pessoaDAO.salvar(pessoa);
+			}
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -71,20 +72,22 @@ public class PessoaFisicaDAO {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "INSERT INTO pessoaFisica(codigo_pf, cpf, rg, sexo, possuiNecessidades, certidaoNascimento, ctps, codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setInt(1, pessoaFisica.getCodigo());
-			ps.setString(2, pessoaFisica.getCpf());
-			ps.setString(3, pessoaFisica.getRg());
-			ps.setString(4, pessoaFisica.getSexo());
-			ps.setBoolean(5, pessoaFisica.isPossuiNecessidades());
-			ps.setString(6, pessoaFisica.getCertidaoNascimento());
-			ps.setString(7, pessoaFisica.getCpf());
-			ps.setInt(8, pessoaFisica.getCodigo());
-			ps.setBoolean(9, pessoaFisica.isStatus());
-
+			ps.setString(1, pessoaFisica.getCpfSemMascara());
+			ps.setString(2, pessoaFisica.getRg());
+			ps.setString(3, pessoaFisica.getSexo());
+			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
+			ps.setString(5, pessoaFisica.getCertidaoNascimento());
+			ps.setInt(6, pessoaFisica.getCodigo());
+			ps.setBoolean(7, pessoaFisica.isStatus());
 			ps.executeUpdate();
 			ps.close();
+			
+			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoafisica");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				pessoaFisica.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
 			conexao.getConexao().close();
 		}

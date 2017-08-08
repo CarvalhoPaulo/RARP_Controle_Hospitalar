@@ -6,6 +6,7 @@ import br.com.rarp.model.PerfilUsuario;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.bo.PerfilUsuarioBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,8 +23,16 @@ public class PerfilUsuarioCtrl extends Object {
 
 	public void salvar() throws Exception {
 		PerfilUsuarioBusiness perfilUsuarioBusiness = new PerfilUsuarioBusiness();
-		validarDadosObrigatorios();
-		perfilUsuarioBusiness.salvar(perfilUsuario);
+		if (verificarDesativacao()) {
+			validarDadosObrigatorios();
+			perfilUsuarioBusiness.salvar(perfilUsuario);
+		}
+	}
+	
+	private boolean verificarDesativacao() {
+		if(!perfilUsuario.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este perfil de usuário?");
+		return true;
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
