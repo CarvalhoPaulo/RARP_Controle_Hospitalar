@@ -141,6 +141,11 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 						alterar();
 				}
 			});
+			cmbCampo.setStyle("-fx-font-size: 14px");
+			cmbComparacao.setStyle("-fx-font-size: 14px");
+			cmbTermo.setStyle("-fx-font-size: 14px");
+			edtTermo.setStyle("-fx-font-size: 14px");
+			tvManutencao.setStyle("-fx-font-size: 14px");
 		} catch (Exception e) {
 			Utilitarios.atencao(e.getMessage());
 		}

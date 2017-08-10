@@ -98,6 +98,7 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
 		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
 		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
+		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
 		
 		return telas;
 	}
@@ -139,6 +140,11 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPaciente", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoConvenio(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoConvenio", tipoMovimentacao))
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	
@@ -190,6 +196,9 @@ public class SistemaCtrl {
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
 		PacienteDAO.criarTabela();
+		
+		//SQLDAO sqldao = new SQLDAO();
+		//sqldao.executarSQLFile("cidades_estados.sql");
 	}
 
 	public Usuario getUsuarioSessao() {

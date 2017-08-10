@@ -19,7 +19,7 @@ public class PessoaJuridicaDAO {
 		sql += "pessoaJuridica(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "razaosocial VARCHAR(200), ";
-		sql += "cnpj CHAR(11), ";
+		sql += "cnpj CHAR(14), ";
 		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);

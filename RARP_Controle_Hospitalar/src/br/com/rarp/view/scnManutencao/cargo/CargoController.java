@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 
 public class CargoController extends ManutencaoController {
@@ -23,6 +24,7 @@ public class CargoController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Cargos");
+		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #8F929C;"
 				+ "-fx-font-weight: bold");
 
@@ -49,6 +51,12 @@ public class CargoController extends ManutencaoController {
 					return new SimpleStringProperty("Desativado");
 			}
 		});
+		
+		codigo.setPrefWidth(100);
+		nome.setPrefWidth(300);
+		funcao.setPrefWidth(300);
+		nivel.setPrefWidth(200);
+		status.setPrefWidth(200);
 
 		tvManutencao.getColumns().addAll(codigo, nome, funcao, nivel, status);
 		tvManutencao.setEditable(false);
@@ -76,7 +84,7 @@ public class CargoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao consultar cargo.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os cargos.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 

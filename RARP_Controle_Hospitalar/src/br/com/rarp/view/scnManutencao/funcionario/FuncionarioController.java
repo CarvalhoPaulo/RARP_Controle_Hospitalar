@@ -82,7 +82,7 @@ public class FuncionarioController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar perfil de usuario.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os funcionários.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 
@@ -93,7 +93,7 @@ public class FuncionarioController extends ManutencaoController {
 			CadastroFuncionarioController controler = new CadastroFuncionarioController();
 			controler.inserir();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}

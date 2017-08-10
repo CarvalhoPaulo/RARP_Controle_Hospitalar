@@ -57,7 +57,7 @@ public class UsuarioController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
+			Utilitarios.erro("Erro ao pesquisar os usuários.\n"
 					   + "Descrição: " + e.getMessage());
 		}
 	}
