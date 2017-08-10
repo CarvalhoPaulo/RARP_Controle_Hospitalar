@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,20 +45,18 @@ public class LoginController extends Application implements Initializable {
 	private static final int MAX_TENTATIVAS = 3;
 	private static int tentativas = 0;
 	private static UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
+	
+	private Node node;
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("Login.fxml"))));
+		
+		setNode((FXMLLoader.load(getClass().getResource("Login.fxml"))));
+		stage.setScene(new Scene((Parent) getNode()));
 		setStage(stage);
 	}
 
-	public Stage getStage() {
-		return stage;
-	}
 
-	public void setStage(Stage stage) {
-		LoginController.stage = stage;
-	}
 
 	public boolean logar() throws Exception {
 		tentativas = 0;
@@ -67,7 +66,7 @@ public class LoginController extends Application implements Initializable {
 		stage.setResizable(true);
 		return SistemaCtrl.getInstance().getUsuarioSessao() != null;
 	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		edtUsuario.setText(SistemaCtrl.getInstance().getPropriedades().getLastUsername());
@@ -185,4 +184,19 @@ public class LoginController extends Application implements Initializable {
     	if(event.getCode() == KeyCode.ENTER)
     		btnEntrar.fire();   	
     }
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+	
+	public void setStage(Stage stage) {
+		LoginController.stage = stage;
+	}
 }

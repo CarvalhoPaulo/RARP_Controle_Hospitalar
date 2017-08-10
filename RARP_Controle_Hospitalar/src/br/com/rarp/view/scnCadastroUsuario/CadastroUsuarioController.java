@@ -9,6 +9,7 @@ import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.PerfilUsuario;
+import br.com.rarp.utils.AutoCompleteComboBoxListener;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
@@ -83,6 +84,8 @@ public class CadastroUsuarioController extends Application implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
 		sbAtivado.switchOnProperty().set(true);
 		edtCodigo.setDisable(true);
 		PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
@@ -96,6 +99,8 @@ public class CadastroUsuarioController extends Application implements Initializa
 			preencheTela();
 		if(visualizando)
 			bloquearTela();
+		
+		new AutoCompleteComboBoxListener<>(cmbFuncionario);
 	}
 	
 	private void bloquearTela() {
