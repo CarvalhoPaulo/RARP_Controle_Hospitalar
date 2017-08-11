@@ -1,6 +1,7 @@
 package br.com.rarp.model.dao;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,6 +40,14 @@ public class Propriedades {
 	private Propriedades() {
 		prop = new TypedProperties();
 		try {
+			 File file = new File("./properties/RARP.Properties");
+
+		        if(!file.exists()){
+
+		        	file.createNewFile();
+
+		        }
+		       
 			prop.load(new FileInputStream("./properties/RARP.Properties"));
 			getPropriedades();
 		} catch (FileNotFoundException e) {

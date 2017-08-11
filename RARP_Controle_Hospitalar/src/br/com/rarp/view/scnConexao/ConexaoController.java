@@ -56,6 +56,7 @@ public class ConexaoController extends Application implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 		txtHost.setText(SistemaCtrl.getInstance().getPropriedades().getHost());
 		txtPorta.setText(SistemaCtrl.getInstance().getPropriedades().getPorta());
 		txtUser.setText(SistemaCtrl.getInstance().getPropriedades().getUser());
@@ -115,7 +116,12 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
 
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
+			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 			Utilitarios.message("Configurações de Servidor Gravandas Com Sucesso");
+			
+			if (this.getStage() != null) 
+				stage.hide();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 
@@ -126,7 +132,8 @@ public class ConexaoController extends Application implements Initializable {
 
 	@FXML
 	void btnCancelarAction(ActionEvent event) {
-
+		if (stage != null) 
+			stage.hide();
 	}
 
 	public Stage getStage() {
