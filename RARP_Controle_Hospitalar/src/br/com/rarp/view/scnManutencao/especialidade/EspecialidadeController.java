@@ -5,6 +5,7 @@ import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
@@ -12,10 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EspecialidadeController extends ManutencaoController {
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Funcionários");
+		getLblTitle().setText("Manutenção de Especialidades");
 
 		TableColumn<Especialidade, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
@@ -41,8 +43,16 @@ public class EspecialidadeController extends ManutencaoController {
 	}
 
 	@Override
-	public void inserir() {
+	public void inserir() {	
+		try {
+			CadastroEspecialidadeController cadastroEspecialidadeController = new CadastroEspecialidadeController();
+			cadastroEspecialidadeController.inserir();
 		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes\n"
+					   + "Descrição: " + e.getMessage());
+		}
 	}
 
 	@Override

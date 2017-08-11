@@ -13,7 +13,9 @@ public class EspecialidadeDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "especialidade(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome varchar(250) ";
+		sql += "nome varchar(250) ,";
+		sql += "observacoes character varying ,";
+		sql += "status boolean ";
 		sql  += ")";
 		st.executeUpdate(sql);
 	}
@@ -26,13 +28,38 @@ public class EspecialidadeDAO {
 	}
 
 	private void inserir(Especialidade especialidade) throws Exception{
+			PreparedStatement ps;
+			Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		try {
+			
+			String sql = "INSERT INTO especialidade(nome,observacoes,status) VALUES(?,?,?)";
+			ps = conexao.getConexao().prepareStatement(sql);
+			ps.setString(1, especialidade.getNome());
+			ps.setString(2, especialidade.getObservacoes());
+			ps.setBoolean(3, especialidade.isStatus());
+			ps.executeUpdate();
+			ps.close();
+		}catch(Exception e){
+			throw new Exception("Erro a salvar Especialidade");
+			
+			
+		}finally {
+		
+			conexao.getConexao().close();
+		}
+	}
+	
+	private void  alterar(Especialidade especialidade) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
 			
-			String sql = "INSERT INTO especialidade(nome) VALUES(?)";
+			String sql = "UPDATE especialidade SET nome=?,  observacoes=?,  status=? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, especialidade.getNome());
+			ps.setString(2, especialidade.getObservacoes());
+			ps.setBoolean(3, especialidade.isStatus());
+			ps.setInt(4, especialidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
 		} finally {
@@ -40,15 +67,14 @@ public class EspecialidadeDAO {
 		}
 	}
 	
-	private void alterar(Especialidade especialidade) throws Exception {
+	public void deletar(Especialidade especialidade) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "UPDATE especialidade SET nome=? WHERE codigo=?";
+			
+			String sql = "DELETE especialidade WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setString(1, especialidade.getNome());
-
-			ps.setInt(2, especialidade.getCodigo());
+			ps.setInt(1, especialidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
 		} finally {

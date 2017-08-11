@@ -16,6 +16,25 @@ public class Propriedades {
 	private String password;
 	private Boolean controleAcesso;
 	private String lastUsername;
+	
+	private String host;
+	private String porta;
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public String getPorta() {
+		return porta;
+	}
+
+	public void setPorta(String porta) {
+		this.porta = porta;
+	}
+
 	@SuppressWarnings("resource")
 	private Propriedades() {
 		prop = new TypedProperties();
@@ -43,12 +62,16 @@ public class Propriedades {
 	}
 
 	public void getPropriedades() {
-		url = prop.getProperty("conexao.url", "jdbc:postgresql://localhost:5432/");
+		
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
-		password = prop.getProperty("conexao.password", "1234");
+		password = prop.getProperty("conexao.password", "");
 		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
 		lastUsername = prop.getProperty("login.lastUsername", "");
+		host = prop.getProperty("conexao.host", "localhost");
+		porta= prop.getProperty("conexao.porta", "5432");
+		url = "jdbc:postgresql://"+host+":"+porta+"/";
+		
 	}
 
 	public void setPropriedades() {
