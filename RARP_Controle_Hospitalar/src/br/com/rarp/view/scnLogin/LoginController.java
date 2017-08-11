@@ -3,8 +3,6 @@ package br.com.rarp.view.scnLogin;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.accessibility.AccessibleSelection;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.utils.Utilitarios;
@@ -185,8 +183,8 @@ public class LoginController extends Application implements Initializable {
 			SistemaCtrl.getInstance().setUsuarioSessao(usuarioCtrl.getUsuario());
 			SistemaCtrl.getInstance().getPropriedades().setLastUsername(edtUsuario.getText());
 			
-			if(stage != null) 
-				stage.hide();
+			if(this.getStage() != null) 
+				this.getStage().hide();
 			else {
 				if (AcessoController.getStage() != null)
 					AcessoController.getStage().hide();

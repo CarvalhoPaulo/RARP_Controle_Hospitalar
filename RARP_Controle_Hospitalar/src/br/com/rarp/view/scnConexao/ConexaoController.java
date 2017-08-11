@@ -1,12 +1,10 @@
 package br.com.rarp.view.scnConexao;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnAcesso.AcessoController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +37,7 @@ public class ConexaoController extends Application implements Initializable {
 	@FXML // fx:id="btnCancelar"
 	private Button btnCancelar; // Value injected by FXMLLoader
 
-	private Stage stage;
+	private static Stage stage;
 
 	private Node node;
 
@@ -79,7 +77,7 @@ public class ConexaoController extends Application implements Initializable {
 
 		if (!naoCarregaStange) {
 			primaryStage.setScene(new Scene((Parent) getNode()));
-			setStage(primaryStage);
+			stage = primaryStage;
 		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Conexao.fxml"));
@@ -118,8 +116,9 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 			Utilitarios.message("Configurações de Servidor Gravandas Com Sucesso");
-			
-			if (this.getStage() != null) 
+
+
+			if (stage != null) 
 				stage.hide();
 			
 		} catch (Exception e) {
@@ -132,15 +131,15 @@ public class ConexaoController extends Application implements Initializable {
 
 	@FXML
 	void btnCancelarAction(ActionEvent event) {
-		if (stage != null) 
-			stage.hide();
+		if (getStage() != null) 
+			getStage().hide();
 	}
 
-	public Stage getStage() {
+	public static Stage getStage() {
 		return stage;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public static void setStage(Stage stage) {
+		ConexaoController.stage = stage;
 	}
 }
