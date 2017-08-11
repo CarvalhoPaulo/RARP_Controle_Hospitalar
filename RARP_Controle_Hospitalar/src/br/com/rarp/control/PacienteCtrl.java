@@ -42,26 +42,24 @@ public class PacienteCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (paciente != null) {
-			if (paciente.getNome().isEmpty()) {
-				throw new Exception("Para cadastrar um paciente é necessário informar o nome");
-			}
-			if (paciente.getCpf().isEmpty()) {
-				throw new Exception("Para cadastrar um paciente é necessário informar o CPF");
-			}
-			if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
-				throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
-			}
+		if (paciente != null) 
+			novoPaciente();
+
+		if (paciente.getNome().isEmpty()) {
+			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
+		}
+		if (paciente.getCpf().isEmpty()) {
+			throw new Exception("Para cadastrar um paciente é necessário informar o CPF");
+		}
+		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
+			throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
 		}
 	}
 	
 	private boolean verificarDesativacao() {
 		if(paciente != null && !paciente.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este funcionário?");
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este paciente?");
 		return true;
 	}
 
-	public void novoFuncionario() {
-		paciente = new Paciente();
-	}
 }

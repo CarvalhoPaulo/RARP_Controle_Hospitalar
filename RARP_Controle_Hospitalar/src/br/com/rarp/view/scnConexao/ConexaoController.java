@@ -41,25 +41,14 @@ public class ConexaoController extends Application implements Initializable {
 
 	private Node node;
 
-	private boolean naoCarregaStange;
-
-	public boolean isNaoCarregaStange() {
-		return naoCarregaStange;
-	}
-
-	public void setNaoCarregaStange(boolean naoCarregaStange) {
-		this.naoCarregaStange = naoCarregaStange;
-	}
+	private boolean carregaStage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 		txtHost.setText(SistemaCtrl.getInstance().getPropriedades().getHost());
 		txtPorta.setText(SistemaCtrl.getInstance().getPropriedades().getPorta());
 		txtUser.setText(SistemaCtrl.getInstance().getPropriedades().getUser());
 		txtSenha.setText(SistemaCtrl.getInstance().getPropriedades().getPassword());
-
 	}
 
 	public Node getNode() {
@@ -72,32 +61,27 @@ public class ConexaoController extends Application implements Initializable {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 		setNode(FXMLLoader.load(getClass().getResource("Conexao.fxml")));
-
-		if (!naoCarregaStange) {
+		if (carregaStage) {
 			primaryStage.setScene(new Scene((Parent) getNode()));
 			stage = primaryStage;
 		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Conexao.fxml"));
-	  //      loader.setController(this);
 			setNode(loader.load());
 		}
-
 	}
 	
-	public void AbrirPorAcesso() throws Exception {
+	public void abrirPorAcesso(boolean carregaStage) throws Exception {
 		try {
-			start(SistemaCtrl.getInstance().getStage());
-			
+			this.carregaStage = carregaStage;
+			start(SistemaCtrl.getInstance().getStage());	
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new Exception("Erro ao carregar painel de configuraçao de servidor " +  e.getMessage());
 		}
 	}
 
-	public void Configurar() throws Exception {
+	public void configurar() throws Exception {
 		start(SistemaCtrl.getInstance().getStage());
 		stage.setResizable(false);
 		stage.showAndWait();
@@ -105,28 +89,19 @@ public class ConexaoController extends Application implements Initializable {
 
 	@FXML
 	void btnAplicarAction(ActionEvent event) {
-
 		try {
-
 			SistemaCtrl.getInstance().getPropriedades().setHost(txtHost.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPorta(txtPorta.getText());
 			SistemaCtrl.getInstance().getPropriedades().setUser(txtUser.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
-
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
-			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
-			Utilitarios.message("Configurações de Servidor Gravandas Com Sucesso");
-
+			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
 
 			if (stage != null) 
 				stage.hide();
-			
 		} catch (Exception e) {
-			// TODO: handle exception
-
-			Utilitarios.atencao("Falha ao Gravar Configurações de Servidor");
+			Utilitarios.atencao("Falha ao fravar configurações do servidor de banco de dados.");
 		}
-
 	}
 
 	@FXML

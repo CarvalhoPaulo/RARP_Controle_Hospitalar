@@ -15,6 +15,7 @@ import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
 import br.com.rarp.view.scnManutencao.cidade.CidadeController;
+import br.com.rarp.view.scnManutencao.convenio.ConvenioController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
@@ -333,6 +334,20 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+    @FXML
+    private void manterConvenios(ActionEvent event) {
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoConvenio(TipoMovimentacao.acesso);
+			manutencao = new ConvenioController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
 
 	@FXML
 	private void manterPerfilUsuario() {

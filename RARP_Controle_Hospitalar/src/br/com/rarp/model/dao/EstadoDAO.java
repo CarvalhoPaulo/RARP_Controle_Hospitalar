@@ -15,7 +15,8 @@ public class EstadoDAO {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "estado(";
-		sql += "uf CHAR(2) NOT NULL PRIMARY KEY, ";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
+		sql += "uf CHAR(2) NOT NULL, ";
 		sql += "nome VARCHAR(100))";
 		st.executeUpdate(sql);
 	}
@@ -42,10 +43,10 @@ public class EstadoDAO {
 		return estados;
 	}
 
-	public Estado get(String uf) throws SQLException, Exception {
-		if (uf != null && !uf.isEmpty()) {
+	public Estado get(Integer codigo) throws SQLException, Exception {
+		if (codigo > 0) {
 			List<Estado> estados = new ArrayList<>();
-			estados = consultar("uf", " = ", uf);
+			estados = consultar("codigo", " = ", codigo + "");
 			if (estados.size() > 0)
 				return estados.get(0);
 		}

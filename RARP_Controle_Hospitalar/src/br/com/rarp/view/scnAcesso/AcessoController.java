@@ -25,7 +25,6 @@ public class AcessoController extends Application implements Initializable{
     private static Stage stage;
     
     
-    
 	public static Stage getStage() {
 		return stage;
 	}
@@ -36,39 +35,28 @@ public class AcessoController extends Application implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		try {
 			carregarPaneis();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub  AcessoController
-		
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("AcessoController.fxml"))));
 		setStage(primaryStage);
 		
 	}
 	
 	private void carregarPaneis() throws Exception {
-		
 		LoginController loginController  = new LoginController();
-		loginController.setNaoCarregaStange(true);
-		loginController.AbrirPorAcesso();
-		
+		loginController.abrirPorAcesso(false);
 		login.setCenter(loginController.getNode());
-		
+
 		ConexaoController conexaoController = new ConexaoController();
-		conexaoController.setNaoCarregaStange(true);
-		conexaoController.AbrirPorAcesso();
+		conexaoController.abrirPorAcesso(false);
 		Serve.setCenter(conexaoController.getNode());
-		
-		
-		
 	}
 
 	public boolean logar() throws Exception {

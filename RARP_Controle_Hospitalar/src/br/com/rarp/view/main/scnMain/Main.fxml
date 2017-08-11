@@ -40,6 +40,7 @@
 								<MenuItem fx:id="mniLeitos" mnemonicParsing="false" onAction="#manterEspacos" text="Cadastro de Espaços" />
                       <MenuItem fx:id="mniCidades" mnemonicParsing="false" onAction="#manterCidades" text="Cadastro de Cidades" />
 								<MenuItem fx:id="mniEspecialidade" mnemonicParsing="false" onAction="#manterEspecialidade" text="Cadastro de Especialidade" />
+                        <MenuItem fx:id="mniConvenios" mnemonicParsing="false" onAction="#manterConvenios" text="Cadastro de Convênios" />
 							</items>
 						</Menu>
 						<Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">

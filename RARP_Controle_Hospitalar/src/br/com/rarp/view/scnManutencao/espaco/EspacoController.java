@@ -61,7 +61,7 @@ public class EspacoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar perfil de usuario.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os espaços.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 

@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 
 public class CidadeController extends ManutencaoController {
@@ -23,6 +24,7 @@ public class CidadeController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Manutenção de Cidades");
+		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #471B1B;"
 				+ "-fx-font-weight: bold");
 		
@@ -67,7 +69,7 @@ public class CidadeController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar cidade.\n"
+			Utilitarios.erro("Erro ao pesquisar as cidades.\n"
 					   + "Descrição: " + e.getMessage());
 		}
 	}

@@ -53,7 +53,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
+			Utilitarios.erro("Erro ao pesquisar os perfis de usuario.\n"
 					   + "Descrição: " + e.getMessage());
 		}
 	}
@@ -65,8 +65,8 @@ public class PerfilUsuarioController extends ManutencaoController {
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
 			controller.inserir();
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes\n"
-					   + "Descrição: " + e.getMessage());
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -101,7 +101,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 				controller.visualizar(perfilUsuarioCtrl);
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes");
+			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
 		}
 	}

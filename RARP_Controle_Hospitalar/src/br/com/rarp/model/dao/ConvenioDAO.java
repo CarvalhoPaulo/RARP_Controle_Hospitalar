@@ -43,6 +43,7 @@ public class ConvenioDAO {
 					+ "PJ.cnpj, "
 					+ "PE.codigo AS codigo_pessoa, "
 					+ "PE.nome AS nome_pessoa, "
+					+ "PE.datanascimento, "
 					+ "PE.logradouro, "
 					+ "PE.complemento, " 
 					+ "PE.numero, " 
@@ -73,6 +74,7 @@ public class ConvenioDAO {
 				convenio.setRazaoSocial(rs.getString("razaosocial"));
 				convenio.setCnpj(rs.getString("cnpj"));
 				convenio.setNome(rs.getString("nome_pessoa"));
+				convenio.setDtNascimento(rs.getDate("datanascimento"));
 				convenio.setLogradouro(rs.getString("logradouro"));
 				convenio.setComplemento(rs.getString("complemento"));
 				convenio.setNumero(rs.getString("numero"));
@@ -110,7 +112,7 @@ public class ConvenioDAO {
 		return null;
 	}
 	
-	public static void salvar(Convenio convenio) throws Exception {
+	public void salvar(Convenio convenio) throws Exception {
 		if(convenio != null)
 			if(convenio.getCodigo() == 0)
 				inserir(convenio);
@@ -118,11 +120,11 @@ public class ConvenioDAO {
 				alterar(convenio);
 	}
 
-	private static void alterar(Convenio convenio) throws Exception {
+	private void alterar(Convenio convenio) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "UPDATE funcionario SET ans = ?, tipo = ?, status = ? WHERE codigo = ?";
+			String sql = "UPDATE convenio SET ans = ?, tipo = ?, status = ? WHERE codigo = ?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
@@ -131,10 +133,10 @@ public class ConvenioDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pf FROM funcionario WHERE codigo = " + convenio.getCodigo());
+			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pj FROM convenio WHERE codigo = " + convenio.getCodigo());
 			if(rs.next()) {
 				PessoaJuridica pj = convenio.clone();
-				pj.setCodigo(rs.getInt("codigo_pf"));
+				pj.setCodigo(rs.getInt("codigo_pj"));
 				PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 				pessoaJuridicaDAO.salvar(pj);
 			}
@@ -143,7 +145,7 @@ public class ConvenioDAO {
 		}
 	}
 
-	private static void inserir(Convenio convenio) throws Exception {
+	private void inserir(Convenio convenio) throws Exception {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {

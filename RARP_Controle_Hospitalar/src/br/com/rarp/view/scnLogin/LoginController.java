@@ -2,7 +2,6 @@ package br.com.rarp.view.scnLogin;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.utils.Utilitarios;
@@ -58,27 +57,16 @@ public class LoginController extends Application implements Initializable {
 	private static UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 
 	private Node node;
-	private boolean naoCarregaStange;
-
-	public boolean isNaoCarregaStange() {
-		return naoCarregaStange;
-	}
-
-	public void setNaoCarregaStange(boolean naoCarregaStange) {
-		this.naoCarregaStange = naoCarregaStange;
-	}
+	private boolean carregaStage = true;
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
-		if (!naoCarregaStange) {
-
+		if (carregaStage) {
 			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Login.fxml"))));
 			setStage(stage);
 		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Login.fxml"));
-	       // loader.setController(this);
 	        setNode(loader.load());
 		}
 	}
@@ -92,11 +80,11 @@ public class LoginController extends Application implements Initializable {
 		return SistemaCtrl.getInstance().getUsuarioSessao() != null;
 	}
 
-	public void AbrirPorAcesso() throws Exception {
+	public void abrirPorAcesso(boolean carregarStage) throws Exception {
 		try {
+			this.carregaStage = carregarStage;
 			start(new Stage());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new Exception("Erro ao carregar de login" +  e.getMessage());
 		}
 	}
@@ -110,7 +98,6 @@ public class LoginController extends Application implements Initializable {
 			if (usuarioCtrl.getUsuario() != null)
 				edtSenha.requestFocus();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 

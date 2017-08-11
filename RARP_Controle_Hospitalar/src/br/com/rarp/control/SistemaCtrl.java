@@ -99,7 +99,8 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
 		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
 		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
-		
+		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
+		telas.add(new Tela("manutencaoEspecialidade", "Manutenção de Especialidade"));
 		return telas;
 	}
 	
@@ -143,6 +144,16 @@ public class SistemaCtrl {
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	
+	public void liberarManutencaoConvenio(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoConvenio", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
+	public void liberarManutencaoEspecialidade(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoEspecialidade", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
 	public Propriedades getPropriedades() {
 		return Propriedades.getInstance();
 	}
@@ -159,17 +170,14 @@ public class SistemaCtrl {
 		} catch (Exception e) {
 			
 			try {
-				
 				ConexaoController conexaoController = new ConexaoController();
-				conexaoController.Configurar();
+				conexaoController.configurar();
 				
 				SistemaCtrl.getInstance().getConexao().getConexao();
 			}catch(Exception e2) {
 				System.out.println(e.getMessage());
 				SistemaCtrl.getInstance().getConexao().criarDataBase();
 			}
-			
-			
 		}
 	}
 
@@ -203,6 +211,9 @@ public class SistemaCtrl {
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
 		PacienteDAO.criarTabela();
+		
+		//SQLDAO sqldao = new SQLDAO();
+		//sqldao.executarSQLFile("cidades_estados.sql");
 	}
 
 	public Usuario getUsuarioSessao() {

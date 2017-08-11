@@ -23,8 +23,8 @@ public class CidadeDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "codigo_ibge int, ";
-		sql += "uf_estado CHAR(2) REFERENCES estado(uf), ";
-		sql += "status boolean)";
+		sql += "codigo_estado Integer REFERENCES estado(codigo), ";
+		sql += "status boolean DEFAULT TRUE)";
 		st.executeUpdate(sql);
 	}
 
@@ -41,7 +41,7 @@ public class CidadeDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "INSERT INTO cidade(nome, codigo_ibge, uf_estado, status) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO cidade(nome, codigo_ibge, codigo_estado, status) VALUES(?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cidade.getNome());
 			ps.setInt(2, cidade.getCodigoIBGE());
@@ -61,7 +61,7 @@ public class CidadeDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "UPDATE cidade SET nome = ?, codigo_ibge = ?, uf_estado=?, status=? WHERE codigo=?";
+			String sql = "UPDATE cidade SET nome = ?, codigo_ibge = ?, codigo_estado=?, status=? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cidade.getNome());
 			ps.setInt(2, cidade.getCodigoIBGE());
@@ -83,7 +83,17 @@ public class CidadeDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-			String sql = "SELECT codigo, nome, codigo_ibge, uf_estado, status  FROM cidade WHERE " + campo + comparacao + termo;
+			String sql = "SELECT "
+					+ "cid.codigo, "
+					+ "cid.nome, "
+					+ "cid.codigo_ibge, "
+					+ "cid.codigo_estado, "
+					+ "cid.status, "
+					+ "es.nome AS nome_estado, "
+					+ "es.uf "
+					+ "FROM cidade AS cid "
+					+ "LEFT JOIN estado AS es ON es.codigo = cid.codigo_estado "
+					+ "WHERE " + campo + comparacao + termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -91,9 +101,11 @@ public class CidadeDAO {
 				cidade.setCodigo(rs.getInt("codigo"));
 				cidade.setNome(rs.getString("nome"));
 				cidade.setCodigoIBGE(rs.getInt("codigo_ibge"));
-				Estado estado = new EstadoDAO().get(rs.getString("uf_estado"));
+				Estado estado = new Estado();
+				estado.setNome(rs.getString("nome_estado"));
+				estado.setUF(rs.getString("uf"));
+				estado.setCodigo(rs.getInt("codigo_estado"));
 				cidade.setEstado(estado);
-				cidade.setStatus(rs.getBoolean("status"));
 				cidades.add(cidade);
 			}
 			ps.close();

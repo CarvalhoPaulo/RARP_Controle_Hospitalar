@@ -1,6 +1,9 @@
 package br.com.rarp.view.scnManutencao.especialidade;
 
+import br.com.rarp.control.EspecialidadeCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Campo;
@@ -22,7 +25,11 @@ public class EspecialidadeController extends ManutencaoController {
 		TableColumn<Especialidade, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Funcionario, String> nome = new TableColumn<>("Nome");
-
+		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		codigo.setPrefWidth(100);
+		nome.setPrefWidth(300);
+		
 		tvManutencao.getColumns().addAll(codigo, nome);
 		tvManutencao.setEditable(false);
 		adicionarCampos();
@@ -35,33 +42,68 @@ public class EspecialidadeController extends ManutencaoController {
 		// para pesquisa.
 		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void pesquisar() {
-		Utilitarios.atencao("Função do botão Pesquisar");
+		EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
+		try {
+			tvManutencao.setItems(especialidadeCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+					cmbComparacao.getSelectionModel().getSelectedItem(),
+					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
+							: edtTermo.getText()));
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descrição: " + e.getMessage());
+		}
 	}
 
 	@Override
-	public void inserir() {	
+	public void inserir() {
 		try {
-			CadastroEspecialidadeController cadastroEspecialidadeController = new CadastroEspecialidadeController();
-			cadastroEspecialidadeController.inserir();
-		
+			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.insercao);
+			CadastroEspecialidadeController controler = new CadastroEspecialidadeController();
+			controler.inserir();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			Utilitarios.erro("Erro ao criar tela de cadastro de pacientes\n"
-					   + "Descrição: " + e.getMessage());
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void alterar() {
-		Utilitarios.atencao("Função do botão Alterar");
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.alteracao);
+			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
+			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+				Utilitarios.erro("Nenhum registro foi selecionado");
+			else {
+				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
+				especialidadeCtrl.setEspecialidade(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.alterar(especialidadeCtrl);
+			}
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void visualizar() {
-		Utilitarios.atencao("Função do botão Visualizar");
+		try {
+			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.visualizaco);
+			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
+			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+				Utilitarios.erro("Nenhum registro foi selecionado");
+			else {
+				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
+				especialidadeCtrl.setEspecialidade(tvManutencao.getSelectionModel().getSelectedItem());
+				controller.visualizar(especialidadeCtrl);
+			}
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }
