@@ -28,13 +28,14 @@ import br.com.rarp.model.dao.Propriedades;
 import br.com.rarp.model.dao.TelaDAO;
 import br.com.rarp.model.dao.TelefoneDAO;
 import br.com.rarp.model.dao.UsuarioDAO;
+import br.com.rarp.view.scnConexao.ConexaoController;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class SistemaCtrl {
 	private static final SistemaCtrl INSTANCE = new SistemaCtrl();
-	private Conexao conexao;
+	
 	private Usuario usuarioSessao;
 	
 	private SistemaCtrl() {
@@ -99,7 +100,7 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
 		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
 		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
-		
+		telas.add(new Tela("manutencaoEspecialidade", "Manutenção de Especialidade"));
 		return telas;
 	}
 	
@@ -148,21 +149,35 @@ public class SistemaCtrl {
 			throw new Exception("Ação indisponível para este usuario");
 	}
 	
+	public void liberarManutencaoEspecialidade(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoEspecialidade", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuario");
+	}
+	
 	public Propriedades getPropriedades() {
 		return Propriedades.getInstance();
 	}
 	
 	public Conexao getConexao() throws Exception {
-		if (conexao == null)
-			conexao = new Conexao();
-		return conexao;
+		
+		
+		return new Conexao();
 	}
 	
 	public void configuraConexao() throws Exception {
 		try {
 			SistemaCtrl.getInstance().getConexao().getConexao();
 		} catch (Exception e) {
-			SistemaCtrl.getInstance().getConexao().criarDataBase();
+			
+			try {
+				ConexaoController conexaoController = new ConexaoController();
+				conexaoController.configurar();
+				
+				SistemaCtrl.getInstance().getConexao().getConexao();
+			}catch(Exception e2) {
+				System.out.println(e.getMessage());
+				SistemaCtrl.getInstance().getConexao().criarDataBase();
+			}
 		}
 	}
 

@@ -13,10 +13,11 @@ import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
-import br.com.rarp.utils.AutoCompleteComboBoxListener;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.MascaraUtil;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.MaskTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
@@ -30,7 +31,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
@@ -90,7 +90,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private TextField edtBairro;
 
 	@FXML
-	private ComboBox<Cidade> cmbCidade;
+	private AutoCompleteComboBox<Cidade> cmbCidade;
 
 	@FXML
 	private MaskTextField edtCEP;
@@ -114,7 +114,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private TextField edtSalarioContratual;
 
 	@FXML
-	private ComboBox<Cargo> cmbCargo;
+	private AutoCompleteComboBox<Cargo> cmbCargo;
 
 	@FXML
 	private IntegerTextField edtCodigo;
@@ -185,9 +185,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 			preencherTela();
 		if (visualizando)
 			bloquearTela();
-		
-		new AutoCompleteComboBoxListener<>(cmbCargo);
-		new AutoCompleteComboBoxListener<>(cmbCidade);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -215,6 +212,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 			tgSexo.getToggles().add(rbMasculino);
 			tgSexo.getToggles().add(rbFeminimo);
 			tgSexo.selectToggle(rbMasculino);
+			
+			MascaraUtil.addBarraData(edtDataAdmissao, 10);
 			
 			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 

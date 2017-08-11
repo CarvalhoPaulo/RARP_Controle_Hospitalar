@@ -27,7 +27,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -74,7 +73,7 @@ public class CadastroConvenioController extends Application implements Initializ
     private TextField edtANS;
 
     @FXML
-    private ComboBox<String> cmbTipo;
+    private AutoCompleteComboBox<String> cmbTipo;
 
     @FXML
     private TextField edtBairro;

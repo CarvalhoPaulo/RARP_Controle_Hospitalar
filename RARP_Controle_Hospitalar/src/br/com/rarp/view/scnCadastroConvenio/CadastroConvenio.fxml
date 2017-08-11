@@ -88,7 +88,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="cmbTipo" layoutX="10.0" layoutY="36.0" prefWidth="150.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                                                <AutoCompleteComboBox fx:id="cmbTipo" layoutX="10.0" layoutY="36.0" prefWidth="150.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
                                              </children>
                                           </AnchorPane>
 														<AnchorPane GridPane.rowIndex="1">

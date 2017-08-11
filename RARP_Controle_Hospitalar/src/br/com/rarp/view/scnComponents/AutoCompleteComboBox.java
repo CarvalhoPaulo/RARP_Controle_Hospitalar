@@ -27,8 +27,8 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 	private int caretPos;
 
 	public AutoCompleteComboBox() {
+		new StringBuilder();
 		data = getItems();
-
 		setEditable(true);
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 
