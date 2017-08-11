@@ -15,6 +15,7 @@ import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.AutoCompleteComboBoxListener;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.MascaraUtil;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.IntegerTextField;
@@ -186,6 +187,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		if (visualizando)
 			bloquearTela();
 		
+		MascaraUtil.addBarraData(edtDataAdmissao, 10);
 		new AutoCompleteComboBoxListener<>(cmbCargo);
 		new AutoCompleteComboBoxListener<>(cmbCidade);
 	}

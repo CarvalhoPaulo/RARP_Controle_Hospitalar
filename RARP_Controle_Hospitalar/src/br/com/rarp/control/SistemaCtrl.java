@@ -28,13 +28,14 @@ import br.com.rarp.model.dao.Propriedades;
 import br.com.rarp.model.dao.TelaDAO;
 import br.com.rarp.model.dao.TelefoneDAO;
 import br.com.rarp.model.dao.UsuarioDAO;
+import br.com.rarp.view.scnConexao.ConexaoController;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class SistemaCtrl {
 	private static final SistemaCtrl INSTANCE = new SistemaCtrl();
-	private Conexao conexao;
+	
 	private Usuario usuarioSessao;
 	
 	private SistemaCtrl() {
@@ -147,16 +148,28 @@ public class SistemaCtrl {
 	}
 	
 	public Conexao getConexao() throws Exception {
-		if (conexao == null)
-			conexao = new Conexao();
-		return conexao;
+		
+		
+		return new Conexao();
 	}
 	
 	public void configuraConexao() throws Exception {
 		try {
 			SistemaCtrl.getInstance().getConexao().getConexao();
 		} catch (Exception e) {
-			SistemaCtrl.getInstance().getConexao().criarDataBase();
+			
+			try {
+				
+				ConexaoController conexaoController = new ConexaoController();
+				conexaoController.Configurar();
+				
+				SistemaCtrl.getInstance().getConexao().getConexao();
+			}catch(Exception e2) {
+				System.out.println(e.getMessage());
+				SistemaCtrl.getInstance().getConexao().criarDataBase();
+			}
+			
+			
 		}
 	}
 

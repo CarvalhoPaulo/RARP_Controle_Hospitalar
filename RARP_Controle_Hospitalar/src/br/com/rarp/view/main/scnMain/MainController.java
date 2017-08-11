@@ -10,6 +10,7 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.control.Enum.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
@@ -170,9 +171,11 @@ public class MainController extends Application implements Initializable {
 			if (SistemaCtrl.getInstance().getPropriedades().getControleAcesso()) {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 				if (!usuarioCtrl.isEmpty()) {
-					LoginController login = new LoginController();
-					if (!login.logar())
+					
+					AcessoController acessoController = new AcessoController();
+					if (!acessoController.logar())
 						System.exit(0);
+				
 				} else {
 					SistemaCtrl.getInstance().getPropriedades().setControleAcesso(false);
 				}

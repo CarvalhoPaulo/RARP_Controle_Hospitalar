@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
+import jfxtras.scene.control.CalendarTextField;
 
 public enum MascaraUtil {
 	;
@@ -53,14 +54,14 @@ public enum MascaraUtil {
 		});
 	}
 
-	public static void addBarraData(final TextField tf, final int maxLength) {
-		tf.textProperty().addListener(new ChangeListener<String>() {
+	public static void addBarraData(final CalendarTextField data, final int maxLength) {
+		data.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
 					final String newValue) {
-				if (tf.getText().length() > maxLength) {
-					String s = tf.getText().substring(0, maxLength);
-					tf.setText(s);
+				if (data.getText().length() > maxLength) {
+					String s = data.getText().substring(0, maxLength);
+					data.setText(s);
 				} else {
 
 					// String value = tf.getText();
@@ -71,14 +72,16 @@ public enum MascaraUtil {
 					// tf.setText(value);
 					// positionCaret(tf);
 
-					if (oldValue.length() < newValue.length()) {
-						if (tf.getText().length() == 2) {
-							tf.setText(tf.getText() + "/");
-						}
+					if (data != null) {
+						if (data.getText().length() < newValue.length()) {
+							if (data.getText().length() == 2) {
+								data.setText(data.getText() + "/");
+							}
 
-						if (maxLength > 5) {
-							if (tf.getText().length() == 5) {
-								tf.setText(tf.getText() + "/");
+							if (maxLength > 5) {
+								if (data.getText().length() == 5) {
+									data.setText(data.getText() + "/");
+								}
 							}
 						}
 					}
@@ -102,9 +105,9 @@ public enum MascaraUtil {
 
 							tf.setText("(" + s);
 						}
-						if(tf.getText().length() == 3){
+						if (tf.getText().length() == 3) {
 							String s = tf.getText().toString();
-							tf.setText( s+")");
+							tf.setText(s + ")");
 						}
 
 						if (tf.getText().length() == 8) {
@@ -195,7 +198,6 @@ public enum MascaraUtil {
 			}
 		});
 	}
-
 
 	@SuppressWarnings("unused")
 	private static void positionCaret(final TextField textField) {
