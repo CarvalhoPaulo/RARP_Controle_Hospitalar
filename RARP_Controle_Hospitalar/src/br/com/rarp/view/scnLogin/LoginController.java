@@ -62,12 +62,14 @@ public class LoginController extends Application implements Initializable {
 	@Override
 	public void start(Stage stage) throws Exception {
 		if (carregaStage) {
-			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Login.fxml"))));
-			setStage(stage);
-		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Login.fxml"));
 	        setNode(loader.load());
+			
+		}else {
+			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Login.fxml"))));
+			setStage(stage);
+			
 		}
 	}
 

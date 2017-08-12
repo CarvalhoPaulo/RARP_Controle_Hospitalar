@@ -75,7 +75,7 @@ public class Propriedades {
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
 		password = prop.getProperty("conexao.password", "");
-		controleAcesso = prop.getProperty("sistema.controleAcesso", false);
+		controleAcesso = prop.getProperty("sistema.controleAcesso", true);
 		lastUsername = prop.getProperty("login.lastUsername", "");
 		host = prop.getProperty("conexao.host", "localhost");
 		porta= prop.getProperty("conexao.porta", "5432");

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnAcesso.AcessoController;
+import br.com.rarp.view.scnLogin.LoginController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +44,9 @@ public class ConexaoController extends Application implements Initializable {
 	private Node node;
 
 	private boolean carregaStage;
+	
+	
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -63,12 +68,13 @@ public class ConexaoController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		setNode(FXMLLoader.load(getClass().getResource("Conexao.fxml")));
 		if (carregaStage) {
-			primaryStage.setScene(new Scene((Parent) getNode()));
-			stage = primaryStage;
-		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Conexao.fxml"));
 			setNode(loader.load());
+			
+		}else {
+			primaryStage.setScene(new Scene((Parent) getNode()));
+			stage = primaryStage;
 		}
 	}
 	
@@ -108,7 +114,12 @@ public class ConexaoController extends Application implements Initializable {
 	void btnCancelarAction(ActionEvent event) {
 		if (getStage() != null) 
 			getStage().hide();
+		else {
+			AcessoController.setPageIndex(0);
+		}
+			
 	}
+	
 
 	public static Stage getStage() {
 		return stage;
