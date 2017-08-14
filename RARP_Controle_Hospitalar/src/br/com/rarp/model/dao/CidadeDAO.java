@@ -26,6 +26,9 @@ public class CidadeDAO {
 		sql += "codigo_estado Integer REFERENCES estado(codigo), ";
 		sql += "status boolean DEFAULT TRUE)";
 		st.executeUpdate(sql);
+		
+		SQLDAO dao = new SQLDAO();
+        dao.executarSQLFile("cidades_estados.sql");
 	}
 
 	public void salvar(Cidade cidade) throws Exception {

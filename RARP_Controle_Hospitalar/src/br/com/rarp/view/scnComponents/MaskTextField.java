@@ -303,8 +303,8 @@ public class MaskTextField extends TextField {
 	}
 	
 	private String getString() {
-		if(getString() != null)
-			return getString();
+		if(getText() != null)
+			return getText();
 		return "";
 	}
 

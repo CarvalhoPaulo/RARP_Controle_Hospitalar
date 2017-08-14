@@ -18,10 +18,10 @@ import javafx.stage.Stage;
 public class AcessoController extends Application implements Initializable {
 
 	@FXML
-	private BorderPane login;
+	private BorderPane pnlServer;
 
 	@FXML
-	private BorderPane Serve;
+	private BorderPane pnlLogin;
 
 	private static Stage stage;
 
@@ -37,13 +37,10 @@ public class AcessoController extends Application implements Initializable {
 	}
 
 	public static void setPageIndex(int index) {
-
 		if (stage != null) {
-			
 		tpnAcesso.getSelectionModel().select(index);
 		
 		}
-
 	}
 
 	@Override
@@ -59,15 +56,14 @@ public class AcessoController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("AcessoController.fxml"))));
 		setStage(primaryStage);
-
 	}
 
 	private void carregarPaneis() throws Exception {
 		LoginController loginController = new LoginController();
-		login.setCenter(loginController.getNode());
+		pnlLogin.setCenter(loginController.getNode());
 
 		ConexaoController conexaoController = new ConexaoController();
-		Serve.setCenter(conexaoController.getNode());
+		pnlServer.setCenter(conexaoController.getNode());
 	}
 
 	public boolean logar() throws Exception {

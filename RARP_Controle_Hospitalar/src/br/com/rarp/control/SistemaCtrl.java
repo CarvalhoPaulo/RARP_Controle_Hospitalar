@@ -159,8 +159,6 @@ public class SistemaCtrl {
 	}
 	
 	public Conexao getConexao() throws Exception {
-		
-		
 		return new Conexao();
 	}
 	

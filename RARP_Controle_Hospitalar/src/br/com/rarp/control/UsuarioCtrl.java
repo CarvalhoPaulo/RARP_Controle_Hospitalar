@@ -58,12 +58,15 @@ public class UsuarioCtrl {
 	}
 
 	public void consultar(String usuario) throws Exception {
-		UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
-		List<Usuario> usuarios = usuarioBusiness.consultar("usuario", new Igual().getComparacao(), new Igual().getTermo(usuario));
-		if(usuarios != null && usuarios.size() > 0) {
-			this.usuario = usuarios.get(0);
-		} else {
-			this.usuario = null;
+		if (!usuario.isEmpty()) {
+			UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+			List<Usuario> usuarios = usuarioBusiness.consultar("usuario", new Igual().getComparacao(),
+					new Igual().getTermo(usuario));
+			if (usuarios != null && usuarios.size() > 0) {
+				this.usuario = usuarios.get(0);
+			} else {
+				this.usuario = null;
+			} 
 		}
 	}
 
