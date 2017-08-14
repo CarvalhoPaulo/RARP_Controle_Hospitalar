@@ -11,20 +11,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class AcessoController extends Application implements Initializable{
+public class AcessoController extends Application implements Initializable {
 
-    @FXML
-    private  BorderPane login;
+	@FXML
+	private BorderPane login;
 
-    @FXML
-    private  BorderPane Serve;
-    
-    private static Stage stage;
-    
-    
+	@FXML
+	private BorderPane Serve;
+
+	private static Stage stage;
+
+	@FXML // fx:id="tpnAcesso"
+	private static TabPane tpnAcesso; // Value injected by FXMLLoader
+
 	public static Stage getStage() {
 		return stage;
 	}
@@ -33,24 +36,34 @@ public class AcessoController extends Application implements Initializable{
 		AcessoController.stage = stage;
 	}
 
+	public static void setPageIndex(int index) {
+
+		if (stage != null) {
+			
+		tpnAcesso.getSelectionModel().select(index);
+		
+		}
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			carregarPaneis();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("AcessoController.fxml"))));
 		setStage(primaryStage);
-		
+
 	}
-	
+
 	private void carregarPaneis() throws Exception {
-		LoginController loginController  = new LoginController();
+		LoginController loginController = new LoginController();
 		loginController.abrirPorAcesso(false);
 		login.setCenter(loginController.getNode());
 

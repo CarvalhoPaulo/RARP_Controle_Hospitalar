@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnAcesso.AcessoController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class ConexaoController extends Application implements Initializable {
 	@FXML // fx:id="btnCancelar"
 	private Button btnCancelar; // Value injected by FXMLLoader
 
-	private Stage stage;
+	private static Stage stage;
 
 	private Node node;
 
@@ -63,12 +64,13 @@ public class ConexaoController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		setNode(FXMLLoader.load(getClass().getResource("Conexao.fxml")));
 		if (carregaStage) {
-			primaryStage.setScene(new Scene((Parent) getNode()));
-			setStage(primaryStage);
-		}else {
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Conexao.fxml"));
 			setNode(loader.load());
+			
+		}else {
+			primaryStage.setScene(new Scene((Parent) getNode()));
+			stage = primaryStage;
 		}
 	}
 	
@@ -94,7 +96,6 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setPorta(txtPorta.getText());
 			SistemaCtrl.getInstance().getPropriedades().setUser(txtUser.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
-
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
 			
@@ -107,14 +108,20 @@ public class ConexaoController extends Application implements Initializable {
 
 	@FXML
 	void btnCancelarAction(ActionEvent event) {
-		stage.hide();
+		if (getStage() != null) 
+			getStage().hide();
+		else {
+			AcessoController.setPageIndex(0);
+		}
+			
 	}
+	
 
-	public Stage getStage() {
+	public static Stage getStage() {
 		return stage;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public static void setStage(Stage stage) {
+		ConexaoController.stage = stage;
 	}
 }
