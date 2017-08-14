@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -57,20 +58,15 @@ public class LoginController extends Application implements Initializable {
 	private static UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 
 	private Node node;
-	private boolean carregaStage = true;
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
-		if (carregaStage) {
-			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("Login.fxml"));
-	        setNode(loader.load());
-			
-		}else {
-			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Login.fxml"))));
-			setStage(stage);
-			
-		}
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Login.fxml"));
+        setNode(loader.load());
+        stage.setScene(new Scene((Parent) getNode()));
+        this.stage = stage;
 	}
 
 	public boolean logar() throws Exception {
@@ -82,23 +78,12 @@ public class LoginController extends Application implements Initializable {
 		return SistemaCtrl.getInstance().getUsuarioSessao() != null;
 	}
 
-	public void abrirPorAcesso(boolean carregarStage) throws Exception {
-		try {
-			this.carregaStage = carregarStage;
-			start(new Stage());
-		} catch (Exception e) {
-			throw new Exception("Erro ao carregar de login" +  e.getMessage());
-		}
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		edtUsuario.setText(SistemaCtrl.getInstance().getPropriedades().getLastUsername());
 		pnFrame.setPrefSize(342, 251);
 		try {
 			usuarioCtrl.consultar(edtUsuario.getText());
-			if (usuarioCtrl.getUsuario() != null)
-				edtSenha.requestFocus();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -172,11 +157,12 @@ public class LoginController extends Application implements Initializable {
 			SistemaCtrl.getInstance().setUsuarioSessao(usuarioCtrl.getUsuario());
 			SistemaCtrl.getInstance().getPropriedades().setLastUsername(edtUsuario.getText());
 			
-			if(this.getStage() != null) 
-				this.getStage().hide();
-			else {
-				if (AcessoController.getStage() != null)
-					AcessoController.getStage().hide();
+			if (AcessoController.getStage() != null) {
+				AcessoController.getStage().hide();
+				AcessoController.setStage(null);
+			} else {
+				if(this.getStage() != null) 
+					this.getStage().hide();
 			}
 					
 		} catch (Exception e) {
@@ -190,36 +176,14 @@ public class LoginController extends Application implements Initializable {
 	}
 
 	@FXML
-	private void confirmarSenhaKeyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER)
-			btnEntrar.requestFocus();
-	}
-
-	@FXML
-	private void novaSenhaKeyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER)
-			edtConfirmaSenha.requestFocus();
-	}
-
-	@FXML
-	private void senhaKeyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER)
-			btnEntrar.requestFocus();
-	}
-
-	@FXML
-	private void usuarioKeyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER)
-			edtSenha.requestFocus();
-	}
-
-	@FXML
 	private void entrarKeyPress(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER)
 			btnEntrar.fire();
 	}
 
-	public Node getNode() {
+	public Node getNode() throws Exception {
+		if(node == null)
+			start(SistemaCtrl.getInstance().getStage());
 		return node;
 	}
 

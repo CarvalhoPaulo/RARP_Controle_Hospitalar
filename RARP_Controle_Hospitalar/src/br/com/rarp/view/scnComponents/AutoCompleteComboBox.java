@@ -113,8 +113,10 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 			}
 		}
 		String t = getEditor().getText();
-		if(list.size() <= 0)
+		if(list.size() <= 0) {
 			t = t.substring(0, t.length() - 1);
+			event.consume();
+		}
 
 		setItems(list);
 		getEditor().setText(t);

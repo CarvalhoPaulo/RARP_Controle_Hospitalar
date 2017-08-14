@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="pnFrame" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="br.com.rarp.view.scnLogin.LoginController">
+<AnchorPane fx:id="pnFrame" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnLogin.LoginController">
    <children>
       <BorderPane AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
          <center>
@@ -31,22 +30,22 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="edtUsuario" layoutX="14.0" layoutY="39.0" onKeyPressed="#usuarioKeyPress" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="32.0">
+                  <TextField fx:id="edtUsuario" layoutX="14.0" layoutY="39.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="32.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="edtSenha" onKeyPressed="#senhaKeyPress" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="90.0">
+                  <PasswordField fx:id="edtSenha" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="90.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="edtNovaSenha" onKeyPressed="#novaSenhaKeyPress" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="148.0">
+                  <PasswordField fx:id="edtNovaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="148.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="edtConfirmaSenha" onKeyPressed="#confirmarSenhaKeyPress" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="206.0">
+                  <PasswordField fx:id="edtConfirmaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="206.0">
                      <font>
                         <Font size="14.0" />
                      </font>

@@ -70,8 +70,7 @@ public class Propriedades {
 		return INSTANCE;
 	}
 
-	public void getPropriedades() {
-		
+	public void getPropriedades() {	
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
 		password = prop.getProperty("conexao.password", "");
@@ -80,21 +79,23 @@ public class Propriedades {
 		host = prop.getProperty("conexao.host", "localhost");
 		porta= prop.getProperty("conexao.porta", "5432");
 		url = "jdbc:postgresql://"+host+":"+porta+"/";
-		
 	}
 
 	public void setPropriedades() {
-		 prop.setProperty("conexao.url", url);
-		 prop.setProperty("conexao.database", database);
-		 prop.setProperty("conexao.user", user);
-		 prop.setProperty("conexao.password", password);
+		//Propriedades da conexão
+		prop.setProperty("conexao.database", database);
+		prop.setProperty("conexao.user", user);
+		prop.setProperty("conexao.password", password);
+		prop.setProperty("conexao.host", host);
+		prop.setProperty("conexao.porta", porta);
 		 
-		 //Propriedades do login
-		 prop.setProperty("login.lastUsername", lastUsername);
+		//Propriedades do login
+		prop.setProperty("login.lastUsername", lastUsername);
+		
+		//Opções do sistema
+		prop.setProperty("sistema.controleAcesso", controleAcesso);
 		 
-		 //Opções do sistema
-		 prop.setProperty("sistema.controleAcesso", controleAcesso);
-		 try {
+		try {
 			prop.store(new FileOutputStream("./properties/RARP.Properties"), "");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

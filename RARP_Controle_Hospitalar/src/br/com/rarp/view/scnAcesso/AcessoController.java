@@ -64,11 +64,9 @@ public class AcessoController extends Application implements Initializable {
 
 	private void carregarPaneis() throws Exception {
 		LoginController loginController = new LoginController();
-		loginController.abrirPorAcesso(false);
 		login.setCenter(loginController.getNode());
 
 		ConexaoController conexaoController = new ConexaoController();
-		conexaoController.abrirPorAcesso(false);
 		Serve.setCenter(conexaoController.getNode());
 	}
 

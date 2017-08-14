@@ -251,7 +251,8 @@ public class MainController extends Application implements Initializable {
 	private void trocarUsuario(ActionEvent event) {
 		LoginController login = new LoginController();
 		try {
-			login.logar();
+			if(login.logar())
+				lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

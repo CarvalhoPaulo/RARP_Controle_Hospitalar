@@ -42,8 +42,6 @@ public class ConexaoController extends Application implements Initializable {
 
 	private Node node;
 
-	private boolean carregaStage = true;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtHost.setText(SistemaCtrl.getInstance().getPropriedades().getHost());
@@ -52,7 +50,9 @@ public class ConexaoController extends Application implements Initializable {
 		txtSenha.setText(SistemaCtrl.getInstance().getPropriedades().getPassword());
 	}
 
-	public Node getNode() {
+	public Node getNode() throws Exception {
+		if(node == null)
+			start(SistemaCtrl.getInstance().getStage());
 		return node;
 	}
 
@@ -60,27 +60,14 @@ public class ConexaoController extends Application implements Initializable {
 		this.node = node;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		setNode(FXMLLoader.load(getClass().getResource("Conexao.fxml")));
-		if (carregaStage) {
-			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("Conexao.fxml"));
-			setNode(loader.load());
-			
-		}else {
-			primaryStage.setScene(new Scene((Parent) getNode()));
-			stage = primaryStage;
-		}
-	}
-	
-	public void abrirPorAcesso(boolean carregaStage) throws Exception {
-		try {
-			this.carregaStage = carregaStage;
-			start(SistemaCtrl.getInstance().getStage());	
-		} catch (Exception e) {
-			throw new Exception("Erro ao carregar painel de configuraçao de servidor " +  e.getMessage());
-		}
+	public void start(Stage stage) throws Exception {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Conexao.fxml"));
+		setNode(loader.load());
+		stage.setScene(new Scene((Parent) getNode()));
+		this.stage = stage;
 	}
 
 	public void configurar() throws Exception {
@@ -97,6 +84,7 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setUser(txtUser.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
+			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
 			
 			if(stage != null)
@@ -116,7 +104,6 @@ public class ConexaoController extends Application implements Initializable {
 			
 	}
 	
-
 	public static Stage getStage() {
 		return stage;
 	}
