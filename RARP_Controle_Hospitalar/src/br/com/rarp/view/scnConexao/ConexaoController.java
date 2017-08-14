@@ -41,7 +41,7 @@ public class ConexaoController extends Application implements Initializable {
 
 	private Node node;
 
-	private boolean carregaStage;
+	private boolean carregaStage = true;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -49,7 +49,6 @@ public class ConexaoController extends Application implements Initializable {
 		txtPorta.setText(SistemaCtrl.getInstance().getPropriedades().getPorta());
 		txtUser.setText(SistemaCtrl.getInstance().getPropriedades().getUser());
 		txtSenha.setText(SistemaCtrl.getInstance().getPropriedades().getPassword());
-
 	}
 
 	public Node getNode() {
@@ -98,6 +97,9 @@ public class ConexaoController extends Application implements Initializable {
 
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
+			
+			if(stage != null)
+				stage.hide();
 		} catch (Exception e) {
 			Utilitarios.atencao("Falha ao fravar configurações do servidor de banco de dados.");
 		}

@@ -9,9 +9,13 @@ import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class UsuarioController extends ManutencaoController {
 
@@ -29,9 +33,24 @@ public class UsuarioController extends ManutencaoController {
 		TableColumn<Usuario, String> usuario = new TableColumn<>("Usuário");
 		usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
 		TableColumn<Usuario, String> funcionario = new TableColumn<>("Funcionário");
-		funcionario.setCellValueFactory(new PropertyValueFactory<>("funcionario"));
+		funcionario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Usuario, String> param) {
+				String s = "";
+				if(param != null && param.getValue() != null && param.getValue().getFuncionario() != null && param.getValue().getFuncionario().getNome() != null)
+					s = param.getValue().getFuncionario().getNome();
+				return new SimpleStringProperty(s);
+			}
+		});
 		TableColumn<Usuario, String> perfilUsuario = new TableColumn<>("Perfil");
 		perfilUsuario.setCellValueFactory(new PropertyValueFactory<>("perfilUsuario"));
+		
+		codigo.setPrefWidth(100);
+		nome.setPrefWidth(250);
+		usuario.setPrefWidth(250);
+		funcionario.setPrefWidth(250);
+		perfilUsuario.setPrefWidth(250);
 		
 		tvManutencao.getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
 		tvManutencao.setEditable(false);

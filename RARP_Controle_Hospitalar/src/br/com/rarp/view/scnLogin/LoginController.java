@@ -105,7 +105,7 @@ public class LoginController extends Application implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				try {
-					if (!newValue) {
+					if (!newValue && !edtUsuario.getText().isEmpty()) {
 						usuarioCtrl.consultar(edtUsuario.getText());
 						if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null
 								|| usuarioCtrl.getUsuario().getSenha().isEmpty())) {

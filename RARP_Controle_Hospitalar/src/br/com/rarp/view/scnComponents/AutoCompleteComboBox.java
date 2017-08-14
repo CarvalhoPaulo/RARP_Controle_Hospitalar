@@ -37,7 +37,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 				hide();
 			}
 		});
-		setOnKeyReleased(AutoCompleteComboBox.this);
+		setOnKeyReleased(this);
 
 		setOnAction(t -> {
 			boolean valido = false;
@@ -77,7 +77,6 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 
 	@Override
 	public void handle(KeyEvent event) {
-
 		if (event.getCode() == KeyCode.UP) {
 			caretPos = -1;
 			moveCaret(getEditor().getText().length());
@@ -114,6 +113,8 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 			}
 		}
 		String t = getEditor().getText();
+		if(list.size() <= 0)
+			t = t.substring(0, t.length() - 1);
 
 		setItems(list);
 		getEditor().setText(t);

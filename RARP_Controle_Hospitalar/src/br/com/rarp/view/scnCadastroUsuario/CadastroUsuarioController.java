@@ -3,13 +3,13 @@ package br.com.rarp.view.scnCadastroUsuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.PerfilUsuarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.PerfilUsuario;
-import br.com.rarp.utils.AutoCompleteComboBoxListener;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
@@ -84,13 +84,11 @@ public class CadastroUsuarioController extends Application implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
 		sbAtivado.switchOnProperty().set(true);
 		edtCodigo.setDisable(true);
-		PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
 		try {
-			cmbPerfilUsuario.setItems(perfilUsuarioCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+			cmbPerfilUsuario.setItems(new PerfilUsuarioCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+			cmbFuncionario.setItems(new FuncionarioCtrl().consultar(new Campo("func.status", "", TipoCampo.booleano), new Ativado(), "ativado"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,8 +97,6 @@ public class CadastroUsuarioController extends Application implements Initializa
 			preencheTela();
 		if(visualizando)
 			bloquearTela();
-		
-		new AutoCompleteComboBoxListener<>(cmbFuncionario);
 	}
 	
 	private void bloquearTela() {

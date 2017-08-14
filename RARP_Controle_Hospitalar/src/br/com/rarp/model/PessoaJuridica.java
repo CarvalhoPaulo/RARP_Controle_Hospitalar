@@ -7,6 +7,8 @@ public class PessoaJuridica extends Pessoa {
 
 	public String getCnpj() {
 		String cnpj = getCnpjSemMascara();
+		if(cnpj == null)
+			return cnpj;
 		
 		return String.format("%s.%s.%s/%s-%s",
 				cnpj.substring(0, 2), 
@@ -17,11 +19,16 @@ public class PessoaJuridica extends Pessoa {
 	}
 	
 	public String getCnpjSemMascara() {
-		return cnpj.replaceAll("[\\D]", "");
+		if(cnpj != null)
+			return cnpj.replaceAll("[\\D]", "");
+		else
+			return cnpj;
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj.replaceAll("[\\D]", "");
+		this.cnpj = cnpj;
+		if(cnpj != null)
+			this.cnpj = cnpj.replaceAll("[\\D]", "");
 	}
 
 	public String getRazaoSocial() {

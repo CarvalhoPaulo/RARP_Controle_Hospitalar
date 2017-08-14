@@ -32,35 +32,33 @@ public class MaskTextField extends TextField {
 			            }
 
 			            if(event.getCharacter().trim().length()==0){ // apagando
-
-			                if(getText().length()==4){
-			                    setText(getText().substring(0,3));
-			                    positionCaret(getText().length());
+			                if(getString().length()==4){
+			                    setText(getString().substring(0,3));
+			                    positionCaret(getString().length());
 			                }
-			                if(getText().length()==8){
-			                    setText(getText().substring(0,7));
-			                    positionCaret(getText().length());
+			                if(getString().length()==8){
+			                    setText(getString().substring(0,7));
+			                    positionCaret(getString().length());
 			                }
-			                if(getText().length()==12){
-			                    setText(getText().substring(0,11));
-			                    positionCaret(getText().length());
+			                if(getString().length()==12){
+			                    setText(getString().substring(0,11));
+			                    positionCaret(getString().length());
 			                }
-
 			            }else{ // escrevendo
 
-			                if(getText().length()==14) event.consume();
+			                if(getString().length()==14) event.consume();
 
-			                if(getText().length()==3){
-			                    setText(getText()+".");
-			                    positionCaret(getText().length());
+			                if(getString().length()==3){
+			                    setText(getString()+".");
+			                    positionCaret(getString().length());
 			                }
-			                if(getText().length()==7){
-			                    setText(getText()+".");
-			                    positionCaret(getText().length());
+			                if(getString().length()==7){
+			                    setText(getString()+".");
+			                    positionCaret(getString().length());
 			                }
-			                if(getText().length()==11){
-			                    setText(getText()+"-");
-			                    positionCaret(getText().length());
+			                if(getString().length()==11){
+			                    setText(getString()+"-");
+			                    positionCaret(getString().length());
 			                }
 
 			            }
@@ -68,9 +66,9 @@ public class MaskTextField extends TextField {
 
 			        setOnKeyReleased((KeyEvent evt) -> {
 
-			            if(!getText().matches("\\d.-*")){
-			                setText(getText().replaceAll("[^\\d.-]", ""));
-			                positionCaret(getText().length());
+			            if(!getString().matches("\\d.-*")){
+			                setText(getString().replaceAll("[^\\d.-]", ""));
+			                positionCaret(getString().length());
 			            }
 			        });
 				}
@@ -94,52 +92,52 @@ public class MaskTextField extends TextField {
 
 						if (event.getCharacter().trim().length() == 0) { // apagando
 
-							if (getText().length() == 3) {
-								setText(getText().substring(0, 2));
-								positionCaret(getText().length());
+							if (getString().length() == 3) {
+								setText(getString().substring(0, 2));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 7) {
-								setText(getText().substring(0, 6));
-								positionCaret(getText().length());
+							if (getString().length() == 7) {
+								setText(getString().substring(0, 6));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 11) {
-								setText(getText().substring(0, 10));
-								positionCaret(getText().length());
+							if (getString().length() == 11) {
+								setText(getString().substring(0, 10));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 16) {
-								setText(getText().substring(0, 15));
-								positionCaret(getText().length());
+							if (getString().length() == 16) {
+								setText(getString().substring(0, 15));
+								positionCaret(getString().length());
 							}
 
 						} else { // escrevendo
 
-							if (getText().length() == 18)
+							if (getString().length() == 18)
 								event.consume();
 
-							if (getText().length() == 2) {
-								setText(getText() + ".");
-								positionCaret(getText().length());
+							if (getString().length() == 2) {
+								setText(getString() + ".");
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 6) {
-								setText(getText() + ".");
-								positionCaret(getText().length());
+							if (getString().length() == 6) {
+								setText(getString() + ".");
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 10) {
-								setText(getText() + "/");
-								positionCaret(getText().length());
+							if (getString().length() == 10) {
+								setText(getString() + "/");
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 15) {
-								setText(getText() + "-");
-								positionCaret(getText().length());
+							if (getString().length() == 15) {
+								setText(getString() + "-");
+								positionCaret(getString().length());
 							}
 
 						}
 					});
 					setOnKeyReleased((KeyEvent evt) -> {
 
-						if (!getText().matches("\\d./-*")) {
-							setText(getText().replaceAll("[^\\d./-]", ""));
-							positionCaret(getText().length());
+						if (!getString().matches("\\d./-*")) {
+							setText(getString().replaceAll("[^\\d./-]", ""));
+							positionCaret(getString().length());
 						}
 					});
 				}
@@ -165,28 +163,28 @@ public class MaskTextField extends TextField {
 
 						if (event.getCharacter().trim().length() == 0) { // apagando
 
-							if (getText().length() == 6) {
-								setText(getText().substring(0, 5));
-								positionCaret(getText().length());
+							if (getString().length() == 6) {
+								setText(getString().substring(0, 5));
+								positionCaret(getString().length());
 							}
 
 						} else { // escrevendo
 
-							if (getText().length() == 9)
+							if (getString().length() == 9)
 								event.consume();
 
-							if (getText().length() == 5) {
-								setText(getText() + "-");
-								positionCaret(getText().length());
+							if (getString().length() == 5) {
+								setText(getString() + "-");
+								positionCaret(getString().length());
 							}
 
 						}
 					});
 					setOnKeyReleased((KeyEvent evt) -> {
 
-						if (!getText().matches("\\d-*")) {
-							setText(getText().replaceAll("[^\\d-]", ""));
-							positionCaret(getText().length());
+						if (!getString().matches("\\d-*")) {
+							setText(getString().replaceAll("[^\\d-]", ""));
+							positionCaret(getString().length());
 						}
 					});
 				}
@@ -211,51 +209,51 @@ public class MaskTextField extends TextField {
 
 						if (event.getCharacter().trim().length() == 0) { // apagando
 
-							if (getText().length() == 10 && getText().substring(9, 10).equals("-")) {
-								setText(getText().substring(0, 9));
-								positionCaret(getText().length());
+							if (getString().length() == 10 && getString().substring(9, 10).equals("-")) {
+								setText(getString().substring(0, 9));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 9 && getText().substring(8, 9).equals("-")) {
-								setText(getText().substring(0, 8));
-								positionCaret(getText().length());
+							if (getString().length() == 9 && getString().substring(8, 9).equals("-")) {
+								setText(getString().substring(0, 8));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 4) {
-								setText(getText().substring(0, 3));
-								positionCaret(getText().length());
+							if (getString().length() == 4) {
+								setText(getString().substring(0, 3));
+								positionCaret(getString().length());
 							}
-							if (getText().length() == 1) {
+							if (getString().length() == 1) {
 								setText("");
 							}
 
 						} else { // escrevendo
 
-							if (getText().length() == 14)
+							if (getString().length() == 14)
 								event.consume();
 
-							if (getText().length() == 0) {
+							if (getString().length() == 0) {
 								setText("(" + event.getCharacter());
-								positionCaret(getText().length());
+								positionCaret(getString().length());
 								event.consume();
 							}
-							if (getText().length() == 3) {
-								setText(getText() + ")" + event.getCharacter());
-								positionCaret(getText().length());
+							if (getString().length() == 3) {
+								setText(getString() + ")" + event.getCharacter());
+								positionCaret(getString().length());
 								event.consume();
 							}
-							if (getText().length() == 8) {
-								setText(getText() + "-" + event.getCharacter());
-								positionCaret(getText().length());
+							if (getString().length() == 8) {
+								setText(getString() + "-" + event.getCharacter());
+								positionCaret(getString().length());
 								event.consume();
 							}
-							if (getText().length() == 9 && getText().substring(8, 9) != "-") {
-								setText(getText() + "-" + event.getCharacter());
-								positionCaret(getText().length());
+							if (getString().length() == 9 && getString().substring(8, 9) != "-") {
+								setText(getString() + "-" + event.getCharacter());
+								positionCaret(getString().length());
 								event.consume();
 							}
-							if (getText().length() == 13 && getText().substring(8, 9).equals("-")) {
-								setText(getText().substring(0, 8) + getText().substring(9, 10) + "-"
-										+ getText().substring(10, 13) + event.getCharacter());
-								positionCaret(getText().length());
+							if (getString().length() == 13 && getString().substring(8, 9).equals("-")) {
+								setText(getString().substring(0, 8) + getString().substring(9, 10) + "-"
+										+ getString().substring(10, 13) + event.getCharacter());
+								positionCaret(getString().length());
 								event.consume();
 							}
 
@@ -264,9 +262,9 @@ public class MaskTextField extends TextField {
 					});
 					setOnKeyReleased((KeyEvent evt) -> {
 
-						if (!getText().matches("\\d()-*")) {
-							setText(getText().replaceAll("[^\\d()-]", ""));
-							positionCaret(getText().length());
+						if (!getString().matches("\\d()-*")) {
+							setText(getString().replaceAll("[^\\d()-]", ""));
+							positionCaret(getString().length());
 						}
 					});
 				}
@@ -290,11 +288,11 @@ public class MaskTextField extends TextField {
 							event.consume();
 						}
 
-						if ("@".equals(event.getCharacter()) && getText().contains("@")) {
+						if ("@".equals(event.getCharacter()) && getString().contains("@")) {
 							event.consume();
 						}
 
-						if ("@".equals(event.getCharacter()) && getText().length() == 0) {
+						if ("@".equals(event.getCharacter()) && getString().length() == 0) {
 							event.consume();
 						}
 					});
@@ -302,6 +300,12 @@ public class MaskTextField extends TextField {
 			}
 
 		});
+	}
+	
+	private String getString() {
+		if(getString() != null)
+			return getString();
+		return "";
 	}
 
 	public boolean getCnpj() {
@@ -337,7 +341,7 @@ public class MaskTextField extends TextField {
 	}
 	
 	public String getValue() {
-		String value = getText();
+		String value = getString();
 		if(cnpj.get() || telefone.get() || cep.get()) {
 			value = value.replaceAll("[\\D]", "");
 		} 

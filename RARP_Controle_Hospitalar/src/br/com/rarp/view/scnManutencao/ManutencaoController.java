@@ -191,6 +191,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				cmbTermo.setVisible(true);
 				edtTermo.setVisible(false);
 				cmbTermo.setItems(FXCollections.observableArrayList("Ativado", "Desativado"));
+				cmbTermo.getSelectionModel().select(0);
 				break;
 			}
 		}

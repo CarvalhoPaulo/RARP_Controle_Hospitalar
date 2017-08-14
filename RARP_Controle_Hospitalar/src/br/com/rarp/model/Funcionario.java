@@ -66,4 +66,9 @@ public class Funcionario extends PessoaFisica {
 	public void setCTPS(String cTPS) {
 		CTPS = cTPS;
 	}
+	
+	@Override
+	public String toString() {
+		return getNome();
+	}
 }
