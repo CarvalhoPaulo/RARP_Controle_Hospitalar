@@ -16,7 +16,9 @@ public class CidadeDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if (!SistemaCtrl.getInstance().tabelaExiste("estado"))
 			throw new Exception("Crie a tabela de estado antes de criar a tabela de cidade");
-
+		
+		boolean existe = SistemaCtrl.getInstance().tabelaExiste("cidade");
+			
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "cidade(";
@@ -27,8 +29,11 @@ public class CidadeDAO {
 		sql += "status boolean DEFAULT TRUE)";
 		st.executeUpdate(sql);
 		
-		SQLDAO dao = new SQLDAO();
-        dao.executarSQLFile("cidades_estados.sql");
+		if(!existe) {
+			SQLDAO dao = new SQLDAO();
+	        dao.executarSQLFile("cidades_estados.sql");			
+		}
+
 	}
 
 	public void salvar(Cidade cidade) throws Exception {
