@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginController extends Application implements Initializable {
+public class LoginController extends Application implements Initializable, EventHandler<KeyEvent> {
 
 	private static Stage stage;
 
@@ -180,6 +181,16 @@ public class LoginController extends Application implements Initializable {
 		if (event.getCode() == KeyCode.ENTER)
 			btnEntrar.fire();
 	}
+	
+	@Override
+	public void handle(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getCode() == KeyCode.ENTER) {
+			btnEntrar.fire();
+			
+		}
+	}
+	
 
 	public Node getNode() throws Exception {
 		if(node == null)

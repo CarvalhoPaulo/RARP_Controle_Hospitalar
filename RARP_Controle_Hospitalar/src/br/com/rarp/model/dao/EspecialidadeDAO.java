@@ -1,10 +1,15 @@
 package br.com.rarp.model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
+import br.com.rarp.model.Usuario;
 
 public class EspecialidadeDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -62,6 +67,10 @@ public class EspecialidadeDAO {
 			ps.setInt(4, especialidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
+		}catch(Exception e){
+			throw new Exception("Erro a alterar Especialidade");
+			
+			
 		} finally {
 			conexao.getConexao().close();
 		}
@@ -77,8 +86,56 @@ public class EspecialidadeDAO {
 			ps.setInt(1, especialidade.getCodigo());
 			ps.executeUpdate();
 			ps.close();
+		}catch(Exception e){
+			throw new Exception("Erro a deletar Especialidade");
+			
+			
 		} finally {
 			conexao.getConexao().close();
 		}
+	}
+
+	public List<Especialidade> consultar(String campo, String comparacao, String termo) throws Exception {
+		// TODO Auto-generated method stub
+		List<Especialidade> especialidades = new ArrayList<>();
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+        	
+        	
+        	
+        	String sql = "SELECT *  FROM especialidade WHERE " + campo +" "+ comparacao +" "+termo;
+            ps = conexao.getConexao().prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if ((rs != null) ) {
+	            
+            	while(rs.next()){
+	            	Especialidade Especialidade = new Especialidade();
+	            	Especialidade.setCodigo(rs.getInt("codigo"));
+	            	Especialidade.setNome(rs.getString("nome"));
+	            	Especialidade.setObservacoes(rs.getString("observacoes"));
+	            	Especialidade.setStatus(rs.getBoolean("status"));
+	            	
+	            	
+	            	
+	            	especialidades.add(Especialidade);
+	            }
+            }
+            ps.close();
+            
+            
+   
+        }catch(Exception e){
+        	e.printStackTrace();
+			throw new Exception("Erro a consultar Especialidade");
+			
+			
+		} finally{
+            conexao.getConexao().close();
+        }
+		return especialidades;
+		
 	}
 }
