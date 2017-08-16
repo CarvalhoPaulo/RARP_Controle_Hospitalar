@@ -39,7 +39,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 
 	@SuppressWarnings("rawtypes")
 	@FXML
-	protected TableView tvManutencao;
+	protected TableView tblManutencao;
 
 	@FXML
 	private Button btnPesquisar;
@@ -66,7 +66,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	protected ComboBox<Comparacao> cmbComparacao;
 	
 	@FXML
-	protected TextField edtTermo;
+	protected TextField txtTermo;
 	
 	@FXML
 	protected ComboBox<String> cmbTermo;
@@ -109,12 +109,12 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			prepararTela();
-			tvManutencao.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			tblManutencao.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-					if(newValue && tvManutencao.getItems().size() > 0) {
-						tvManutencao.getSelectionModel().select(0);
+					if(newValue && tblManutencao.getItems().size() > 0) {
+						tblManutencao.getSelectionModel().select(0);
 					}
 				}
 			});
@@ -125,7 +125,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 					if(event.getCode() == KeyCode.INSERT)
 						inserir();
 					
-					if(!(event.getTarget() instanceof Button) && tvManutencao.getItems().size() > 0) {
+					if(!(event.getTarget() instanceof Button) && tblManutencao.getItems().size() > 0) {
 						if (event.getCode() == KeyCode.ENTER && !event.isControlDown())
 							visualizar();
 						if (event.getCode() == KeyCode.ENTER && event.isControlDown())
@@ -133,7 +133,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 					}
 				}
 			});
-			tvManutencao.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			tblManutencao.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent event) {
@@ -144,8 +144,8 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 			cmbCampo.setStyle("-fx-font-size: 14px");
 			cmbComparacao.setStyle("-fx-font-size: 14px");
 			cmbTermo.setStyle("-fx-font-size: 14px");
-			edtTermo.setStyle("-fx-font-size: 14px");
-			tvManutencao.setStyle("-fx-font-size: 14px");
+			txtTermo.setStyle("-fx-font-size: 14px");
+			tblManutencao.setStyle("-fx-font-size: 14px");
 		} catch (Exception e) {
 			Utilitarios.atencao(e.getMessage());
 		}
@@ -155,16 +155,16 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	@FXML 
 	private void cmbCampoChange(ActionEvent event) {
 		cmbTermo = (ComboBox<String>) Utilitarios.getNodeById(cmbCampo.getParent(), "cmbTermo");
-		edtTermo = (TextField) Utilitarios.getNodeById(cmbCampo.getParent(), "edtTermo");
+		txtTermo = (TextField) Utilitarios.getNodeById(cmbCampo.getParent(), "txtTermo");
 		cmbComparacao = (ComboBox<Comparacao>) Utilitarios.getNodeById(cmbCampo.getParent(), "cmbComparacao");
 		
 		if(cmbCampo.getSelectionModel().getSelectedItem() != null
-				&& cmbTermo != null && edtTermo != null 
+				&& cmbTermo != null && txtTermo != null 
 				&& cmbComparacao != null) {
 			switch (cmbCampo.getSelectionModel().getSelectedItem().getTipo()) {
 			case texto: 
 				cmbTermo.setVisible(false);
-				edtTermo.setVisible(true);
+				txtTermo.setVisible(true);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
 						new Igual(), 
 						new Contem(), 
@@ -174,7 +174,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				break;
 			case numerico:
 				cmbTermo.setVisible(false);
-				edtTermo.setVisible(true);
+				txtTermo.setVisible(true);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
 						new Igual(), 
 						new Contem(), 
@@ -189,7 +189,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				cmbComparacao.getItems().add(new Ativado());
 				cmbComparacao.getSelectionModel().select(0);
 				cmbTermo.setVisible(true);
-				edtTermo.setVisible(false);
+				txtTermo.setVisible(false);
 				cmbTermo.setItems(FXCollections.observableArrayList("Ativado", "Desativado"));
 				cmbTermo.getSelectionModel().select(0);
 				break;

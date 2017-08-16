@@ -56,8 +56,8 @@ public class FuncionarioController extends ManutencaoController {
 		cargo.setPrefWidth(250);
 		telefone.setPrefWidth(250);
 
-		tvManutencao.getColumns().addAll(codigo, nome, cpf, cargo, telefone);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, cpf, cargo, telefone);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -77,10 +77,10 @@ public class FuncionarioController extends ManutencaoController {
 	public void pesquisar() {
 		FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
 		try {
-			tvManutencao.setItems(funcionarioCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(funcionarioCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os funcionários.\n" + "Descrição: " + e.getMessage());
 		}
@@ -103,11 +103,11 @@ public class FuncionarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoFuncionario(TipoMovimentacao.alteracao);
 			CadastroFuncionarioController controller = new CadastroFuncionarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
-				funcionarioCtrl.setFuncionario(tvManutencao.getSelectionModel().getSelectedItem());
+				funcionarioCtrl.setFuncionario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(funcionarioCtrl);
 			}
 		} catch (Exception e) {
@@ -121,11 +121,11 @@ public class FuncionarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoFuncionario(TipoMovimentacao.visualizaco);
 			CadastroFuncionarioController controller = new CadastroFuncionarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				FuncionarioCtrl funcionarioCtrl = new FuncionarioCtrl();
-				funcionarioCtrl.setFuncionario(tvManutencao.getSelectionModel().getSelectedItem());
+				funcionarioCtrl.setFuncionario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(funcionarioCtrl);
 			}
 		} catch (Exception e) {

@@ -58,8 +58,8 @@ public class CargoController extends ManutencaoController {
 		nivel.setPrefWidth(200);
 		status.setPrefWidth(200);
 
-		tvManutencao.getColumns().addAll(codigo, nome, funcao, nivel, status);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, funcao, nivel, status);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -79,10 +79,10 @@ public class CargoController extends ManutencaoController {
 	public void pesquisar() {
 		CargoCtrl cargoCtrl = new CargoCtrl();
 		try {
-			tvManutencao.setItems(cargoCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(cargoCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os cargos.\n" + "Descrição: " + e.getMessage());
 		}
@@ -105,11 +105,11 @@ public class CargoController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.alteracao);
 			CadastroCargoController controller = new CadastroCargoController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				CargoCtrl cargoCtrl = new CargoCtrl();
-				cargoCtrl.setCargo(tvManutencao.getSelectionModel().getSelectedItem());
+				cargoCtrl.setCargo(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(cargoCtrl);
 			}
 		} catch (Exception e) {
@@ -123,11 +123,11 @@ public class CargoController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.visualizaco);
 			CadastroCargoController controller = new CadastroCargoController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				CargoCtrl cargoCtrl = new CargoCtrl();
-				cargoCtrl.setCargo(tvManutencao.getSelectionModel().getSelectedItem());
+				cargoCtrl.setCargo(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(cargoCtrl);
 			}
 		} catch (Exception e) {

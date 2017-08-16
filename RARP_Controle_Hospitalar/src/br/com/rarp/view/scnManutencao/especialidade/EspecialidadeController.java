@@ -27,11 +27,15 @@ public class EspecialidadeController extends ManutencaoController {
 		TableColumn<Funcionario, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
-		codigo.setPrefWidth(100);
-		nome.setPrefWidth(300);
+		TableColumn<Funcionario, String> status = new TableColumn<>("Status");
+		status.setCellValueFactory(new PropertyValueFactory<>("Status"));
 		
-		tvManutencao.getColumns().addAll(codigo, nome);
-		tvManutencao.setEditable(false);
+		codigo.setPrefWidth(100);
+		nome.setPrefWidth(1000);
+		status.setPrefWidth(100);
+		
+		tblManutencao.getColumns().addAll(codigo, nome,status);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -50,10 +54,10 @@ public class EspecialidadeController extends ManutencaoController {
 	public void pesquisar() {
 		EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
 		try {
-			tvManutencao.setItems(especialidadeCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(especialidadeCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descrição: " + e.getMessage());
 		}
@@ -76,11 +80,11 @@ public class EspecialidadeController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.alteracao);
 			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
-				especialidadeCtrl.setEspecialidade(tvManutencao.getSelectionModel().getSelectedItem());
+				especialidadeCtrl.setEspecialidade(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(especialidadeCtrl);
 			}
 		} catch (Exception e) {
@@ -94,11 +98,11 @@ public class EspecialidadeController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.visualizaco);
 			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
-				especialidadeCtrl.setEspecialidade(tvManutencao.getSelectionModel().getSelectedItem());
+				especialidadeCtrl.setEspecialidade(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(especialidadeCtrl);
 			}
 		} catch (Exception e) {

@@ -52,8 +52,8 @@ public class UsuarioController extends ManutencaoController {
 		funcionario.setPrefWidth(250);
 		perfilUsuario.setPrefWidth(250);
 		
-		tvManutencao.getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, usuario, funcionario, perfilUsuario);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -71,10 +71,10 @@ public class UsuarioController extends ManutencaoController {
 	public void pesquisar() {
 		UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 		try {
-			tvManutencao.setItems(usuarioCtrl.consultar(
+			tblManutencao.setItems(usuarioCtrl.consultar(
 					cmbCampo.getSelectionModel().getSelectedItem(), 
 					cmbComparacao.getSelectionModel().getSelectedItem(),
-					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
+					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os usuários.\n"
 					   + "Descrição: " + e.getMessage());
@@ -98,11 +98,11 @@ public class UsuarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
 			CadastroUsuarioController controller = new CadastroUsuarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
-				usuarioCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				usuarioCtrl.setUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(usuarioCtrl);
 			}
 		} catch (Exception e) {
@@ -116,11 +116,11 @@ public class UsuarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
 			CadastroUsuarioController controller = new CadastroUsuarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
-				usuarioCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				usuarioCtrl.setUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(usuarioCtrl);
 			}
 		} catch (Exception e) {

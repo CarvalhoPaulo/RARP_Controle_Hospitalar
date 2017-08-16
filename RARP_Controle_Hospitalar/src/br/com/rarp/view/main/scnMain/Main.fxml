@@ -222,7 +222,7 @@
 		</BorderPane>
 	</bottom>
 	<center>
-		<AnchorPane fx:id="pnContent" BorderPane.alignment="CENTER">
+		<AnchorPane fx:id="pnlContent" BorderPane.alignment="CENTER">
 			<children>
 				<ImageView fx:id="imgMain" fitHeight="400.0" fitWidth="780.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<image>

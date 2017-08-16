@@ -30,8 +30,8 @@ public class PerfilUsuarioController extends ManutencaoController {
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		nome.setPrefWidth(500);
 		
-		tvManutencao.getColumns().addAll(codigo, nome);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -48,10 +48,10 @@ public class PerfilUsuarioController extends ManutencaoController {
 	public void pesquisar() {
 		PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
 		try {
-			tvManutencao.setItems(perfilUsuarioCtrl.consultar(
+			tblManutencao.setItems(perfilUsuarioCtrl.consultar(
 					cmbCampo.getSelectionModel().getSelectedItem(), 
 					cmbComparacao.getSelectionModel().getSelectedItem(),
-					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
+					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os perfis de usuario.\n"
 					   + "Descrição: " + e.getMessage());
@@ -75,11 +75,11 @@ public class PerfilUsuarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.alteracao);
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
-				perfilUsuarioCtrl.setPerfilUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				perfilUsuarioCtrl.setPerfilUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(perfilUsuarioCtrl);
 			}
 		} catch (Exception e) {
@@ -93,11 +93,11 @@ public class PerfilUsuarioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoPerfilUsuario(TipoMovimentacao.visualizaco);
 			CadastroPerfilUsuarioController controller = new CadastroPerfilUsuarioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
-				perfilUsuarioCtrl.setPerfilUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				perfilUsuarioCtrl.setPerfilUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(perfilUsuarioCtrl);
 			}
 		} catch (Exception e) {

@@ -40,7 +40,7 @@
 														<Font size="14.0" />
 													</font>
 												</Label>
-												<TextField fx:id="edtNome" layoutY="82.0" prefHeight="30.0" prefWidth="471.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+												<TextField fx:id="txtNome" layoutY="82.0" prefHeight="30.0" prefWidth="471.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 													<font>
 														<Font size="14.0" />
 													</font>
@@ -71,7 +71,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-                                                <MaskTextField fx:id="edtCPF" cpf="true" layoutX="4.0" layoutY="36.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                                                <MaskTextField fx:id="txtCPF" cpf="true" layoutX="4.0" layoutY="36.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -170,7 +170,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtRG" layoutX="-121.0" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																<TextField fx:id="txtRG" layoutX="-121.0" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -184,7 +184,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<CalendarTextField fx:id="edtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+																<CalendarTextField fx:id="txtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
 															</children>
 														</AnchorPane>
 														<AnchorPane prefHeight="28.0" prefWidth="240.0" GridPane.rowIndex="1">
@@ -194,7 +194,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtLogradouro" layoutY="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																<TextField fx:id="txtLogradouro" layoutY="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -208,7 +208,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtNumero" layoutY="15.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+																<TextField fx:id="txtNumero" layoutY="15.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -222,7 +222,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtComplemento" layoutX="4.0" layoutY="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																<TextField fx:id="txtComplemento" layoutX="4.0" layoutY="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -246,7 +246,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<MaskTextField fx:id="edtCEP" cep="true" cpf="false" layoutX="14.0" layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																<MaskTextField fx:id="txtCEP" cep="true" cpf="false" layoutX="14.0" layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -260,7 +260,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtBairro" layoutY="21.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+																<TextField fx:id="txtBairro" layoutY="21.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -306,7 +306,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<TextField fx:id="edtCTPS" layoutX="14.0" layoutY="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																				<TextField fx:id="txtCTPS" layoutX="14.0" layoutY="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																					<font>
 																						<Font size="14.0" />
 																					</font>
@@ -320,7 +320,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<CurrencyTextField fx:id="edtSalarioContratual" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+																				<CurrencyTextField fx:id="txtSalarioContratual" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																					<font>
 																						<Font size="14.0" />
 																					</font>
@@ -334,7 +334,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<CalendarTextField fx:id="edtDataAdmissao" layoutX="61.0" layoutY="31.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0" />
+																				<CalendarTextField fx:id="txtDataAdmissao" layoutX="61.0" layoutY="31.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0" />
 																			</children>
 																		</AnchorPane>
 																	</children>
@@ -367,7 +367,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<MaskTextField fx:id="edtTelefone" cpf="false" layoutX="3.0" layoutY="24.0" telefone="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+																				<MaskTextField fx:id="txtTelefone" cpf="false" layoutX="3.0" layoutY="24.0" telefone="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 																					<font>
 																						<Font size="14.0" />
 																					</font>
@@ -414,7 +414,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="edtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>

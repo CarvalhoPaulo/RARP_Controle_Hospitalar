@@ -24,7 +24,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="edtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -40,7 +40,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="edtNome" layoutY="114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+						<TextField fx:id="txtNome" layoutY="114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -60,7 +60,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="edtNivel" layoutY="244.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0">
+						<TextField fx:id="txtNivel" layoutY="244.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -70,7 +70,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextArea fx:id="edtRequisitos" layoutX="7.0" layoutY="293.0" prefHeight="124.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="256.0">
+						<TextArea fx:id="txtRequisitos" layoutX="7.0" layoutY="293.0" prefHeight="124.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="256.0">
 							<font>
 								<Font size="14.0" />
 							</font>

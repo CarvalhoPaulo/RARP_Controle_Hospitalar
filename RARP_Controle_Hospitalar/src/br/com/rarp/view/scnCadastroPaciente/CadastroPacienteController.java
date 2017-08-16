@@ -66,13 +66,13 @@ public class CadastroPacienteController extends Application implements Initializ
 	private Button btnVoltar;
 
 	@FXML
-	private TextField edtNome;
+	private TextField txtNome;
 
 	@FXML
-	private MaskTextField edtCPF;
+	private MaskTextField txtCPF;
 
 	@FXML
-	private TextField edtRG;
+	private TextField txtRG;
 
 	@FXML
 	private RadioButton rbFeminimo;
@@ -81,19 +81,19 @@ public class CadastroPacienteController extends Application implements Initializ
 	private RadioButton rbMasculino;
 
 	@FXML
-	private CalendarTextField edtDataNasc;
+	private CalendarTextField txtDataNasc;
 
 	@FXML
-	private TextField edtLogradouro;
+	private TextField txtLogradouro;
 
 	@FXML
-	private TextField edtComplemento;
+	private TextField txtComplemento;
 
 	@FXML
-	private TextField edtNumero;
+	private TextField txtNumero;
 
 	@FXML
-	private TextField edtBairro;
+	private TextField txtBairro;
 
 	@FXML
 	private ComboBox<Cidade> cmbCidade;
@@ -102,10 +102,10 @@ public class CadastroPacienteController extends Application implements Initializ
 	private ComboBox<Paciente> cmbResponsavel;
 
 	@FXML
-	private MaskTextField edtCEP;
+	private MaskTextField txtCEP;
 
 	@FXML
-	private MaskTextField edtTelefone;
+	private MaskTextField txtTelefone;
 
 	@FXML
 	private RadioButton rbSim;
@@ -117,7 +117,7 @@ public class CadastroPacienteController extends Application implements Initializ
 	private ComboBox<Convenio> cmbConvenio;
 
 	@FXML
-	private IntegerTextField edtCodigo;
+	private IntegerTextField txtCodigo;
 
 	private static PacienteCtrl pacienteCtrl;
 
@@ -190,12 +190,12 @@ public class CadastroPacienteController extends Application implements Initializ
 	private void prepararTela() {
 		try {
 			sbAtivado.setValue(true);
-			edtCodigo.setDisable(true);
-			edtCodigo.setFocusTraversable(true);
+			txtCodigo.setDisable(true);
+			txtCodigo.setFocusTraversable(true);
 			
 			tbPane.requestFocus();
-			edtNome.requestFocus();
-			edtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			txtNome.requestFocus();
+			txtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbConvenio.setItems(new ConvenioCtrl().consultar(new Campo("CONV.status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
@@ -209,12 +209,12 @@ public class CadastroPacienteController extends Application implements Initializ
 			tgSexo.getToggles().add(rbFeminimo);
 			tgSexo.selectToggle(rbMasculino);
 			
-			edtDataNasc.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			txtDataNasc.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					if(!newValue) {
-						if (edtDataNasc.getCalendar() != null && Utilitarios.isMaiorIdade(edtDataNasc.getCalendar().getTime())) {
+						if (txtDataNasc.getCalendar() != null && Utilitarios.isMaiorIdade(txtDataNasc.getCalendar().getTime())) {
 							if(lblResponsavel.getStyleClass().indexOf("obrigatorio") == -1)
 								lblResponsavel.getStyleClass().add("obrigatorio");	
 						} else {
@@ -236,7 +236,7 @@ public class CadastroPacienteController extends Application implements Initializ
 						String id = ((Node) event.getTarget()).getId();
 						if (!event.isShiftDown()) {
 							
-							if(id.equals("edtBairro")) {
+							if(id.equals("txtBairro")) {
 								tbPane.getSelectionModel().select(1);
 								cmbConvenio.requestFocus();
 								event.consume();
@@ -248,30 +248,30 @@ public class CadastroPacienteController extends Application implements Initializ
 							}
 							
 							if(id.equals("cmbConvenio")) {
-								edtTelefone.requestFocus();
+								txtTelefone.requestFocus();
 								event.consume();
 							}
 							
 							if(id.equals("btnSalvar")) {
 								tbPane.getSelectionModel().select(0);
-								edtNome.requestFocus();
+								txtNome.requestFocus();
 								event.consume();
 							}
 						}
 						if (event.isShiftDown()) {	
-							if(id.equals("edtNome")) {
+							if(id.equals("txtNome")) {
 								btnSalvar.requestFocus();
 								event.consume();
 							}
 							
-							if(id.equals("edtTelefone")) {
+							if(id.equals("txtTelefone")) {
 								cmbConvenio.requestFocus();
 								event.consume();
 							}
 							
 							if(id.equals("cmbConvenio")) {
 								tbPane.getSelectionModel().select(0);
-								edtBairro.requestFocus();
+								txtBairro.requestFocus();
 								event.consume();
 							}
 							
@@ -290,18 +290,18 @@ public class CadastroPacienteController extends Application implements Initializ
 	}
 
 	private void limparCampos() {
-		edtBairro.clear();
+		txtBairro.clear();
 		cmbConvenio.getSelectionModel().select(-1);
-		edtCEP.clear();
-		edtCodigo.clear();
-		edtComplemento.clear();
-		edtCPF.clear();
-		edtDataNasc.setText("");
-		edtLogradouro.clear();
-		edtNome.clear();
-		edtNumero.clear();
-		edtRG.clear();
-		edtTelefone.clear();
+		txtCEP.clear();
+		txtCodigo.clear();
+		txtComplemento.clear();
+		txtCPF.clear();
+		txtDataNasc.setText("");
+		txtLogradouro.clear();
+		txtNome.clear();
+		txtNumero.clear();
+		txtRG.clear();
+		txtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
 		rbMasculino.setSelected(true);
 		rbNao.setSelected(true);
@@ -310,18 +310,18 @@ public class CadastroPacienteController extends Application implements Initializ
 	}
 
 	private void bloquearTela() {
-		edtBairro.setDisable(true);
+		txtBairro.setDisable(true);
 		cmbConvenio.setDisable(true);
-		edtCEP.setDisable(true);
-		edtCodigo.setDisable(true);
-		edtComplemento.setDisable(true);
-		edtCPF.setDisable(true);
-		edtDataNasc.setDisable(true);
-		edtLogradouro.setDisable(true);
-		edtNome.setDisable(true);
-		edtNumero.setDisable(true);
-		edtRG.setDisable(true);
-		edtTelefone.setDisable(true);
+		txtCEP.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtComplemento.setDisable(true);
+		txtCPF.setDisable(true);
+		txtDataNasc.setDisable(true);
+		txtLogradouro.setDisable(true);
+		txtNome.setDisable(true);
+		txtNumero.setDisable(true);
+		txtRG.setDisable(true);
+		txtTelefone.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
 		cmbCidade.setDisable(true);
@@ -338,41 +338,41 @@ public class CadastroPacienteController extends Application implements Initializ
 		if (pacienteCtrl.getPaciente() == null) {
 			pacienteCtrl.novoPaciente();
 		}
-		pacienteCtrl.getPaciente().setCodigo(edtCodigo.getValue());
-		pacienteCtrl.getPaciente().setBairro(edtBairro.getText());
+		pacienteCtrl.getPaciente().setCodigo(txtCodigo.getValue());
+		pacienteCtrl.getPaciente().setBairro(txtBairro.getText());
 		pacienteCtrl.getPaciente().setConvenio(cmbConvenio.getSelectionModel().getSelectedItem());
-		pacienteCtrl.getPaciente().setCep(edtCEP.getText());
-		pacienteCtrl.getPaciente().setCpf(edtCPF.getText());
-		if (edtDataNasc.getCalendar() != null)
-			pacienteCtrl.getPaciente().setDtNascimento(edtDataNasc.getCalendar().getTime());
+		pacienteCtrl.getPaciente().setCep(txtCEP.getText());
+		pacienteCtrl.getPaciente().setCpf(txtCPF.getText());
+		if (txtDataNasc.getCalendar() != null)
+			pacienteCtrl.getPaciente().setDtNascimento(txtDataNasc.getCalendar().getTime());
 		pacienteCtrl.getPaciente().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
-		pacienteCtrl.getPaciente().setNumero(edtNumero.getText());
-		pacienteCtrl.getPaciente().setRg(edtRG.getText());
-		pacienteCtrl.getPaciente().setComplemento(edtComplemento.getText());
-		pacienteCtrl.getPaciente().setLogradouro(edtLogradouro.getText());
+		pacienteCtrl.getPaciente().setNumero(txtNumero.getText());
+		pacienteCtrl.getPaciente().setRg(txtRG.getText());
+		pacienteCtrl.getPaciente().setComplemento(txtComplemento.getText());
+		pacienteCtrl.getPaciente().setLogradouro(txtLogradouro.getText());
 		pacienteCtrl.getPaciente().setStatus(sbAtivado.getValue());
-		pacienteCtrl.getPaciente().setNome(edtNome.getText());
+		pacienteCtrl.getPaciente().setNome(txtNome.getText());
 		pacienteCtrl.getPaciente().setPossuiNecessidades(rbSim.isSelected());
 		pacienteCtrl.getPaciente().setSexo(rbMasculino.isSelected() ? "M" : "F");
 		pacienteCtrl.getPaciente().setTelefones(lsTelefones.getItems());
 	}
 
 	private void preencherTela() {
-		edtBairro.setText(pacienteCtrl.getPaciente().getBairro());
-		edtCEP.setText(pacienteCtrl.getPaciente().getCep());
-		edtCodigo.setText(pacienteCtrl.getPaciente().getCodigo() + "");
-		edtComplemento.setText(pacienteCtrl.getPaciente().getComplemento());
-		edtCPF.setText(pacienteCtrl.getPaciente().getCpf());
+		txtBairro.setText(pacienteCtrl.getPaciente().getBairro());
+		txtCEP.setText(pacienteCtrl.getPaciente().getCep());
+		txtCodigo.setText(pacienteCtrl.getPaciente().getCodigo() + "");
+		txtComplemento.setText(pacienteCtrl.getPaciente().getComplemento());
+		txtCPF.setText(pacienteCtrl.getPaciente().getCpf());
 		
 		if(pacienteCtrl.getPaciente().getDtNascimento() != null) {
-			edtDataNasc.setCalendar(new GregorianCalendar());
-			edtDataNasc.getCalendar().setTime(pacienteCtrl.getPaciente().getDtNascimento());
+			txtDataNasc.setCalendar(new GregorianCalendar());
+			txtDataNasc.getCalendar().setTime(pacienteCtrl.getPaciente().getDtNascimento());
 		}
 		
-		edtLogradouro.setText(pacienteCtrl.getPaciente().getLogradouro());
-		edtNome.setText(pacienteCtrl.getPaciente().getNome());
-		edtNumero.setText(pacienteCtrl.getPaciente().getNumero());
-		edtRG.setText(pacienteCtrl.getPaciente().getRg());
+		txtLogradouro.setText(pacienteCtrl.getPaciente().getLogradouro());
+		txtNome.setText(pacienteCtrl.getPaciente().getNome());
+		txtNumero.setText(pacienteCtrl.getPaciente().getNumero());
+		txtRG.setText(pacienteCtrl.getPaciente().getRg());
 		cmbConvenio.getSelectionModel().select(pacienteCtrl.getPaciente().getConvenio());
 		cmbCidade.getSelectionModel().select(pacienteCtrl.getPaciente().getCidade());
 		rbSim.setSelected(pacienteCtrl.getPaciente().isPossuiNecessidades());
@@ -387,10 +387,10 @@ public class CadastroPacienteController extends Application implements Initializ
 	@FXML
 	private void adicionarTelefone() {
 		Telefone telefone = new Telefone();
-		telefone.setNumero(edtTelefone.getText());
+		telefone.setNumero(txtTelefone.getText());
 		if (!telefone.getNumero().isEmpty())
 			lsTelefones.getItems().add(telefone);
-		edtTelefone.setText("");
+		txtTelefone.setText("");
 	}
 
 	@FXML

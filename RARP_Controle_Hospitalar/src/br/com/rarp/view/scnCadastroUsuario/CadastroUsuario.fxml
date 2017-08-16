@@ -25,7 +25,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="edtCodigo" accessibleText="Codigo interno do usuário" disable="true" layoutY="24.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" accessibleText="Codigo interno do usuário" disable="true" layoutY="24.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -50,12 +50,12 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="edtNome" accessibleText="Este campo define o nome do usuario" layoutY="82.0" prefHeight="25.0" prefWidth="429.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+						<TextField fx:id="txtNome" accessibleText="Este campo define o nome do usuario" layoutY="82.0" prefHeight="25.0" prefWidth="429.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</TextField>
-						<TextField fx:id="edtUsuario" accessibleText="Este campo define o nome do usuário utilizado para relaizar o login" layoutY="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+						<TextField fx:id="txtUsuario" accessibleText="Este campo define o nome do usuário utilizado para relaizar o login" layoutY="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
 							<font>
 								<Font size="14.0" />
 							</font>

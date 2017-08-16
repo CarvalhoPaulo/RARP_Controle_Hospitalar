@@ -21,7 +21,7 @@
                   <AutoCompleteComboBox  fx:id="cmbCampo" layoutX="8.0" layoutY="28.0" onAction="#cmbCampoChange" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <AutoCompleteComboBox fx:id="cmbComparacao" layoutX="224.0" layoutY="32.0" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" />
                   <AutoCompleteComboBox fx:id="cmbTermo" layoutX="234.0" layoutY="42.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0" />
-                  <TextField fx:id="edtTermo" layoutX="428.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0">
+                  <TextField fx:id="txtTermo" layoutX="428.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0">
                      <font>
                         <Font size="14.0" />
                      </font>

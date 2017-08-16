@@ -45,8 +45,8 @@ public class CidadeController extends ManutencaoController {
 		});
 		
 		
-		tvManutencao.getColumns().addAll(codigo, nome, estado);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, estado);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -64,10 +64,10 @@ public class CidadeController extends ManutencaoController {
 	public void pesquisar() {
 		CidadeCtrl cidadeCtrl = new CidadeCtrl();
 		try {
-			tvManutencao.setItems(cidadeCtrl.consultar(
+			tblManutencao.setItems(cidadeCtrl.consultar(
 					cmbCampo.getSelectionModel().getSelectedItem(), 
 					cmbComparacao.getSelectionModel().getSelectedItem(),
-					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : edtTermo.getText()));
+					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar as cidades.\n"
 					   + "Descrição: " + e.getMessage());
@@ -91,11 +91,11 @@ public class CidadeController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoCidade(TipoMovimentacao.alteracao);
 			CadastroCidadeController controller = new CadastroCidadeController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				CidadeCtrl cidadeCtrl = new CidadeCtrl();
-				cidadeCtrl.setCidade(tvManutencao.getSelectionModel().getSelectedItem());
+				cidadeCtrl.setCidade(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(cidadeCtrl);
 			}
 		} catch (Exception e) {
@@ -109,11 +109,11 @@ public class CidadeController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoCidade(TipoMovimentacao.visualizaco);
 			CadastroCidadeController controller = new CadastroCidadeController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				CidadeCtrl cidadeCtrl = new CidadeCtrl();
-				cidadeCtrl.setCidade(tvManutencao.getSelectionModel().getSelectedItem());
+				cidadeCtrl.setCidade(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(cidadeCtrl);
 			}
 		} catch (Exception e) {

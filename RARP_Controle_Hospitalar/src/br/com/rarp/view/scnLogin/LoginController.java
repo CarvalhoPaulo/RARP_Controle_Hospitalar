@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginController extends Application implements Initializable {
+public class LoginController extends Application implements Initializable, EventHandler<KeyEvent> {
 
 	private static Stage stage;
 
@@ -35,13 +36,13 @@ public class LoginController extends Application implements Initializable {
 	@FXML
 	private AnchorPane pnContent;
 	@FXML
-	private TextField edtUsuario;
+	private TextField txtUsuario;
 	@FXML
-	private PasswordField edtSenha;
+	private PasswordField txtSenha;
 	@FXML
-	private PasswordField edtNovaSenha;
+	private PasswordField txtNovaSenha;
 	@FXML
-	private PasswordField edtConfirmaSenha;
+	private PasswordField txtConfirmaSenha;
 	@FXML
 	private Label lblNovaSenha;
 	@FXML
@@ -80,20 +81,20 @@ public class LoginController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		edtUsuario.setText(SistemaCtrl.getInstance().getPropriedades().getLastUsername());
+		txtUsuario.setText(SistemaCtrl.getInstance().getPropriedades().getLastUsername());
 		pnFrame.setPrefSize(342, 251);
 		try {
-			usuarioCtrl.consultar(edtUsuario.getText());
+			usuarioCtrl.consultar(txtUsuario.getText());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
-		edtUsuario.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		txtUsuario.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				try {
-					if (!newValue && !edtUsuario.getText().isEmpty()) {
-						usuarioCtrl.consultar(edtUsuario.getText());
+					if (!newValue && !txtUsuario.getText().isEmpty()) {
+						usuarioCtrl.consultar(txtUsuario.getText());
 						if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null
 								|| usuarioCtrl.getUsuario().getSenha().isEmpty())) {
 							pnContent.setPrefHeight(pnContent.getPrefHeight() + 116);
@@ -101,19 +102,19 @@ public class LoginController extends Application implements Initializable {
 							stage.sizeToScene();
 							lblNovaSenha.setVisible(true);
 							lblConfirmaSenha.setVisible(true);
-							edtNovaSenha.setVisible(true);
-							edtConfirmaSenha.setVisible(true);
-							edtSenha.setText("");
-							edtSenha.setDisable(true);
+							txtNovaSenha.setVisible(true);
+							txtConfirmaSenha.setVisible(true);
+							txtSenha.setText("");
+							txtSenha.setDisable(true);
 						} else {
 							if (lblNovaSenha.isVisible()) {
 								pnContent.setPrefHeight(pnContent.getPrefHeight() - 116);
 								pnFrame.setPrefHeight(pnFrame.getPrefHeight() - 120);
 								lblNovaSenha.setVisible(false);
 								lblConfirmaSenha.setVisible(false);
-								edtNovaSenha.setVisible(false);
-								edtConfirmaSenha.setVisible(false);
-								edtSenha.setDisable(false);
+								txtNovaSenha.setVisible(false);
+								txtConfirmaSenha.setVisible(false);
+								txtSenha.setDisable(false);
 							}
 						}
 					}
@@ -137,25 +138,25 @@ public class LoginController extends Application implements Initializable {
 	@FXML
 	private void entrar(ActionEvent event) {
 		try {
-			if (edtNovaSenha.isVisible()) {
-				if (edtNovaSenha.getText().isEmpty())
+			if (txtNovaSenha.isVisible()) {
+				if (txtNovaSenha.getText().isEmpty())
 					throw new Exception("Digite a nova senha");
-				if (edtConfirmaSenha.getText().isEmpty())
+				if (txtConfirmaSenha.getText().isEmpty())
 					throw new Exception("Digite a confirmação da nova senha");
-				if (!edtConfirmaSenha.getText().equals(edtNovaSenha.getText()))
+				if (!txtConfirmaSenha.getText().equals(txtNovaSenha.getText()))
 					throw new Exception("As senhas digitadas são diferentes");
-				usuarioCtrl.getUsuario().setSenha(edtNovaSenha.getText());
+				usuarioCtrl.getUsuario().setSenha(txtNovaSenha.getText());
 				usuarioCtrl.salvar();
 			} else {
 				if (usuarioCtrl.getUsuario() == null)
 					throw new Exception("Este usuário não existe");
-				if (!usuarioCtrl.getUsuario().getSenha().equals(edtSenha.getText())) {
+				if (!usuarioCtrl.getUsuario().getSenha().equals(txtSenha.getText())) {
 					tentativas++;
 					throw new Exception("Senha incorreta");
 				}
 			}
 			SistemaCtrl.getInstance().setUsuarioSessao(usuarioCtrl.getUsuario());
-			SistemaCtrl.getInstance().getPropriedades().setLastUsername(edtUsuario.getText());
+			SistemaCtrl.getInstance().getPropriedades().setLastUsername(txtUsuario.getText());
 			
 			if (AcessoController.getStage() != null) {
 				AcessoController.getStage().hide();
@@ -180,6 +181,16 @@ public class LoginController extends Application implements Initializable {
 		if (event.getCode() == KeyCode.ENTER)
 			btnEntrar.fire();
 	}
+	
+	@Override
+	public void handle(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getCode() == KeyCode.ENTER) {
+			btnEntrar.fire();
+			
+		}
+	}
+	
 
 	public Node getNode() throws Exception {
 		if(node == null)

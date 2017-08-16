@@ -36,8 +36,8 @@ public class EspacoController extends ManutencaoController {
 		andar.setCellValueFactory(new PropertyValueFactory<>("andar"));
 		
 
-		tvManutencao.getColumns().addAll(codigo, numero, bloco, andar);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, numero, bloco, andar);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -56,10 +56,10 @@ public class EspacoController extends ManutencaoController {
 	public void pesquisar() {
 		EspacoCtrl espacoCtrl = new EspacoCtrl();
 		try {
-			tvManutencao.setItems(espacoCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(espacoCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os espaços.\n" + "Descrição: " + e.getMessage());
 		}
@@ -82,11 +82,11 @@ public class EspacoController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.alteracao);
 			CadastroEspacoController controller = new CadastroEspacoController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				EspacoCtrl espacoCtrl = new EspacoCtrl();
-				espacoCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				espacoCtrl.setUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(espacoCtrl);
 			}
 		} catch (Exception e) {
@@ -100,11 +100,11 @@ public class EspacoController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.visualizaco);
 			CadastroEspacoController controller = new CadastroEspacoController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				EspacoCtrl espacoCtrl = new EspacoCtrl();
-				espacoCtrl.setUsuario(tvManutencao.getSelectionModel().getSelectedItem());
+				espacoCtrl.setUsuario(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(espacoCtrl);
 			}
 		} catch (Exception e) {

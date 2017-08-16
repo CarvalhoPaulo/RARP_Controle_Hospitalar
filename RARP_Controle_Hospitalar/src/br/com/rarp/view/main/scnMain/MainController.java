@@ -152,7 +152,7 @@ public class MainController extends Application implements Initializable {
     private Label lblRelogio;
 
     @FXML
-    private AnchorPane pnContent;
+	private AnchorPane pnlContent;
 
     @FXML
     private ImageView imgMain;
@@ -270,19 +270,19 @@ public class MainController extends Application implements Initializable {
 		mniControleAcesso.fire();
 		initRelogio();
 		
-		pnContent.heightProperty().addListener(new ChangeListener<Number>() {
+		pnlContent.heightProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				imgMain.setFitHeight(pnContent.getHeight());
+				imgMain.setFitHeight(pnlContent.getHeight());
 			}
 		});
 		
-		pnContent.widthProperty().addListener(new ChangeListener<Number>() {
+		pnlContent.widthProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				imgMain.setFitWidth(pnContent.getWidth());
+				imgMain.setFitWidth(pnlContent.getWidth());
 			}
 		});
 		

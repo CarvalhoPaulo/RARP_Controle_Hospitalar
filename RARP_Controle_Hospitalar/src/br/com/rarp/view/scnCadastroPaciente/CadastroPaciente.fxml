@@ -49,7 +49,7 @@
 														<Font size="14.0" />
 													</font>
 												</Label>
-												<TextField fx:id="edtNome" layoutY="82.0"
+												<TextField fx:id="txtNome" layoutY="82.0"
 													prefHeight="30.0" prefWidth="471.0" AnchorPane.leftAnchor="0.0"
 													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 													<font>
@@ -82,7 +82,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<MaskTextField fx:id="edtCPF" cpf="true"
+																<MaskTextField fx:id="txtCPF" cpf="true"
 																	layoutX="4.0" layoutY="36.0" AnchorPane.leftAnchor="0.0"
 																	AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
@@ -202,7 +202,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<CalendarTextField fx:id="edtDataNasc"
+																<CalendarTextField fx:id="txtDataNasc"
 																	layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;"
 																	AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0"
 																	AnchorPane.topAnchor="28.0" />
@@ -257,7 +257,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtRG" layoutX="-121.0"
+																<TextField fx:id="txtRG" layoutX="-121.0"
 																	layoutY="32.0" AnchorPane.leftAnchor="4.0"
 																	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 																	<font>
@@ -276,7 +276,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtLogradouro" layoutY="21.0"
+																<TextField fx:id="txtLogradouro" layoutY="21.0"
 																	AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0"
 																	AnchorPane.topAnchor="28.0">
 																	<font>
@@ -295,7 +295,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtNumero" layoutY="15.0"
+																<TextField fx:id="txtNumero" layoutY="15.0"
 																	AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0"
 																	AnchorPane.topAnchor="28.0">
 																	<font>
@@ -313,7 +313,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtComplemento" layoutX="4.0"
+																<TextField fx:id="txtComplemento" layoutX="4.0"
 																	layoutY="24.0" AnchorPane.leftAnchor="0.0"
 																	AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 																	<font>
@@ -347,7 +347,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<MaskTextField fx:id="edtCEP" cep="true"
+																<MaskTextField fx:id="txtCEP" cep="true"
 																	cpf="false" layoutX="14.0" layoutY="30.0"
 																	AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0"
 																	AnchorPane.topAnchor="28.0">
@@ -367,7 +367,7 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="edtBairro" layoutY="21.0"
+																<TextField fx:id="txtBairro" layoutY="21.0"
 																	AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0"
 																	AnchorPane.topAnchor="28.0">
 																	<font>
@@ -472,7 +472,7 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
-																				<MaskTextField fx:id="edtTelefone"
+																				<MaskTextField fx:id="txtTelefone"
 																					cpf="false" layoutX="3.0" layoutY="24.0" telefone="true"
 																					AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
 																					AnchorPane.topAnchor="28.0">
@@ -533,7 +533,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="edtCodigo"
+						<IntegerTextField fx:id="txtCodigo"
 							focusTraversable="false" layoutX="-32.0" layoutY="23.0"
 							prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0"
 							AnchorPane.topAnchor="24.0">

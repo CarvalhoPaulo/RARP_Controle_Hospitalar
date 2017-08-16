@@ -30,22 +30,22 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="edtUsuario" layoutX="14.0" layoutY="39.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="32.0">
+                  <TextField fx:id="txtUsuario" layoutX="14.0" layoutY="39.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="32.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="edtSenha" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="90.0">
+                  <PasswordField fx:id="txtSenha" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="90.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="edtNovaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="148.0">
+                  <PasswordField fx:id="txtNovaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="148.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="edtConfirmaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="206.0">
+                  <PasswordField fx:id="txtConfirmaSenha" visible="false" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="206.0">
                      <font>
                         <Font size="14.0" />
                      </font>

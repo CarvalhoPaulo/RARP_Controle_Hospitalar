@@ -53,8 +53,8 @@ public class PacienteController extends ManutencaoController {
 		cpf.setPrefWidth(200);
 		telefone.setPrefWidth(250);
 
-		tvManutencao.getColumns().addAll(codigo, nome, cpf, telefone);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, cpf, telefone);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -73,10 +73,10 @@ public class PacienteController extends ManutencaoController {
 	public void pesquisar() {
 		PacienteCtrl pacienteCtrl = new PacienteCtrl();
 		try {
-			tvManutencao.setItems(pacienteCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(pacienteCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os pacientes.\n" + "Descrição: " + e.getMessage());
 		}
@@ -99,11 +99,11 @@ public class PacienteController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
 			CadastroPacienteController controller = new CadastroPacienteController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				PacienteCtrl pacienteCtrl = new PacienteCtrl();
-				pacienteCtrl.setPaciente(tvManutencao.getSelectionModel().getSelectedItem());
+				pacienteCtrl.setPaciente(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(pacienteCtrl);
 			}
 		} catch (Exception e) {
@@ -117,11 +117,11 @@ public class PacienteController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
 			CadastroPacienteController controller = new CadastroPacienteController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				PacienteCtrl pacienteCtrl = new PacienteCtrl();
-				pacienteCtrl.setPaciente(tvManutencao.getSelectionModel().getSelectedItem());
+				pacienteCtrl.setPaciente(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(pacienteCtrl);
 			}
 		} catch (Exception e) {

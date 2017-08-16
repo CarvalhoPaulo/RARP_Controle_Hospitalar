@@ -37,26 +37,26 @@ public class CadastroEspacoController extends Application implements Initializab
 	private Button btnVoltar;
 
 	@FXML
-	private IntegerTextField edtCodigo;
+	private IntegerTextField txtCodigo;
 
 
     @FXML
-    private TextField edtNome;
+    private TextField txtNome;
 
 	@FXML
 	private SwitchButton sbAtivado;
 
 	@FXML
-	private IntegerTextField edtNumero;
+	private IntegerTextField txtNumero;
 
 	@FXML
-	private TextField edtBloco;
+	private TextField txtBloco;
 
 	@FXML
-	private TextField edtAndar;
+	private TextField txtAndar;
 
 	@FXML
-	private IntegerTextField edtNumeroLeito;
+	private IntegerTextField txtNumeroLeito;
 
 	@FXML
 	private Button btnAdicionar;
@@ -77,7 +77,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void adicionar(ActionEvent event) {
 		ImageCard imageCard = new ImageCard();
 		imageCard.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
-		imageCard.setLeito(new Leito(Utilitarios.strToInt(edtNumeroLeito.getText())));
+		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText())));
 		boolean existe = false;
 		for (Node n : pnlLeitos.getChildren()) {
 			if (n.equals(imageCard)) {
@@ -87,13 +87,13 @@ public class CadastroEspacoController extends Application implements Initializab
 		}
 		if (!existe)
 			pnlLeitos.getChildren().add(imageCard);
-		edtNumeroLeito.setValue(edtNumeroLeito.getValue() + 1);
+		txtNumeroLeito.setValue(txtNumeroLeito.getValue() + 1);
 	}
 
 	@FXML
 	private void remover(ActionEvent event) {
 		ImageCard imageCard = new ImageCard();
-		imageCard.setLeito(new Leito(Utilitarios.strToInt(edtNumeroLeito.getText())));
+		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText())));
 		if(pnlLeitos.getChildren().contains(imageCard))
 			pnlLeitos.getChildren().remove(pnlLeitos.getChildren().indexOf(imageCard));
 	}
@@ -126,11 +126,11 @@ public class CadastroEspacoController extends Application implements Initializab
 	}
 
 	private void limparCampos() {
-		edtCodigo.clear();
-		edtNumeroLeito.clear();
-		edtNome.clear();
-		edtAndar.clear();
-		edtBloco.clear();
+		txtCodigo.clear();
+		txtNumeroLeito.clear();
+		txtNome.clear();
+		txtAndar.clear();
+		txtBloco.clear();
 		pnlLeitos.getChildren().clear();
 		sbAtivado.switchOnProperty().set(true);
 	}
@@ -138,7 +138,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sbAtivado.switchOnProperty().set(true);
-		edtCodigo.setDisable(true);
+		txtCodigo.setDisable(true);
 		if (espacoCtrl != null && espacoCtrl.getClass() != null)
 			preencherTela();
 		if (visualizando)
@@ -148,11 +148,11 @@ public class CadastroEspacoController extends Application implements Initializab
 	}
 
 	private void bloquearTela() {
-		edtCodigo.setDisable(true);
-		edtAndar.setDisable(true);
-		edtNome.setDisable(true);
-		edtBloco.setDisable(true);
-		edtNumeroLeito.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtAndar.setDisable(true);
+		txtNome.setDisable(true);
+		txtBloco.setDisable(true);
+		txtNumeroLeito.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
 		sbAtivado.setDisable(true);
@@ -210,10 +210,10 @@ public class CadastroEspacoController extends Application implements Initializab
 		if (espacoCtrl.getEspaco() == null)
 			espacoCtrl.novoEspaco();
 
-		espacoCtrl.getEspaco().setCodigo(edtCodigo.getValue());
-		espacoCtrl.getEspaco().setAndar(edtAndar.getText());
-		espacoCtrl.getEspaco().setNome(edtNome.getText());
-		espacoCtrl.getEspaco().setBloco(edtBloco.getText());
+		espacoCtrl.getEspaco().setCodigo(txtCodigo.getValue());
+		espacoCtrl.getEspaco().setAndar(txtAndar.getText());
+		espacoCtrl.getEspaco().setNome(txtNome.getText());
+		espacoCtrl.getEspaco().setBloco(txtBloco.getText());
 		for(Leito l: espacoCtrl.getEspaco().getLeitos())
 			l.setStatus(false);
 		
@@ -227,10 +227,10 @@ public class CadastroEspacoController extends Application implements Initializab
 	}
 
 	private void preencherTela() {
-		edtCodigo.setText(espacoCtrl.getEspaco().getCodigo() + "");
-		edtNome.setText(espacoCtrl.getEspaco().getNome());
-		edtBloco.setText(espacoCtrl.getEspaco().getBloco());
-		edtAndar.setText(espacoCtrl.getEspaco().getAndar());
+		txtCodigo.setText(espacoCtrl.getEspaco().getCodigo() + "");
+		txtNome.setText(espacoCtrl.getEspaco().getNome());
+		txtBloco.setText(espacoCtrl.getEspaco().getBloco());
+		txtAndar.setText(espacoCtrl.getEspaco().getAndar());
 
 		for (Leito l : espacoCtrl.getEspaco().getLeitos()) {
 			ImageCard img = new ImageCard();

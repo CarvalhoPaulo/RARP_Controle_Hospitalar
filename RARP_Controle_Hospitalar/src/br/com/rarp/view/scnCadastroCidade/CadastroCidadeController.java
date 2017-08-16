@@ -33,13 +33,13 @@ public class CadastroCidadeController extends Application implements Initializab
 	private static Stage stage;
 
 	@FXML
-	private IntegerTextField edtCodigo;
+	private IntegerTextField txtCodigo;
 	
     @FXML
-    private TextField edtNome;
+    private TextField txtNome;
 
     @FXML
-    private IntegerTextField edtIBGE;
+    private IntegerTextField txtIBGE;
 
     @FXML
     private ComboBox<Estado> cmbEstado;
@@ -93,7 +93,7 @@ public class CadastroCidadeController extends Application implements Initializab
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		edtCodigo.requestFocus();
+		txtCodigo.requestFocus();
 		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -108,10 +108,10 @@ public class CadastroCidadeController extends Application implements Initializab
 							btnSalvar.requestFocus();
 						
 						if(id.equals("btnSalvar"))
-							edtNome.requestFocus();
+							txtNome.requestFocus();
 					}
 					if (event.isShiftDown()) {	
-						if(id.equals("edtNome"))
+						if(id.equals("txtNome"))
 							btnSalvar.requestFocus();
 						
 						if(id.equals("btnSalvar"))
@@ -130,7 +130,7 @@ public class CadastroCidadeController extends Application implements Initializab
 	private void prepararTela() {
 		try {
 			sbAtivado.setValue(true);
-			edtCodigo.setDisable(true);
+			txtCodigo.setDisable(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,19 +143,19 @@ public class CadastroCidadeController extends Application implements Initializab
 	}
 
 	private void limparCampos() {
-		edtCodigo.clear();
-		edtNome.clear();
-		edtIBGE.clear();
+		txtCodigo.clear();
+		txtNome.clear();
+		txtIBGE.clear();
 		cmbEstado.getSelectionModel().select(-1);
 		sbAtivado.setValue(true);
 	}
 
 	private void bloquearTela() {
-		edtCodigo.setDisable(true);
+		txtCodigo.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
-		edtNome.setDisable(true);
-		edtIBGE.setDisable(true);
+		txtNome.setDisable(true);
+		txtIBGE.setDisable(true);
 		cmbEstado.setDisable(true);
 	}
 
@@ -166,18 +166,18 @@ public class CadastroCidadeController extends Application implements Initializab
 		if (cidadeCtrl.getCidade() == null) {
 			cidadeCtrl.novaCidade();
 		}
-		cidadeCtrl.getCidade().setCodigo(edtCodigo.getValue());
-		cidadeCtrl.getCidade().setNome(edtNome.getText());
-		cidadeCtrl.getCidade().setCodigoIBGE(edtIBGE.getValue());
+		cidadeCtrl.getCidade().setCodigo(txtCodigo.getValue());
+		cidadeCtrl.getCidade().setNome(txtNome.getText());
+		cidadeCtrl.getCidade().setCodigoIBGE(txtIBGE.getValue());
 		cidadeCtrl.getCidade().setEstado(cmbEstado.getSelectionModel().getSelectedItem());
 		cidadeCtrl.getCidade().setStatus(sbAtivado.getValue());
 	}
 
 	private void preencherTela() {
 		if (cidadeCtrl != null && cidadeCtrl.getCidade() != null) {
-			edtCodigo.setText(cidadeCtrl.getCidade().getCodigo() + "");
-			edtNome.setText(cidadeCtrl.getCidade().getNome());
-			edtIBGE.setValue(cidadeCtrl.getCidade().getCodigoIBGE());
+			txtCodigo.setText(cidadeCtrl.getCidade().getCodigo() + "");
+			txtNome.setText(cidadeCtrl.getCidade().getNome());
+			txtIBGE.setValue(cidadeCtrl.getCidade().getCodigoIBGE());
 			if(cidadeCtrl.getCidade().getEstado() != null)
 				cmbEstado.getSelectionModel().select(cidadeCtrl.getCidade().getEstado());
 			sbAtivado.setValue(cidadeCtrl.getCidade().isStatus());

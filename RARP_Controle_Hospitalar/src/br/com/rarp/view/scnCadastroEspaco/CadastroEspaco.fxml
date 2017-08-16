@@ -29,7 +29,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="edtCodigo" accessibleText="Codigo interno do usuário" disable="true" editable="false" focusTraversable="false" layoutY="24.0" prefHeight="30.0" prefWidth="102.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" accessibleText="Codigo interno do usuário" disable="true" editable="false" focusTraversable="false" layoutY="24.0" prefHeight="30.0" prefWidth="102.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -57,7 +57,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField fx:id="edtNome" layoutY="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+										<TextField fx:id="txtNome" layoutY="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -71,7 +71,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField fx:id="edtBloco" layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
+										<TextField fx:id="txtBloco" layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -85,7 +85,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField fx:id="edtAndar" layoutX="-15.0" layoutY="30.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+										<TextField fx:id="txtAndar" layoutX="-15.0" layoutY="30.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -133,7 +133,7 @@
 																<Font size="14.0" />
 															</font>
 														</Label>
-														<IntegerTextField fx:id="edtNumeroLeito" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
+														<IntegerTextField fx:id="txtNumeroLeito" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
 															<font>
 																<Font size="14.0" />
 															</font>
