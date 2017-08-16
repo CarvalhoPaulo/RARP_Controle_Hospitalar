@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
-import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;

@@ -4,10 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -44,7 +47,7 @@ public class CadastroCargoController extends Application implements Initializabl
     private TextField edtNome;
 
     @FXML
-    private TextField edtFuncao;
+    private AutoCompleteComboBox<Funcao> cmbFuncao;
 
     @FXML
     private TextField edtNivel;
@@ -94,8 +97,18 @@ public class CadastroCargoController extends Application implements Initializabl
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		prepararTela();
+		if (cargoCtrl != null && cargoCtrl.getCargo() != null)
+			preencherTela();
+		
+		if (visualizando)
+			bloquearTela();
+	}
+	
+	private void prepararTela() {
 		sbAtivado.setValue(true);
 		edtCodigo.setDisable(true);
+		cmbFuncao.setItems(FXCollections.observableArrayList(Funcao.values()));
 		
 		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -120,12 +133,6 @@ public class CadastroCargoController extends Application implements Initializabl
 				}
 			}
 		});
-
-		if (cargoCtrl != null && cargoCtrl.getCargo() != null)
-			preencherTela();
-		
-		if (visualizando)
-			bloquearTela();
 	}
 
 	public void inserir() throws Exception {
@@ -137,7 +144,7 @@ public class CadastroCargoController extends Application implements Initializabl
 	private void limparCampos() {
 		edtCodigo.clear();
 		edtNome.clear();
-		edtFuncao.clear();
+		cmbFuncao.getSelectionModel().select(-1);
 		edtNivel.clear();
 		edtRequisitos.clear();
 		sbAtivado.setValue(true);
@@ -146,7 +153,7 @@ public class CadastroCargoController extends Application implements Initializabl
 	private void bloquearTela() {
 		edtCodigo.setDisable(true);
 		edtNome.setDisable(true);
-		edtFuncao.setDisable(true);
+		cmbFuncao.setDisable(true);
 		edtNivel.setDisable(true);
 		edtRequisitos.setDisable(true);
 		sbAtivado.setDisable(true);
@@ -163,7 +170,7 @@ public class CadastroCargoController extends Application implements Initializabl
 		
 		cargoCtrl.getCargo().setCodigo(edtCodigo.getValue());
 		cargoCtrl.getCargo().setNome(edtNome.getText());
-		cargoCtrl.getCargo().setFuncao(edtFuncao.getText());
+		cargoCtrl.getCargo().setFuncao(cmbFuncao.getSelectionModel().getSelectedItem());
 		cargoCtrl.getCargo().setNivel(edtNivel.getText());
 		cargoCtrl.getCargo().setRequisitos(edtRequisitos.getText());
 		cargoCtrl.getCargo().setStatus(sbAtivado.getValue());
@@ -172,7 +179,7 @@ public class CadastroCargoController extends Application implements Initializabl
 	private void preencherTela() {
 		edtCodigo.setValue(cargoCtrl.getCargo().getCodigo());
 		edtNome.setText(cargoCtrl.getCargo().getNome());
-		edtFuncao.setText(cargoCtrl.getCargo().getFuncao());
+		cmbFuncao.getSelectionModel().select(cargoCtrl.getCargo().getFuncao());
 		edtNivel.setText(cargoCtrl.getCargo().getNivel());
 		edtRequisitos.setText(cargoCtrl.getCargo().getRequisitos());
 		sbAtivado.setValue(cargoCtrl.getCargo().isStatus());

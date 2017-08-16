@@ -1,10 +1,12 @@
 package br.com.rarp.model;
 
+import br.com.rarp.enums.Funcao;
+
 public class Cargo {
 
 	private int codigo;
 	private String nome;
-	private String funcao;
+	private Funcao funcao;
 	private String requisitos;
 	private String nivel;
 	private boolean status;
@@ -31,14 +33,6 @@ public class Cargo {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
 	}
 
 	public String getRequisitos() {
@@ -69,6 +63,14 @@ public class Cargo {
 	@Override
 	public String toString() {
 		return nome;
+	}
+
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
 	}
 
 }

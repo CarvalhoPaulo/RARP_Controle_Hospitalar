@@ -7,7 +7,7 @@ import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.PerfilUsuarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.PerfilUsuario;
 import br.com.rarp.utils.Campo;

@@ -1,9 +1,9 @@
 package br.com.rarp.view.scnManutencao.cargo;
 
-import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.enums.TipoCampo;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;

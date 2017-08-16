@@ -2,8 +2,8 @@ package br.com.rarp.view.scnManutencao.cidade;
 
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
-import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.enums.TipoCampo;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;

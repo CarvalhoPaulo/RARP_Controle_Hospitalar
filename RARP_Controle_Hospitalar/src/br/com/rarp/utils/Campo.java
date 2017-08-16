@@ -1,6 +1,6 @@
 package br.com.rarp.utils;
 
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 
 public class Campo  {
 	

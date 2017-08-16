@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
@@ -122,7 +123,11 @@ public class FuncionarioDAO {
 				Cargo cargo = new Cargo();
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
-				cargo.setFuncao(rs.getString("funcao"));
+				try {
+					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
+				} catch (Exception e) {
+					cargo.setFuncao(Funcao.outros);
+				}
 				cargo.setNivel(rs.getString("nivel"));
 				cargo.setRequisitos(rs.getString("requisitos"));
 				cargo.setStatus(rs.getBoolean("status_cargo"));

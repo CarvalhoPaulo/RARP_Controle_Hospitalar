@@ -9,7 +9,7 @@ import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
