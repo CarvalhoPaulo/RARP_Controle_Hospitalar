@@ -411,9 +411,8 @@ public class MainController extends Application implements Initializable {
 
     @FXML
     private void manterMedicos(ActionEvent event) {
-
     	try {
-			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.acesso);
+			SistemaCtrl.getInstance().liberarManutencaoMedico(TipoMovimentacao.acesso);
 			manutencao = new MedicoController();
 			pnMain.setCenter(manutencao.getNode());
 			focarToolBar(false);

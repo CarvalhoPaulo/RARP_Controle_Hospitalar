@@ -91,67 +91,73 @@ public class SistemaCtrl {
 	public List<Tela> getTelas() {
 		List<Tela> telas = new ArrayList<>();
 		
-		telas.add(new Tela("manutencaoUsuario", "Manuten��o de Usu�rio"));
-		telas.add(new Tela("manutencaoPerfilUsuario", "Manuten��o de Perfil de Usu�rio"));
-		telas.add(new Tela("manutencaoEntradaPaciente", "Manuten��o de Entrada de Paciente"));
-		telas.add(new Tela("manutencaoEspaco", "Manuten��o de Espa�o"));
-		telas.add(new Tela("manutencaoFuncionario", "Manuten��o de Funcionario"));
-		telas.add(new Tela("manutencaoCargo", "Manuten��o de Cargo"));
-		telas.add(new Tela("manutencaoCidade", "Manuten��o de Cidade"));
-		telas.add(new Tela("manutencaoPaciente", "Manuten��o de Paciente"));
-		telas.add(new Tela("manutencaoConvenio", "Manuten��o de Conv�nio"));
-		telas.add(new Tela("manutencaoEspecialidade", "Manuten��o de Especialidade"));
+		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuário"));
+		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
+		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
+		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
+		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
+		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
+		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
+		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
+		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
+		telas.add(new Tela("manutencaoEspecialidade", "Manutenção de Especialidade"));
+		telas.add(new Tela("manutencaoMedico", "Manutenção de Especialidade"));
 		return telas;
 	}
 	
 	public void liberarManutencaoUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoUsuario", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoPerfilUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPerfilUsuario", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEntradaPaciente", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoCargo(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCargo", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoFuncionario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoFuncionario", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoCidade(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCidade", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPaciente", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoConvenio(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoConvenio", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public void liberarManutencaoEspecialidade(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspecialidade", tipoMovimentacao))
-			throw new Exception("A��o indispon�vel para este usuario");
+			throw new Exception("Ação indisponível para este usuário");
+	}
+	
+	public void liberarManutencaoMedico(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("manutencaoMedico", tipoMovimentacao))
+			throw new Exception("Ação indisponível para este usuário");
 	}
 	
 	public Propriedades getPropriedades() {
