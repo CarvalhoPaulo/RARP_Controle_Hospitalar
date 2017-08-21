@@ -21,8 +21,8 @@ public class MedicoCtrl {
 	}
 	
 	private void validaCamposObrigatorios() throws Exception {
-		if (medico == null ){
-			throw new  Exception("Favor criar nova Medico");
+		if (medico == null){
+			throw new  Exception("Favor criar nova medico");
 		}
 		
 		if (medico.getNome().equals("")) {

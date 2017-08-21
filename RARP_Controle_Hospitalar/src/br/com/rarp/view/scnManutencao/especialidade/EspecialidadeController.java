@@ -25,15 +25,10 @@ public class EspecialidadeController extends ManutencaoController {
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Especialidade, Especialidade> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		TableColumn<Especialidade, Especialidade> status = new TableColumn<>("Status");
-		status.setCellValueFactory(new PropertyValueFactory<>("Status"));
-		
 		codigo.setPrefWidth(100);
-
 		nome.setPrefWidth(1000);
-		status.setPrefWidth(100);
 		
-		tblManutencao.getColumns().addAll(codigo, nome, status);
+		tblManutencao.getColumns().addAll(codigo, nome);
 		tblManutencao.setEditable(false);
 		nome.setPrefWidth(1200);
 		adicionarCampos();
