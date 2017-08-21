@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="451.0" prefWidth="599.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
@@ -22,11 +22,6 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="txtCodigo" editable="false" focusTraversable="false" prefHeight="30.0" prefWidth="122.0" AnchorPane.topAnchor="28.0">
-							<font>
-								<Font size="14.0" />
-							</font>
-						</TextField>
 
 						<Label prefWidth="68.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
@@ -35,7 +30,7 @@
 						</Label>
 						<Label layoutY="73.0" text="Nome:" AnchorPane.topAnchor="62.0">
 							<font>
-								<Font size="14.0" />
+								<Font name="System Bold" size="14.0" />
 							</font>
 						</Label>
 						<TextField fx:id="txtNome" layoutY="99.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
@@ -53,9 +48,9 @@
 								<Font size="14.0" />
 							</font>
 						</TextArea>
-						<SwitchButton fx:id="sbStatus" layoutX="222.0" layoutY="28.0" text="NÃO" value="true" />
-
-
+                  <SwitchButton fx:id="sbStatus" layoutX="224.0" layoutY="28.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                  <IntegerTextField fx:id="txtCodigo" editable="false" layoutX="8.0" layoutY="31.0" AnchorPane.leftAnchor="0.0" />
+	
 
 					</children>
 				</AnchorPane>
@@ -80,7 +75,7 @@
 								<Font size="14.0" />
 							</font>
 						</Button>
-						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#salvar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
+						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

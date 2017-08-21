@@ -14,7 +14,7 @@ public class EspecialidadeBusiness {
 
 	public List<Especialidade> consultar(String campo, String comparacao, String termo) throws Exception {
 		EspecialidadeDAO especialidadeDAO = new EspecialidadeDAO();
-		return especialidadeDAO.consultar(campo	, comparacao, termo);
+		return especialidadeDAO.consultar(campo, comparacao, termo);
 	}
 
 }

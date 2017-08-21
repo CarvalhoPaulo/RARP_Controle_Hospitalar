@@ -1,41 +1,40 @@
-package br.com.rarp.view.scnManutencao.especialidade;
+package br.com.rarp.view.scnManutencao.medico;
 
-import br.com.rarp.control.EspecialidadeCtrl;
+import br.com.rarp.control.MedicoCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.enums.TipoMovimentacao;
-import br.com.rarp.model.Especialidade;
+import br.com.rarp.model.Medico;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController;
+import br.com.rarp.view.scnCadastroMedico.CadastroMedicoController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class EspecialidadeController extends ManutencaoController {
+public class MedicoController extends ManutencaoController {
 
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Especialidades");
+		getLblTitle().setText("Manutenção de Medicos");
 
-		TableColumn<Especialidade, Especialidade> codigo = new TableColumn<>("Código");
+		TableColumn<Medico, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-		TableColumn<Especialidade, Especialidade> nome = new TableColumn<>("Nome");
+		TableColumn<Medico, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		TableColumn<Especialidade, Especialidade> status = new TableColumn<>("Status");
-		status.setCellValueFactory(new PropertyValueFactory<>("Status"));
+		
+		TableColumn<Medico, String> CRM = new TableColumn<>("CRM");
+		CRM.setCellValueFactory(new PropertyValueFactory<>("CRM"));
 		
 		codigo.setPrefWidth(100);
-
 		nome.setPrefWidth(1000);
-		status.setPrefWidth(100);
+		CRM.setPrefWidth(200);
 		
-		tblManutencao.getColumns().addAll(codigo, nome, status);
+		tblManutencao.getColumns().addAll(codigo, nome,CRM);
 		tblManutencao.setEditable(false);
-		nome.setPrefWidth(1200);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -46,16 +45,15 @@ public class EspecialidadeController extends ManutencaoController {
 		// para pesquisa.
 		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("status", "Status", TipoCampo.booleano));
-		cmbCampo.setVisibleRowCount(3);
+		cmbCampo.getItems().add(new Campo("CRM", "CRM", TipoCampo.texto));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void pesquisar() {
-		EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
+		MedicoCtrl medicoCtrl = new MedicoCtrl();
 		try {
-			tblManutencao.setItems(especialidadeCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(medicoCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
@@ -68,7 +66,7 @@ public class EspecialidadeController extends ManutencaoController {
 	public void inserir() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.insercao);
-			CadastroEspecialidadeController controler = new CadastroEspecialidadeController();
+			CadastroMedicoController controler = new CadastroMedicoController();
 			controler.inserir();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -80,13 +78,14 @@ public class EspecialidadeController extends ManutencaoController {
 	public void alterar() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.alteracao);
-			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
+			CadastroMedicoController controller = new CadastroMedicoController();
+			
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
-				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
-				especialidadeCtrl.setEspecialidade(tblManutencao.getSelectionModel().getSelectedItem());
-				controller.alterar(especialidadeCtrl);
+				MedicoCtrl medicoCtrl = new MedicoCtrl();
+				medicoCtrl.setMedico((Medico) tblManutencao.getSelectionModel().getSelectedItem());
+				controller.alterar(medicoCtrl);
 			}
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -98,13 +97,13 @@ public class EspecialidadeController extends ManutencaoController {
 	public void visualizar() {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoEspecialidade(TipoMovimentacao.visualizaco);
-			CadastroEspecialidadeController controller = new CadastroEspecialidadeController();
+			CadastroMedicoController controller = new CadastroMedicoController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
-				EspecialidadeCtrl especialidadeCtrl = new EspecialidadeCtrl();
-				especialidadeCtrl.setEspecialidade(tblManutencao.getSelectionModel().getSelectedItem());
-				controller.visualizar(especialidadeCtrl);
+				MedicoCtrl medicoCtrl = new MedicoCtrl();
+				medicoCtrl.setMedico((Medico) tblManutencao.getSelectionModel().getSelectedItem());
+				controller.visualizar(medicoCtrl);
 			}
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());

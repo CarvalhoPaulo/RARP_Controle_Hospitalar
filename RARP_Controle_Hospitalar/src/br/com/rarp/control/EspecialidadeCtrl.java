@@ -42,7 +42,7 @@ public class EspecialidadeCtrl {
 	
 	private boolean verificarDesativacao() {
 		if(!especialidade.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este cargo?");
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este Especialidade ?");
 		return true;
 	}
 
@@ -56,7 +56,6 @@ public class EspecialidadeCtrl {
 		
 		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
 		return FXCollections.observableArrayList(especialidadeBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
-	
 	}
 
 }

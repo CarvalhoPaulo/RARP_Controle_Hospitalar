@@ -195,7 +195,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
-			
 			txtDataAdmissao.setValue(LocalDate.now());
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));

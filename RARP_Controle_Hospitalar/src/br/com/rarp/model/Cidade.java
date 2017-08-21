@@ -50,6 +50,10 @@ public class Cidade {
 	
 	@Override
 	public String toString() {
-		return nome;
+		if(this.estado != null)
+			return nome + " " + this.estado.getUF();
+		else
+			return nome;
+		
 	}
 }

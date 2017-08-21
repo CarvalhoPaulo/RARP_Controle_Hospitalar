@@ -178,20 +178,21 @@ public class LoginController extends Application implements Initializable, Event
 
 	@FXML
 	private void entrarKeyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER)
-			btnEntrar.fire();
+		
+		
+			if (event.getCode() == KeyCode.ENTER)
+				btnEntrar.fire();
 	}
 	
 	@Override
 	public void handle(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getCode() == KeyCode.ENTER) {
-			btnEntrar.fire();
-			
-		}
+		if (!txtUsuario.getText().equals("") && !txtSenha.getText().equals(""))
+			if (e.getCode() == KeyCode.ENTER) {
+				btnEntrar.fire();
+				
+			}
 	}
 	
-
 	public Node getNode() throws Exception {
 		if(node == null)
 			start(SistemaCtrl.getInstance().getStage());

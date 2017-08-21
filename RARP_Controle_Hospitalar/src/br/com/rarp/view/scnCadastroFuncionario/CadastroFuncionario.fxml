@@ -184,7 +184,11 @@
 																		<Font size="14.0" />
 																	</font>
 																</Label>
+<<<<<<< HEAD
 																<DatePicker fx:id="txtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+=======
+																<CalendarTextField fx:id="txtDataNasc" layoutX="38.0" layoutY="34.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+>>>>>>> refs/remotes/origin/robert
 															</children>
 														</AnchorPane>
 														<AnchorPane prefHeight="28.0" prefWidth="240.0" GridPane.rowIndex="1">
@@ -334,7 +338,11 @@
 																						<Font size="14.0" />
 																					</font>
 																				</Label>
+<<<<<<< HEAD
 																				<DatePicker fx:id="txtDataAdmissao" layoutX="61.0" layoutY="31.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0" />
+=======
+																				<CalendarTextField fx:id="txtDataAdmissao" layoutX="61.0" layoutY="31.0" style="-fx-font-size: 14;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0" />
+>>>>>>> refs/remotes/origin/robert
 																			</children>
 																		</AnchorPane>
 																	</children>

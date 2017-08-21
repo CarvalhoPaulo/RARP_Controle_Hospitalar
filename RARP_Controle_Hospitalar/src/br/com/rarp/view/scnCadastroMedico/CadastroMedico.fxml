@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import br.com.rarp.view.scnComponents.IntegerTextField?>
+<?import br.com.rarp.view.scnComponents.SwitchButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroMedico.CadastroMedicoController">
+	<right>
+		<AnchorPane prefHeight="477.0" prefWidth="112.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/if_doctor_63121.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Salvar">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/disquette.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="265.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.bottomAnchor="8.0">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets right="8.0" />
+         </BorderPane.margin></AnchorPane>
+	</right>
+	<left>
+		<AnchorPane prefHeight="477.0" prefWidth="437.0" BorderPane.alignment="CENTER">
+			<BorderPane.margin>
+				<Insets left="8.0" />
+			</BorderPane.margin>
+			<children>
+				<Label layoutY="14.0" text="Código">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</Label>
+				<IntegerTextField fx:id="txtCodigo" layoutY="36.0" prefHeight="25.0" prefWidth="115.0">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</IntegerTextField>
+				<ComboBox fx:id="cmbFuncionario" layoutY="88.0" prefHeight="25.0" prefWidth="388.0" AnchorPane.leftAnchor="0.0" />
+				<Label layoutY="69.0" text="Funcionário">
+					<font>
+						<Font name="System Bold" size="14.0" />
+					</font>
+				</Label>
+				<Label layoutY="120.0" text="CRM">
+					<font>
+						<Font name="System Bold" size="14.0" />
+					</font>
+				</Label>
+				<Label layoutY="174.0" text="Especialidades">
+					<font>
+						<Font name="System Bold" size="14.0" />
+					</font>
+				</Label>
+				<ComboBox fx:id="cmbEspecialidades" layoutY="201.0" prefHeight="25.0" prefWidth="388.0" />
+				<TableView fx:id="tbvEspecialidades" layoutY="239.0" prefHeight="200.0" prefWidth="387.0">
+					<columns>
+						<TableColumn fx:id="tbcNome" prefWidth="385.0" text="Especialidas" />
+					</columns>
+				</TableView>
+				<Button layoutX="396.0" layoutY="201.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="30.0">
+					<graphic>
+						<ImageView fitHeight="19.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/add.png" />
+                     </image></ImageView>
+					</graphic>
+				</Button>
+				<Button layoutX="396.0" layoutY="239.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0">
+					<graphic>
+						<ImageView fitHeight="19.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/minus_round-01-24.png" />
+                     </image></ImageView>
+					</graphic>
+				</Button>
+            <ComboBox fx:id="cmbEstado" layoutX="-2.0" layoutY="141.0" prefHeight="28.0" prefWidth="83.0" AnchorPane.leftAnchor="0.0" />
+            <IntegerTextField fx:id="txtCRM" layoutX="95.0" layoutY="143.0" prefHeight="30.0" prefWidth="188.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </IntegerTextField>
+            <Label layoutX="373.0" layoutY="16.0" text="Status">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <SwitchButton fx:id="swStatus" layoutX="360.0" layoutY="36.0" />
+			</children>
+		</AnchorPane>
+	</left>
+</BorderPane>

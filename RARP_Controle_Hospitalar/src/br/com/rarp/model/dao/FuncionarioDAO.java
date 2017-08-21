@@ -31,7 +31,7 @@ public class FuncionarioDAO {
 		sql += "dataAdmissao TIMESTAMP, ";
 		sql += "ctps VARCHAR(20), ";
 		sql += "salarioContratual NUMERIC(13, 2), ";
-		sql += "codigo_cargo INTEGER REFERENCES cargo(codigo), ";
+		sql += "codigo_cargo INTEGER NOT NULL  REFERENCES cargo(codigo), ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);

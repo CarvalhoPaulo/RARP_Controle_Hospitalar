@@ -98,7 +98,7 @@ public class EspecialidadeDAO {
         PreparedStatement ps;
         Conexao conexao = SistemaCtrl.getInstance().getConexao();
         try {
-        	String sql = "SELECT *  FROM especialidade WHERE " + campo +" "+ comparacao +" "+termo;
+        	String sql = "SELECT * FROM especialidade WHERE " + campo + comparacao + termo;
             ps = conexao.getConexao().prepareStatement(sql);
             
             ResultSet rs = ps.executeQuery();

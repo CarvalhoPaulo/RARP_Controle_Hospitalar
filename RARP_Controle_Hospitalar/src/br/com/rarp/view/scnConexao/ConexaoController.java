@@ -52,10 +52,8 @@ public class ConexaoController extends Application implements Initializable {
 	}
 
 	public Node getNode() throws Exception {
-		if(node == null) {
+		if(node == null)
 			start(SistemaCtrl.getInstance().getStage());
-		}
-			
 		return node;
 	}
 

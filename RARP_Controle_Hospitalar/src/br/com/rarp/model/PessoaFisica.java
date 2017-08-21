@@ -7,7 +7,15 @@ public class PessoaFisica extends Pessoa {
 	private String sexo;
 	private boolean possuiNecessidades;
 	private String certidaoNascimento;
-	
+	private boolean compartinhaInformacoes;
+	public boolean isCompartinhaInformacoes() {
+		return compartinhaInformacoes;
+	}
+
+	public void setCompartinhaInformacoes(boolean compartinhaInformacoes) {
+		this.compartinhaInformacoes = compartinhaInformacoes;
+	}
+
 	public String getCpf() {
 		String cpf = getCpfSemMascara();
 		if(cpf != null)

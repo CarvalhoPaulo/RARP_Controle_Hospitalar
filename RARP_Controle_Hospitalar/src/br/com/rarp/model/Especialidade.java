@@ -2,6 +2,10 @@ package br.com.rarp.model;
 
 public class Especialidade {
 
+	@Override
+	public String toString() {
+		return   nome ;
+	}
 	private int codigo;
 	private String nome;
 	private String observacoes;
