@@ -125,7 +125,9 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 					if(event.getCode() == KeyCode.INSERT)
 						inserir();
 					
-					if(!(event.getTarget() instanceof Button) && tblManutencao.getItems().size() > 0) {
+					if(!(event.getTarget() instanceof Button) 
+							&& tblManutencao.getItems().size() > 0
+							&& tblManutencao.getSelectionModel().getSelectedIndex() > -1) {
 						if (event.getCode() == KeyCode.ENTER && !event.isControlDown())
 							visualizar();
 						if (event.getCode() == KeyCode.ENTER && event.isControlDown())
@@ -199,7 +201,8 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 
 	@Override
 	public void voltar() {
-		((BorderPane) node.getParent()).setCenter(null);
+		if(((BorderPane) node.getParent()) != null)
+			((BorderPane) node.getParent()).setCenter(null);
 	}
 	
 	public Node getNode() {

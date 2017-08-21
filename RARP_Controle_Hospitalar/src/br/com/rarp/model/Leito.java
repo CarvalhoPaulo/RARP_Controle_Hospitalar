@@ -5,6 +5,7 @@ public class Leito {
 	private int codigo;
 	private int numero;
 	private boolean status;
+	private Paciente paciente;
 	
 	public Leito(int numero) {
 		this.numero = numero;
@@ -40,5 +41,13 @@ public class Leito {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 }

@@ -23,6 +23,7 @@ public class LeitoDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "numero INTEGER, ";
 		sql += "codigo_espaco INTEGER REFERENCES espaco(codigo), ";
+		sql += "codigo_paciente INTEGER REFERENCES paciente(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
 	}
@@ -43,7 +44,7 @@ public class LeitoDAO {
 	
 	public void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		String sql= "INSERT INTO leito(numero, codigo_espaco, status) VALUES(?,?,?)";
+		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente) VALUES(?,?,?,?)";
 		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
         try {
         	int i = 0;
@@ -66,7 +67,7 @@ public class LeitoDAO {
 	
 	public void alterar(List<Leito> leitos, int codigo_espaco) throws Exception {
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=? WHERE codigo=?";
+		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=? WHERE codigo=?";
 		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
         try {
         	int i = 0;
@@ -109,5 +110,29 @@ public class LeitoDAO {
             conexao.getConexao().close();
         }
 		return leitos;
+	}
+	
+	public List<Leito> consultar(String campo, String comparacao, String termo) throws Exception {
+		List<Leito> leitos = new ArrayList<>();
+        PreparedStatement ps;
+        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        try {
+        	String sql = "SELECT codigo, numero, status, codigo_paciente FROM leito WHERE " + campo + termo + comparacao;
+            ps = conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	Leito leito = new Leito();
+            	leito.setCodigo(rs.getInt("codigo"));
+            	leito.setNumero(rs.getInt("numero"));
+            	leito.setStatus(rs.getBoolean("status"));
+            	leito.setPaciente(new PacienteDAO().get(rs.getInt("codigo_paciente")));
+            	
+            	leitos.add(leito);
+            }
+            ps.close();
+        } finally{
+            conexao.getConexao().close();
+        }
+		return leitos;		
 	}
 }

@@ -3,8 +3,8 @@ package br.com.rarp.utils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import jfxtras.scene.control.CalendarTextField;
 
 public enum MascaraUtil {
 	;
@@ -54,14 +54,14 @@ public enum MascaraUtil {
 		});
 	}
 
-	public static void addBarraData(final CalendarTextField data, final int maxLength) {
-		data.textProperty().addListener(new ChangeListener<String>() {
+	public static void addBarraData(final DatePicker data, final int maxLength) {
+		data.promptTextProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
 					final String newValue) {
-				if (data.getText().length() > maxLength) {
-					String s = data.getText().substring(0, maxLength);
-					data.setText(s);
+				if (data.getPromptText().length() > maxLength) {
+					String s = data.getPromptText().substring(0, maxLength);
+					data.setPromptText(s);
 				} else {
 
 					// String value = tf.getText();
@@ -73,14 +73,14 @@ public enum MascaraUtil {
 					// positionCaret(tf);
 
 					if (data != null) {
-						if (data.getText().length() < newValue.length()) {
-							if (data.getText().length() == 2) {
-								data.setText(data.getText() + "/");
+						if (data.getPromptText().length() < newValue.length()) {
+							if (data.getPromptText().length() == 2) {
+								data.setPromptText(data.getPromptText() + "/");
 							}
 
 							if (maxLength > 5) {
-								if (data.getText().length() == 5) {
-									data.setText(data.getText() + "/");
+								if (data.getPromptText().length() == 5) {
+									data.setPromptText(data.getPromptText() + "/");
 								}
 							}
 						}

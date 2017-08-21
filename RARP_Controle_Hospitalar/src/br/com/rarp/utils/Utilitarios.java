@@ -1,6 +1,9 @@
 package br.com.rarp.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,6 +42,16 @@ public class Utilitarios {
 
 	public static String dateToStr(Date data) {
 		return new SimpleDateFormat("dd/MM/yyyy").format(data);
+	}
+	
+	public static Date localDateToDate(LocalDate localDate) {
+		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+		return Date.from(instant);
+	}
+	
+	public static LocalDate dateToLocalDate(Date date) {
+		Instant instant = date.toInstant();
+		return instant.atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	public static String formatStringSQL(String sql) {

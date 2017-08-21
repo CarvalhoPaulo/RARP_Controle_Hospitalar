@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ConexaoController extends Application implements Initializable {
 	@FXML // fx:id="txtHost"
@@ -51,8 +52,10 @@ public class ConexaoController extends Application implements Initializable {
 	}
 
 	public Node getNode() throws Exception {
-		if(node == null)
+		if(node == null) {
 			start(SistemaCtrl.getInstance().getStage());
+		}
+			
 		return node;
 	}
 
@@ -71,7 +74,7 @@ public class ConexaoController extends Application implements Initializable {
 	}
 
 	public void configurar() throws Exception {
-		start(SistemaCtrl.getInstance().getStage());
+		start(new Stage(StageStyle.DECORATED));
 		stage.setResizable(false);
 		stage.showAndWait();
 	}

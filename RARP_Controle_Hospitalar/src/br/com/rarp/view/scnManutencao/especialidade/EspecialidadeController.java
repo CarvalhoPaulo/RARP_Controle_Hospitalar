@@ -34,7 +34,7 @@ public class EspecialidadeController extends ManutencaoController {
 		nome.setPrefWidth(1000);
 		status.setPrefWidth(100);
 		
-		tblManutencao.getColumns().addAll(codigo, nome,status);
+		tblManutencao.getColumns().addAll(codigo, nome, status);
 		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);

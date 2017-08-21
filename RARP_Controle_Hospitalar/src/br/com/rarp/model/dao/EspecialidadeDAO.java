@@ -6,10 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
-import br.com.rarp.model.Usuario;
 
 public class EspecialidadeDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {

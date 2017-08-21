@@ -1,9 +1,7 @@
 package br.com.rarp.view.scnCadastroFuncionario;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.CidadeCtrl;
@@ -31,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
@@ -40,7 +39,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jfxtras.scene.control.CalendarTextField;
 
 public class CadastroFuncionarioController extends Application implements Initializable {
 
@@ -75,7 +73,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private RadioButton rbMasculino;
 
 	@FXML
-	private CalendarTextField txtDataNasc;
+	private DatePicker txtDataNasc;
 
 	@FXML
 	private TextField txtLogradouro;
@@ -108,7 +106,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private TextField txtCTPS;
 
 	@FXML
-	private CalendarTextField txtDataAdmissao;
+	private DatePicker txtDataAdmissao;
 
 	@FXML
 	private TextField txtSalarioContratual;
@@ -166,6 +164,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		visualizando = true;
 		this.funcionarioCtrl = funcionarioCtrl;
 		start(SistemaCtrl.getInstance().getStage());
+		stage.setResizable(false);
 		stage.showAndWait();
 	}
 
@@ -197,9 +196,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 			tbPane.requestFocus();
 			txtNome.requestFocus();
 			
-			txtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
-			txtDataNasc.setDateFormat(txtDataAdmissao.getDateFormat());
-			txtDataAdmissao.setCalendar(Calendar.getInstance());
+			txtDataAdmissao.setValue(LocalDate.now());
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
@@ -277,8 +274,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 		txtComplemento.clear();
 		txtCPF.clear();
 		txtCTPS.clear();
-		txtDataAdmissao.setCalendar(new GregorianCalendar());
-		txtDataNasc.setText("");
+		txtDataAdmissao.setValue(LocalDate.now());
+		txtDataNasc.setPromptText("");
 		txtLogradouro.clear();
 		txtNome.clear();
 		txtNumero.clear();
@@ -293,29 +290,29 @@ public class CadastroFuncionarioController extends Application implements Initia
 	}
 
 	private void bloquearTela() {
-		txtBairro.setDisable(true);
-		cmbCargo.setDisable(true);
-		txtCEP.setDisable(true);
-		txtCodigo.setDisable(true);
-		txtComplemento.setDisable(true);
-		txtCPF.setDisable(true);
-		txtCTPS.setDisable(true);
+		txtBairro.setEditable(false);
+		cmbCargo.setEditable(false);
+		txtCEP.setEditable(false);
+		txtCodigo.setEditable(false);
+		txtComplemento.setEditable(false);
+		txtCPF.setEditable(false);
+		txtCTPS.setEditable(false);
 		txtDataAdmissao.setDisable(true);
 		txtDataNasc.setDisable(true);
-		txtLogradouro.setDisable(true);
-		txtNome.setDisable(true);
-		txtNumero.setDisable(true);
-		txtRG.setDisable(true);
-		txtSalarioContratual.setDisable(true);
-		txtTelefone.setDisable(true);
+		txtLogradouro.setEditable(false);
+		txtNome.setEditable(false);
+		txtNumero.setEditable(false);
+		txtRG.setEditable(false);
+		txtSalarioContratual.setEditable(false);
+		txtTelefone.setEditable(false);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
-		cmbCidade.setDisable(true);
+		cmbCidade.setEditable(false);
 		rbFeminimo.setDisable(true);
 		rbMasculino.setDisable(true);
 		rbSim.setDisable(true);
 		rbNao.setDisable(true);
-		lsTelefones.setDisable(true);
+		lsTelefones.setEditable(false);
 	}
 
 	private void preencherObjeto() {
@@ -331,8 +328,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setCep(txtCEP.getText());
 		funcionarioCtrl.getFuncionario().setCpf(txtCPF.getText());
 		funcionarioCtrl.getFuncionario().setCTPS(txtCTPS.getText());
-		if (txtDataNasc.getCalendar() != null)
-			funcionarioCtrl.getFuncionario().setDtNascimento(txtDataNasc.getCalendar().getTime());
+		if (txtDataNasc.getValue() != null)
+			funcionarioCtrl.getFuncionario().setDtNascimento(Utilitarios.localDateToDate(txtDataNasc.getValue()));
 		funcionarioCtrl.getFuncionario().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
 		funcionarioCtrl.getFuncionario().setNumero(txtNumero.getText());
 		funcionarioCtrl.getFuncionario().setRg(txtRG.getText());
@@ -341,37 +338,34 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setLogradouro(txtLogradouro.getText());
 		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.getValue());
 		funcionarioCtrl.getFuncionario().setNome(txtNome.getText());
-		if (txtDataAdmissao.getCalendar() != null)
-			funcionarioCtrl.getFuncionario().setDtAdmissao(txtDataAdmissao.getCalendar().getTime());
+		funcionarioCtrl.getFuncionario().setDtAdmissao(Utilitarios.localDateToDate(txtDataAdmissao.getValue()));
 		funcionarioCtrl.getFuncionario().setPossuiNecessidades(rbSim.isSelected());
 		funcionarioCtrl.getFuncionario().setSexo(rbMasculino.isSelected() ? "M" : "F");
 		funcionarioCtrl.getFuncionario().setTelefones(lsTelefones.getItems());
 	}
 
 	private void preencherTela() {
-		txtBairro.setText(funcionarioCtrl.getFuncionario().getBairro());
-		txtCEP.setText(funcionarioCtrl.getFuncionario().getCep());
-		txtCodigo.setText(funcionarioCtrl.getFuncionario().getCodigo() + "");
-		txtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
-		txtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
-		txtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
-		
-		if(funcionarioCtrl.getFuncionario().getDtAdmissao() != null)
-			txtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
-		if(funcionarioCtrl.getFuncionario().getDtNascimento() != null)
-			txtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());	
-		
-		txtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
-		txtNome.setText(funcionarioCtrl.getFuncionario().getNome());
-		txtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
-		txtRG.setText(funcionarioCtrl.getFuncionario().getRg());
-		txtSalarioContratual.setText(funcionarioCtrl.getFuncionario().getSalarioContratual() + "");
-		cmbCargo.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCargo());
-		cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCidade());
-		rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
-		rbMasculino.setSelected(funcionarioCtrl.getFuncionario().getSexo() == "M");
-		lsTelefones.setItems(FXCollections.observableList(funcionarioCtrl.getFuncionario().getTelefones()));
-		sbAtivado.setValue(funcionarioCtrl.getFuncionario().isStatus());
+		if (funcionarioCtrl != null && funcionarioCtrl.getFuncionario() != null) {
+			txtBairro.setText(funcionarioCtrl.getFuncionario().getBairro());
+			txtCEP.setText(funcionarioCtrl.getFuncionario().getCep());
+			txtCodigo.setText(funcionarioCtrl.getFuncionario().getCodigo() + "");
+			txtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
+			txtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
+			txtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
+			txtDataAdmissao.setValue(Utilitarios.dateToLocalDate(funcionarioCtrl.getFuncionario().getDtAdmissao()));
+			txtDataNasc.setValue(Utilitarios.dateToLocalDate(funcionarioCtrl.getFuncionario().getDtNascimento()));
+			txtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
+			txtNome.setText(funcionarioCtrl.getFuncionario().getNome());
+			txtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
+			txtRG.setText(funcionarioCtrl.getFuncionario().getRg());
+			txtSalarioContratual.setText(funcionarioCtrl.getFuncionario().getSalarioContratual() + "");
+			cmbCargo.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCargo());
+			cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCidade());
+			rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
+			rbMasculino.setSelected(funcionarioCtrl.getFuncionario().getSexo() == "M");
+			lsTelefones.setItems(FXCollections.observableList(funcionarioCtrl.getFuncionario().getTelefones()));
+			sbAtivado.setValue(funcionarioCtrl.getFuncionario().isStatus());
+		}
 	}
 
 	@FXML
