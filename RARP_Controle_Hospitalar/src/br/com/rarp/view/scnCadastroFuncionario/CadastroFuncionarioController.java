@@ -9,7 +9,7 @@ import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
@@ -60,13 +60,13 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private Button btnVoltar;
 
 	@FXML
-	private TextField edtNome;
+	private TextField txtNome;
 
 	@FXML
-	private MaskTextField edtCPF;
+	private MaskTextField txtCPF;
 
 	@FXML
-	private TextField edtRG;
+	private TextField txtRG;
 
 	@FXML
 	private RadioButton rbFeminimo;
@@ -75,28 +75,28 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private RadioButton rbMasculino;
 
 	@FXML
-	private CalendarTextField edtDataNasc;
+	private CalendarTextField txtDataNasc;
 
 	@FXML
-	private TextField edtLogradouro;
+	private TextField txtLogradouro;
 
 	@FXML
-	private TextField edtComplemento;
+	private TextField txtComplemento;
 
 	@FXML
-	private TextField edtNumero;
+	private TextField txtNumero;
 
 	@FXML
-	private TextField edtBairro;
+	private TextField txtBairro;
 
 	@FXML
 	private AutoCompleteComboBox<Cidade> cmbCidade;
 
 	@FXML
-	private MaskTextField edtCEP;
+	private MaskTextField txtCEP;
 
 	@FXML
-	private MaskTextField edtTelefone;
+	private MaskTextField txtTelefone;
 
 	@FXML
 	private RadioButton rbSim;
@@ -105,19 +105,19 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private RadioButton rbNao;
 
 	@FXML
-	private TextField edtCTPS;
+	private TextField txtCTPS;
 
 	@FXML
-	private CalendarTextField edtDataAdmissao;
+	private CalendarTextField txtDataAdmissao;
 
 	@FXML
-	private TextField edtSalarioContratual;
+	private TextField txtSalarioContratual;
 
 	@FXML
 	private AutoCompleteComboBox<Cargo> cmbCargo;
 
 	@FXML
-	private IntegerTextField edtCodigo;
+	private IntegerTextField txtCodigo;
 
 	private static FuncionarioCtrl funcionarioCtrl;
 
@@ -191,15 +191,15 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private void prepararTela() {
 		try {
 			sbAtivado.setValue(true);
-			edtCodigo.setDisable(true);
-			edtCodigo.setFocusTraversable(true);
+			txtCodigo.setDisable(true);
+			txtCodigo.setFocusTraversable(true);
 			
 			tbPane.requestFocus();
-			edtNome.requestFocus();
+			txtNome.requestFocus();
 			
-			edtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
-			edtDataNasc.setDateFormat(edtDataAdmissao.getDateFormat());
-			edtDataAdmissao.setCalendar(Calendar.getInstance());
+			txtDataAdmissao.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			txtDataNasc.setDateFormat(txtDataAdmissao.getDateFormat());
+			txtDataAdmissao.setCalendar(Calendar.getInstance());
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
@@ -213,7 +213,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 			tgSexo.getToggles().add(rbFeminimo);
 			tgSexo.selectToggle(rbMasculino);
 			
-			MascaraUtil.addBarraData(edtDataAdmissao, 10);
+			MascaraUtil.addBarraData(txtDataAdmissao, 10);
 			
 			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -226,9 +226,9 @@ public class CadastroFuncionarioController extends Application implements Initia
 						String id = ((Node) event.getTarget()).getId();
 						if (!event.isShiftDown()) {
 							
-							if(id.equals("edtBairro")) {
+							if(id.equals("txtBairro")) {
 								tbPane.getSelectionModel().select(1);
-								edtCTPS.requestFocus();
+								txtCTPS.requestFocus();
 								event.consume();
 							}
 							
@@ -239,19 +239,19 @@ public class CadastroFuncionarioController extends Application implements Initia
 							
 							if(id.equals("btnSalvar")) {
 								tbPane.getSelectionModel().select(0);
-								edtNome.requestFocus();
+								txtNome.requestFocus();
 								event.consume();
 							}
 						}
 						if (event.isShiftDown()) {	
-							if(id.equals("edtNome")) {
+							if(id.equals("txtNome")) {
 								btnSalvar.requestFocus();
 								event.consume();
 							}
 							
-							if(id.equals("edtCTPS")) {
+							if(id.equals("txtCTPS")) {
 								tbPane.getSelectionModel().select(0);
-								edtBairro.requestFocus();
+								txtBairro.requestFocus();
 								event.consume();
 							}
 							
@@ -270,21 +270,21 @@ public class CadastroFuncionarioController extends Application implements Initia
 	}
 
 	private void limparCampos() {
-		edtBairro.clear();
+		txtBairro.clear();
 		cmbCargo.getSelectionModel().select(-1);
-		edtCEP.clear();
-		edtCodigo.clear();
-		edtComplemento.clear();
-		edtCPF.clear();
-		edtCTPS.clear();
-		edtDataAdmissao.setCalendar(new GregorianCalendar());
-		edtDataNasc.setText("");
-		edtLogradouro.clear();
-		edtNome.clear();
-		edtNumero.clear();
-		edtRG.clear();
-		edtSalarioContratual.clear();
-		edtTelefone.clear();
+		txtCEP.clear();
+		txtCodigo.clear();
+		txtComplemento.clear();
+		txtCPF.clear();
+		txtCTPS.clear();
+		txtDataAdmissao.setCalendar(new GregorianCalendar());
+		txtDataNasc.setText("");
+		txtLogradouro.clear();
+		txtNome.clear();
+		txtNumero.clear();
+		txtRG.clear();
+		txtSalarioContratual.clear();
+		txtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
 		rbMasculino.setSelected(true);
 		rbNao.setSelected(true);
@@ -293,21 +293,21 @@ public class CadastroFuncionarioController extends Application implements Initia
 	}
 
 	private void bloquearTela() {
-		edtBairro.setDisable(true);
+		txtBairro.setDisable(true);
 		cmbCargo.setDisable(true);
-		edtCEP.setDisable(true);
-		edtCodigo.setDisable(true);
-		edtComplemento.setDisable(true);
-		edtCPF.setDisable(true);
-		edtCTPS.setDisable(true);
-		edtDataAdmissao.setDisable(true);
-		edtDataNasc.setDisable(true);
-		edtLogradouro.setDisable(true);
-		edtNome.setDisable(true);
-		edtNumero.setDisable(true);
-		edtRG.setDisable(true);
-		edtSalarioContratual.setDisable(true);
-		edtTelefone.setDisable(true);
+		txtCEP.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtComplemento.setDisable(true);
+		txtCPF.setDisable(true);
+		txtCTPS.setDisable(true);
+		txtDataAdmissao.setDisable(true);
+		txtDataNasc.setDisable(true);
+		txtLogradouro.setDisable(true);
+		txtNome.setDisable(true);
+		txtNumero.setDisable(true);
+		txtRG.setDisable(true);
+		txtSalarioContratual.setDisable(true);
+		txtTelefone.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
 		cmbCidade.setDisable(true);
@@ -325,47 +325,47 @@ public class CadastroFuncionarioController extends Application implements Initia
 		if (funcionarioCtrl.getFuncionario() == null) {
 			funcionarioCtrl.novoFuncionario();
 		}
-		funcionarioCtrl.getFuncionario().setCodigo(edtCodigo.getValue());
-		funcionarioCtrl.getFuncionario().setBairro(edtBairro.getText());
+		funcionarioCtrl.getFuncionario().setCodigo(txtCodigo.getValue());
+		funcionarioCtrl.getFuncionario().setBairro(txtBairro.getText());
 		funcionarioCtrl.getFuncionario().setCargo(cmbCargo.getSelectionModel().getSelectedItem());
-		funcionarioCtrl.getFuncionario().setCep(edtCEP.getText());
-		funcionarioCtrl.getFuncionario().setCpf(edtCPF.getText());
-		funcionarioCtrl.getFuncionario().setCTPS(edtCTPS.getText());
-		if (edtDataNasc.getCalendar() != null)
-			funcionarioCtrl.getFuncionario().setDtNascimento(edtDataNasc.getCalendar().getTime());
+		funcionarioCtrl.getFuncionario().setCep(txtCEP.getText());
+		funcionarioCtrl.getFuncionario().setCpf(txtCPF.getText());
+		funcionarioCtrl.getFuncionario().setCTPS(txtCTPS.getText());
+		if (txtDataNasc.getCalendar() != null)
+			funcionarioCtrl.getFuncionario().setDtNascimento(txtDataNasc.getCalendar().getTime());
 		funcionarioCtrl.getFuncionario().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
-		funcionarioCtrl.getFuncionario().setNumero(edtNumero.getText());
-		funcionarioCtrl.getFuncionario().setRg(edtRG.getText());
-		funcionarioCtrl.getFuncionario().setSalarioContratual(Utilitarios.strToDouble(edtSalarioContratual.getText()));
-		funcionarioCtrl.getFuncionario().setComplemento(edtComplemento.getText());
-		funcionarioCtrl.getFuncionario().setLogradouro(edtLogradouro.getText());
+		funcionarioCtrl.getFuncionario().setNumero(txtNumero.getText());
+		funcionarioCtrl.getFuncionario().setRg(txtRG.getText());
+		funcionarioCtrl.getFuncionario().setSalarioContratual(Utilitarios.strToDouble(txtSalarioContratual.getText()));
+		funcionarioCtrl.getFuncionario().setComplemento(txtComplemento.getText());
+		funcionarioCtrl.getFuncionario().setLogradouro(txtLogradouro.getText());
 		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.getValue());
-		funcionarioCtrl.getFuncionario().setNome(edtNome.getText());
-		if (edtDataAdmissao.getCalendar() != null)
-			funcionarioCtrl.getFuncionario().setDtAdmissao(edtDataAdmissao.getCalendar().getTime());
+		funcionarioCtrl.getFuncionario().setNome(txtNome.getText());
+		if (txtDataAdmissao.getCalendar() != null)
+			funcionarioCtrl.getFuncionario().setDtAdmissao(txtDataAdmissao.getCalendar().getTime());
 		funcionarioCtrl.getFuncionario().setPossuiNecessidades(rbSim.isSelected());
 		funcionarioCtrl.getFuncionario().setSexo(rbMasculino.isSelected() ? "M" : "F");
 		funcionarioCtrl.getFuncionario().setTelefones(lsTelefones.getItems());
 	}
 
 	private void preencherTela() {
-		edtBairro.setText(funcionarioCtrl.getFuncionario().getBairro());
-		edtCEP.setText(funcionarioCtrl.getFuncionario().getCep());
-		edtCodigo.setText(funcionarioCtrl.getFuncionario().getCodigo() + "");
-		edtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
-		edtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
-		edtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
+		txtBairro.setText(funcionarioCtrl.getFuncionario().getBairro());
+		txtCEP.setText(funcionarioCtrl.getFuncionario().getCep());
+		txtCodigo.setText(funcionarioCtrl.getFuncionario().getCodigo() + "");
+		txtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
+		txtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
+		txtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
 		
 		if(funcionarioCtrl.getFuncionario().getDtAdmissao() != null)
-			edtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
+			txtDataAdmissao.getCalendar().setTime((funcionarioCtrl.getFuncionario().getDtAdmissao()));
 		if(funcionarioCtrl.getFuncionario().getDtNascimento() != null)
-			edtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());	
+			txtDataNasc.getCalendar().setTime(funcionarioCtrl.getFuncionario().getDtNascimento());	
 		
-		edtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
-		edtNome.setText(funcionarioCtrl.getFuncionario().getNome());
-		edtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
-		edtRG.setText(funcionarioCtrl.getFuncionario().getRg());
-		edtSalarioContratual.setText(funcionarioCtrl.getFuncionario().getSalarioContratual() + "");
+		txtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
+		txtNome.setText(funcionarioCtrl.getFuncionario().getNome());
+		txtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());
+		txtRG.setText(funcionarioCtrl.getFuncionario().getRg());
+		txtSalarioContratual.setText(funcionarioCtrl.getFuncionario().getSalarioContratual() + "");
 		cmbCargo.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCargo());
 		cmbCidade.getSelectionModel().select(funcionarioCtrl.getFuncionario().getCidade());
 		rbSim.setSelected(funcionarioCtrl.getFuncionario().isPossuiNecessidades());
@@ -377,10 +377,10 @@ public class CadastroFuncionarioController extends Application implements Initia
 	@FXML
 	private void adicionarTelefone() {
 		Telefone telefone = new Telefone();
-		telefone.setNumero(edtTelefone.getText());
+		telefone.setNumero(txtTelefone.getText());
 		if (!telefone.getNumero().isEmpty())
 			lsTelefones.getItems().add(telefone);
-		edtTelefone.setText("");
+		txtTelefone.setText("");
 	}
 
 	@FXML

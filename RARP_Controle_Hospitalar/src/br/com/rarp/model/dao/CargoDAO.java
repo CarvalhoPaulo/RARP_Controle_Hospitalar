@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.Cargo;
 
 public class CargoDAO {
@@ -38,7 +39,7 @@ public class CargoDAO {
 			String sql = "INSERT INTO cargo(nome, funcao, requisitos, nivel, status) VALUES(?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao());
+			ps.setString(2, cargo.getFuncao().name());
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());
@@ -57,7 +58,7 @@ public class CargoDAO {
 			String sql = "UPDATE cargo SET nome = ?, funcao = ?, requisitos = ?, nivel = ?, status = ? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao());
+			ps.setString(2, cargo.getFuncao().name());
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());
@@ -82,7 +83,11 @@ public class CargoDAO {
             	Cargo cargo = new Cargo();
             	cargo.setCodigo(rs.getInt("codigo"));
             	cargo.setNome(rs.getString("nome"));
-            	cargo.setFuncao(rs.getString("funcao"));
+            	try {
+					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
+				} catch (Exception e) {
+					cargo.setFuncao(Funcao.outros);
+				}
             	cargo.setRequisitos(rs.getString("requisitos"));
             	cargo.setNivel(rs.getString("nivel"));
             	cargo.setStatus(rs.getBoolean("status"));

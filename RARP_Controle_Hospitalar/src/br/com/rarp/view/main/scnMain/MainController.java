@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
-import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -20,6 +20,7 @@ import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
 import br.com.rarp.view.scnManutencao.funcionario.FuncionarioController;
+import br.com.rarp.view.scnManutencao.medico.MedicoController;
 import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
@@ -152,7 +153,7 @@ public class MainController extends Application implements Initializable {
     private Label lblRelogio;
 
     @FXML
-    private AnchorPane pnContent;
+	private AnchorPane pnlContent;
 
     @FXML
     private ImageView imgMain;
@@ -184,6 +185,8 @@ public class MainController extends Application implements Initializable {
 
 			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
 			stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/br/com/rarp/view/img/UnderComputer-38(2).png")));
+			stage.setIconified(true);
 			stage.setMaximized(true);
 
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -251,7 +254,8 @@ public class MainController extends Application implements Initializable {
 	private void trocarUsuario(ActionEvent event) {
 		LoginController login = new LoginController();
 		try {
-			login.logar();
+			if(login.logar())
+				lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -269,19 +273,19 @@ public class MainController extends Application implements Initializable {
 		mniControleAcesso.fire();
 		initRelogio();
 		
-		pnContent.heightProperty().addListener(new ChangeListener<Number>() {
+		pnlContent.heightProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				imgMain.setFitHeight(pnContent.getHeight());
+				imgMain.setFitHeight(pnlContent.getHeight());
 			}
 		});
 		
-		pnContent.widthProperty().addListener(new ChangeListener<Number>() {
+		pnlContent.widthProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				imgMain.setFitWidth(pnContent.getWidth());
+				imgMain.setFitWidth(pnlContent.getWidth());
 			}
 		});
 		
@@ -408,6 +412,16 @@ public class MainController extends Application implements Initializable {
     @FXML
     private void manterMedicos(ActionEvent event) {
 
+    	try {
+			SistemaCtrl.getInstance().liberarManutencaoEspaco(TipoMovimentacao.acesso);
+			manutencao = new MedicoController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
     @FXML

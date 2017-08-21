@@ -11,37 +11,42 @@ import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class CadastroEspecialidadeController extends Application implements Initializable {
 	private static boolean visualizando;
-	
+
 	private static Stage stage;
 
 	private static EspecialidadeCtrl especialidadeCtrl;
 
-	
-    @FXML
-    private IntegerTextField edtCodigo;
 
 	@FXML // fx:id="txtCodigo"
 	private IntegerTextField txtCodigo; // Value injected by FXMLLoader
 
-    @FXML
-    private TextField edtNome;
-    
-    @FXML 
-    private TextArea edtObservacoes;
+	@FXML
+	private TextField txtNome;
 
-    @FXML
-    private SwitchButton sbStatus;
+	@FXML
+	private TextArea txtObservacoes;
 
+	@FXML
+	private SwitchButton sbStatus;
+
+	@FXML
+	private Button btnSalvar;
+
+	@FXML
+	private Button btnVoltar;
 
 	public void inserir() throws Exception {
 		start(SistemaCtrl.getInstance().getStage());
@@ -51,30 +56,27 @@ public class CadastroEspecialidadeController extends Application implements Init
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		prepararTela();
-		if (especialidadeCtrl != null && especialidadeCtrl.getEspecialidade() != null)
-			preencherTela();
+		preencherTela();
 		if (visualizando)
+
 			bloquearTela();
 
 	}
 
-	
 	private void preencherTela() {
-		edtCodigo.setValue(especialidadeCtrl.getEspecialidade().getCodigo());
-		edtNome.setText(especialidadeCtrl.getEspecialidade().getNome());
-		edtObservacoes.setText(especialidadeCtrl.getEspecialidade().getObservacoes());
-		sbStatus.setValue(especialidadeCtrl.getEspecialidade().isStatus());
+
+		if((especialidadeCtrl != null) && (especialidadeCtrl.getEspecialidade() != null)){
+			txtCodigo.setText(Integer.toString(especialidadeCtrl.getEspecialidade().getCodigo()));
+			txtNome.setText(especialidadeCtrl.getEspecialidade().getNome());
+			txtObservacoes.setText(especialidadeCtrl.getEspecialidade().getObservacoes());
+			sbStatus.setValue(especialidadeCtrl.getEspecialidade().isStatus());
+		} 
 	}
 
 	private void bloquearTela() {
-		edtNome.setDisable(true);
-		edtObservacoes.setDisable(true);
-		sbStatus.setDisable(true);
-	}
-
-	private void prepararTela() {
-		edtCodigo.setDisable(true);
+		txtNome.setEditable(false);
+		txtObservacoes.setEditable(false);
+		sbStatus.setDisable(false);
 	}
 
 
@@ -84,6 +86,14 @@ public class CadastroEspecialidadeController extends Application implements Init
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEspecialidade.fxml"))));
 		primaryStage.setTitle("Cadastro de Especialidades");
 		this.stage = primaryStage;
+		this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				 voltar(null); 
+			}
+		});
 	}
 
 	public static boolean isVisualizando() {
@@ -105,52 +115,57 @@ public class CadastroEspecialidadeController extends Application implements Init
 	@SuppressWarnings("static-access")
 	public void alterar(EspecialidadeCtrl especialidadeCtrl) throws Exception {
 		this.especialidadeCtrl = especialidadeCtrl;
-
 		start(SistemaCtrl.getInstance().getStage());
 		stage.setResizable(false);
 		stage.showAndWait();
 	}
 
-	
 	private void preencherObjeto() {
-		  if (especialidadeCtrl == null ) {
-			  especialidadeCtrl = new EspecialidadeCtrl(); 
-			  especialidadeCtrl.novaEspecialidade(); 
-		  }else {
-			  especialidadeCtrl.novaEspecialidade();
-		  }
-		  
-		  especialidadeCtrl.getEspecialidade().setNome(edtNome.getText());
-		  especialidadeCtrl.getEspecialidade().setObservacoes(edtObservacoes.getText());
-		  especialidadeCtrl.getEspecialidade().setCodigo(edtCodigo.getValue());
-	  }
+
+		if (especialidadeCtrl == null) {
+			especialidadeCtrl = new EspecialidadeCtrl();
+			especialidadeCtrl.novaEspecialidade();
+		} else {
+			especialidadeCtrl.novaEspecialidade();
+		}
+		especialidadeCtrl.getEspecialidade().setNome(txtNome.getText());
+		especialidadeCtrl.getEspecialidade().setObservacoes(txtObservacoes.getText());
+		especialidadeCtrl.getEspecialidade().setCodigo(txtCodigo.getValue());
+		especialidadeCtrl.getEspecialidade().setStatus(sbStatus.getValue());
+	}
+
+	  
 	
 
 	@FXML
 	private void salvar(Event event) throws Exception {
 		try {
-			preencherObjeto();
-			if(especialidadeCtrl.salvar()) {
-				Utilitarios.message("Cargo salvo com sucesso.");
-				limparCampos();
+			if (!visualizando) {
+				preencherObjeto();
+				if (especialidadeCtrl.salvar()) {
+					Utilitarios.message("Especialidade salvo com sucesso.");
+					limparCampos();
+				}
+			} else {
+				Utilitarios.atencao("Este cadastro esta aberto apenas para visualização");
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o cargo.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o Especialidade.\n" + "Descrição: " + e.getMessage());
 		}
 	}
-	
+
 	private void limparCampos() {
-		edtCodigo.clear();
-		edtNome.clear();
-		edtObservacoes.clear();
+		txtCodigo.clear();
+		txtNome.clear();
+		txtObservacoes.clear();
 	}
 
 	@FXML
-    private void voltar(ActionEvent event) {
-    	especialidadeCtrl = null;
-    	stage.hide();
-    	visualizando = false;
-    }
+	private void voltar(ActionEvent event) {
+		especialidadeCtrl = null;
+		stage.hide();
+		visualizando = false;
+	}
 
 	@SuppressWarnings("static-access")
 	public void visualizar(EspecialidadeCtrl especialidadeCtrl) throws Exception {

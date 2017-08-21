@@ -1,9 +1,9 @@
 package br.com.rarp.view.scnManutencao.convenio;
 
-import br.com.rarp.control.Enum.TipoCampo;
 import br.com.rarp.control.ConvenioCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoMovimentacao;
+import br.com.rarp.enums.TipoCampo;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Convenio;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -65,8 +65,8 @@ public class ConvenioController extends ManutencaoController {
 		telefone.setPrefWidth(250);
 		ans.setPrefWidth(150);
 
-		tvManutencao.getColumns().addAll(codigo, nome, cpf, telefone, ans);
-		tvManutencao.setEditable(false);
+		tblManutencao.getColumns().addAll(codigo, nome, cpf, telefone, ans);
+		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
@@ -86,10 +86,10 @@ public class ConvenioController extends ManutencaoController {
 	public void pesquisar() {
 		ConvenioCtrl convenioCtrl = new ConvenioCtrl();
 		try {
-			tvManutencao.setItems(convenioCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
+			tblManutencao.setItems(convenioCtrl.consultar(cmbCampo.getSelectionModel().getSelectedItem(),
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
-							: edtTermo.getText()));
+							: txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os convênios.\n" + "Descrição: " + e.getMessage());
 		}
@@ -112,11 +112,11 @@ public class ConvenioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.alteracao);
 			CadastroConvenioController controller = new CadastroConvenioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				ConvenioCtrl convenioCtrl = new ConvenioCtrl();
-				convenioCtrl.setConvenio(tvManutencao.getSelectionModel().getSelectedItem());
+				convenioCtrl.setConvenio(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(convenioCtrl);
 			}
 		} catch (Exception e) {
@@ -130,11 +130,11 @@ public class ConvenioController extends ManutencaoController {
 		try {
 			SistemaCtrl.getInstance().liberarManutencaoUsuario(TipoMovimentacao.visualizaco);
 			CadastroConvenioController controller = new CadastroConvenioController();
-			if (tvManutencao.getSelectionModel().getSelectedItem() == null)
+			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				ConvenioCtrl convenioCtrl = new ConvenioCtrl();
-				convenioCtrl.setConvenio(tvManutencao.getSelectionModel().getSelectedItem());
+				convenioCtrl.setConvenio(tblManutencao.getSelectionModel().getSelectedItem());
 				controller.visualizar(convenioCtrl);
 			}
 		} catch (Exception e) {

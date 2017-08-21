@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
-import br.com.rarp.view.scnLogin.LoginController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,11 +42,6 @@ public class ConexaoController extends Application implements Initializable {
 
 	private Node node;
 
-	private boolean carregaStage;
-	
-	
-	
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtHost.setText(SistemaCtrl.getInstance().getPropriedades().getHost());
@@ -56,7 +50,9 @@ public class ConexaoController extends Application implements Initializable {
 		txtSenha.setText(SistemaCtrl.getInstance().getPropriedades().getPassword());
 	}
 
-	public Node getNode() {
+	public Node getNode() throws Exception {
+		if(node == null)
+			start(SistemaCtrl.getInstance().getStage());
 		return node;
 	}
 
@@ -64,27 +60,14 @@ public class ConexaoController extends Application implements Initializable {
 		this.node = node;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		setNode(FXMLLoader.load(getClass().getResource("Conexao.fxml")));
-		if (carregaStage) {
-			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("Conexao.fxml"));
-			setNode(loader.load());
-			
-		}else {
-			primaryStage.setScene(new Scene((Parent) getNode()));
-			stage = primaryStage;
-		}
-	}
-	
-	public void abrirPorAcesso(boolean carregaStage) throws Exception {
-		try {
-			this.carregaStage = carregaStage;
-			start(SistemaCtrl.getInstance().getStage());	
-		} catch (Exception e) {
-			throw new Exception("Erro ao carregar painel de configuraçao de servidor " +  e.getMessage());
-		}
+	public void start(Stage stage) throws Exception {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Conexao.fxml"));
+		setNode(loader.load());
+		stage.setScene(new Scene((Parent) getNode()));
+		this.stage = stage;
 	}
 
 	public void configurar() throws Exception {
@@ -101,9 +84,11 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setUser(txtUser.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
+			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
+			SistemaCtrl.getInstance().getConexao();
 			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
-
-			if (stage != null) 
+			
+			if(stage != null)
 				stage.hide();
 		} catch (Exception e) {
 			Utilitarios.atencao("Falha ao fravar configurações do servidor de banco de dados.");
@@ -120,7 +105,6 @@ public class ConexaoController extends Application implements Initializable {
 			
 	}
 	
-
 	public static Stage getStage() {
 		return stage;
 	}

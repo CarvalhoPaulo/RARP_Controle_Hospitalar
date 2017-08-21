@@ -14,6 +14,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -26,34 +27,76 @@
 					<menus>
 						<Menu fx:id="mnArquivo" mnemonicParsing="false" text="Arquivo">
 							<items>
-								<MenuItem fx:id="mniOpcoes" mnemonicParsing="false" text="Opções" />
-								<MenuItem fx:id="mniSair" mnemonicParsing="false" text="Sair" />
+								<MenuItem fx:id="mniOpcoes" mnemonicParsing="false" text="Opções">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniSair" mnemonicParsing="false" text="Sair">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="ESCAPE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
 							</items>
 						</Menu>
 						<Menu fx:id="mnCadastros" mnemonicParsing="false" text="Cadastros">
 							<items>
-								<MenuItem fx:id="mniFuncionarios" mnemonicParsing="false" onAction="#manterFuncionario" text="Cadastro de Funcionários" />
-								<MenuItem fx:id="mniPacientes" mnemonicParsing="false" onAction="#manterPacientes" text="Cadastro de Pacientes" />
-								<MenuItem fx:id="mniMedicos" mnemonicParsing="false" onAction="#manterMedicos" text="Cadastro de Médicos" />
+								<MenuItem fx:id="mniFuncionarios" mnemonicParsing="false" onAction="#manterFuncionario" text="Cadastro de Funcionários">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniPacientes" mnemonicParsing="false" onAction="#manterPacientes" text="Cadastro de Pacientes">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniMedicos" mnemonicParsing="false" onAction="#manterMedicos" text="Cadastro de Médicos">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="M" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#manterCargos" text="Cadastro de Cargos" />
-								<MenuItem fx:id="mniLeitos" mnemonicParsing="false" onAction="#manterEspacos" text="Cadastro de Espaços" />
-                      <MenuItem fx:id="mniCidades" mnemonicParsing="false" onAction="#manterCidades" text="Cadastro de Cidades" />
-								<MenuItem fx:id="mniEspecialidade" mnemonicParsing="false" onAction="#manterEspecialidade" text="Cadastro de Especialidade" />
-                        <MenuItem fx:id="mniConvenios" mnemonicParsing="false" onAction="#manterConvenios" text="Cadastro de Convênios" />
+                        <MenuItem mnemonicParsing="false" onAction="#manterCargos" text="Cadastro de Cargos">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniLeitos" mnemonicParsing="false" onAction="#manterEspacos" text="Cadastro de Espaços">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                      <MenuItem fx:id="mniCidades" mnemonicParsing="false" onAction="#manterCidades" text="Cadastro de Cidades">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniEspecialidade" mnemonicParsing="false" onAction="#manterEspecialidade" text="Cadastro de Especialidade">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem fx:id="mniConvenios" mnemonicParsing="false" onAction="#manterConvenios" text="Cadastro de Convênios">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
 							</items>
 						</Menu>
 						<Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Entrada de Pacientes" />
+                        <MenuItem mnemonicParsing="false" text="Entrada de Pacientes">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
                      </items></Menu>
 						<Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios" />
 						<Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
 							<items>
 								<CheckMenuItem fx:id="mniControleAcesso" mnemonicParsing="false" onAction="#ativarDesativarControleAcesso" text="Controle de Acesso" />
-								<MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#manterUsuario" text="Usuário" />
-								<MenuItem fx:id="mniPerfilUsuario" mnemonicParsing="false" onAction="#manterPerfilUsuario" text="Perfil de Usuário" />
-								<MenuItem fx:id="mniTrocarUsuario" mnemonicParsing="false" onAction="#trocarUsuario" text="Trocar Usuário" />
+								<MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#manterUsuario" text="Usuário">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniPerfilUsuario" mnemonicParsing="false" onAction="#manterPerfilUsuario" text="Perfil de Usuário">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+								<MenuItem fx:id="mniTrocarUsuario" mnemonicParsing="false" onAction="#trocarUsuario" text="Trocar Usuário">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F9" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
 							</items>
 						</Menu>
 						<Menu fx:id="mnSobre" mnemonicParsing="false" text="Sobre" />
@@ -81,7 +124,7 @@
 								</ImageView>
 							</graphic>
 						</Button>
-						<Button fx:id="btnMedicos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Médicos" textAlignment="CENTER">
+						<Button fx:id="btnMedicos" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#manterMedicos" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Médicos" textAlignment="CENTER">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -179,7 +222,7 @@
 		</BorderPane>
 	</bottom>
 	<center>
-		<AnchorPane fx:id="pnContent" BorderPane.alignment="CENTER">
+		<AnchorPane fx:id="pnlContent" BorderPane.alignment="CENTER">
 			<children>
 				<ImageView fx:id="imgMain" fitHeight="400.0" fitWidth="780.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<image>

@@ -3,13 +3,13 @@ package br.com.rarp.view.scnCadastroUsuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.PerfilUsuarioCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.PerfilUsuario;
-import br.com.rarp.utils.AutoCompleteComboBoxListener;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
@@ -35,9 +35,9 @@ public class CadastroUsuarioController extends Application implements Initializa
 	
     @FXML private Button btnSalvar;
     @FXML private Button btnVoltar;
-    @FXML private IntegerTextField edtCodigo;
-    @FXML private TextField edtNome;
-    @FXML private TextField edtUsuario;
+    @FXML private IntegerTextField txtCodigo;
+    @FXML private TextField txtNome;
+    @FXML private TextField txtUsuario;
     @FXML private ComboBox<PerfilUsuario> cmbPerfilUsuario;
     @FXML private ComboBox<Funcionario> cmbFuncionario;
     @FXML private SwitchButton sbAtivado;
@@ -72,9 +72,9 @@ public class CadastroUsuarioController extends Application implements Initializa
 	}
 	
 	private void limparCampos() {
-		edtCodigo.clear();
-		edtNome.clear();
-		edtUsuario.clear();
+		txtCodigo.clear();
+		txtNome.clear();
+		txtUsuario.clear();
 		
 		cmbFuncionario.getSelectionModel().select(-1);
 		cmbPerfilUsuario.getSelectionModel().select(-1);
@@ -84,13 +84,11 @@ public class CadastroUsuarioController extends Application implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
 		sbAtivado.switchOnProperty().set(true);
-		edtCodigo.setDisable(true);
-		PerfilUsuarioCtrl perfilUsuarioCtrl = new PerfilUsuarioCtrl();
+		txtCodigo.setDisable(true);
 		try {
-			cmbPerfilUsuario.setItems(perfilUsuarioCtrl.consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+			cmbPerfilUsuario.setItems(new PerfilUsuarioCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+			cmbFuncionario.setItems(new FuncionarioCtrl().consultar(new Campo("func.status", "", TipoCampo.booleano), new Ativado(), "ativado"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,14 +97,12 @@ public class CadastroUsuarioController extends Application implements Initializa
 			preencheTela();
 		if(visualizando)
 			bloquearTela();
-		
-		new AutoCompleteComboBoxListener<>(cmbFuncionario);
 	}
 	
 	private void bloquearTela() {
-		edtCodigo.setDisable(true);
-		edtNome.setDisable(true);
-		edtUsuario.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtNome.setDisable(true);
+		txtUsuario.setDisable(true);
 		cmbFuncionario.setDisable(true);
 		cmbPerfilUsuario.setDisable(true);
 		sbAtivado.setDisable(true);
@@ -163,18 +159,18 @@ public class CadastroUsuarioController extends Application implements Initializa
 		if(usuarioCtrl.getUsuario() == null)
 			usuarioCtrl.novoUsuario();
 		
-		usuarioCtrl.getUsuario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
-		usuarioCtrl.getUsuario().setNome(edtNome.getText());
-		usuarioCtrl.getUsuario().setUsuario(edtUsuario.getText());
+		usuarioCtrl.getUsuario().setCodigo(Utilitarios.strToInt(txtCodigo.getText()));
+		usuarioCtrl.getUsuario().setNome(txtNome.getText());
+		usuarioCtrl.getUsuario().setUsuario(txtUsuario.getText());
 		usuarioCtrl.getUsuario().setPerfilUsuario(cmbPerfilUsuario.getValue());
 		usuarioCtrl.getUsuario().setFuncionario(cmbFuncionario.getValue());
 		usuarioCtrl.getUsuario().setStatus(sbAtivado.switchOnProperty().get());
 	}
     
 	private void preencheTela() {
-		edtCodigo.setText(usuarioCtrl.getUsuario().getCodigo() + "");
-		edtNome.setText(usuarioCtrl.getUsuario().getNome());
-		edtUsuario.setText(usuarioCtrl.getUsuario().getUsuario());
+		txtCodigo.setText(usuarioCtrl.getUsuario().getCodigo() + "");
+		txtNome.setText(usuarioCtrl.getUsuario().getNome());
+		txtUsuario.setText(usuarioCtrl.getUsuario().getUsuario());
 		cmbFuncionario.setValue(usuarioCtrl.getUsuario().getFuncionario());
 		cmbPerfilUsuario.setValue(usuarioCtrl.getUsuario().getPerfilUsuario());
 		sbAtivado.switchOnProperty().set(usuarioCtrl.getUsuario().isStatus());

@@ -30,8 +30,7 @@ public class FuncionarioCtrl {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+	public ObservableList<Funcionario> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 		return FXCollections.observableList(
 				funcionarioBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
@@ -60,4 +59,11 @@ public class FuncionarioCtrl {
 	public void novoFuncionario() {
 		funcionario = new Funcionario();
 	}
+	
+	public ObservableList<Funcionario> getEspecilidades(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+		return FXCollections.observableList(
+				funcionarioBusiness.consultar("status", "status", "true"));
+	}
+	
 }

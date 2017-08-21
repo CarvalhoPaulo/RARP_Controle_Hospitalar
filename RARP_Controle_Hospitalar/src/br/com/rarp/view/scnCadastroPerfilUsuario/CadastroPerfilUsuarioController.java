@@ -29,8 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CadastroPerfilUsuarioController extends Application implements Initializable {
-	@FXML private TextField edtCodigo;
-	@FXML private TextField edtNome;
+	@FXML private TextField txtCodigo;
+	@FXML private TextField txtNome;
 	@FXML private ListView<Tela> lvTelas;
 	@FXML private ListView<Tela> lvTelasPermitidas;
 	@FXML private CheckBox ckbInserir;
@@ -74,8 +74,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		ckbInserir.setSelected(false);
 		ckbVisualizar.setSelected(false);
 		
-		edtCodigo.clear();
-		edtNome.clear();
+		txtCodigo.clear();
+		txtNome.clear();
 		
 		btnRemoveAll.arm();
 		for(Tela tela: lvTelas.getSelectionModel().getSelectedItems()) {
@@ -144,8 +144,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	}
 	
 	private void bloquearCampos() {
-		edtCodigo.setDisable(true);
-		edtNome.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtNome.setDisable(true);
 		btnAdd.setDisable(true);
 		btnAddAll.setDisable(true);
 		btnRemove.setDisable(true);
@@ -227,8 +227,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		if (perfilUsuarioCtrl.getPerfilUsuario() == null)
 			perfilUsuarioCtrl.novoPerfilUsuario();
 		
-		perfilUsuarioCtrl.getPerfilUsuario().setCodigo(Utilitarios.strToInt(edtCodigo.getText()));
-		perfilUsuarioCtrl.getPerfilUsuario().setNome(edtNome.getText());
+		perfilUsuarioCtrl.getPerfilUsuario().setCodigo(Utilitarios.strToInt(txtCodigo.getText()));
+		perfilUsuarioCtrl.getPerfilUsuario().setNome(txtNome.getText());
 		
 		//Adiciona telas permitidas
 		for(Tela tela: lvTelasPermitidas.getItems()) {
@@ -277,8 +277,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	}
 
 	private void preencheTela() {
-		edtNome.setText(perfilUsuarioCtrl.getPerfilUsuario().getNome());
-		edtCodigo.setText(perfilUsuarioCtrl.getPerfilUsuario().getCodigo() + "");
+		txtNome.setText(perfilUsuarioCtrl.getPerfilUsuario().getNome());
+		txtCodigo.setText(perfilUsuarioCtrl.getPerfilUsuario().getCodigo() + "");
 		for(Tela tela: perfilUsuarioCtrl.getPerfilUsuario().getTelas()){
 			if(lvTelas.getItems().contains(tela))
 				if(tela.isStatus()) {

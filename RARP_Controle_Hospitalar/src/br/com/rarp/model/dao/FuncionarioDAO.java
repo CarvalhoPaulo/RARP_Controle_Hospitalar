@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
@@ -30,7 +31,7 @@ public class FuncionarioDAO {
 		sql += "dataAdmissao TIMESTAMP, ";
 		sql += "ctps VARCHAR(20), ";
 		sql += "salarioContratual NUMERIC(13, 2), ";
-		sql += "codigo_cargo INTEGER REFERENCES cargo(codigo), ";
+		sql += "codigo_cargo INTEGER NOT NULL  REFERENCES cargo(codigo), ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -65,6 +66,7 @@ public class FuncionarioDAO {
 					+ "CID.codigo AS codigo_cidade, " 
 					+ "CID.nome AS nome_cidade, "
 					+ "CID.status AS status_cidade, "
+					+ "ES.codigo AS codigo_estado, "
 					+ "ES.uf, "
 					+ "ES.nome AS nome_estado, "
 					+ "CA.codigo AS codigo_cargo, "
@@ -78,7 +80,7 @@ public class FuncionarioDAO {
 					+ "LEFT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
 					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "LEFT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE " + campo + comparacao + termo;
+					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -86,7 +88,8 @@ public class FuncionarioDAO {
 				funcionarios.add(funcionario);
 				
 				funcionario.setCodigo(rs.getInt("codigo_func"));
-				funcionario.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
+				if(rs.getDate("dataAdmissao") != null)
+					funcionario.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
 				funcionario.setCTPS(rs.getString("ctps"));
 				funcionario.setSalarioContratual(rs.getDouble("salarioContratual"));
 				funcionario.setStatus(rs.getBoolean("status_func"));
@@ -97,7 +100,8 @@ public class FuncionarioDAO {
 				funcionario.setCertidaoNascimento(rs.getString("certidaonascimento"));
 				funcionario.setNome(rs.getString("nome_pessoa"));
 				funcionario.setLogradouro(rs.getString("logradouro"));
-				funcionario.setDtNascimento(new Date(rs.getDate("datanascimento").getTime()));
+				if(rs.getDate("datanascimento") != null)
+					funcionario.setDtNascimento(new java.util.Date(rs.getDate("datanascimento").getTime()));
 				funcionario.setComplemento(rs.getString("complemento"));
 				funcionario.setNumero(rs.getString("numero"));
 				funcionario.setBairro(rs.getString("bairro"));
@@ -109,6 +113,7 @@ public class FuncionarioDAO {
 				cidade.setStatus(rs.getBoolean("status_cidade"));
 
 				Estado estado = new Estado();
+				estado.setCodigo(rs.getInt("codigo_estado"));
 				estado.setNome(rs.getString("nome_estado"));
 				estado.setUF(rs.getString("uf"));
 
@@ -118,7 +123,11 @@ public class FuncionarioDAO {
 				Cargo cargo = new Cargo();
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
-				cargo.setFuncao(rs.getString("funcao"));
+				try {
+					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
+				} catch (Exception e) {
+					cargo.setFuncao(Funcao.outros);
+				}
 				cargo.setNivel(rs.getString("nivel"));
 				cargo.setRequisitos(rs.getString("requisitos"));
 				cargo.setStatus(rs.getBoolean("status_cargo"));

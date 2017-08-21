@@ -7,18 +7,33 @@ public class PessoaFisica extends Pessoa {
 	private String sexo;
 	private boolean possuiNecessidades;
 	private String certidaoNascimento;
-	
+	private boolean compartinhaInformacoes;
+	public boolean isCompartinhaInformacoes() {
+		return compartinhaInformacoes;
+	}
+
+	public void setCompartinhaInformacoes(boolean compartinhaInformacoes) {
+		this.compartinhaInformacoes = compartinhaInformacoes;
+	}
+
 	public String getCpf() {
 		String cpf = getCpfSemMascara();
-		return String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9), cpf.substring(9));
+		if(cpf != null)
+			cpf = String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9), cpf.substring(9));
+		return cpf;
 	}
 	
 	public String getCpfSemMascara() {
-		return cpf.replaceAll("[\\D]", "");
+		if(cpf != null)
+			return cpf.replaceAll("[\\D]", "");
+		else
+			return cpf;
 	}
 	
 	public void setCpf(String cpf) {
-		this.cpf = cpf.replaceAll("[\\D]", "");
+		this.cpf = cpf;
+		if(cpf != null)
+			this.cpf = cpf.replaceAll("[\\D]", "");	
 	}
 	
 	public String getRg() {

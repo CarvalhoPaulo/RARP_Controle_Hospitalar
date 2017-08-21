@@ -81,17 +81,21 @@ public class Pessoa {
 
 	public String getCep() {
 		String cep = getCepSemMascara();
-		if(cep.length() == 8)
+		if(cep != null && cep.length() == 8)
 			cep = String.format("%s-%s", cep.substring(0, 5), cep.substring(5));
 		return cep;
 	}
 	
 	public String getCepSemMascara() {
-		return cep.replaceAll("[\\D]", "");
+		if(cep != null)
+			return cep.replaceAll("[\\D]", "");
+		return cep;
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep.replaceAll("[\\D]", "");
+		this.cep = cep;
+		if(cep != null)
+			this.cep = cep.replaceAll("[\\D]", "");
 	}
 
 	public List<Telefone> getTelefones() {

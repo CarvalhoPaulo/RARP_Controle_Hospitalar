@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.ConvenioCtrl;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.control.Enum.TipoCampo;
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Campo;
@@ -46,49 +46,49 @@ public class CadastroConvenioController extends Application implements Initializ
     private TabPane tbPane;
 
     @FXML
-    private TextField edtNome;
+    private TextField txtNome;
 
     @FXML
-    private TextField edtLogradouro;
+    private TextField txtLogradouro;
 
     @FXML
-    private TextField edtNumero;
+    private TextField txtNumero;
 
     @FXML
-    private TextField edtComplemento;
+    private TextField txtComplemento;
 
     @FXML
     private AutoCompleteComboBox<Cidade> cmbCidade;
 
     @FXML
-    private MaskTextField edtCEP;
+    private MaskTextField txtCEP;
 
     @FXML
-    private CalendarTextField edtDataNasc;
+    private CalendarTextField txtDataNasc;
 
     @FXML
-    private MaskTextField edtCNPJ;
+    private MaskTextField txtCNPJ;
 
     @FXML
-    private TextField edtANS;
+    private TextField txtANS;
 
     @FXML
     private AutoCompleteComboBox<String> cmbTipo;
 
     @FXML
-    private TextField edtBairro;
+    private TextField txtBairro;
 
     @FXML
-    private TextField edtRazaoSocial;
+    private TextField txtRazaoSocial;
 
     @FXML
-    private MaskTextField edtTelefone;
+    private MaskTextField txtTelefone;
 
     @FXML
     private ListView<Telefone> lsTelefones;
 
     @FXML
-    private IntegerTextField edtCodigo;
+    private IntegerTextField txtCodigo;
 
     @FXML
     private SwitchButton sbAtivado;
@@ -173,14 +173,14 @@ public class CadastroConvenioController extends Application implements Initializ
 	private void prepararTela() {
 		try {
 			sbAtivado.setValue(true);
-			edtCodigo.setDisable(true);
-			edtCodigo.setFocusTraversable(true);
+			txtCodigo.setDisable(true);
+			txtCodigo.setFocusTraversable(true);
 			cmbTipo.getItems().add("Particular");
 			cmbTipo.getItems().add("Público");
 			
 			tbPane.requestFocus();
-			edtNome.requestFocus();
-			edtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			txtNome.requestFocus();
+			txtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
 			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -194,7 +194,7 @@ public class CadastroConvenioController extends Application implements Initializ
 						String id = ((Node) event.getTarget()).getId();
 						if (!event.isShiftDown()) {
 							
-							if(id.equals("edtBairro")) {
+							if(id.equals("txtBairro")) {
 								tbPane.getSelectionModel().select(1);
 								lsTelefones.requestFocus();
 								event.consume();
@@ -207,19 +207,19 @@ public class CadastroConvenioController extends Application implements Initializ
 							
 							if(id.equals("btnSalvar")) {
 								tbPane.getSelectionModel().select(0);
-								edtNome.requestFocus();
+								txtNome.requestFocus();
 								event.consume();
 							}
 						}
 						if (event.isShiftDown()) {	
-							if(id.equals("edtNome")) {
+							if(id.equals("txtNome")) {
 								btnSalvar.requestFocus();
 								event.consume();
 							}
 							
-							if(id.equals("edtTelefon")) {
+							if(id.equals("txtTelefon")) {
 								tbPane.getSelectionModel().select(0);
-								edtBairro.requestFocus();
+								txtBairro.requestFocus();
 								event.consume();
 							}
 							
@@ -238,38 +238,38 @@ public class CadastroConvenioController extends Application implements Initializ
 	}
 
 	private void limparCampos() {
-		edtANS.clear();
-		edtRazaoSocial.clear();
+		txtANS.clear();
+		txtRazaoSocial.clear();
 		cmbTipo.getSelectionModel().select(-1);
-		edtBairro.clear();
-		edtCEP.clear();
-		edtCodigo.clear();
-		edtComplemento.clear();
-		edtCNPJ.clear();
-		edtDataNasc.setText("");
-		edtLogradouro.clear();
-		edtNome.clear();
-		edtNumero.clear();
-		edtTelefone.clear();
+		txtBairro.clear();
+		txtCEP.clear();
+		txtCodigo.clear();
+		txtComplemento.clear();
+		txtCNPJ.clear();
+		txtDataNasc.setText("");
+		txtLogradouro.clear();
+		txtNome.clear();
+		txtNumero.clear();
+		txtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
 		sbAtivado.setValue(true);
 		lsTelefones.getItems().clear();
 	}
 
 	private void bloquearTela() {
-		edtANS.setDisable(visualizando);
-		edtRazaoSocial.setDisable(visualizando);
+		txtANS.setDisable(visualizando);
+		txtRazaoSocial.setDisable(visualizando);
 		cmbTipo.setDisable(visualizando);
-		edtBairro.setDisable(visualizando);
-		edtCEP.setDisable(visualizando);
-		edtCodigo.setDisable(visualizando);
-		edtComplemento.setDisable(visualizando);
-		edtCNPJ.setDisable(visualizando);
-		edtDataNasc.setDisable(visualizando);
-		edtLogradouro.setDisable(visualizando);
-		edtNome.setDisable(visualizando);
-		edtNumero.setDisable(visualizando);
-		edtTelefone.setDisable(visualizando);
+		txtBairro.setDisable(visualizando);
+		txtCEP.setDisable(visualizando);
+		txtCodigo.setDisable(visualizando);
+		txtComplemento.setDisable(visualizando);
+		txtCNPJ.setDisable(visualizando);
+		txtDataNasc.setDisable(visualizando);
+		txtLogradouro.setDisable(visualizando);
+		txtNome.setDisable(visualizando);
+		txtNumero.setDisable(visualizando);
+		txtTelefone.setDisable(visualizando);
 		sbAtivado.setDisable(visualizando);
 		btnSalvar.setDisable(visualizando);
 		cmbCidade.setDisable(visualizando);
@@ -285,42 +285,42 @@ public class CadastroConvenioController extends Application implements Initializ
 		if (convenioCtrl.getConvenio() == null) {
 			convenioCtrl.novoConvenio();
 		}
-		convenioCtrl.getConvenio().setCodigo(edtCodigo.getValue());
-		convenioCtrl.getConvenio().setANS(edtANS.getText());
-		convenioCtrl.getConvenio().setRazaoSocial(edtRazaoSocial.getText());
+		convenioCtrl.getConvenio().setCodigo(txtCodigo.getValue());
+		convenioCtrl.getConvenio().setANS(txtANS.getText());
+		convenioCtrl.getConvenio().setRazaoSocial(txtRazaoSocial.getText());
 		convenioCtrl.getConvenio().setTipo(cmbTipo.getSelectionModel().getSelectedIndex() + 1);
-		convenioCtrl.getConvenio().setBairro(edtBairro.getText());
-		convenioCtrl.getConvenio().setCep(edtCEP.getText());
-		convenioCtrl.getConvenio().setCnpj(edtCNPJ.getText());
-		if (edtDataNasc.getCalendar() != null)
-			convenioCtrl.getConvenio().setDtNascimento(edtDataNasc.getCalendar().getTime());
+		convenioCtrl.getConvenio().setBairro(txtBairro.getText());
+		convenioCtrl.getConvenio().setCep(txtCEP.getText());
+		convenioCtrl.getConvenio().setCnpj(txtCNPJ.getText());
+		if (txtDataNasc.getCalendar() != null)
+			convenioCtrl.getConvenio().setDtNascimento(txtDataNasc.getCalendar().getTime());
 		convenioCtrl.getConvenio().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
-		convenioCtrl.getConvenio().setNumero(edtNumero.getText());
-		convenioCtrl.getConvenio().setComplemento(edtComplemento.getText());
-		convenioCtrl.getConvenio().setLogradouro(edtLogradouro.getText());
+		convenioCtrl.getConvenio().setNumero(txtNumero.getText());
+		convenioCtrl.getConvenio().setComplemento(txtComplemento.getText());
+		convenioCtrl.getConvenio().setLogradouro(txtLogradouro.getText());
 		convenioCtrl.getConvenio().setStatus(sbAtivado.getValue());
-		convenioCtrl.getConvenio().setNome(edtNome.getText());
+		convenioCtrl.getConvenio().setNome(txtNome.getText());
 		convenioCtrl.getConvenio().setTelefones(lsTelefones.getItems());
 	}
 
 	private void preencherTela() {
-		edtBairro.setText(convenioCtrl.getConvenio().getBairro());
-		edtCEP.setText(convenioCtrl.getConvenio().getCep());
-		edtCodigo.setText(convenioCtrl.getConvenio().getCodigo() + "");
-		edtComplemento.setText(convenioCtrl.getConvenio().getComplemento());
-		edtCNPJ.setText(convenioCtrl.getConvenio().getCnpj());
-		edtANS.setText(convenioCtrl.getConvenio().getANS());
-		edtRazaoSocial.setText(convenioCtrl.getConvenio().getRazaoSocial());
+		txtBairro.setText(convenioCtrl.getConvenio().getBairro());
+		txtCEP.setText(convenioCtrl.getConvenio().getCep());
+		txtCodigo.setText(convenioCtrl.getConvenio().getCodigo() + "");
+		txtComplemento.setText(convenioCtrl.getConvenio().getComplemento());
+		txtCNPJ.setText(convenioCtrl.getConvenio().getCnpj());
+		txtANS.setText(convenioCtrl.getConvenio().getANS());
+		txtRazaoSocial.setText(convenioCtrl.getConvenio().getRazaoSocial());
 		cmbTipo.getSelectionModel().select(convenioCtrl.getConvenio().getTipo()-1);
 		
 		if(convenioCtrl.getConvenio().getDtNascimento() != null) {
-			edtDataNasc.setCalendar(new GregorianCalendar());
-			edtDataNasc.getCalendar().setTime(convenioCtrl.getConvenio().getDtNascimento());
+			txtDataNasc.setCalendar(new GregorianCalendar());
+			txtDataNasc.getCalendar().setTime(convenioCtrl.getConvenio().getDtNascimento());
 		}
 		
-		edtLogradouro.setText(convenioCtrl.getConvenio().getLogradouro());
-		edtNome.setText(convenioCtrl.getConvenio().getNome());
-		edtNumero.setText(convenioCtrl.getConvenio().getNumero());
+		txtLogradouro.setText(convenioCtrl.getConvenio().getLogradouro());
+		txtNome.setText(convenioCtrl.getConvenio().getNome());
+		txtNumero.setText(convenioCtrl.getConvenio().getNumero());
 		cmbCidade.getSelectionModel().select(convenioCtrl.getConvenio().getCidade());
 		lsTelefones.setItems(FXCollections.observableList(convenioCtrl.getConvenio().getTelefones()));
 		sbAtivado.setValue(convenioCtrl.getConvenio().isStatus());
@@ -329,10 +329,10 @@ public class CadastroConvenioController extends Application implements Initializ
 	@FXML
 	private void adicionarTelefone() {
 		Telefone telefone = new Telefone();
-		telefone.setNumero(edtTelefone.getText());
+		telefone.setNumero(txtTelefone.getText());
 		if (!telefone.getNumero().isEmpty())
 			lsTelefones.getItems().add(telefone);
-		edtTelefone.setText("");
+		txtTelefone.setText("");
 	}
 
 	@FXML

@@ -9,61 +9,95 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnConexao.ConexaoController">
-   <center>
-      <AnchorPane prefHeight="298.0" prefWidth="592.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets left="8.0" />
-         </BorderPane.margin>
-         <children>
-            <Label layoutY="14.0" text="Host" />
-            <TextField fx:id="txtHost" layoutY="45.0" prefHeight="25.0" prefWidth="316.0" text="localhost" />
-            <Label layoutY="84.0" text="Porta" />
-            <TextField fx:id="txtPorta" layoutY="110.0" prefHeight="25.0" prefWidth="316.0" />
-            <Label layoutX="1.0" layoutY="151.0" text="User" />
-            <TextField fx:id="txtUser" layoutX="1.0" layoutY="175.0" prefHeight="25.0" prefWidth="316.0" />
-            <Label layoutY="217.0" text="Password" />
-            <PasswordField fx:id="txtSenha" layoutX="1.0" layoutY="247.0" prefWidth="316.0" />
-         </children>
-      </AnchorPane>
-   </center>
-   <top>
-      <Label text="Configurações de Serve" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-   </top>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="96.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/040.png" />
-               </image></ImageView>
-            <Button fx:id="btnAplicar" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#btnAplicarAction" prefHeight="100.0" prefWidth="100.0" text="aplicar">
-               <graphic>
-                  <ImageView fitHeight="53.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane prefHeight="244.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnConexao.ConexaoController">
+   <children>
+      <BorderPane AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+         <center>
+            <AnchorPane prefHeight="295.0" prefWidth="442.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <children>
+                  <Label layoutY="14.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Host:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtHost" layoutY="45.0" prefHeight="25.0" prefWidth="316.0" text="localhost" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutY="84.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Porta:" AnchorPane.topAnchor="58.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPorta" layoutY="110.0" prefHeight="25.0" prefWidth="316.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="1.0" layoutY="151.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Usuário:" AnchorPane.topAnchor="116.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUser" layoutX="1.0" layoutY="175.0" prefHeight="25.0" prefWidth="316.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutY="217.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Senha:" AnchorPane.topAnchor="174.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtSenha" layoutX="1.0" layoutY="247.0" prefWidth="316.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <AnchorPane prefHeight="255.0" prefWidth="92.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image url="@../img/accepted.png" />
+                        <Image url="@../img/040.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button fx:id="btnCancelar" alignment="CENTER" cancelButton="true" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="100.0" prefWidth="100.0" text="Cancelar">
-               <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/cancel.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </VBox>
-   </right>
-</BorderPane>
+                  <Button fx:id="btnAplicar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnAplicarAction" prefHeight="60.0" prefWidth="108.0" text="Aplicar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="99.0">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/accepted.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="60.0" prefWidth="108.0" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/cancel.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

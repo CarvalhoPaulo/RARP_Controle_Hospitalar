@@ -4,10 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,19 +44,19 @@ public class CadastroCargoController extends Application implements Initializabl
 	private SwitchButton sbAtivado;
 	
     @FXML
-    private TextField edtNome;
+    private TextField txtNome;
 
     @FXML
-    private TextField edtFuncao;
+    private AutoCompleteComboBox<Funcao> cmbFuncao;
 
     @FXML
-    private TextField edtNivel;
+    private TextField txtNivel;
 
     @FXML
-    private TextArea edtRequisitos;
+    private TextArea txtRequisitos;
 	
 	@FXML
-	private IntegerTextField edtCodigo;
+	private IntegerTextField txtCodigo;
 	
 	private static CargoCtrl cargoCtrl;
 
@@ -94,8 +97,18 @@ public class CadastroCargoController extends Application implements Initializabl
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		prepararTela();
+		if (cargoCtrl != null && cargoCtrl.getCargo() != null)
+			preencherTela();
+		
+		if (visualizando)
+			bloquearTela();
+	}
+	
+	private void prepararTela() {
 		sbAtivado.setValue(true);
-		edtCodigo.setDisable(true);
+		txtCodigo.setDisable(true);
+		cmbFuncao.setItems(FXCollections.observableArrayList(Funcao.values()));
 		
 		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -108,24 +121,18 @@ public class CadastroCargoController extends Application implements Initializabl
 					String id = ((Node) event.getTarget()).getId();
 					if (!event.isShiftDown()) {
 						
-						if(id.equals("edtRequisitos")) {
+						if(id.equals("txtRequisitos")) {
 							btnSalvar.requestFocus();
 						}
 					}
 					if (event.isShiftDown()) {	
 						if(id.equals("btnSalvar")) {
-							edtRequisitos.requestFocus();
+							txtRequisitos.requestFocus();
 						}
 					} 
 				}
 			}
 		});
-
-		if (cargoCtrl != null && cargoCtrl.getCargo() != null)
-			preencherTela();
-		
-		if (visualizando)
-			bloquearTela();
 	}
 
 	public void inserir() throws Exception {
@@ -135,20 +142,20 @@ public class CadastroCargoController extends Application implements Initializabl
 	}
 
 	private void limparCampos() {
-		edtCodigo.clear();
-		edtNome.clear();
-		edtFuncao.clear();
-		edtNivel.clear();
-		edtRequisitos.clear();
+		txtCodigo.clear();
+		txtNome.clear();
+		cmbFuncao.getSelectionModel().select(-1);
+		txtNivel.clear();
+		txtRequisitos.clear();
 		sbAtivado.setValue(true);
 	}
 
 	private void bloquearTela() {
-		edtCodigo.setDisable(true);
-		edtNome.setDisable(true);
-		edtFuncao.setDisable(true);
-		edtNivel.setDisable(true);
-		edtRequisitos.setDisable(true);
+		txtCodigo.setDisable(true);
+		txtNome.setDisable(true);
+		cmbFuncao.setDisable(true);
+		txtNivel.setDisable(true);
+		txtRequisitos.setDisable(true);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
 	}
@@ -161,20 +168,20 @@ public class CadastroCargoController extends Application implements Initializabl
 			cargoCtrl.novoCargo();
 		}
 		
-		cargoCtrl.getCargo().setCodigo(edtCodigo.getValue());
-		cargoCtrl.getCargo().setNome(edtNome.getText());
-		cargoCtrl.getCargo().setFuncao(edtFuncao.getText());
-		cargoCtrl.getCargo().setNivel(edtNivel.getText());
-		cargoCtrl.getCargo().setRequisitos(edtRequisitos.getText());
+		cargoCtrl.getCargo().setCodigo(txtCodigo.getValue());
+		cargoCtrl.getCargo().setNome(txtNome.getText());
+		cargoCtrl.getCargo().setFuncao(cmbFuncao.getSelectionModel().getSelectedItem());
+		cargoCtrl.getCargo().setNivel(txtNivel.getText());
+		cargoCtrl.getCargo().setRequisitos(txtRequisitos.getText());
 		cargoCtrl.getCargo().setStatus(sbAtivado.getValue());
 	}
 
 	private void preencherTela() {
-		edtCodigo.setValue(cargoCtrl.getCargo().getCodigo());
-		edtNome.setText(cargoCtrl.getCargo().getNome());
-		edtFuncao.setText(cargoCtrl.getCargo().getFuncao());
-		edtNivel.setText(cargoCtrl.getCargo().getNivel());
-		edtRequisitos.setText(cargoCtrl.getCargo().getRequisitos());
+		txtCodigo.setValue(cargoCtrl.getCargo().getCodigo());
+		txtNome.setText(cargoCtrl.getCargo().getNome());
+		cmbFuncao.getSelectionModel().select(cargoCtrl.getCargo().getFuncao());
+		txtNivel.setText(cargoCtrl.getCargo().getNivel());
+		txtRequisitos.setText(cargoCtrl.getCargo().getRequisitos());
 		sbAtivado.setValue(cargoCtrl.getCargo().isStatus());
 	}
 

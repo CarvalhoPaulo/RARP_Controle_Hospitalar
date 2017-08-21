@@ -5,6 +5,7 @@ import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.bo.EspecialidadeBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class EspecialidadeCtrl {
@@ -41,7 +42,7 @@ public class EspecialidadeCtrl {
 	
 	private boolean verificarDesativacao() {
 		if(!especialidade.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este cargo?");
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este Especialidade ?");
 		return true;
 	}
 
@@ -50,9 +51,19 @@ public class EspecialidadeCtrl {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo selectedItem, Comparacao selectedItem2, Object object) {
+	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
+		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
+		return FXCollections.observableArrayList(especialidadeBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
+	
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private  ObservableList<Especialidade> getEsepecialidades() throws Exception {
+		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
+		return FXCollections.observableArrayList(especialidadeBusiness.consultar("status", " = ", "true"));
+	
 	}
 
 }

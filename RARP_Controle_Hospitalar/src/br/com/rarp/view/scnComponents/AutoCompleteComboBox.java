@@ -1,5 +1,8 @@
 package br.com.rarp.view.scnComponents;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,6 +28,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 	private boolean moveCaretToPos = false;
 	private boolean digited = false;
 	private int caretPos;
+	private boolean literal = true;
 
 	public AutoCompleteComboBox() {
 		new StringBuilder();
@@ -37,7 +41,16 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 				hide();
 			}
 		});
-		setOnKeyReleased(AutoCompleteComboBox.this);
+		focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if(!newValue && !getEditor().getText().isEmpty() && literal) {
+					getEditor().setText(getItems().get(0).toString());
+				}
+			}
+		});
+		setOnKeyReleased(this);
 
 		setOnAction(t -> {
 			boolean valido = false;
@@ -77,7 +90,6 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 
 	@Override
 	public void handle(KeyEvent event) {
-
 		if (event.getCode() == KeyCode.UP) {
 			caretPos = -1;
 			moveCaret(getEditor().getText().length());
@@ -114,6 +126,18 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 			}
 		}
 		String t = getEditor().getText();
+		if(list.size() <= 0 && literal && (!t.isEmpty())) {
+			
+			
+			t = t.substring(0, t.length() - 1);
+			getEditor().setText(t);
+			for (int i = 0; i < data.size(); i++) {
+				if (data.get(i).toString().toLowerCase()
+						.contains(getEditor().getText().toLowerCase())) {
+					list.add(data.get(i));
+				}
+			}
+		}
 
 		setItems(list);
 		getEditor().setText(t);
@@ -134,6 +158,14 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 			getEditor().positionCaret(caretPos);
 		}
 		moveCaretToPos = false;
+	}
+
+	public boolean isLiteral() {
+		return literal;
+	}
+
+	public void setLiteral(boolean literal) {
+		this.literal = literal;
 	}
 
 }
