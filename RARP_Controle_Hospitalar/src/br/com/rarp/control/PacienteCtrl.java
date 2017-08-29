@@ -24,9 +24,13 @@ public class PacienteCtrl {
 	}
 	
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (paciente == null)
+			throw new Exception("O paciente não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(paciente.isStatus())
+				validarDadosObrigatorios();
 			PacienteBusiness pacienteBusiness = new PacienteBusiness();
-			validarDadosObrigatorios();
 			pacienteBusiness.salvar(paciente);
 			return true;
 		} else {
@@ -56,7 +60,7 @@ public class PacienteCtrl {
 		}
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(paciente != null && !paciente.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este paciente?");
 		return true;

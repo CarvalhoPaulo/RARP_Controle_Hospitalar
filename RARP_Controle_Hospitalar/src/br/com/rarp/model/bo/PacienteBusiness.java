@@ -14,8 +14,12 @@ public class PacienteBusiness {
 	}
 
 	public void salvar(Paciente paciente) throws Exception {
+		if(paciente == null)
+			throw new Exception("O paciente não foi instânciado");
+		
+		if(paciente.isStatus())
+			validarPaciente(paciente);
 		PacienteDAO pacienteDAO = new PacienteDAO();
-		validarPaciente(paciente);
 		pacienteDAO.salvar(paciente);
 	}
 

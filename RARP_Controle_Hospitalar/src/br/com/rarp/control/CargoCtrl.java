@@ -25,9 +25,13 @@ public class CargoCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if(cargo == null)
+			throw new Exception("O cargo não foi instânciado");
+		
+		if (confirmarDesativacao()) {
 			CargoBusiness cargoBusiness = new CargoBusiness();
-			validaCamposObrigatorios();
+			if(cargo.isStatus())
+				validaCamposObrigatorios();
 			cargoBusiness.salvar(cargo);
 			return true;
 		} else {
@@ -43,7 +47,7 @@ public class CargoCtrl {
 			throw new Exception("Para cadastrar um cargo é necessário informar o nome");
 	}
 
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(!cargo.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este cargo?");
 		return true;

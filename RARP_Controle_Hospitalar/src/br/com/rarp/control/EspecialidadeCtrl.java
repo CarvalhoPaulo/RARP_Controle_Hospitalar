@@ -30,9 +30,13 @@ public class EspecialidadeCtrl {
 	}
 	
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (especialidade == null)
+			throw new Exception("A especialidade não foi instânciada");
+		
+		if (confirmarDesativacao()) {
+			if(especialidade.isStatus())
+				validaCamposObrigatorios();
 			EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
-			validaCamposObrigatorios();
 			especialidadeBusiness.salvar(especialidade);
 			return true;
 		} else {
@@ -40,8 +44,8 @@ public class EspecialidadeCtrl {
 		}	
 	}
 	
-	private boolean verificarDesativacao() {
-		if(!especialidade.isStatus())
+	private boolean confirmarDesativacao() {
+		if(especialidade != null && !especialidade.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este Especialidade ?");
 		return true;
 	}

@@ -8,8 +8,12 @@ import br.com.rarp.utils.Utilitarios;
 public class FuncionarioBusiness {
 
 	public void salvar(Funcionario funcionario) throws Exception {
+		if(funcionario == null)
+			throw new Exception("O funcionário não foi instânciado");
+		
+		if(funcionario.isStatus())
+			validarFuncionario(funcionario);
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-		validarFuncionario(funcionario);
 		funcionarioDAO.salvar(funcionario);
 	}
 

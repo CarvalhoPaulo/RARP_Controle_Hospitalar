@@ -20,9 +20,13 @@ public class FuncionarioCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (funcionario == null)
+			throw new Exception("O funcionário não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(funcionario.isStatus())
+				validarDadosObrigatorios();
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-			validarDadosObrigatorios();
 			funcionarioBusiness.salvar(funcionario);
 			return true;
 		} else {
@@ -50,7 +54,7 @@ public class FuncionarioCtrl {
 		}
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(funcionario != null && !funcionario.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este funcionário?");
 		return true;

@@ -32,9 +32,13 @@ public class ConvenioCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if(convenio == null)
+			throw new Exception("O convênio não foi instânciado");
+		
+		if (confirmarDesativacao()) {
 			ConvenioBusiness convenioBusiness = new ConvenioBusiness();
-			validarDadosObrigatorios();
+			if(convenio.isStatus())
+				validarDadosObrigatorios();
 			convenioBusiness.salvar(convenio);
 			return true;
 		} else {
@@ -49,12 +53,13 @@ public class ConvenioCtrl {
 		if (convenio.getNome().isEmpty()) {
 			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
 		}
+		
 		if (convenio.getCnpj().isEmpty()) {
 			throw new Exception("Para cadastrar um paciente é necessário informar o CNPJ");
 		}
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(convenio != null && !convenio.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este convênio?");
 		return true;

@@ -27,15 +27,22 @@ public class UsuarioCtrl {
 		usuario = new Usuario();
 	}
 
-	public void salvar() throws Exception {
-		UsuarioBusiness perfilUsuarioBusiness = new UsuarioBusiness();
-		if(verificarDesativacao()) {
-			validarDadosObrigatorios();
+	public boolean salvar() throws Exception {
+		if (usuario == null)
+			throw new Exception("O usuário não foi instânciado");
+		
+		if(confirmarDesativacao()) {
+			if(usuario.isStatus())
+				validarDadosObrigatorios();
+			UsuarioBusiness perfilUsuarioBusiness = new UsuarioBusiness();
 			perfilUsuarioBusiness.salvar(usuario);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(!usuario.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este usuário?");
 		return true;

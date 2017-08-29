@@ -14,8 +14,12 @@ public class ConvenioBusiness {
 	}
 
 	public void salvar(Convenio convenio) throws Exception {
+		if(convenio == null)
+			throw new Exception("A convênio não foi instânciada");
+		
+		if(convenio.isStatus())
+			validarConvenio(convenio);
 		ConvenioDAO convenioDAO = new ConvenioDAO();
-		validarConvenio(convenio);
 		convenioDAO.salvar(convenio);
 	}
 

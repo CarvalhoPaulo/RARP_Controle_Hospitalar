@@ -11,10 +11,19 @@ import br.com.rarp.model.dao.UsuarioDAO;
 public class PerfilUsuarioBusiness {
 
 	public void salvar(PerfilUsuario perfilUsuario) throws Exception {
+		if(perfilUsuario == null)
+			throw new Exception("O perfil de usuário não foi instânciado");
+			
+		if(perfilUsuario.isStatus())
+			validarPerfilUsuario(perfilUsuario);
 		PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
 		perfilUsuarioDAO.salvar(perfilUsuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
 			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+	}
+
+	private void validarPerfilUsuario(PerfilUsuario perfilUsuario) {
+		// valida o perfil de usuário
 	}
 
 	public List<PerfilUsuario> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {

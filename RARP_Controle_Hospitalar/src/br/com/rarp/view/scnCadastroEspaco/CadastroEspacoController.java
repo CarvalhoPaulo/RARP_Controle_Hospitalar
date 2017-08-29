@@ -39,7 +39,6 @@ public class CadastroEspacoController extends Application implements Initializab
 	@FXML
 	private IntegerTextField txtCodigo;
 
-
     @FXML
     private TextField txtNome;
 
@@ -187,9 +186,10 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void salvar(ActionEvent event) {
 		preencherObjeto();
 		try {
-			espacoCtrl.salvar();
-			Utilitarios.message("Espaço salvo com sucesso.");
-			limparCampos();
+			if(espacoCtrl.salvar()) {
+				Utilitarios.message("Espaço salvo com sucesso.");
+				limparCampos();
+			}
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar espaço.\n"
 						   + "Descrição: " + e.getMessage());

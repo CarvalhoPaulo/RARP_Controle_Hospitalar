@@ -9,10 +9,19 @@ import br.com.rarp.model.dao.UsuarioDAO;
 public class UsuarioBusiness {
 
 	public void salvar(Usuario usuario) throws Exception {
+		if(usuario == null)
+			throw new Exception("O usuário não foi instânciado");
+		
+		if(usuario.isStatus())
+			validarUsuario(usuario);
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.salvar(usuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
 			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+	}
+
+	private void validarUsuario(Usuario usuario) {
+		// valida o usuário
 	}
 
 	public List<Usuario> consultar(String campo, String comparacao, String termo) throws Exception {

@@ -25,11 +25,18 @@ public class EspacoCtrl {
 		espaco = new Espaco();
 	}
 	
-	public void salvar() throws Exception {
-		EspacoBusiness espacoBusiness = new EspacoBusiness();
-		if(verificarDesativacao()) {
-			validarDadosObrigatorios();
+	public boolean salvar() throws Exception {
+		if(espaco == null)
+			throw new Exception("O espaço não foi instânciado");
+		
+		if(confirmarDesativacao()) {
+			if(espaco.isStatus())
+				validarDadosObrigatorios();
+			EspacoBusiness espacoBusiness = new EspacoBusiness();
 			espacoBusiness.salvar(espaco);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -48,8 +55,8 @@ public class EspacoCtrl {
 		this.espaco = (Espaco) object;
 	}
 	
-	private boolean verificarDesativacao() {
-		if(!espaco.isStatus())
+	private boolean confirmarDesativacao() {
+		if(espaco != null && !espaco.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este espaço?");
 		return true;
 	}

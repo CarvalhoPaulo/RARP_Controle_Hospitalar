@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Medico;
 
 public class MedicoDAO {
@@ -38,6 +37,7 @@ public class MedicoDAO {
 	public void salvar(Medico medico) {
 		
 	}
+	
 	public void inserir(Medico medico) throws Exception{
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();

@@ -6,6 +6,7 @@ import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.bo.CidadeBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,9 +20,12 @@ public class CidadeCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		if(verificarDesativacao()) {
+		if(cidade == null)
+			throw new Exception("A cidade não foi instânciada");
+		if(confirmarDesativacao()) {
 			CidadeBusiness cidadeBusiness = new CidadeBusiness();
-			validarDadosObrigatorios();
+			if(cidade.isStatus())
+				validarDadosObrigatorios();
 			cidadeBusiness.salvar(cidade);
 			return true;
 		} else {
@@ -38,9 +42,10 @@ public class CidadeCtrl {
 		}
 	}
 
-	private boolean verificarDesativacao() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean confirmarDesativacao() {
+		if(cidade != null && !cidade.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este convênio?");
+		return true;
 	}
 
 	public void novaCidade() {
