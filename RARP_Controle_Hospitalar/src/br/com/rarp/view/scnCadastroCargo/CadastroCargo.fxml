@@ -51,9 +51,6 @@
 							</font>
 						</Label>
 						<AutoCompleteComboBox fx:id="cmbFuncao" layoutY="170.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
-							<font>
-								<Font size="14.0" />
-							</font>
 						</AutoCompleteComboBox>
 						<Label layoutY="227.0" text="Nível:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="174.0">
 							<font>

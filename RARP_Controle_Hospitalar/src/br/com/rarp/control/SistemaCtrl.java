@@ -40,6 +40,7 @@ public class SistemaCtrl {
 	
 	private SistemaCtrl() {
 		getPropriedades();
+		
 	}
 	
 	public boolean podeLiberar(String tela, TipoMovimentacao tipo) {
@@ -211,10 +212,11 @@ public class SistemaCtrl {
 		TelaDAO.criarTabela();
 		UsuarioDAO.criarTabela();
 		EspacoDAO.criarTabela();
+		PacienteDAO.criarTabela();
 		LeitoDAO.criarTabela();
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
-		PacienteDAO.criarTabela();
+		
 		
 		//SQLDAO sqldao = new SQLDAO();
 		//sqldao.executarSQLFile("cidades_estados.sql");

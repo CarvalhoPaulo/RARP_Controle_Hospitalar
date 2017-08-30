@@ -15,10 +15,10 @@ public class MedicoBusiness {
 		medicoDAO.salvar(especialidade);
 	}
 
-	public List<Especialidade> consultar(String campo, String comparacao, String termo) throws Exception {
+	public List<Medico> consultar(String campo, String comparacao, String termo) throws Exception {
 		// TODO Auto-generated method stub
-		EspecialidadeDAO especialidadeDAO = new EspecialidadeDAO();
-		return especialidadeDAO.consultar(campo	, comparacao, termo);
+		MedicoDAO medicoDAO =  new MedicoDAO();
+		return medicoDAO.consultar(campo	, comparacao, termo);
 	
 	}
 

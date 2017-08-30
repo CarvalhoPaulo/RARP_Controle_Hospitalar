@@ -19,9 +19,9 @@ public class MedicoController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Medicos");
+		getLblTitle().setText("Manutenï¿½ï¿½o de Medicos");
 
-		TableColumn<Medico, String> codigo = new TableColumn<>("Código");
+		TableColumn<Medico, String> codigo = new TableColumn<>("Cï¿½digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Medico, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -41,9 +41,9 @@ public class MedicoController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		// Adicionar todos os campos que são strings numéricos ou booleanos,
+		// Adicionar todos os campos que sï¿½o strings numï¿½ricos ou booleanos,
 		// para pesquisa.
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "Cï¿½digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("CRM", "CRM", TipoCampo.texto));
 	}
@@ -58,7 +58,7 @@ public class MedicoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 
@@ -86,6 +86,7 @@ public class MedicoController extends ManutencaoController {
 				MedicoCtrl medicoCtrl = new MedicoCtrl();
 				medicoCtrl.setMedico((Medico) tblManutencao.getSelectionModel().getSelectedItem());
 				controller.alterar(medicoCtrl);
+				pesquisar();
 			}
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());

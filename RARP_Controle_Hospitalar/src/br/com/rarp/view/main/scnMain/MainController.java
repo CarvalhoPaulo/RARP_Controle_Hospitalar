@@ -225,8 +225,8 @@ public class MainController extends Application implements Initializable {
 		}
 	}
 
-	public static void abrir(String[] args) {
-		launch(args);
+	public static void abrir() {
+		launch();
 	}
 
 	public void ativarDesativarControleAcesso() {

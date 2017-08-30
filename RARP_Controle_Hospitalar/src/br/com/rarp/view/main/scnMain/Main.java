@@ -7,7 +7,8 @@ import javafx.scene.control.ButtonType;
 public class Main {
 	public static void main(String[] args) {
 		try {
-			MainController.abrir(args);
+
+			MainController.abrir();
 		} catch (Exception e) {
 			new Alert(AlertType.ERROR, "Erro ao inicializar a aplicação. "
 					+ "\n\tEntre em contato com o grupo RARP telefone: (62)"

@@ -36,11 +36,15 @@ public class EspecialidadeDAO {
 		try {
 			
 			String sql = "INSERT INTO especialidade(nome,observacoes,status) VALUES(?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.getConexao().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, especialidade.getNome());
 			ps.setString(2, especialidade.getObservacoes());
 			ps.setBoolean(3, especialidade.isStatus());
 			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next())
+				especialidade.setCodigo(rs.getInt("codigo"));
+			
 			ps.close();
 		}catch(Exception e){
 			throw new Exception("Erro a salvar Especialidade");

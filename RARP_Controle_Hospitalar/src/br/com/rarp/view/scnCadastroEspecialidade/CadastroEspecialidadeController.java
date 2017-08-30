@@ -29,6 +29,7 @@ public class CadastroEspecialidadeController extends Application implements Init
 
 	private static EspecialidadeCtrl especialidadeCtrl;
 
+	@FXML
 	private IntegerTextField txtCodigo;
 
     @FXML

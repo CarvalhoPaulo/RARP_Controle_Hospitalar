@@ -42,7 +42,7 @@ public class EspecialidadeCtrl {
 	
 	private boolean verificarDesativacao() {
 		if(!especialidade.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este Especialidade ?");
+			return Utilitarios.pergunta("Tem certeza que vocï¿½ deseja desativar este Especialidade ?");
 		return true;
 	}
 
@@ -50,12 +50,21 @@ public class EspecialidadeCtrl {
 		this.especialidade  = new Especialidade();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+
+	public ObservableList<Especialidade> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		// TODO Auto-generated method stub
 		
 		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
 		return FXCollections.observableArrayList(especialidadeBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
+	}
+	
+
+
+	public ObservableList<Especialidade> getEspecialidades() throws Exception {
+		// TODO Auto-generated method stub
+		
+		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
+		return FXCollections.observableArrayList(especialidadeBusiness.consultar("codigo"," > "," 0 "));
 	}
 
 }

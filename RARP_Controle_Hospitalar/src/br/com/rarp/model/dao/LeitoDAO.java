@@ -15,7 +15,10 @@ public class LeitoDAO {
 	
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if(!SistemaCtrl.getInstance().tabelaExiste("espaco"))
-			throw new Exception("Crie a tabela de espaços antes de criar a tabela de usuarios");
+			throw new Exception("Crie a tabela de espaços antes de criar a tabela de leitos");
+	
+		if(!SistemaCtrl.getInstance().tabelaExiste("paciente"))
+			throw new Exception("Crie a tabela de paciente antes de criar a tabela de leitos");
 		
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";

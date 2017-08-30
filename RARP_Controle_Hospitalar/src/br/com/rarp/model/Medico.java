@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Medico extends Funcionario {
 
+	private int codigoMedico;
 	private String CRM;
 	private List<Especialidade> especialidades;
 	private boolean status ;
@@ -31,5 +32,10 @@ public class Medico extends Funcionario {
 		this.especialidades = especialidades;
 	}
 
-	
+	public int getCodigoMedico() {
+		return codigoMedico;
+	}
+	public void setCodigoMedico(int codigoMedico) {
+		this.codigoMedico = codigoMedico;
+	}
 }
