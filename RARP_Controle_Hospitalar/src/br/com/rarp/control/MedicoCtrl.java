@@ -51,7 +51,7 @@ public class MedicoCtrl {
 	
 	private boolean verificarDesativacao() {
 		if(!medico.isStatus())
-			return Utilitarios.pergunta("Tem certeza que voc� deseja desativar este cargo?");
+			return Utilitarios.pergunta("Tem certeza que deseja desativar este cargo?");
 		return true;
 	}
 

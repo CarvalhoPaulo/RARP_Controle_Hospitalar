@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
+import br.com.rarp.model.Medico;
 
 public class EspecialidadeDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -122,5 +123,40 @@ public class EspecialidadeDAO {
             conexao.getConexao().close();
         }
 		return especialidades;
+	}
+	
+	public List<Especialidade> getEspecialidesByMedico(Medico medico) throws Exception {
+		PreparedStatement ps;
+		List<Especialidade>  especialidades =  new ArrayList<>() ;
+		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+	
+		try {
+			/**
+			 * nome,status,codigo_medico
+			 */
+			
+			String sql = " select * from especialidade where codigo in ("
+					+ "  select codigo_especialidade from medico_especialidade where codigo_medico = ? )";
+			ps = conexao.getConexao().prepareStatement(sql);
+			ps.setInt(1, medico.getCodigoMedico());
+			ResultSet rs = ps.executeQuery();
+			while ((rs.next()) ) {
+					
+				Especialidade Especialidade = new Especialidade();
+            	Especialidade.setCodigo(rs.getInt("codigo"));
+            	Especialidade.setNome(rs.getString("nome"));
+            	Especialidade.setObservacoes(rs.getString("observacoes"));
+            	Especialidade.setStatus(rs.getBoolean("status"));
+            	especialidades.add(Especialidade);
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception 
+			System.out.println(e.getMessage());
+			throw new Exception("falha ao consultar especialidades do medico");
+		}
+		
+		return especialidades;
+
 	}
 }

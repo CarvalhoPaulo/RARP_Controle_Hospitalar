@@ -62,23 +62,23 @@ public class MedicoDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-                                                                   
+
 			String sql = "INSERT INTO medico(crm,status,codigo_funcionario) VALUES(?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);    
+			ps = conexao.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, medico.getCRM());
-			ps.setBoolean(2, medico.isStatus()); 
+			ps.setBoolean(2, medico.isStatus());
 			ps.setInt(3, medico.getCodigo());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
 				medico.setCodigoMedico(rs.getInt("codigo"));
-			
+
 			ps.close();
 			salvarEspecialidades(medico);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Exception("Erro ao salvar Medico");
-			
+
 		} finally {
 
 			conexao.getConexao().close();
@@ -89,15 +89,15 @@ public class MedicoDAO {
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
-
-			String sql = "UPDATE especialidade SET nome=? , codigo_funcionario=?, status=?  WHERE codigo=?";
+			String sql = "UPDATE medico SET crm=? , codigo_funcionario=?, status=?  WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
-			ps.setString(1, medico.getNome());
+			ps.setString(1, medico.getCRM());
 			ps.setInt(2, medico.getCodigo());
 			ps.setBoolean(3, medico.isStatus());
 			ps.setInt(4, medico.getCodigoMedico());
 			ps.executeUpdate();
 			ps.close();
+			salvarEspecialidades(medico);
 		} catch (Exception e) {
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
@@ -107,6 +107,7 @@ public class MedicoDAO {
 	}
 
 	public List<Medico> consultar(String campo, String comparacao, String termo) throws Exception {
+
 		List<Medico> medicos = new ArrayList<>();
 		PreparedStatement ps;
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
@@ -114,17 +115,19 @@ public class MedicoDAO {
 			/**
 			 * nome,status,codigo_medico
 			 */
-			String sql = "SELECT " + "MEDICO.codigo AS codigo_medico," + "MEDICO.codigo_funcionario AS medico_funcionario," + "MEDICO.status AS status_medico,"
-					+ "FUNC.codigo AS codigo_func, " + "FUNC.dataAdmissao, " + "FUNC.ctps, "
-					+ "FUNC.salarioContratual, " + "FUNC.status AS status_func, " + "PF.cpf, " + "PF.rg, " + "PF.sexo, "
-					+ "PF.possuinecessidades, " + "PF.certidaonascimento, " + "PF.status AS status_pf, "
-					+ "PE.codigo AS codigo_pessoa, " + "PE.nome AS nome_pessoa, " + "PE.logradouro, "
-					+ "PE.datanascimento, " + "PE.complemento, " + "PE.numero, " + "PE.bairro, " + "PE.cep, "
-					+ "PE.status AS status_pessoa, " + "CID.codigo AS codigo_cidade, " + "CID.nome AS nome_cidade, "
-					+ "CID.status AS status_cidade, " + "ES.codigo AS codigo_estado, " + "ES.uf, "
-					+ "ES.nome AS nome_estado, " + "CA.codigo AS codigo_cargo, " + "CA.nome AS nome_cargo, "
-					+ "CA.funcao, " + "CA.nivel, " + "CA.requisitos, " + "CA.status AS status_cargo " + "FROM "
-					+ "medico AS MEDICO " + "LEFT funcionario AS FUNC ON MEDICO.medico_funcionario = FUNC.codigo"
+
+			String sql = "SELECT " + "MED.codigo AS codigo_med,"
+					+ "MED.codigo_funcionario  ,MED.crm , MED.status AS status_medico," + "FUNC.codigo AS codigo_func, "
+					+ "FUNC.dataAdmissao, " + "FUNC.ctps, " + "FUNC.salarioContratual, "
+					+ "FUNC.status AS status_func, " + "PF.cpf, " + "PF.rg, " + "PF.sexo, " + "PF.possuinecessidades, "
+					+ "PF.certidaonascimento, " + "PF.status AS status_pf, " + "PE.codigo AS codigo_pessoa, "
+					+ "PE.nome AS nome_pessoa, " + "PE.logradouro, " + "PE.datanascimento, " + "PE.complemento, "
+					+ "PE.numero, " + "PE.bairro, " + "PE.cep, " + "PE.status AS status_pessoa, "
+					+ "CID.codigo AS codigo_cidade, " + "CID.nome AS nome_cidade, " + "CID.status AS status_cidade, "
+					+ "ES.codigo AS codigo_estado, " + "ES.uf, " + "ES.nome AS nome_estado, "
+					+ "CA.codigo AS codigo_cargo, " + "CA.nome AS nome_cargo, " + "CA.funcao, " + "CA.nivel, "
+					+ "CA.requisitos, " + "CA.status AS status_cargo " + "FROM " + "medico AS MED "
+					+ "LEFT JOIN funcionario AS FUNC ON MED.codigo_funcionario = FUNC.codigo "
 					+ "LEFT JOIN cargo AS CA ON FUNC.codigo_cargo = CA.codigo "
 					+ "LEFT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
 					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
@@ -133,12 +136,13 @@ public class MedicoDAO {
 					+ termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Medico medico = new Medico();
-				
 
-				medico.setCodigo(rs.getInt("codigo_pessoa"));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next() ) {
+				Medico medico = new Medico();
+
+				medico.setCodigoMedico(rs.getInt("codigo_med"));
+				medico.setCodigo(rs.getInt("codigo_funcionario"));
 				if (rs.getDate("dataAdmissao") != null)
 					medico.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
 				medico.setCTPS(rs.getString("ctps"));
@@ -167,7 +171,6 @@ public class MedicoDAO {
 				estado.setCodigo(rs.getInt("codigo_estado"));
 				estado.setNome(rs.getString("nome_estado"));
 				estado.setUF(rs.getString("uf"));
-				
 
 				cidade.setEstado(estado);
 				medico.setCidade(cidade);
@@ -187,15 +190,17 @@ public class MedicoDAO {
 
 				TelefoneDAO telefoneDAO = new TelefoneDAO();
 				medico.setTelefones(telefoneDAO.getTelefones(rs.getInt("codigo_pessoa")));
-				medico.setCRM(rs.getString("requisitos"));
-				
-				medico.setEspecialidades(getEspecialidesByMedico(medico));
+
+				medico.setCRM(rs.getString("crm"));
+
+				medico.setEspecialidades(new EspecialidadeDAO().getEspecialidesByMedico(medico));
 				medicos.add(medico);
 			}
-			
+
 			ps.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			
+			System.out.println(e.getMessage()); 
 			throw new Exception("Erro a consultar medico");
 		} finally {
 			conexao.getConexao().close();
@@ -218,19 +223,18 @@ public class MedicoDAO {
 			sql = "INSERT INTO medico_especialidade(";
 
 			sql += "codigo_medico, codigo_especialidade)";
-			
-			
+
 			for (int i = 0; i < medico.getEspecialidades().size(); i++) {
-				
+
 				if (i != 0)
 					sql += " union";
-				sql +=" select";
+				sql += " select";
 				sql += "  ?,?  where not exists (";
 				sql += "select codigo_medico, codigo_especialidade from  medico_especialidade";
 				sql += " where codigo_medico = ? and codigo_especialidade = ? )";
 
 			}
-			
+
 			ps = conexao.getConexao().prepareStatement(sql);
 
 			int i = 1;
@@ -240,7 +244,7 @@ public class MedicoDAO {
 				ps.setInt(i++, medico.getCodigoMedico());
 				ps.setInt(i++, especialidade.getCodigo());
 			}
-		
+
 			ps.executeUpdate();
 			ps.close();
 
@@ -255,17 +259,15 @@ public class MedicoDAO {
 				}
 
 			}
-			sql +=")";
+			sql += ")";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setInt(1, medico.getCodigoMedico());
-			System.out.println(sql);
-			System.out.println(ps.toString());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
+			System.out.println(e.getMessage());
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
 
@@ -274,9 +276,5 @@ public class MedicoDAO {
 
 	}
 
-	private List<Especialidade> getEspecialidesByMedico(Medico medico) {
-
-		return null;
-
-	}
+	
 }

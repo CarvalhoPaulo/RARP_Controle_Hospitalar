@@ -19,10 +19,10 @@ public class MedicoController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manuten��o de Medicos");
+		getLblTitle().setText("Manutenção de Medicos");
 
-		TableColumn<Medico, String> codigo = new TableColumn<>("C�digo");
-		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		TableColumn<Medico, String> codigo = new TableColumn<>("Código");
+		codigo.setCellValueFactory(new PropertyValueFactory<>("codigoMedico"));
 		TableColumn<Medico, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
@@ -43,9 +43,9 @@ public class MedicoController extends ManutencaoController {
 	public void adicionarCampos() {
 		// Adicionar todos os campos que s�o strings num�ricos ou booleanos,
 		// para pesquisa.
-		cmbCampo.getItems().add(new Campo("codigo", "C�digo", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("CRM", "CRM", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("MED.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("PE.nome", "Nome", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("MED.crm", "CRM", TipoCampo.texto));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public class MedicoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descri��o: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descricão: " + e.getMessage());
 		}
 	}
 
@@ -84,7 +84,7 @@ public class MedicoController extends ManutencaoController {
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
 				MedicoCtrl medicoCtrl = new MedicoCtrl();
-				medicoCtrl.setMedico((Medico) tblManutencao.getSelectionModel().getSelectedItem());
+				medicoCtrl.setMedico((Medico)tblManutencao .getSelectionModel().getSelectedItem());
 				controller.alterar(medicoCtrl);
 				pesquisar();
 			}

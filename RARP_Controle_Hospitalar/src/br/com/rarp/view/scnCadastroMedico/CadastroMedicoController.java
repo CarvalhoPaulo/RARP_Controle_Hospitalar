@@ -61,6 +61,12 @@ public class CadastroMedicoController extends Application implements Initializab
 
 	@FXML
 	private Button btnVoltar;
+	
+	@FXML
+	private Button btnAdd;
+	
+	@FXML
+	private Button btnRemove;
 
 	@FXML
 	private SwitchButton swStatus;
@@ -96,17 +102,17 @@ public class CadastroMedicoController extends Application implements Initializab
 		if ((medicoCtrl != null) && (medicoCtrl.getMedico() != null)) {
 			cmbFuncionario.getSelectionModel().select(medicoCtrl.getMedico());
 			cmbEspecialidades.getSelectionModel().select(-1);
-			tbvEspecialidades.getItems().clear();
+			tbvEspecialidades.getItems().setAll(medicoCtrl.getMedico().getEspecialidades());
 
 			for (Estado estado : cmbEstado.getItems()) {
 				if (estado.equals(medicoCtrl.getMedico().getCRM().split("-")[0])) {
 					cmbEstado.setValue(estado);
 					break;
 				}
-			}
-
-			txtCRM.clear();
-			;
+			}		
+			txtCRM.setText(medicoCtrl.getMedico().getCRM().split("-")[1]);
+			txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
+			
 		}
 	}
 
@@ -116,6 +122,10 @@ public class CadastroMedicoController extends Application implements Initializab
 		tbvEspecialidades.setEditable(false);
 		cmbEstado.setEditable(false);
 		txtCRM.setEditable(false);
+		btnSalvar.setDisable(false);
+		btnAdd.setDisable(false);
+		btnRemove.setDisable(false);
+		
 
 	}
 
@@ -159,7 +169,7 @@ public class CadastroMedicoController extends Application implements Initializab
 
 		}
 		
-		if (cmbFuncionario.getSelectionModel().getSelectedIndex() >= 0) {
+		if (cmbFuncionario.getSelectionModel().getSelectedItem()!= null) {
 			medicoCtrl.novoMedico();
 			medicoCtrl.getMedico().setCodigo(cmbFuncionario.getSelectionModel().getSelectedItem().getCodigo());
 			
@@ -203,14 +213,14 @@ public class CadastroMedicoController extends Application implements Initializab
 			if (!visualizando) {
 				preencherObjeto();
 				if (medicoCtrl.salvar()) {
-					Utilitarios.message("Especialidade salvo com sucesso.");
+					Utilitarios.message("Medico salvo com sucesso.");
 					limparCampos();
 				}
 			} else {
-				Utilitarios.atencao("Este cadastro esta aberto apenas para visualizaï¿½ï¿½o");
+				Utilitarios.atencao("Este cadastro esta aberto apenas para visualização");
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o Especialidade.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o Medico.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 
