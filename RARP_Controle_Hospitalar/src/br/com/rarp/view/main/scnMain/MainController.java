@@ -24,6 +24,7 @@ import br.com.rarp.view.scnManutencao.medico.MedicoController;
 import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
+import br.com.rarp.view.scnOpcoes.OpcoesController;
 import br.com.rarp.view.scnSplash.SplashController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -170,7 +171,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().criarTabelas();
 			splash.next();
 			splash.getStage().close();
-			if (SistemaCtrl.getInstance().getPropriedades().getControleAcesso()) {
+			if (SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso()) {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 				if (!usuarioCtrl.isEmpty()) {
 					
@@ -179,7 +180,7 @@ public class MainController extends Application implements Initializable {
 						System.exit(0);
 				
 				} else {
-					SistemaCtrl.getInstance().getPropriedades().setControleAcesso(false);
+					SistemaCtrl.getInstance().getConfiguracoes().setControleAcesso(false);
 				}
 			}
 
@@ -241,7 +242,7 @@ public class MainController extends Application implements Initializable {
 					e.printStackTrace();
 				}
 			}
-			mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
+			mniControleAcesso.setSelected(SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso());
 			lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
 		} else {
 			imgControleAcesso.setImage(
@@ -269,7 +270,7 @@ public class MainController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
+		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso());
 		mniControleAcesso.fire();
 		initRelogio();
 		
@@ -474,6 +475,19 @@ public class MainController extends Application implements Initializable {
 			manutencao.getNode().requestFocus();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
+    
+    
+    @FXML
+    private void opcoes(ActionEvent event) {
+    	try {
+			new OpcoesController().start(SistemaCtrl.getInstance().getStage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
 			e.printStackTrace();
 		}
     }

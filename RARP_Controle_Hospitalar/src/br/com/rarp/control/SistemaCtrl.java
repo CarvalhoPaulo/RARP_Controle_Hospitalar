@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.enums.TipoMovimentacao;
+import br.com.rarp.model.Configuracoes;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
@@ -41,6 +42,10 @@ public class SistemaCtrl {
 	private SistemaCtrl() {
 		getPropriedades();
 		
+	}
+	
+	public Configuracoes getConfiguracoes() {
+		return Configuracoes.getInstance();
 	}
 	
 	public boolean podeLiberar(String tela, TipoMovimentacao tipo) {
@@ -82,7 +87,7 @@ public class SistemaCtrl {
 				return podeDesativar;
 			}
 		}
-		return !getPropriedades().getControleAcesso();
+		return !getConfiguracoes().isControleAcesso();
 	}
 	
 	public static SistemaCtrl getInstance() {
@@ -227,8 +232,9 @@ public class SistemaCtrl {
 	}
 
 	public void setUsuarioSessao(Usuario usuarioSessao) {
-		getPropriedades().setControleAcesso(usuarioSessao != null);
 		this.usuarioSessao = usuarioSessao;
 	}
+	
+	
 
 }
