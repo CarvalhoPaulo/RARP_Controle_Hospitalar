@@ -1,23 +1,34 @@
 package br.com.rarp.model;
 
+import br.com.rarp.annotations.IgnorarField;
+
 public class Configuracoes {
+	@IgnorarField
 	private static Configuracoes INSTANCE = new Configuracoes();
-	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+
 	private boolean controleAcesso;
-	private String Usuario;
-//	private String Senha;
+	private String usuario;
+	private String senha;
 	private Configuracoes() {
 		
 	}
-	
-	public static Configuracoes getINSTANCE() {
-		return INSTANCE;
-	}
 
-	public static void setINSTANCE(Configuracoes iNSTANCE) {
-		INSTANCE = iNSTANCE;
-	}
-	
 	public boolean isControleAcesso() {
 		return controleAcesso;
 	}
@@ -26,13 +37,6 @@ public class Configuracoes {
 		this.controleAcesso = controleAcesso;
 	}
 
-	public String getUsuario() {
-		return Usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		Usuario = usuario;
-	}
 
 	public static Configuracoes getInstance() {
 		return INSTANCE;

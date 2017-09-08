@@ -67,7 +67,7 @@ public class AcessoController extends Application implements Initializable {
 	}
 
 	public boolean logar() throws Exception {
-		start(SistemaCtrl.getInstance().getStage());
+		start(new Stage());
 		stage.setResizable(false);
 		stage.showAndWait();
 		LoginController.setStage(stage);

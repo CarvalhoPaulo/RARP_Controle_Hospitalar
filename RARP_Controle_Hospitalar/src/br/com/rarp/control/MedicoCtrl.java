@@ -32,6 +32,9 @@ public class MedicoCtrl {
 		if (medico.getCRM().equals("")) {
 			throw new  Exception("Favor insira um CRM para o Medico");
 		}
+		if (medico.getCRM().length() < 8) {
+			throw new  Exception("Favor insira um CRM para o valido");
+		}
 		
 		if ((medico.getEspecialidades() == null ) || (medico.getEspecialidades().size() < 1)) {
 			throw new  Exception("Favor insira um especialidade para o Medico");

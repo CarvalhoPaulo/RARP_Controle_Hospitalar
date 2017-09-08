@@ -15,30 +15,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0"
-	prefWidth="703.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnOpcoes.OpcoesController">
 	<center>
-		<TabPane prefHeight="494.0" prefWidth="336.0"
-			tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+		<TabPane prefHeight="494.0" prefWidth="514.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
 			<tabs>
 				<Tab text="Empresa">
 					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-							prefWidth="200.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 							<children>
-								<VBox accessibleRole="TEXT" fillWidth="false" layoutX="14.0"
-									layoutY="34.0" prefHeight="465.0" prefWidth="585.0" spacing="4.0"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+								<VBox accessibleRole="TEXT" fillWidth="false" layoutX="14.0" layoutY="34.0" prefHeight="465.0" prefWidth="556.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
 									<children>
 										<Label prefHeight="17.0" prefWidth="89.0" text="Razão Social">
 											<font>
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField prefHeight="25.0" prefWidth="579.0">
+										<TextField fx:id="txtRazao" prefHeight="30.0" prefWidth="545.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -48,7 +40,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<MaskTextField cnpj="true">
+										<MaskTextField fx:id="txtCNPJ" cnpj="true" prefHeight="30.0" prefWidth="193.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -58,7 +50,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField prefHeight="25.0" prefWidth="281.0">
+										<TextField fx:id="txtEndereco" prefHeight="25.0" prefWidth="281.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -68,8 +60,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<MaskTextField prefHeight="25.0" prefWidth="281.0"
-											telefone="true">
+										<MaskTextField fx:id="txtFone" prefHeight="25.0" prefWidth="281.0" telefone="true">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -79,8 +70,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<MaskTextField email="true" prefHeight="25.0"
-											prefWidth="281.0">
+										<MaskTextField fx:id="txtEmail" email="true" prefHeight="25.0" prefWidth="281.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -93,13 +83,9 @@
 				</Tab>
 				<Tab text="Web Pesquisa">
 					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-							prefWidth="200.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 							<children>
-								<VBox fillWidth="false" layoutX="42.0" layoutY="42.0"
-									prefHeight="437.0" prefWidth="695.0" spacing="4.0"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+								<VBox fillWidth="false" layoutX="42.0" layoutY="42.0" prefHeight="437.0" prefWidth="695.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<opaqueInsets>
 										<Insets bottom="8.0" />
 									</opaqueInsets>
@@ -109,7 +95,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<TextField prefHeight="25.0" prefWidth="377.0">
+										<TextField fx:id="txtUsuario" prefHeight="25.0" prefWidth="377.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -119,7 +105,7 @@
 												<Font size="14.0" />
 											</font>
 										</Label>
-										<PasswordField prefHeight="25.0" prefWidth="377.0">
+										<PasswordField fx:id="txtSenha" prefHeight="25.0" prefWidth="377.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -144,39 +130,27 @@
 		</Label>
 	</top>
 	<right>
-		<AnchorPane prefHeight="494.0" prefWidth="110.0"
-			BorderPane.alignment="CENTER">
+		<AnchorPane prefHeight="494.0" prefWidth="140.0" BorderPane.alignment="CENTER">
 			<children>
-				<Button alignment="TOP_CENTER" contentDisplay="TOP" layoutX="4.0"
-					layoutY="309.0" mnemonicParsing="false" prefHeight="75.0"
-					prefWidth="116.0" text="Apicar" AnchorPane.bottomAnchor="110.0"
-					AnchorPane.leftAnchor="4.0">
+				<Button fx:id="btnAplicar" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="309.0" mnemonicParsing="false" onAction="#gravar" prefHeight="75.0" prefWidth="116.0" text="Apicar" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="14.0">
 					<graphic>
-						<ImageView fitHeight="46.0" fitWidth="57.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@../img/accepted.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button alignment="TOP_CENTER" contentDisplay="TOP" layoutX="4.0"
-					layoutY="396.0" mnemonicParsing="false" prefHeight="75.0"
-					prefWidth="116.0" text="Cancelar" AnchorPane.bottomAnchor="23.0"
-					AnchorPane.leftAnchor="4.0">
+				<Button fx:id="btnCancelar" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="396.0" mnemonicParsing="false" onAction="#voltar" prefHeight="75.0" prefWidth="116.0" text="Cancelar" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="14.0">
 					<graphic>
-						<ImageView fitHeight="46.0" fitWidth="57.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="46.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@../img/cancel.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<ImageView fitHeight="150.0" fitWidth="116.0" layoutX="17.0"
-					layoutY="14.0" pickOnBounds="true" preserveRatio="true"
-					AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0"
-					AnchorPane.topAnchor="4.0">
+				<ImageView fitHeight="150.0" fitWidth="116.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
 					<image>
 						<Image url="@../img/settings-128.png" />
 					</image>

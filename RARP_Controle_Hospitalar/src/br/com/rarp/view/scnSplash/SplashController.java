@@ -18,14 +18,16 @@ public class SplashController extends Application implements Initializable {
 
 	private Stage stage;
 	private static Integer count = 1;
-	private static double progress = 0.0;
+
+	private static int progress = 0;
+
 
 	@FXML
 	private ProgressBar pgsSplash;
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("Splash.fxml"))));
+		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Splash.fxml"))));
 		this.stage = stage;
 	}
 
@@ -38,35 +40,49 @@ public class SplashController extends Application implements Initializable {
 	}
 
 	public void next() {
-		if (progress < 1.0)
-			progress = progress + (1.0 / count);
+		if (progress < 100)
+			progress = progress + (100 / count);
+		
+	//	initProgress();
+		
 	}
 
 	@SuppressWarnings("static-access")
 	public void abrir(Integer count) throws Exception {
 		if (count > 0)
 			this.count = count;
-		start(SistemaCtrl.getInstance().getStage());
+		start(new Stage());
+		stage.setResizable(false);
+		
 		stage.show();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		initProgress();
+	//	initProgress();
+
 	}
 
 	private void initProgress() {
-		Task<Void> task = new Task<Void>() {
-			@Override
-			protected Void call() throws Exception {
-				while (progress < 1.0) {
-					updateProgress(progress, 1);
-				}
-				return null;
-			}
+		
+			
+		Task task = new Task<Void>() {
+		    @Override public Void call() {
+		         final int max = 1000000;
+		        for (int i=1; i<=max; i++) {
+		            if (isCancelled()) {
+		               break;
+		            }
+		            updateProgress(i, max);
+		        }
+		        return null;
+		    }
 		};
+	
 		pgsSplash.progressProperty().bind(task.progressProperty());
+		
 		new Thread(task).start();
-	}
 
+	}
+	
 }

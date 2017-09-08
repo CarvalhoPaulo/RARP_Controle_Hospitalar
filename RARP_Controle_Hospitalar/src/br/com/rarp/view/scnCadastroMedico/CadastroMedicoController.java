@@ -14,6 +14,7 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
+import br.com.rarp.view.scnComponents.TextFieldFormatter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -50,21 +51,18 @@ public class CadastroMedicoController extends Application implements Initializab
 	@FXML // fx:id="tbcNome"
 	private TableColumn<Especialidade, Especialidade> tbcNome; // Value injected by FXMLLoader
 
-	@FXML // fx:id="cmbEstado"
-	private ComboBox<Estado> cmbEstado; // Value injected by FXMLLoader
-
 	@FXML // fx:id="txtCRM"
-	private IntegerTextField txtCRM;
+	private TextFieldFormatter txtCRM;
 
 	@FXML
 	private Button btnSalvar;
 
 	@FXML
 	private Button btnVoltar;
-	
+
 	@FXML
 	private Button btnAdd;
-	
+
 	@FXML
 	private Button btnRemove;
 
@@ -97,35 +95,25 @@ public class CadastroMedicoController extends Application implements Initializab
 	private void preencherTela() throws Exception {
 		cmbFuncionario.getItems().setAll(new FuncionarioCtrl().getFuncionarios());
 		cmbEspecialidades.getItems().setAll(new EspecialidadeCtrl().getEspecialidades());
-		cmbEstado.getItems().setAll(new EstadoCtrl().getEstados());
-
 		if ((medicoCtrl != null) && (medicoCtrl.getMedico() != null)) {
 			cmbFuncionario.getSelectionModel().select(medicoCtrl.getMedico());
 			cmbEspecialidades.getSelectionModel().select(-1);
 			tbvEspecialidades.getItems().setAll(medicoCtrl.getMedico().getEspecialidades());
 
-			for (Estado estado : cmbEstado.getItems()) {
-				if (estado.equals(medicoCtrl.getMedico().getCRM().split("-")[0])) {
-					cmbEstado.setValue(estado);
-					break;
-				}
-			}		
-			txtCRM.setText(medicoCtrl.getMedico().getCRM().split("-")[1]);
-			txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
-			
 		}
+		txtCRM.setText(medicoCtrl.getMedico().getCRM());
+		txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
+
 	}
 
 	private void bloquearTela() {
 		cmbFuncionario.setEditable(false);
 		cmbEspecialidades.setEditable(false);
 		tbvEspecialidades.setEditable(false);
-		cmbEstado.setEditable(false);
 		txtCRM.setEditable(false);
 		btnSalvar.setDisable(false);
 		btnAdd.setDisable(false);
 		btnRemove.setDisable(false);
-		
 
 	}
 
@@ -168,37 +156,42 @@ public class CadastroMedicoController extends Application implements Initializab
 			medicoCtrl = new MedicoCtrl();
 
 		}
-		
-		if (cmbFuncionario.getSelectionModel().getSelectedItem()!= null) {
+
+		if (cmbFuncionario.getSelectionModel().getSelectedItem() != null) {
 			medicoCtrl.novoMedico();
 			medicoCtrl.getMedico().setCodigo(cmbFuncionario.getSelectionModel().getSelectedItem().getCodigo());
-			
+
 			medicoCtrl.getMedico().setDtAdmissao(cmbFuncionario.getSelectionModel().getSelectedItem().getDtAdmissao());
 			medicoCtrl.getMedico().setCTPS(cmbFuncionario.getSelectionModel().getSelectedItem().getCTPS());
-			medicoCtrl.getMedico().setSalarioContratual(cmbFuncionario.getSelectionModel().getSelectedItem().getSalarioContratual());
+			medicoCtrl.getMedico()
+					.setSalarioContratual(cmbFuncionario.getSelectionModel().getSelectedItem().getSalarioContratual());
 			medicoCtrl.getMedico().setCpf(cmbFuncionario.getSelectionModel().getSelectedItem().getCpf());
 			medicoCtrl.getMedico().setRg(cmbFuncionario.getSelectionModel().getSelectedItem().getRg());
 			medicoCtrl.getMedico().setSexo(cmbFuncionario.getSelectionModel().getSelectedItem().getSexo());
-			medicoCtrl.getMedico().setPossuiNecessidades(cmbFuncionario.getSelectionModel().getSelectedItem().isPossuiNecessidades());
-			medicoCtrl.getMedico().setCertidaoNascimento(cmbFuncionario.getSelectionModel().getSelectedItem().getCertidaoNascimento());
+			medicoCtrl.getMedico()
+					.setPossuiNecessidades(cmbFuncionario.getSelectionModel().getSelectedItem().isPossuiNecessidades());
+			medicoCtrl.getMedico().setCertidaoNascimento(
+					cmbFuncionario.getSelectionModel().getSelectedItem().getCertidaoNascimento());
 			medicoCtrl.getMedico().setNome(cmbFuncionario.getSelectionModel().getSelectedItem().getNome());
 			medicoCtrl.getMedico().setLogradouro(cmbFuncionario.getSelectionModel().getSelectedItem().getLogradouro());
-		
-			medicoCtrl.getMedico().setDtNascimento(cmbFuncionario.getSelectionModel().getSelectedItem().getDtAdmissao());
-			medicoCtrl.getMedico().setComplemento(cmbFuncionario.getSelectionModel().getSelectedItem().getComplemento());
+
+			medicoCtrl.getMedico()
+					.setDtNascimento(cmbFuncionario.getSelectionModel().getSelectedItem().getDtAdmissao());
+			medicoCtrl.getMedico()
+					.setComplemento(cmbFuncionario.getSelectionModel().getSelectedItem().getComplemento());
 			medicoCtrl.getMedico().setNumero(cmbFuncionario.getSelectionModel().getSelectedItem().getNumero());
 			medicoCtrl.getMedico().setBairro(cmbFuncionario.getSelectionModel().getSelectedItem().getBairro());
 			medicoCtrl.getMedico().setCep(cmbFuncionario.getSelectionModel().getSelectedItem().getCep());
 
 			medicoCtrl.getMedico().setCidade(cmbFuncionario.getSelectionModel().getSelectedItem().getCidade());
-		
-			medicoCtrl.getMedico().setCargo(cmbFuncionario.getSelectionModel().getSelectedItem().getCargo());
 
+			medicoCtrl.getMedico().setCargo(cmbFuncionario.getSelectionModel().getSelectedItem().getCargo());
 
 			medicoCtrl.getMedico().setTelefones(cmbFuncionario.getSelectionModel().getSelectedItem().getTelefones());
 
 			medicoCtrl.getMedico().setCodigoMedico(txtCodigo.getValue());
-			medicoCtrl.getMedico().setCRM(cmbEstado.getSelectionModel().getSelectedItem().getUF() + "-" + txtCRM.getText());
+			medicoCtrl.getMedico()
+					.setCRM(txtCRM.getText());
 			medicoCtrl.getMedico().setEspecialidades(tbvEspecialidades.getItems());
 			medicoCtrl.getMedico().setStatus(swStatus.getValue());
 		} else {
@@ -228,7 +221,6 @@ public class CadastroMedicoController extends Application implements Initializab
 		cmbFuncionario.getSelectionModel().select(-1);
 		cmbEspecialidades.getSelectionModel().select(-1);
 		tbvEspecialidades.getItems().clear();
-		cmbEstado.getSelectionModel().select(-1);
 		txtCRM.setText("");
 	}
 
