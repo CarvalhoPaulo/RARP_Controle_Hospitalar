@@ -18,7 +18,7 @@ public class CargoDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "funcao VARCHAR(100), ";
-		sql += "requisitos VARCHAR(255), ";
+		sql += "requisitos VARCHAR, ";
 		sql += "nivel VARCHAR(20), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);

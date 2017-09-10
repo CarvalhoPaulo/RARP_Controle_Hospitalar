@@ -16,8 +16,8 @@ public class EspecialidadeDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "especialidade(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome varchar(250) ,";
-		sql += "observacoes character varying ,";
+		sql += "nome varchar(250), ";
+		sql += "observacoes VARCHAR, ";
 		sql += "status boolean ";
 		sql  += ")";
 		st.executeUpdate(sql);

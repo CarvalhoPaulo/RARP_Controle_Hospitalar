@@ -17,7 +17,7 @@ public class TelefoneDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "telefone(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "numero VARCHAR(12), ";
+		sql += "numero CHAR(12), ";
 		sql += "codigo_pessoa INTEGER REFERENCES pessoa(codigo))";
 		st.executeUpdate(sql);
 	}

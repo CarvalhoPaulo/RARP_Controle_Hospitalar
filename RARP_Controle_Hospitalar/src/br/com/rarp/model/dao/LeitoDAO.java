@@ -22,6 +22,7 @@ public class LeitoDAO {
 		sql += "leito(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "numero INTEGER, ";
+		sql += "statusLimpeza INTEGER, ";
 		sql += "codigo_espaco INTEGER REFERENCES espaco(codigo), ";
 		sql += "codigo_paciente INTEGER REFERENCES paciente(codigo), ";
 		sql += "status boolean)";

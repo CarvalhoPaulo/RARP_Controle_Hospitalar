@@ -16,7 +16,7 @@ public class MedicoDAO {
 		sql += "medico(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "codigo_funcionario integer NOT NULL REFERENCES funcionario(codigo), ";
-		sql += "CRM character varying(15) , ";	
+		sql += "CRM VARCHAR(15) , ";	
 		sql += "status boolean  ";		
 		sql  += ")";
 		

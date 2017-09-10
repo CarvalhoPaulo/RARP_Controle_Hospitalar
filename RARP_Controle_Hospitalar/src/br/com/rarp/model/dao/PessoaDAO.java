@@ -21,10 +21,10 @@ public class PessoaDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(255), ";
 		sql += "logradouro VARCHAR(255), ";
-		sql += "complemento VARCHAR(255), ";
+		sql += "complemento VARCHAR, ";
 		sql += "numero VARCHAR(50), ";
 		sql += "bairro VARCHAR(255), ";
-		sql += "cep CHAR(9), ";
+		sql += "cep CHAR(8), ";
 		sql += "datanascimento TIMESTAMP WITHOUT TIME ZONE, ";
 		sql += "codigo_cidade INTEGER REFERENCES cidade(codigo), ";
 		sql += "status boolean)";

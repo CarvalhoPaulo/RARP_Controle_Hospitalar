@@ -24,9 +24,9 @@ public class UsuarioDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "usuario(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome VARCHAR(225), ";
-		sql += "usuario VARCHAR(225) NOT NULL UNIQUE, ";
-		sql += "password VARCHAR(225), ";
+		sql += "nome VARCHAR(200), ";
+		sql += "usuario VARCHAR(100) NOT NULL UNIQUE, ";
+		sql += "password VARCHAR(50), ";
 		sql += "codigo_funcionario INTEGER REFERENCES funcionario(codigo), ";
 		sql += "codigo_perfilusuario Integer REFERENCES perfilusuario(codigo), ";
 		sql += "status BOOLEAN)";
