@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -48,9 +49,12 @@
 								<Font size="14.0" />
 							</font>
 						</TextArea>
-                  <SwitchButton fx:id="sbStatus" layoutX="224.0" layoutY="28.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
-                  <IntegerTextField fx:id="txtCodigo" editable="false" layoutX="8.0" layoutY="31.0" AnchorPane.leftAnchor="0.0" />
-	
+						<SwitchButton fx:id="sbStatus" layoutX="224.0" layoutY="28.0" value="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                  <IntegerTextField fx:id="txtCodigo" editable="false" layoutY="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </IntegerTextField>
 
 					</children>
 				</AnchorPane>

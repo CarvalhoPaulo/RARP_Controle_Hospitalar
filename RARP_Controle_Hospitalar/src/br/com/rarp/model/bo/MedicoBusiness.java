@@ -2,9 +2,7 @@ package br.com.rarp.model.bo;
 
 import java.util.List;
 
-import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Medico;
-import br.com.rarp.model.dao.EspecialidadeDAO;
 import br.com.rarp.model.dao.MedicoDAO;
 import br.com.rarp.utils.Utilitarios;
 
@@ -16,6 +14,7 @@ public class MedicoBusiness {
 		
 		if(medico.isStatus())
 			validarMedico(medico);
+
 		MedicoDAO medicoDAO = new MedicoDAO();
 		medicoDAO.salvar(medico);
 	}
@@ -23,11 +22,17 @@ public class MedicoBusiness {
 	private void validarMedico(Medico medico) throws Exception {
 		if(!Utilitarios.isCPF(medico.getCpfSemMascara()))
 			throw new Exception("CPF inválido");
+		if (medico.getCodigoMedico() == 0)
+			if (!new MedicoDAO().consultar("MED.codigo_funcionario ", " = ", String.valueOf(medico.getCodigo())).isEmpty()) {
+				throw new Exception("Fucionario ja relaciona a um medico");
+			}
 	}
 
-	public List<Especialidade> consultar(String campo, String comparacao, String termo) throws Exception {
-		EspecialidadeDAO especialidadeDAO = new EspecialidadeDAO();
-		return especialidadeDAO.consultar(campo	, comparacao, termo);
+	public List<Medico> consultar(String campo, String comparacao, String termo) throws Exception {
+		// TODO Auto-generated method stub
+		MedicoDAO medicoDAO = new MedicoDAO();
+		return medicoDAO.consultar(campo, comparacao, termo);
+
 	}
 
 }

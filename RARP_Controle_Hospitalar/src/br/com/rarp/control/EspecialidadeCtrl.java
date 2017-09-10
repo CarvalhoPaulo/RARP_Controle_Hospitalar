@@ -54,12 +54,21 @@ public class EspecialidadeCtrl {
 		this.especialidade  = new Especialidade();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+
+	public ObservableList<Especialidade> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		// TODO Auto-generated method stub
 		
 		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
 		return FXCollections.observableArrayList(especialidadeBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
+	}
+	
+
+
+	public ObservableList<Especialidade> getEspecialidades() throws Exception {
+		// TODO Auto-generated method stub
+		
+		EspecialidadeBusiness especialidadeBusiness = new EspecialidadeBusiness();
+		return FXCollections.observableArrayList(especialidadeBusiness.consultar("codigo"," > "," 0 "));
 	}
 
 }

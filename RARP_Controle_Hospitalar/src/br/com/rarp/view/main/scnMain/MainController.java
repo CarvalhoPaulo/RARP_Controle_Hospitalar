@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
+import br.com.rarp.model.Configuracoes;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -24,6 +25,7 @@ import br.com.rarp.view.scnManutencao.medico.MedicoController;
 import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
+import br.com.rarp.view.scnOpcoes.OpcoesController;
 import br.com.rarp.view.scnSplash.SplashController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -163,14 +165,19 @@ public class MainController extends Application implements Initializable {
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
+			
+			
+			
 			SplashController splash = new SplashController();
-			splash.abrir(2);
+			splash.abrir(3);
 			SistemaCtrl.getInstance().configuraConexao();
 			splash.next();
 			SistemaCtrl.getInstance().criarTabelas();
-			splash.next();
+			splash.next();	
+			SistemaCtrl.getInstance().getConfiguracoesDB();
+			splash.next();	
 			splash.getStage().close();
-			if (SistemaCtrl.getInstance().getPropriedades().getControleAcesso()) {
+			if (SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso()) {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
 				if (!usuarioCtrl.isEmpty()) {
 					
@@ -179,15 +186,11 @@ public class MainController extends Application implements Initializable {
 						System.exit(0);
 				
 				} else {
-					SistemaCtrl.getInstance().getPropriedades().setControleAcesso(false);
+					SistemaCtrl.getInstance().getConfiguracoes().setControleAcesso(false);
 				}
 			}
 
-			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
-			stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
-			stage.getIcons().add(new Image(getClass().getResourceAsStream("/br/com/rarp/view/img/UnderComputer-38(2).png")));
-			stage.setIconified(true);
-			stage.setMaximized(true);
+			
 
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
@@ -195,6 +198,11 @@ public class MainController extends Application implements Initializable {
 					SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 				}
 			});
+			stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Main.fxml"))));
+			stage.setTitle("RARP Controle Hospitalar - Sistema de controle hospitalar");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/br/com/rarp/view/img/UnderComputer-38(2).png")));
+			stage.setIconified(true);
+			stage.setMaximized(true);
 
 			try {
 				SistemaCtrl.getInstance().getConexao().getConexao();
@@ -225,8 +233,8 @@ public class MainController extends Application implements Initializable {
 		}
 	}
 
-	public static void abrir(String[] args) {
-		launch(args);
+	public static void abrir() {
+		launch();
 	}
 
 	public void ativarDesativarControleAcesso() {
@@ -236,17 +244,27 @@ public class MainController extends Application implements Initializable {
 			if (SistemaCtrl.getInstance().getUsuarioSessao() == null) {
 				LoginController login = new LoginController();
 				try {
-					login.logar();
+					if (login.logar()) {
+					
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
+			SistemaCtrl.getInstance().getConfiguracoes().setControleAcesso(SistemaCtrl.getInstance().getUsuarioSessao() != null);
+			mniControleAcesso.setSelected(SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso());
 			lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
 		} else {
+			SistemaCtrl.getInstance().getConfiguracoes().setControleAcesso(false);
 			imgControleAcesso.setImage(
 					new Image(getClass().getResource("..\\..\\img\\security-system-desativada-16x16.png").toString()));
 			SistemaCtrl.getInstance().setUsuarioSessao(null);
+		}
+		try {
+			SistemaCtrl.getInstance().salvarConfiguracoes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Utilitarios.erro(e.getMessage());
 		}
 	}
 
@@ -269,7 +287,7 @@ public class MainController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getPropriedades().getControleAcesso());
+		mniControleAcesso.setSelected(SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso());
 		mniControleAcesso.fire();
 		initRelogio();
 		
@@ -475,6 +493,18 @@ public class MainController extends Application implements Initializable {
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
 			e.printStackTrace();
+		}
+    }
+    
+    
+    @FXML
+    private void opcoes(ActionEvent event) {
+    	try {
+			new OpcoesController().start(SistemaCtrl.getInstance().getStage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Utilitarios.erro(e.getMessage());
+
 		}
     }
 }

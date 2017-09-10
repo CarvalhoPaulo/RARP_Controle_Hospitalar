@@ -1,10 +1,23 @@
 package br.com.rarp.model;
 
+import static org.mockito.Mockito.verify;
+
 public class Estado {
 
 	private int codigo;
 	private String nome;
 	private String UF;
+	
+	public boolean equals(String uf) {
+		return this.getUF().equals(uf);
+		
+	}
+	
+	public boolean equals(Estado estado) {
+		return this.codigo ==  estado.getCodigo();
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -23,4 +36,9 @@ public class Estado {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+	@Override
+	public String toString() {
+		return UF ;
+	}
+	
 }

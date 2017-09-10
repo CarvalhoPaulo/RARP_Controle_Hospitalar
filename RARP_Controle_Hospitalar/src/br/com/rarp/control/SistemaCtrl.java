@@ -6,12 +6,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.plexus.compiler.CompilerConfiguration;
+
 import br.com.rarp.enums.TipoMovimentacao;
+import br.com.rarp.model.Configuracoes;
+import br.com.rarp.model.Empresa;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
 import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
+import br.com.rarp.model.dao.ConfiguracoesDAO;
 import br.com.rarp.model.dao.ConvenioDAO;
 import br.com.rarp.model.dao.EspacoDAO;
 import br.com.rarp.model.dao.EspecialidadeDAO;
@@ -40,7 +45,21 @@ public class SistemaCtrl {
 	
 	private SistemaCtrl() {
 		getPropriedades();
+		
 	}
+	
+	public Configuracoes getConfiguracoes() {
+		return Configuracoes.getInstance();
+	}
+	
+	public Empresa getEmpresa() {
+		return Empresa.getINSTANCE();
+	}
+	
+	public void salvarConfiguracoes() throws Exception {
+		new ConfiguracoesDAO().salvar();
+	}
+	
 	
 	public boolean podeLiberar(String tela, TipoMovimentacao tipo) {
 		if (usuarioSessao != null && usuarioSessao.getPerfilUsuario() != null && usuarioSessao.getPerfilUsuario().getTelas().size() > 0) {
@@ -81,7 +100,7 @@ public class SistemaCtrl {
 				return podeDesativar;
 			}
 		}
-		return !getPropriedades().getControleAcesso();
+		return !getConfiguracoes().isControleAcesso();
 	}
 	
 	public static SistemaCtrl getInstance() {
@@ -211,10 +230,12 @@ public class SistemaCtrl {
 		TelaDAO.criarTabela();
 		UsuarioDAO.criarTabela();
 		EspacoDAO.criarTabela();
+		PacienteDAO.criarTabela();
 		LeitoDAO.criarTabela();
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
-		PacienteDAO.criarTabela();
+		ConfiguracoesDAO.criarTabela();
+		
 		
 		//SQLDAO sqldao = new SQLDAO();
 		//sqldao.executarSQLFile("cidades_estados.sql");
@@ -225,8 +246,14 @@ public class SistemaCtrl {
 	}
 
 	public void setUsuarioSessao(Usuario usuarioSessao) {
-		getPropriedades().setControleAcesso(usuarioSessao != null);
 		this.usuarioSessao = usuarioSessao;
 	}
+
+	public void getConfiguracoesDB() throws Exception {
+		// TODO Auto-generated method stub 
+		new ConfiguracoesDAO().getConfiguracoes();
+	}
+	
+	
 
 }

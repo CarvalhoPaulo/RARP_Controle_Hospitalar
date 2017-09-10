@@ -64,10 +64,11 @@ public class FuncionarioCtrl {
 		funcionario = new Funcionario();
 	}
 	
-	public ObservableList<Funcionario> getEspecilidades(Campo campo, Comparacao comparacao, String termo) throws Exception {
-		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-		return FXCollections.observableList(
-				funcionarioBusiness.consultar("status", "status", "true"));
+	public ObservableList<Funcionario> getFuncionarios() throws Exception {
+			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+			return FXCollections.observableList(
+					funcionarioBusiness.consultar("FUNC.codigo", " > ", "0"));
+
 	}
 	
 }

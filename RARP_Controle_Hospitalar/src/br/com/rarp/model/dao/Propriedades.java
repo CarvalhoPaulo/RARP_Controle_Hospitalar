@@ -15,7 +15,6 @@ public class Propriedades {
 	private String database;
 	private String user;
 	private String password;
-	private Boolean controleAcesso;
 	private String lastUsername;
 	
 	private String host;
@@ -74,7 +73,7 @@ public class Propriedades {
 		database = prop.getProperty("conexao.database", "rarp");
 		user = prop.getProperty("conexao.user", "postgres");
 		password = prop.getProperty("conexao.password", "");
-		controleAcesso = prop.getProperty("sistema.controleAcesso", true);
+
 		lastUsername = prop.getProperty("login.lastUsername", "");
 		host = prop.getProperty("conexao.host", "localhost");
 		porta= prop.getProperty("conexao.porta", "5432");
@@ -93,7 +92,7 @@ public class Propriedades {
 		prop.setProperty("login.lastUsername", lastUsername);
 		
 		//Opções do sistema
-		prop.setProperty("sistema.controleAcesso", controleAcesso);
+
 		 
 		try {
 			prop.store(new FileOutputStream("./properties/RARP.Properties"), "");
@@ -126,10 +125,6 @@ public class Propriedades {
 		return database;
 	}
 
-	public Boolean getControleAcesso() {
-		return controleAcesso;
-	}
-
 	public void setDatabase(String database) {
 		this.database = database;
 	}
@@ -158,7 +153,4 @@ public class Propriedades {
 		this.lastUsername = lastUsername;
 	}
 	
-	public void setControleAcesso(Boolean controleAcesso) {
-		this.controleAcesso = controleAcesso;
-	}
 }

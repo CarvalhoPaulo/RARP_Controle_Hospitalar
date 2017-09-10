@@ -21,11 +21,22 @@ public class MedicoCtrl {
 	
 	private void validaCamposObrigatorios() throws Exception {
 		if (medico == null){
-			throw new  Exception("Favor criar nova medico");
+			throw new  Exception("Favor Selecioanr um funcionario");
 		}
 		
 		if (medico.getNome().equals("")) {
-			throw new  Exception("Favor Inserir um nome");
+			throw new  Exception("Favor Selecione um Funcionario");
+		}
+		
+		if (medico.getCRM().equals("")) {
+			throw new  Exception("Favor insira um CRM para o Medico");
+		}
+		if (medico.getCRM().length() < 8) {
+			throw new  Exception("Favor insira um CRM para o valido");
+		}
+		
+		if ((medico.getEspecialidades() == null ) || (medico.getEspecialidades().size() < 1)) {
+			throw new  Exception("Favor insira um especialidade para o Medico");
 		}
 	}
 	
@@ -46,7 +57,7 @@ public class MedicoCtrl {
 	
 	private boolean confirmarDesativacao() {
 		if(!medico.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este cargo?");
+			return Utilitarios.pergunta("Tem certeza que deseja desativar este cargo?");
 		return true;
 	}
 
