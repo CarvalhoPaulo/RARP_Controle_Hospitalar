@@ -1,16 +1,13 @@
 package br.com.rarp.model.dao;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import br.com.rarp.annotations.IgnorarField;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Configuracoes;
-import br.com.rarp.model.Especialidade;
 
 public class ConfiguracoesDAO {
 

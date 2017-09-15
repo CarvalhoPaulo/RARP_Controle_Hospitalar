@@ -17,6 +17,15 @@ public class Pessoa {
 	private List<Telefone> telefones;
 	private Cidade cidade;
 	private boolean status;
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Pessoa() {
 		cidade = new Cidade();

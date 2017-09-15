@@ -5,12 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.codehaus.plexus.compiler.CompilerConfiguration;
-
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Configuracoes;
-import br.com.rarp.model.Empresa;
+import br.com.rarp.model.Organizacao;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.CargoDAO;
@@ -18,6 +15,7 @@ import br.com.rarp.model.dao.CidadeDAO;
 import br.com.rarp.model.dao.Conexao;
 import br.com.rarp.model.dao.ConfiguracoesDAO;
 import br.com.rarp.model.dao.ConvenioDAO;
+import br.com.rarp.model.dao.OrganizacaoDAO;
 import br.com.rarp.model.dao.EspacoDAO;
 import br.com.rarp.model.dao.EspecialidadeDAO;
 import br.com.rarp.model.dao.EstadoDAO;
@@ -52,8 +50,8 @@ public class SistemaCtrl {
 		return Configuracoes.getInstance();
 	}
 	
-	public Empresa getEmpresa() {
-		return Empresa.getINSTANCE();
+	public Organizacao getOrganizacao() {
+		return Organizacao.getINSTANCE();
 	}
 	
 	public void salvarConfiguracoes() throws Exception {
@@ -235,8 +233,8 @@ public class SistemaCtrl {
 		EspecialidadeDAO.criarTabela();
 		MedicoDAO.criarTabela();
 		ConfiguracoesDAO.criarTabela();
-		
-		
+		OrganizacaoDAO.criarTabela();
+
 		//SQLDAO sqldao = new SQLDAO();
 		//sqldao.executarSQLFile("cidades_estados.sql");
 	}
@@ -254,6 +252,10 @@ public class SistemaCtrl {
 		new ConfiguracoesDAO().getConfiguracoes();
 	}
 	
+	public void getOrganizacaoDB() throws Exception {
+		// TODO Auto-generated method stub 
+		new OrganizacaoDAO().getOrganizacao();
+	}
 	
 
 }
