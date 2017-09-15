@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
@@ -39,7 +40,10 @@ public class CargoDAO {
 			String sql = "INSERT INTO cargo(nome, funcao, requisitos, nivel, status) VALUES(?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao().name());
+			if(cargo.getFuncao() != null)
+				ps.setString(2, cargo.getFuncao().toString());
+			else
+				ps.setNull(2, Types.VARCHAR);
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());
@@ -58,7 +62,10 @@ public class CargoDAO {
 			String sql = "UPDATE cargo SET nome = ?, funcao = ?, requisitos = ?, nivel = ?, status = ? WHERE codigo=?";
 			ps = conexao.getConexao().prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao().name());
+			if(cargo.getFuncao() != null)
+				ps.setString(2, cargo.getFuncao().toString());
+			else
+				ps.setNull(2, Types.VARCHAR);
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());

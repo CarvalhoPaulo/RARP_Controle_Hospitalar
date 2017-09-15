@@ -169,8 +169,7 @@ public class ConfiguracoesDAO {
 
 			String sql;
 			sql = "INSERT INTO configuracoes("; 
-
-			sql += "chave,valor ) ";
+			sql += "chave,valor) ";
 			sql += " VALUES ";
 			Configuracoes configuracoes = Configuracoes.getInstance();
 			int i = 0;

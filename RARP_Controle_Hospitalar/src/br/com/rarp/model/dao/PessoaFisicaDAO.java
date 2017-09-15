@@ -72,7 +72,7 @@ public class PessoaFisicaDAO {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
-			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
 			ps = conexao.getConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());

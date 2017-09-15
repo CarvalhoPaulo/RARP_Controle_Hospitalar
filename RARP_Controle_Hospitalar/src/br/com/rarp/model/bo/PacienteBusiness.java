@@ -24,8 +24,9 @@ public class PacienteBusiness {
 	}
 
 	private void validarPaciente(Paciente paciente) throws Exception {
-		if(!Utilitarios.isCPF(paciente.getCpfSemMascara()))
-			throw new Exception("CPF inválido");
+		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
+			throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
+		}
 	}
 
 }

@@ -13,7 +13,8 @@ public class Tela {
 	
 	public Tela() {}
 	
-	public Tela(String nome, String descricao) {
+	public Tela(int codigo, String nome, String descricao) {
+		this.codigo = codigo;
 		this.nome = nome;
 		this.descricao = descricao;
 	}

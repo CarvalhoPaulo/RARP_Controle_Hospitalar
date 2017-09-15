@@ -43,7 +43,6 @@ public class SistemaCtrl {
 	
 	private SistemaCtrl() {
 		getPropriedades();
-		
 	}
 	
 	public Configuracoes getConfiguracoes() {
@@ -107,19 +106,18 @@ public class SistemaCtrl {
 	
 	public List<Tela> getTelas() {
 		List<Tela> telas = new ArrayList<>();
+		telas.add(new Tela(1, "manutencaoUsuario", "Manutenção de Usuário"));
+		telas.add(new Tela(2, "manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
+		telas.add(new Tela(3, "manutencaoEspaco", "Manutenção de Espaço"));
+		telas.add(new Tela(4, "manutencaoFuncionario", "Manutenção de Funcionario"));
+		telas.add(new Tela(5, "manutencaoCargo", "Manutenção de Cargo"));
+		telas.add(new Tela(6, "manutencaoCidade", "Manutenção de Cidade"));
+		telas.add(new Tela(7, "manutencaoPaciente", "Manutenção de Paciente"));
+		telas.add(new Tela(8, "manutencaoConvenio", "Manutenção de Convênio"));
+		telas.add(new Tela(9, "manutencaoEspecialidade", "Manutenção de Especialidade"));
+		telas.add(new Tela(10, "manutencaoMedico", "Manutenção de Especialidade"));
 		
-		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuário"));
-		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
-		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
-		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
-		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
-		telas.add(new Tela("manutencaoCidade", "Manutenção de Cidade"));
-		telas.add(new Tela("manutencaoPaciente", "Manutenção de Paciente"));
-		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
-		telas.add(new Tela("manutencaoEspecialidade", "Manutenção de Especialidade"));
-		telas.add(new Tela("manutencaoMedico", "Manutenção de Especialidade"));
-		
-		telas.add(new Tela("controleEntradaPaciente", "Controle de Entrada de Paciente"));
+		telas.add(new Tela(11, "controleEntradaPaciente", "Controle de Entrada de Paciente"));
 		
 		return telas;
 	}
