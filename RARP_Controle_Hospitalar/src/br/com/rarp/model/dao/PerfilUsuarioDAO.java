@@ -20,6 +20,13 @@ public class PerfilUsuarioDAO {
 		sql += "nome VARCHAR(100), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
+		
+		sql = "INSERT INTO perfilUsuario(codigo, nome, status) "
+				+ "SELECT 1, 'Super Administrador', 'TRUE' WHERE NOT EXISTS "
+				+ "("
+					+ "SELECT codigo FROM perfilUsuario WHERE codigo = 1"
+				+ ")";
+		st.executeUpdate(sql);
 	}
 	
 	public PerfilUsuario consultar(int codigo) throws SQLException, Exception {

@@ -4,7 +4,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.EntradaPacienteCtrl;
+import br.com.rarp.control.FuncionarioCtrl;
+import br.com.rarp.control.MedicoCtrl;
+import br.com.rarp.control.PacienteCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.enums.Funcao;
+import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Medico;
+import br.com.rarp.model.Paciente;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
+import br.com.rarp.view.scnComponents.IntegerTextField;
+import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,15 +24,87 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import jfxtras.scene.control.CalendarTimeTextField;
 
 public class CadastroEntradaController extends Application implements Initializable {
 
 	private static Stage stage;
 	private static EntradaPacienteCtrl entradaPacienteCtrl;
 	private static boolean visualizando;
+	
+    @FXML
+    private Button btnSalvar;
+
+    @FXML
+    private Button btnVoltar;
+
+    @FXML
+    private IntegerTextField txtCodigo;
+
+    @FXML
+    private SwitchButton sbAtivado;
+
+    @FXML
+    private AutoCompleteComboBox<Paciente> cmbPaciente;
+
+    @FXML
+    private AutoCompleteComboBox<Medico> cmbMedico;
+
+    @FXML
+    private AutoCompleteComboBox<Funcionario> cmbEnfermeira;
+
+    @FXML
+    private TextArea txtPreTriagem;
+
+    @FXML
+    private TableView<?> tblAtendimentos;
+
+    @FXML
+    private Button btnInserir;
+
+    @FXML
+    private Button btnAlterar;
+
+    @FXML
+    private Button btnRemover;
+
+    @FXML
+    private DatePicker txtDate;
+
+    @FXML
+    private CalendarTimeTextField txtHora;
+
+    @FXML
+    private AutoCompleteComboBox<Funcionario> cmbAtendente;
+
+    @FXML
+    private SwitchButton sbAlta;
+
+    @FXML
+    void alterarAtendimento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void inserirAtendimento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removerAtendimento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void salvar(ActionEvent event) {
+
+    }
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -73,10 +155,32 @@ public class CadastroEntradaController extends Application implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(entradaPacienteCtrl != null) {
-			
-		}
+		prepararTela();
+		if (entradaPacienteCtrl != null && entradaPacienteCtrl.getEntradaPaciente() != null)
+			preencherTela();
+		if (visualizando)
+			bloquearTela();
+	}
+
+	private void bloquearTela() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	private void preencherTela() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void prepararTela() {
+		try {
+			cmbAtendente.setItems(new FuncionarioCtrl().getFuncionarios(Funcao.atendente));
+			cmbEnfermeira.setItems(new FuncionarioCtrl().getFuncionarios(Funcao.enfermeira));
+			cmbMedico.setItems(new MedicoCtrl().getMedicos());
+			cmbPaciente.setItems(new PacienteCtrl().getPacientes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static boolean isVisualizando() {
@@ -85,6 +189,14 @@ public class CadastroEntradaController extends Application implements Initializa
 
 	public static void setVisualizando(boolean visualizando) {
 		CadastroEntradaController.visualizando = visualizando;
+	}
+
+	@SuppressWarnings("static-access")
+	public void visualizar(EntradaPacienteCtrl entradaPacienteCtrl) throws Exception {
+		visualizando = true;
+		this.entradaPacienteCtrl = entradaPacienteCtrl;
+		start(SistemaCtrl.getInstance().getStage());
+		stage.showAndWait();
 	}
 
 }

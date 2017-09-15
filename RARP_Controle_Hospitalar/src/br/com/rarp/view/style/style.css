@@ -13,6 +13,10 @@ TextField, Label  {
 	-fx-font-size: 14px;
 }
 
+.font {
+	-fx-font-size: 14px;
+}
+
 .status-bar {
 	-fx-border-style: solid;
 	-fx-border-width: 1px;

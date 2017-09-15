@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.plexus.compiler.CompilerConfiguration;
-
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Configuracoes;
 import br.com.rarp.model.Empresa;
@@ -112,7 +110,6 @@ public class SistemaCtrl {
 		
 		telas.add(new Tela("manutencaoUsuario", "Manutenção de Usuário"));
 		telas.add(new Tela("manutencaoPerfilUsuario", "Manutenção de Perfil de Usuário"));
-		telas.add(new Tela("manutencaoEntradaPaciente", "Manutenção de Entrada de Paciente"));
 		telas.add(new Tela("manutencaoEspaco", "Manutenção de Espaço"));
 		telas.add(new Tela("manutencaoFuncionario", "Manutenção de Funcionario"));
 		telas.add(new Tela("manutencaoCargo", "Manutenção de Cargo"));
@@ -121,62 +118,65 @@ public class SistemaCtrl {
 		telas.add(new Tela("manutencaoConvenio", "Manutenção de Convênio"));
 		telas.add(new Tela("manutencaoEspecialidade", "Manutenção de Especialidade"));
 		telas.add(new Tela("manutencaoMedico", "Manutenção de Especialidade"));
+		
+		telas.add(new Tela("controleEntradaPaciente", "Controle de Entrada de Paciente"));
+		
 		return telas;
 	}
 	
 	public void liberarManutencaoUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoUsuario", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoPerfilUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPerfilUsuario", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
-	public void liberarManutencaoEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
-		if(!podeLiberar("manutencaoEntradaPaciente", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+	public void liberarControleEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("controleEntradaPaciente", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoEspaco(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspaco", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoCargo(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCargo", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoFuncionario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoFuncionario", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoCidade(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoCidade", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPaciente", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoConvenio(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoConvenio", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoEspecialidade(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoEspecialidade", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoMedico(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoMedico", tipoMovimentacao))
-			throw new Exception("Ação indisponível para este usuário");
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public Propriedades getPropriedades() {

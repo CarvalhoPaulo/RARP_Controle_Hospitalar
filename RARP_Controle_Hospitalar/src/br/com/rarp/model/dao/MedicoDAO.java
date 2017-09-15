@@ -24,8 +24,8 @@ public class MedicoDAO {
 		sql += "medico(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "codigo_funcionario integer NOT NULL REFERENCES funcionario(codigo), ";
-		sql += "CRM VARCHAR(15) , ";	
-		sql += "status boolean  ";		
+		sql += "CRM VARCHAR(15), ";	
+		sql += "status boolean,  ";		
 		sql += "CONSTRAINT medico_funcionario UNIQUE (codigo_funcionario)";
 		sql += ")";
 		st.executeUpdate(sql);

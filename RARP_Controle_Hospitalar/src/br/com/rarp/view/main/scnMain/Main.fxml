@@ -86,7 +86,7 @@
 						</Menu>
 						<Menu fx:id="mnMovimentacoes" mnemonicParsing="false" text="Movimentações">
 							<items>
-								<MenuItem mnemonicParsing="false" text="Entrada de Pacientes">
+								<MenuItem fx:id="mniEntradaPaciente" mnemonicParsing="false" onAction="#controlarEntrada" text="Entrada de Pacientes">
 									<accelerator>
 										<KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
 									</accelerator>
@@ -158,7 +158,7 @@
 							</graphic>
 						</Button>
 						<Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
-						<Button fx:id="btnEntrada" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#manterEntrada" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Entrada" textAlignment="CENTER" wrapText="true">
+						<Button fx:id="btnEntrada" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#controlarEntrada" prefHeight="60.0" prefWidth="85.0" stylesheets="@../../style/style.css" text="Entrada" textAlignment="CENTER" wrapText="true">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

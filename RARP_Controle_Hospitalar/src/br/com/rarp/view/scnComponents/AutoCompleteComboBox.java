@@ -41,7 +41,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 		setOnHidden(onHide);
 		
 		focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(!newValue && oldValue && literal) {
+			if(!newValue && oldValue && literal && getItems().size() > 0) {
 				getEditor().setText(getItems().get(0).toString());
 				if(!negativeIndex && getItems() != null && getItems().size() > 0 && getEditor().getText().isEmpty())
 					getSelectionModel().selectFirst();
@@ -150,7 +150,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 		}
 		
 		String t = getEditor().getText();
-		if(list.size() <= 0 && literal) {
+		if(list.size() <= 0 && literal && t.length() > 0) {
 			t = t.substring(0, t.length() - 1);
 			getEditor().setText(t);
 			for (int i = 0; i < data.size(); i++) {

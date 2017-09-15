@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
-import br.com.rarp.model.Configuracoes;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -165,9 +164,6 @@ public class MainController extends Application implements Initializable {
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-			
-			
-			
 			SplashController splash = new SplashController();
 			splash.abrir(3);
 			SistemaCtrl.getInstance().configuraConexao();
@@ -400,9 +396,9 @@ public class MainController extends Application implements Initializable {
     }
     
     @FXML
-	private void manterEntrada(ActionEvent event) {
+	private void controlarEntrada(ActionEvent event) {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			SistemaCtrl.getInstance().liberarControleEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EntradaPacienteController();
 			pnMain.setCenter(manutencao.getNode());
 			focarToolBar(false);

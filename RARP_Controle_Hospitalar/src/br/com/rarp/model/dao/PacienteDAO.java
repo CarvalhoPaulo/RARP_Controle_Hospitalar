@@ -63,13 +63,14 @@ public class PacienteDAO {
 					+ "CID.codigo AS codigo_cidade, " 
 					+ "CID.nome AS nome_cidade, "
 					+ "CID.status AS status_cidade, "
+					+ "ES.codigo AS codigo_estado, "
 					+ "ES.uf, "
 					+ "ES.nome AS nome_estado "
 					+ "FROM paciente AS PAC "
 					+ "LEFT JOIN pessoafisica AS PF ON PAC.codigo_pf = PF.codigo "
 					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "LEFT JOIN estado AS ES ON CID.uf_estado = ES.uf " + "WHERE " + campo + comparacao + termo;
+					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
 			ps = conexao.getConexao().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -101,6 +102,7 @@ public class PacienteDAO {
 				cidade.setStatus(rs.getBoolean("status_cidade"));
 
 				Estado estado = new Estado();
+				estado.setCodigo(rs.getInt("codigo_estado"));
 				estado.setNome(rs.getString("nome_estado"));
 				estado.setUF(rs.getString("uf"));
 

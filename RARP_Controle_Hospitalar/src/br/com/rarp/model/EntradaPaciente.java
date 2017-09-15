@@ -2,20 +2,14 @@ package br.com.rarp.model;
 
 import java.util.List;
 
-import br.com.rarp.annotations.Coluna;
-
 public class EntradaPaciente extends Movimentacao {
 
 	private String preTriagem;
 	private Medico medico;
-	
-	@Coluna(posicao=3, descricao="Paciente")
 	private Paciente paciente;
-	
-	@Coluna(posicao=4, descricao="Atendente")
-	private Atendente atendente;
-	private Enfermeira enfermeira;
-	private List<Agendamento> agendamentos;
+	private Funcionario atendente;
+	private Funcionario enfermeira;
+	private List<Atendimento> agendamentos;
 	private List<Encaminhamento> encaminhamentos;
 	
 	public String getPreTriagem() {
@@ -36,29 +30,29 @@ public class EntradaPaciente extends Movimentacao {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	public Atendente getAtendente() {
-		return atendente;
-	}
-	public void setAtendente(Atendente atendente) {
-		this.atendente = atendente;
-	}
-	public Enfermeira getEnfermeira() {
-		return enfermeira;
-	}
-	public void setEnfermeira(Enfermeira enfermeira) {
-		this.enfermeira = enfermeira;
-	}
-	public List<Agendamento> getAgendamentos() {
-		return agendamentos;
-	}
-	public void setAgendamentos(List<Agendamento> agendamentos) {
-		this.agendamentos = agendamentos;
-	}
 	public List<Encaminhamento> getEncaminhamentos() {
 		return encaminhamentos;
 	}
 	public void setEncaminhamentos(List<Encaminhamento> encaminhamentos) {
 		this.encaminhamentos = encaminhamentos;
+	}
+	public Funcionario getAtendente() {
+		return atendente;
+	}
+	public void setAtendente(Funcionario atendente) {
+		this.atendente = atendente;
+	}
+	public List<Atendimento> getAgendamentos() {
+		return agendamentos;
+	}
+	public void setAgendamentos(List<Atendimento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+	public Funcionario getEnfermeira() {
+		return enfermeira;
+	}
+	public void setEnfermeira(Funcionario enfermeira) {
+		this.enfermeira = enfermeira;
 	}
 
 }

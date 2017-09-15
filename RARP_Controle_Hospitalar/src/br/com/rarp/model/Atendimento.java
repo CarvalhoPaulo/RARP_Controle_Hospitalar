@@ -1,6 +1,6 @@
 package br.com.rarp.model;
 
-public class Atendimento extends Agendamento {
+public class Atendimento {
 
 	private String detalheConsulta;
 	private String detalheMedico;

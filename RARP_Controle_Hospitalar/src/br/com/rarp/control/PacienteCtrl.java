@@ -66,4 +66,10 @@ public class PacienteCtrl {
 		return true;
 	}
 
+	public ObservableList<Paciente> getPacientes() throws Exception {
+		PacienteBusiness pacienteBusiness = new PacienteBusiness();
+		return FXCollections.observableList(
+				pacienteBusiness.consultar("PAC.codigo",  " > ", "0"));
+	}
+
 }

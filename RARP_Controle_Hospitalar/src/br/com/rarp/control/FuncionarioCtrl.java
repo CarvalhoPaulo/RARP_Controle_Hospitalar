@@ -1,5 +1,6 @@
 package br.com.rarp.control;
 
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.bo.FuncionarioBusiness;
@@ -68,7 +69,11 @@ public class FuncionarioCtrl {
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 			return FXCollections.observableList(
 					funcionarioBusiness.consultar("FUNC.codigo", " > ", "0"));
-
 	}
-	
+
+	public ObservableList<Funcionario> getFuncionarios(Funcao funcao) throws Exception {
+		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+		return FXCollections.observableList(
+				funcionarioBusiness.consultar("CA.funcao", " = ", "'" + funcao.toString() + "'"));
+	}
 }

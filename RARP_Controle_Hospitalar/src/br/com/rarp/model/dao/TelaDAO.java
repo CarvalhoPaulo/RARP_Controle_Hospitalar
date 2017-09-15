@@ -29,6 +29,24 @@ public class TelaDAO {
 		sql += "codigo_perfilusuario INTEGER REFERENCES perfilusuario(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
+		
+		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
+			sql = "INSERT INTO tela(codigo, nome, descricao, podeInserir, podeAlterar, podeVisualizar, podeDesativar, codigo_perfilusuario, status) "
+					+ "SELECT " 
+					+ (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1) + ", '" 
+					+ t.getNome() + "', '" 
+					+ t.getDescricao() + "', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "1, "
+					+ "'TRUE' "
+					+ "WHERE NOT EXISTS("
+						+ "SELECT codigo FROM tela WHERE codigo = " + (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1)
+					+ ")";
+			st.executeUpdate(sql);
+		}
 	}
 
 	public void salvar(PerfilUsuario perfilUsuario) throws Exception {

@@ -67,11 +67,13 @@ public class MedicoCtrl {
 
 	@SuppressWarnings("rawtypes")
 	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
-		// TODO Auto-generated method stub
-		
 		MedicoBusiness MedicoBusiness = new MedicoBusiness();
 		return FXCollections.observableArrayList(MedicoBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
-	
+	}
+
+	public ObservableList<Medico> getMedicos() throws Exception {
+		MedicoBusiness MedicoBusiness = new MedicoBusiness();
+		return FXCollections.observableArrayList(MedicoBusiness.consultar("MED.codigo", " > ", "0"));
 	}
 
 }

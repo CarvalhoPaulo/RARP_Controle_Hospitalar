@@ -1,8 +1,5 @@
 package br.com.rarp.view.main.scnMain;
 
-import java.lang.reflect.Field;
-
-import br.com.rarp.control.SistemaCtrl;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;

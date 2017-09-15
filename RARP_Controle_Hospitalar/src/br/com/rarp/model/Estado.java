@@ -1,7 +1,5 @@
 package br.com.rarp.model;
 
-import static org.mockito.Mockito.verify;
-
 public class Estado {
 
 	private int codigo;
@@ -10,12 +8,10 @@ public class Estado {
 	
 	public boolean equals(String uf) {
 		return this.getUF().equals(uf);
-		
 	}
 	
 	public boolean equals(Estado estado) {
 		return this.codigo ==  estado.getCodigo();
-		
 	}
 	
 	public String getNome() {
