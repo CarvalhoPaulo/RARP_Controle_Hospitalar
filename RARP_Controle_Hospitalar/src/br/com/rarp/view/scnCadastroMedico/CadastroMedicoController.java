@@ -93,16 +93,17 @@ public class CadastroMedicoController extends Application implements Initializab
 	}
 
 	private void preencherTela() throws Exception {
+		
 		cmbFuncionario.getItems().setAll(new FuncionarioCtrl().getFuncionarios());
 		cmbEspecialidades.getItems().setAll(new EspecialidadeCtrl().getEspecialidades());
 		if ((medicoCtrl != null) && (medicoCtrl.getMedico() != null)) {
 			cmbFuncionario.getSelectionModel().select(medicoCtrl.getMedico());
 			cmbEspecialidades.getSelectionModel().select(-1);
 			tbvEspecialidades.getItems().setAll(medicoCtrl.getMedico().getEspecialidades());
-
+			txtCRM.setText(medicoCtrl.getMedico().getCRM());
+			txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
 		}
-		txtCRM.setText(medicoCtrl.getMedico().getCRM());
-		txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
+		
 
 	}
 
