@@ -9,8 +9,10 @@ public class EntradaPaciente extends Movimentacao {
 	private Paciente paciente;
 	private Funcionario atendente;
 	private Funcionario enfermeira;
-	private List<Atendimento> agendamentos;
+	private List<Atendimento> atendimentos;
 	private List<Encaminhamento> encaminhamentos;
+	private boolean alta;
+	private boolean emergencia;
 	
 	public String getPreTriagem() {
 		return preTriagem;
@@ -42,17 +44,29 @@ public class EntradaPaciente extends Movimentacao {
 	public void setAtendente(Funcionario atendente) {
 		this.atendente = atendente;
 	}
-	public List<Atendimento> getAgendamentos() {
-		return agendamentos;
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
 	}
-	public void setAgendamentos(List<Atendimento> agendamentos) {
-		this.agendamentos = agendamentos;
+	public void setAtendimentos(List<Atendimento> agendamentos) {
+		this.atendimentos = agendamentos;
 	}
 	public Funcionario getEnfermeira() {
 		return enfermeira;
 	}
 	public void setEnfermeira(Funcionario enfermeira) {
 		this.enfermeira = enfermeira;
+	}
+	public boolean isAlta() {
+		return alta;
+	}
+	public void setAlta(boolean alta) {
+		this.alta = alta;
+	}
+	public boolean isEmergencia() {
+		return emergencia;
+	}
+	public void setEmergencia(boolean emergencia) {
+		this.emergencia = emergencia;
 	}
 
 }

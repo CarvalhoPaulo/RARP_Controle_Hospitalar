@@ -123,6 +123,9 @@ public class LoginController extends Application implements Initializable, Event
 				}
 			}
 		});
+		
+		
+		
 	}
 
 	@FXML
@@ -210,4 +213,6 @@ public class LoginController extends Application implements Initializable, Event
 	public static void setStage(Stage stage) {
 		LoginController.stage = stage;
 	}
+	
+	
 }

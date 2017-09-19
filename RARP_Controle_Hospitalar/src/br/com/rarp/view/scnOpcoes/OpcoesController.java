@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Configuracoes;
-import br.com.rarp.model.Empresa;
+import br.com.rarp.model.Organizacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.MaskTextField;
 import javafx.application.Application;
@@ -92,15 +92,15 @@ public class OpcoesController extends Application implements Initializable {
 
 	public void preparaTela() {
 
-		Empresa empresa = SistemaCtrl.getInstance().getEmpresa();
+		Organizacao empresa = SistemaCtrl.getInstance().getOrganizacao();
 
-		txtRazao.setText(empresa.getRazao());
+		txtRazao.setText(empresa.getRazaoSocial());
 
 		txtCNPJ.setText(empresa.getCnpj());
 
-		txtEndereco.setText(empresa.getEndereco());
+		txtEndereco.setText(empresa.getLogradouro());
 
-		txtFone.setText(empresa.getTelefone());
+	//	txtFone.setText(empresa.getT);
 
 		txtEmail.setText(empresa.getEmail());
 
@@ -118,10 +118,10 @@ public class OpcoesController extends Application implements Initializable {
 	}
 
 	private void PreencherEmpresa() {
-		SistemaCtrl.getInstance().getEmpresa().setCnpj(txtCNPJ.getText());
-		SistemaCtrl.getInstance().getEmpresa().setEmail(txtEmail.getText());
-		SistemaCtrl.getInstance().getEmpresa().setEndereco(txtEndereco.getText());
-		SistemaCtrl.getInstance().getEmpresa().setRazao(txtRazao.getText());
-		SistemaCtrl.getInstance().getEmpresa().setTelefone(txtFone.getText());
+		SistemaCtrl.getInstance().getOrganizacao().setCnpj(txtCNPJ.getText());
+		SistemaCtrl.getInstance().getOrganizacao().setEmail(txtEmail.getText());
+		SistemaCtrl.getInstance().getOrganizacao().setLogradouro(txtEndereco.getText());
+		SistemaCtrl.getInstance().getOrganizacao().setRazaoSocial(txtRazao.getText());
+		//SistemaCtrl.getInstance().getEmpresa().setTelefone(txtFone.getText());
 	}
 }

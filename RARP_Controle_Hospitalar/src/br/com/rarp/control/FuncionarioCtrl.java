@@ -42,16 +42,16 @@ public class FuncionarioCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (funcionario.getNome().isEmpty()) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o nome");
-		}
-		
-		if (funcionario.getCpf().isEmpty()) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
-		}
-		
-		if (funcionario.getCargo() == null) {
-			 throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
+		if (funcionario != null) {
+			if (funcionario.getNome().isEmpty()) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o nome");
+			}
+			if (funcionario.getCpf().isEmpty()) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
+			}
+			if (funcionario.getCargo() == null) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
+			} 
 		}
 	}
 	

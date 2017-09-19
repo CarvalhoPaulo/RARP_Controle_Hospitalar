@@ -191,12 +191,10 @@ public class PacienteDAO {
 			ps.setBoolean(4, paciente.isStatus());
 
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM paciente");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				paciente.setCodigo(rs.getInt("lastCodigo"));
+				paciente.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
 			conexao.getConexao().close();
 		}

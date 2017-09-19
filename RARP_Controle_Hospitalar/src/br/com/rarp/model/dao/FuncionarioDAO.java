@@ -178,12 +178,10 @@ public class FuncionarioDAO {
 			ps.setBoolean(6, funcionario.isStatus());
 
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM funcionario");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				funcionario.setCodigo(rs.getInt("lastCodigo"));
+				funcionario.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
 			conexao.getConexao().close();
 		}

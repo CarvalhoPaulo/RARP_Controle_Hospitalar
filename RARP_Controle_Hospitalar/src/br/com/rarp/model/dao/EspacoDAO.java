@@ -40,12 +40,11 @@ public class EspacoDAO {
             ps.setString(3, espaco.getAndar());
             ps.setBoolean(4, espaco.isStatus());
             ps.executeUpdate();
-            ps.close();
             
-            ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM espaco");
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            	espaco.setCodigo(rs.getInt("lastCodigo"));
+            ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next())
+				espaco.setCodigo(rs.getInt(1));
+			ps.close();
             
             LeitoDAO leitoDAO = new LeitoDAO();
             leitoDAO.salvar(espaco);

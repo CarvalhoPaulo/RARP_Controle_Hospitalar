@@ -2,20 +2,20 @@ package br.com.rarp.model;
 
 public class Encaminhamento extends Movimentacao {
 
-	private Espaco espacoOrigem;
-	private Espaco espacoDestino;
+	private Leito origem;
+	private Leito destino;
 	
-	public Espaco getEspacoOrigem() {
-		return espacoOrigem;
+	public Leito getDestino() {
+		return destino;
 	}
-	public void setEspacoOrigem(Espaco espacoOrigem) {
-		this.espacoOrigem = espacoOrigem;
+	public void setDestino(Leito destino) {
+		this.destino = destino;
 	}
-	public Espaco getEspacoDestino() {
-		return espacoDestino;
+	public Leito getOrigem() {
+		return origem;
 	}
-	public void setEspacoDestino(Espaco espacoDestino) {
-		this.espacoDestino = espacoDestino;
+	public void setOrigem(Leito origem) {
+		this.origem = origem;
 	}
 
 }

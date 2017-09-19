@@ -77,12 +77,10 @@ public class PerfilUsuarioDAO {
             ps.setString(1, perfilUsuario.getNome());
             ps.setBoolean(2, perfilUsuario.isStatus());            
             ps.executeUpdate();
-            ps.close();
-           
-            ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM perfilusuario");
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            	perfilUsuario.setCodigo(rs.getInt("lastCodigo"));
+            ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next())
+				perfilUsuario.setCodigo(rs.getInt("codigo"));
+			ps.close();
             
             TelaDAO telaDAO = new TelaDAO();
             telaDAO.salvar(perfilUsuario);

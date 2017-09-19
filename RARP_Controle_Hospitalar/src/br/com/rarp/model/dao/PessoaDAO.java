@@ -76,7 +76,7 @@ public class PessoaDAO {
 		Conexao conexao = SistemaCtrl.getInstance().getConexao();
 		try {
 			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, datanascimento, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.getConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getLogradouro());
 			ps.setString(3, pessoa.getComplemento());
@@ -93,12 +93,10 @@ public class PessoaDAO {
 				ps.setNull(8, Types.INTEGER);
 			ps.setBoolean(9, pessoa.isStatus());
 			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next())
+				pessoa.setCodigo(rs.getInt(1));
 			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoa");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoa.setCodigo(rs.getInt("lastCodigo"));
 			
 			TelefoneDAO telefoneDAO = new TelefoneDAO();
 			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());

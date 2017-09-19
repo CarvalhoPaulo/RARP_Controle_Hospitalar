@@ -14,7 +14,7 @@ TextField, Label  {
 }
 
 .font {
-	-fx-font-size: 14px;
+	-fx-font-size: 14px !important;
 }
 
 .status-bar {

@@ -2,19 +2,13 @@ package br.com.rarp.model;
 
 import java.util.Date;
 
-import br.com.rarp.annotations.Coluna;
-
 public class Movimentacao {
 
-	@Coluna(posicao=0, descricao="Código")
 	private int codigo;
-	
-	@Coluna(posicao=1, descricao="Data")
 	private Date dtMovimentacao;
-	
-	@Coluna(posicao=2, descricao="Hora")
 	private Date hrMovimentacao;
 	private Usuario usuario;
+	private boolean status;
 	public int getCodigo() {
 		return codigo;
 	}
@@ -38,6 +32,12 @@ public class Movimentacao {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	

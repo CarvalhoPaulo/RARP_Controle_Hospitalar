@@ -35,16 +35,16 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 		setEditable(true);
 		addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			space = event.getCode() == KeyCode.SPACE;
-			if(event.getCode() == KeyCode.ENTER)
+			if(event.getCode() == KeyCode.ENTER) {
 				hide();
+			}
 		});
 		setOnHidden(onHide);
 		
 		focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(!newValue && oldValue && literal && getItems().size() > 0) {
-				getEditor().setText(getItems().get(0).toString());
-				if(!negativeIndex && getItems() != null && getItems().size() > 0 && getEditor().getText().isEmpty())
-					getSelectionModel().selectFirst();
+				if(negativeIndex ? getEditor().getText().length() > 0 : true)
+					getEditor().setText(getItems().get(0).toString());
 			}
 			
     	    Platform.runLater(() -> {
@@ -98,9 +98,10 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 		@Override
 		public void handle(Event event) {
 			Platform.runLater(() -> {
-		        if ((getEditor().isFocused() || isFocused()) && !getEditor().getText().isEmpty() && !space) {
+				if(getItems().size() > 0 && (negativeIndex ? getEditor().getText().length() > 0 : true))
+					getEditor().setText(getItems().get(0).toString());
+		        if ((getEditor().isFocused() || isFocused()) && !getEditor().getText().isEmpty() && !space) 
 		            getEditor().selectAll();
-		        }
 		    });
 		}
 	};

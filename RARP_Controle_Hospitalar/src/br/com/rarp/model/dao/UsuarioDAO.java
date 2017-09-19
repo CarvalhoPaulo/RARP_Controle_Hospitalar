@@ -62,12 +62,10 @@ public class UsuarioDAO {
             
             ps.setBoolean(6, usuario.isStatus());
             ps.executeUpdate();
-            ps.close();
-            
-            ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM usuario");
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            	usuario.setCodigo(rs.getInt("lastCodigo"));
+            ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next())
+				usuario.setCodigo(rs.getInt(1));
+			ps.close();
         } finally {
         	conexao.getConexao().close();
 		}

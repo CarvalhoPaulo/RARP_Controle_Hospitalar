@@ -19,250 +19,245 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.CalendarTimeTextField?>
 
-<AnchorPane prefHeight="531.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEntrada.CadastroEntradaController">
-   <children>
-      <BorderPane AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
-         <right>
-            <AnchorPane prefHeight="549.0" prefWidth="106.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
-                     <image>
-                        <Image url="@../img/patient128x128.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btnSalvar" alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="138.0" mnemonicParsing="false" onAction="#salvar" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.0">
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/disquette.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="375.0" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </right>
-         <center>
-            <AnchorPane BorderPane.alignment="CENTER">
-               <children>
-                  <IntegerTextField fx:id="txtCodigo" editable="false" layoutY="36.0" prefHeight="30.0" prefWidth="165.0" AnchorPane.topAnchor="24.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </IntegerTextField>
-                  <Label layoutY="6.0" text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="443.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                  <Label layoutX="445.0" layoutY="4.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <GridPane layoutY="63.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <AnchorPane prefHeight="55.0" prefWidth="521.0" GridPane.rowIndex="1">
-                           <children>
-                              <GridPane layoutX="77.0" layoutY="1.0" prefHeight="58.0" prefWidth="454.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="-Infinity" percentHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <AnchorPane>
-                                       <children>
-                                          <Label layoutX="60.0" layoutY="33.0" text="Paciente:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <AutoCompleteComboBox fx:id="cmbPaciente" layoutX="41.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                          <Label layoutX="25.0" layoutY="15.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Paciente(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                        <GridPane GridPane.rowIndex="2">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <AnchorPane>
-                                 <children>
-                                    <Label layoutX="-1.0" layoutY="54.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Médico(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <AutoCompleteComboBox fx:id="cmbMedico" layoutY="27.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane GridPane.columnIndex="1">
-                                 <children>
-                                    <Label layoutX="-1.0" layoutY="54.0" text="Enfermeira:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <AutoCompleteComboBox fx:id="cmbEnfermeira" layoutY="27.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </GridPane>
-                        <AnchorPane GridPane.rowIndex="3">
-                           <children>
-                              <Label layoutX="80.0" layoutY="46.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Pré-Triagem(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane minHeight="550.0" minWidth="755.0" prefHeight="550.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEntrada.CadastroEntradaController">
+	<children>
+		<BorderPane fx:id="pnlPrincipal" styleClass="font" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+			<center>
+				<AnchorPane BorderPane.alignment="CENTER">
+					<children>
+						<Label focusTraversable="false" text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<IntegerTextField fx:id="txtCodigo" editable="false" focusTraversable="false" layoutY="36.0" prefHeight="30.0" prefWidth="165.0" AnchorPane.topAnchor="24.0">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</IntegerTextField>
+						<Label focusTraversable="false" layoutX="171.0" layoutY="-3.0" text="Alta:" AnchorPane.leftAnchor="169.0" AnchorPane.topAnchor="0.0">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<SwitchButton fx:id="sbAlta" focusTraversable="false" layoutX="169.0" layoutY="24.0" AnchorPane.leftAnchor="169.0" AnchorPane.topAnchor="24.0" />
+                  <SwitchButton fx:id="sbEmergencia" focusTraversable="false" layoutX="249.0" layoutY="24.0" AnchorPane.leftAnchor="245.0" />
+						<Label focusTraversable="false" layoutX="445.0" layoutY="4.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="443.0" layoutY="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+						<GridPane layoutY="63.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
+								<RowConstraints vgrow="SOMETIMES" />
+							</rowConstraints>
+							<children>
+								<GridPane>
+									<columnConstraints>
+										<ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="164.0" />
+										<ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="178.0" />
+										<ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<AnchorPane prefHeight="58.0" prefWidth="178.0">
+											<children>
+												<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+													<font>
+														<Font size="14.0" />
+													</font>
+												</Label>
+												<DatePicker fx:id="txtData" layoutX="-7.0" layoutY="17.0" prefHeight="30.0" prefWidth="175.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+											</children>
+										</AnchorPane>
+										<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+											<children>
+												<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Hora(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
+													<font>
+														<Font size="14.0" />
+													</font>
+												</Label>
+												<CalendarTimeTextField fx:id="txtHora" layoutY="32.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+											</children>
+										</AnchorPane>
+										<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+											<children>
+												<AutoCompleteComboBox fx:id="cmbAtendente" layoutX="23.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+												<Label layoutX="23.0" layoutY="14.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Atendente(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
+													<font>
+														<Font size="14.0" />
+													</font>
+												</Label>
+											</children>
+										</AnchorPane>
+									</children>
+								</GridPane>
+												<AnchorPane GridPane.rowIndex="1">
+													<children>
+														<AutoCompleteComboBox fx:id="cmbPaciente" layoutX="41.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+														<Label fx:id="lblPaciente" layoutX="25.0" layoutY="15.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Paciente(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+															<font>
+																<Font size="14.0" />
+															</font>
+														</Label>
+													</children>
+												</AnchorPane>
+								<GridPane GridPane.rowIndex="2">
+									<columnConstraints>
+										<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<AnchorPane>
+											<children>
+												<Label fx:id="lblMedico" layoutX="-1.0" layoutY="54.0" stylesheets="@../style/style.css" text="Médico:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+													<font>
+														<Font size="14.0" />
+													</font>
+												</Label>
+												<AutoCompleteComboBox fx:id="cmbMedico" layoutY="27.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+											</children>
+										</AnchorPane>
+										<AnchorPane GridPane.columnIndex="1">
+											<children>
+												<Label layoutX="-1.0" layoutY="54.0" text="Enfermeira:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
+													<font>
+														<Font size="14.0" />
+													</font>
+												</Label>
+												<AutoCompleteComboBox fx:id="cmbEnfermeira" layoutY="27.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+											</children>
+										</AnchorPane>
+									</children>
+								</GridPane>
+								<AnchorPane GridPane.rowIndex="3">
+									<children>
+										<Label fx:id="lblPreTriagem" layoutX="80.0" layoutY="46.0" stylesheets="@../style/style.css" text="Pré-Triagem:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+											<font>
+												<Font size="14.0" />
+											</font>
+										</Label>
+										<TextArea fx:id="txtPreTriagem" layoutY="26.0" prefHeight="90.0" prefWidth="498.0" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
                                  <font>
                                     <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextArea fx:id="txtPreTriagem" layoutY="26.0" prefHeight="90.0" prefWidth="498.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                              <BorderPane layoutY="104.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="142.0">
-                                 <center>
-                                    <TableView fx:id="tblAtendimentos" prefHeight="168.0" prefWidth="499.0" BorderPane.alignment="CENTER">
-                                      <columns>
-                                        <TableColumn prefWidth="215.0" text="Responsável" />
-                                        <TableColumn prefWidth="98.0" text="Data" />
-                                          <TableColumn prefWidth="90.0" text="Horário inicial" />
-                                          <TableColumn prefWidth="97.0" text="Horário final" />
-                                      </columns>
-                                    </TableView>
-                                 </center>
-                                 <right>
-                                    <GridPane BorderPane.alignment="CENTER">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                             <children>
-                                                <Button fx:id="btnInserir" layoutX="24.0" layoutY="16.0" mnemonicParsing="false" onAction="#inserirAtendimento" text="Inserir" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font></Button>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                             <children>
-                                                <Button fx:id="btnAlterar" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" onAction="#alterarAtendimento" text="Alterar" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font></Button>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                             <children>
-                                                <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#removerAtendimento" text="Remover" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font></Button>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </GridPane>
-                                 </right>
-                              </BorderPane>
-                              <Label layoutY="114.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Atendimentos(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="118.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <GridPane>
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="164.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="178.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <AnchorPane prefHeight="58.0" prefWidth="178.0">
-                                 <children>
-                                    <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <DatePicker fx:id="txtDate" layoutX="-7.0" layoutY="17.0" prefHeight="30.0" prefWidth="175.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Hora(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <CalendarTimeTextField fx:id="txtHora" layoutY="32.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                 </children></AnchorPane>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-                                 <children>
-                                    <AutoCompleteComboBox fx:id="cmbAtendente" layoutX="23.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                    <Label layoutX="23.0" layoutY="14.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Atendente(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children></AnchorPane>
-                           </children>
-                        </GridPane>
-                     </children>
-                  </GridPane>
-                  <Label layoutX="171.0" layoutY="-3.0" text="Alta:" AnchorPane.leftAnchor="169.0" AnchorPane.topAnchor="0.0">
+                                 </font></TextArea>
+										<Label fx:id="lblAtendimentos" layoutY="114.0" stylesheets="@../style/style.css" text="Atendimentos:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="118.0">
+											<font>
+												<Font size="14.0" />
+											</font>
+										</Label>
+										<BorderPane layoutY="104.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="142.0">
+											<center>
+												<TableView fx:id="tblAtendimentos" prefHeight="168.0" prefWidth="499.0" BorderPane.alignment="CENTER">
+													<columns>
+														<TableColumn fx:id="cmnResponsavel" prefWidth="215.0" text="Responsável" />
+														<TableColumn fx:id="cmnData" prefWidth="91.0" text="Data" />
+														<TableColumn fx:id="cmnHorarioInicial" prefWidth="101.0" text="Horário inicial" />
+														<TableColumn fx:id="cmnHorarioFinal" prefWidth="93.0" text="Horário final" />
+													</columns>
+												</TableView>
+											</center>
+											<right>
+												<GridPane BorderPane.alignment="CENTER">
+													<columnConstraints>
+														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+													</columnConstraints>
+													<rowConstraints>
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+													</rowConstraints>
+													<children>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0">
+															<children>
+																<Button fx:id="btnInserir" layoutX="24.0" layoutY="16.0" mnemonicParsing="false" onAction="#inserirAtendimento" text="Inserir" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Button>
+															</children>
+														</AnchorPane>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+															<children>
+																<Button fx:id="btnAlterar" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" onAction="#alterarAtendimento" text="Alterar" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Button>
+															</children>
+														</AnchorPane>
+														<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+															<children>
+																<Button fx:id="btnRemover" mnemonicParsing="false" onAction="#removerAtendimento" text="Remover" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+																	<font>
+																		<Font size="14.0" />
+																	</font>
+																</Button>
+															</children>
+														</AnchorPane>
+													</children>
+												</GridPane>
+											</right>
+										</BorderPane>
+									</children>
+								</AnchorPane>
+							</children>
+						</GridPane>
+                  <Label focusTraversable="false" layoutX="249.0" text="Emergência:" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <SwitchButton fx:id="sbAlta" focusTraversable="false" layoutX="185.0" layoutY="24.0" AnchorPane.leftAnchor="169.0" AnchorPane.topAnchor="24.0" />
-               </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
-   </children>
+					</children>
+				</AnchorPane>
+			</center>
+			<right>
+				<AnchorPane prefHeight="549.0" prefWidth="106.0" BorderPane.alignment="CENTER">
+					<children>
+						<ImageView fitHeight="108.0" fitWidth="108.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+							<image>
+								<Image url="@../img/patient128x128.png" />
+							</image>
+						</ImageView>
+						<Button fx:id="btnSalvar" alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="138.0" mnemonicParsing="false" onAction="#salvar" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.0">
+							<graphic>
+								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../img/disquette.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Button>
+						<Button fx:id="btnVoltar" alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="375.0" mnemonicParsing="false" onAction="#voltar" prefHeight="66.0" prefWidth="108.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0">
+							<graphic>
+								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../img/back.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Button>
+					</children>
+				</AnchorPane>
+			</right>
+		</BorderPane>
+	</children>
 </AnchorPane>

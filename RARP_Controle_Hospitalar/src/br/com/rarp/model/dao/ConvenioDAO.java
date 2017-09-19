@@ -162,12 +162,10 @@ public class ConvenioDAO {
 			ps.setBoolean(4, convenio.isStatus());
 
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM convenio");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				convenio.setCodigo(rs.getInt("lastCodigo"));
+				convenio.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
 			conexao.getConexao().close();
 		}
