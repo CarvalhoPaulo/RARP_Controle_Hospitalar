@@ -408,6 +408,31 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
+    
+    @FXML
+    void controlarAtendimento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlarEncaminhamento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlarLimpeza(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlarReceitaMedica(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlarSaida(ActionEvent event) {
+
+    }
 
 	@FXML
 	private void manterEspacos(ActionEvent event) {

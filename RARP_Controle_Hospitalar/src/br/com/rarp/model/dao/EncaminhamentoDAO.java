@@ -37,17 +37,19 @@ public class EncaminhamentoDAO {
 	}
 	
 	public void salvar(Connection connection, EntradaPaciente entradaPaciente) throws Exception {
-		List<Encaminhamento> listaInserir = new ArrayList<>(), listaAlterar = new ArrayList<>();
-		for(Encaminhamento e: entradaPaciente.getEncaminhamentos()) {
-			if(e != null) {
-				if(e.getCodigo() == 0)
-					listaInserir.add(e);
-				else
-					listaAlterar.add(e);
-			}	
+		if (entradaPaciente.getEncaminhamentos() != null) {
+			List<Encaminhamento> listaInserir = new ArrayList<>(), listaAlterar = new ArrayList<>();
+			for (Encaminhamento e : entradaPaciente.getEncaminhamentos()) {
+				if (e != null) {
+					if (e.getCodigo() == 0)
+						listaInserir.add(e);
+					else
+						listaAlterar.add(e);
+				}
+			}
+			inserir(connection, listaInserir, entradaPaciente);
+			alterar(connection, listaAlterar, entradaPaciente);
 		}
-		inserir(connection, listaInserir, entradaPaciente);
-		alterar(connection, listaAlterar, entradaPaciente);
 	}
 
 	private void alterar(Connection connection, List<Encaminhamento> listaAlterar, EntradaPaciente entradaPaciente) throws SQLException {

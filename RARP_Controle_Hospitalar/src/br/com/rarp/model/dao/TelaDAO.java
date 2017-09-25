@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,10 +130,10 @@ public class TelaDAO {
 	}
 	
 	private boolean existeRelacionamento(Tela tela, PerfilUsuario perfilUsuario) throws Exception {
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         boolean existe = false;
         String sql = "SELECT codigo_tela, codigo_perfilusuario FROM tela WHERE codigo_tela = " + tela.getCodigo() + ", codigo_perfilusuario = " + perfilUsuario.getCodigo();
-        PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+        PreparedStatement ps = conexao.prepareStatement(sql);
         try {
             ps.setInt(1, perfilUsuario.getCodigo());
             ResultSet rs = ps.executeQuery();
@@ -146,9 +147,9 @@ public class TelaDAO {
 	}
 
 	public void inserir(List<Tela> telas, int codigo_perfilUsuario) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		String sql= "INSERT INTO tela_perfilusuario(codigo_tela, codigo_perfilusuario, podeInserir, podeAlterar, podeVisualizar, podeDesativar, status) VALUES(?,?,?,?,?,?,?)";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement ps = conexao.prepareStatement(sql);
         try {
         	int i = 0;
         	for (Tela tela : telas) { 
@@ -173,36 +174,40 @@ public class TelaDAO {
 	}
 	
 	public void alterar(List<Tela> telas, int codigo_perfilUsuario) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		String sql= "UPDATE tela_perfilusuario SET podeInserir=?, podeAlterar=?, podeVisualizar=?, podeDesativar=?, status=? WHERE codigo_tela=? AND codigo_perfilusuario=?";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
-        try {
-        	int i = 0;
-        	for (Tela tela : telas) { 
-        		ps.setBoolean(1, tela.isPodeInserir());
-        		ps.setBoolean(2, tela.isPodeAlterar());
-        		ps.setBoolean(3, tela.isPodeVisualizar());
-        		ps.setBoolean(4, tela.isPodeDesativar());	
-        		ps.setBoolean(5, tela.isStatus());
-        		ps.setInt(6, tela.getCodigo());
-        		ps.setInt(7, codigo_perfilUsuario);
-        		ps.addBatch();
-                i++;
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "UPDATE tela_perfilusuario SET podeInserir=?, podeAlterar=?, podeVisualizar=?, podeDesativar=?, status=? WHERE codigo_tela=? AND codigo_perfilusuario=?";
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			try {
+				int i = 0;
+				for (Tela tela : telas) {
+					ps.setBoolean(1, tela.isPodeInserir());
+					ps.setBoolean(2, tela.isPodeAlterar());
+					ps.setBoolean(3, tela.isPodeVisualizar());
+					ps.setBoolean(4, tela.isPodeDesativar());
+					ps.setBoolean(5, tela.isStatus());
+					ps.setInt(6, tela.getCodigo());
+					ps.setInt(7, codigo_perfilUsuario);
+					ps.addBatch();
+					i++;
 
-                if (i == telas.size()) {
-                	ps.executeBatch();
-                }
-            }
-        	ps.executeBatch();
+					if (i == telas.size()) {
+						ps.executeBatch();
+					}
+				}
+				ps.executeBatch();
+			} finally {
+				ps.close();
+			} 
 		} finally {
-			ps.close();
+			conexao.close();
 		}  
 	}
 
 	public List<Tela> getTelas(PerfilUsuario perfilUsuario) throws Exception {
 		List<Tela> telas = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT ";
         			sql += "tela.codigo, ";
@@ -217,7 +222,7 @@ public class TelaDAO {
         			sql += "tela_perfilusuario ";
         			sql += "LEFT JOIN tela ON tela.codigo = tela_perfilusuario.codigo_tela ";
         			sql += "WHERE codigo_perfilusuario = ?";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setInt(1, perfilUsuario.getCodigo());
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -234,7 +239,7 @@ public class TelaDAO {
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return telas;
 	}

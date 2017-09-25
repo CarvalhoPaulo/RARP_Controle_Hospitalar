@@ -2,9 +2,11 @@ package br.com.rarp.view.scnCadastroEntrada;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.AtendimentoCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.MedicoCtrl;
@@ -16,6 +18,7 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroAtendimento.CadastroAtendimentoController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
@@ -43,7 +46,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import jfxtras.scene.control.CalendarTimeTextField;
+import jfxtras.scene.control.LocalTimeTextField;
 
 public class CadastroEntradaController extends Application implements Initializable {
 
@@ -94,7 +97,7 @@ public class CadastroEntradaController extends Application implements Initializa
     private DatePicker txtData;
 
     @FXML
-    private CalendarTimeTextField txtHora;
+    private LocalTimeTextField txtHora;
 
     @FXML
     private AutoCompleteComboBox<Funcionario> cmbAtendente;
@@ -127,18 +130,34 @@ public class CadastroEntradaController extends Application implements Initializa
     private Label lblPaciente;
     
     @FXML
-    void inserirAtendimento(ActionEvent event) {
-
+    void inserirAtendimento(ActionEvent event) throws Exception {
+    	if(cmbMedico.getValue() == null) {
+    		Utilitarios.atencao("Para inserir um atendimento é necessário selecionar um médico.");
+    		cmbMedico.requestFocus();
+    	} else {
+	    	CadastroAtendimentoController controller = new CadastroAtendimentoController();
+	    	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
+	    	atendimentoCtrl.novoAtendimento();
+	    	atendimentoCtrl.getAtendimento().setResponsavel(cmbMedico.getValue());
+	    	atendimentoCtrl.getAtendimento().setStatus(true);
+	    	if(controller.abrir(atendimentoCtrl) && !tblAtendimentos.getItems().contains(atendimentoCtrl.getAtendimento()))
+	    		tblAtendimentos.getItems().add(atendimentoCtrl.getAtendimento());
+    	}
     }
 
     @FXML
-    void alterarAtendimento(ActionEvent event) {
-
+    void alterarAtendimento(ActionEvent event) throws Exception {
+    	CadastroAtendimentoController controller = new CadastroAtendimentoController();
+    	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
+    	atendimentoCtrl.setAtendimento(tblAtendimentos.getSelectionModel().getSelectedItem());
+    	controller.abrir(atendimentoCtrl);
+    	tblAtendimentos.refresh();
     }
 
     @FXML
     void removerAtendimento(ActionEvent event) {
-
+    	if(Utilitarios.pergunta("Tem certeza que deseja remover este atendimento?"))
+    		tblAtendimentos.getItems().remove(tblAtendimentos.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -146,18 +165,18 @@ public class CadastroEntradaController extends Application implements Initializa
 		preencherObjeto();
 		try {
 			if(entradaPacienteCtrl.salvar()) {
-				Utilitarios.message("Convênio salvo com sucesso.");
+				Utilitarios.message("Entrada de paciente salva com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o convênio.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar a entrada de paciente.\n" + "Descrição: " + e.getMessage());
 		}
     }
 	
 	private void limparCampos() {
 		txtCodigo.setText("");
 		txtData.setValue(LocalDate.now());
-		txtHora.setCalendar(Calendar.getInstance());
+		txtHora.setLocalTime(LocalTime.now());
 		txtPreTriagem.setText("");
 		cmbAtendente.getSelectionModel().select(-1);
 		cmbEnfermeira.getSelectionModel().select(-1);
@@ -173,8 +192,8 @@ public class CadastroEntradaController extends Application implements Initializa
 			entradaPacienteCtrl = new EntradaPacienteCtrl();
 		entradaPacienteCtrl.novaEntradaPaciente();
 		entradaPacienteCtrl.getEntradaPaciente().setCodigo(txtCodigo.getValue());
-		entradaPacienteCtrl.getEntradaPaciente().setDtMovimentacao(Utilitarios.localDateToDate(txtData.getValue()));
-		entradaPacienteCtrl.getEntradaPaciente().setHrMovimentacao(txtHora.getCalendar().getTime());
+		entradaPacienteCtrl.getEntradaPaciente().setDtMovimentacao(txtData.getValue());
+		entradaPacienteCtrl.getEntradaPaciente().setHrMovimentacao(txtHora.getLocalTime());
 		entradaPacienteCtrl.getEntradaPaciente().setPreTriagem(txtPreTriagem.getText());
 		entradaPacienteCtrl.getEntradaPaciente().setAtendente(cmbAtendente.getValue());
 		entradaPacienteCtrl.getEntradaPaciente().setEnfermeira(cmbEnfermeira.getValue());
@@ -184,6 +203,7 @@ public class CadastroEntradaController extends Application implements Initializa
 		entradaPacienteCtrl.getEntradaPaciente().setStatus(sbAtivado.getValue());
 		entradaPacienteCtrl.getEntradaPaciente().setEmergencia(sbEmergencia.getValue());
 		entradaPacienteCtrl.getEntradaPaciente().setAtendimentos(tblAtendimentos.getItems());
+		entradaPacienteCtrl.getEntradaPaciente().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}
 
 	@Override
@@ -202,8 +222,8 @@ public class CadastroEntradaController extends Application implements Initializa
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(800);
-		stage.setMinHeight(600);
+		stage.setMinWidth(755);
+		stage.setMinHeight(550);
 	}
 	
 	@FXML
@@ -264,8 +284,10 @@ public class CadastroEntradaController extends Application implements Initializa
 	private void preencherTela() {
 		if (entradaPacienteCtrl != null && entradaPacienteCtrl.getEntradaPaciente() != null) {
 			txtCodigo.setValue(entradaPacienteCtrl.getEntradaPaciente().getCodigo());
-			txtData.setValue(Utilitarios.dateToLocalDate(entradaPacienteCtrl.getEntradaPaciente().getDtMovimentacao()));
-			txtHora.getCalendar().setTime(entradaPacienteCtrl.getEntradaPaciente().getHrMovimentacao());
+			if(entradaPacienteCtrl.getEntradaPaciente().getDtMovimentacao() != null)
+				txtData.setValue(entradaPacienteCtrl.getEntradaPaciente().getDtMovimentacao());
+			if(entradaPacienteCtrl.getEntradaPaciente().getHrMovimentacao() != null)
+				txtHora.setLocalTime(entradaPacienteCtrl.getEntradaPaciente().getHrMovimentacao());
 			txtPreTriagem.setText(entradaPacienteCtrl.getEntradaPaciente().getPreTriagem());
 			cmbAtendente.getSelectionModel().select(entradaPacienteCtrl.getEntradaPaciente().getAtendente());
 			cmbEnfermeira.getSelectionModel().select(entradaPacienteCtrl.getEntradaPaciente().getEnfermeira());
@@ -280,6 +302,7 @@ public class CadastroEntradaController extends Application implements Initializa
 
 	private void prepararTela() {
 		txtCodigo.setOnKeyPressed(Utilitarios.getBloquear());
+		sbAtivado.setValue(true);
 		
 		cmnResponsavel.prefWidthProperty().bind(tblAtendimentos.widthProperty().multiply(0.35));
 		cmnData.prefWidthProperty().bind(tblAtendimentos.widthProperty().multiply(0.2));
@@ -291,6 +314,9 @@ public class CadastroEntradaController extends Application implements Initializa
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Atendimento, String> param) {
 				String value = "";
+				if(param.getValue() != null 
+						&& param.getValue().getResponsavel() != null)
+					value = param.getValue().getResponsavel().getNome();
 				return new SimpleStringProperty(value);
 			}
 		});
@@ -299,6 +325,10 @@ public class CadastroEntradaController extends Application implements Initializa
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Atendimento, String> param) {
 				String value = "";
+				if(param.getValue() != null 
+						&& param.getValue().getDataAtendimento() != null) {
+					value = param.getValue().getDataAtendimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+				}
 				return new SimpleStringProperty(value);
 			}
 		});
@@ -307,6 +337,10 @@ public class CadastroEntradaController extends Application implements Initializa
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Atendimento, String> param) {
 				String value = "";
+				if(param.getValue() != null 
+						&& param.getValue().getHoraIni() != null) {
+					value = param.getValue().getHoraIni().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+				}
 				return new SimpleStringProperty(value);
 			}
 		});
@@ -315,6 +349,10 @@ public class CadastroEntradaController extends Application implements Initializa
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Atendimento, String> param) {
 				String value = "";
+				if(param.getValue() != null 
+						&& param.getValue().getHoraFim() != null) {
+					value = param.getValue().getHoraFim().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+				}
 				return new SimpleStringProperty(value);
 			}
 		});
@@ -340,7 +378,7 @@ public class CadastroEntradaController extends Application implements Initializa
 			e.printStackTrace();
 		}
 		txtData.setValue(LocalDate.now());
-		txtHora.setCalendar(Calendar.getInstance());
+		txtHora.setLocalTime(LocalTime.now());
 		tblAtendimentos.getItems().addListener(new ListChangeListener<Atendimento>() {
 
 			@Override
@@ -361,9 +399,8 @@ public class CadastroEntradaController extends Application implements Initializa
 
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				setObrigatoriedadePaciente(!newValue);
-				setObrigatoriedadeMedico(newValue);
-				setObrigatoriedadeAtendimentos(!newValue);
+				setObrigatoriedadeMedico(newValue || !tblAtendimentos.getItems().isEmpty());
+				setObrigatoriedadeAtendimentos(!newValue && sbAlta.getValue());
 			}
 		});
 	}
@@ -374,17 +411,7 @@ public class CadastroEntradaController extends Application implements Initializa
 			lblMedico.getStyleClass().add("obrigatorio");
 		} else {
 			lblMedico.setText("Médico:");
-			lblMedico.getStyleClass().remove("obrigatorio");
-		}
-	}
-	
-	private void setObrigatoriedadePaciente(boolean obrigatorio) {
-		if(obrigatorio) {
-			lblPaciente.setText("Paciente(Obrigatório):");
-			lblPaciente.getStyleClass().add("obrigatorio");
-		} else {
-			lblPaciente.setText("Paciente:");
-			lblPaciente.getStyleClass().remove("obrigatorio");
+			lblMedico.getStyleClass().removeAll("obrigatorio");
 		}
 	}
 	
@@ -394,7 +421,7 @@ public class CadastroEntradaController extends Application implements Initializa
 			lblAtendimentos.getStyleClass().add("obrigatorio");
 		} else {
 			lblAtendimentos.setText("Atendimentos:");
-			lblAtendimentos.getStyleClass().remove("obrigatorio");
+			lblAtendimentos.getStyleClass().removeAll("obrigatorio");
 		}
 	}
 

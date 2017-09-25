@@ -22,7 +22,6 @@ public class Paciente extends PessoaFisica {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getNome();
 	}
 	

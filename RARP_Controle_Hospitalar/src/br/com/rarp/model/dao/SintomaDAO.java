@@ -16,7 +16,7 @@ public class SintomaDAO {
 			throw new Exception("Crie a tabela de atendimentos antes de criar a tabela de sintomas");
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
-		sql += "receita(";
+		sql += "sintoma(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "descricao VARCHAR, ";
 		sql += "codigo_atendimento INTEGER REFERENCES atendimento(codigo))";
@@ -45,7 +45,7 @@ public class SintomaDAO {
             }
         }
     	ps.executeBatch();
-    	ResultSet rs = ps.getResultSet();
+    	ResultSet rs = ps.getGeneratedKeys();
     	for (Sintoma s: atendimento.getSintomas()) { 
     		if(rs.next())
     			s.setCodigo(rs.getInt(1));

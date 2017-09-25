@@ -91,6 +91,31 @@
 										<KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
 									</accelerator>
 								</MenuItem>
+                        <MenuItem fx:id="mniAtendimento" mnemonicParsing="false" onAction="#controlarAtendimento" text="Atendimento">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="mniEncaminhamento" mnemonicParsing="false" onAction="#controlarEncaminhamento" text="Encaminhamento">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="mniSaida" mnemonicParsing="false" onAction="#controlarSaida" text="Saida de Paciente">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="mniReceitaMedica" mnemonicParsing="false" onAction="#controlarReceitaMedica" text="Receita Médica">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="mniLimpeza" mnemonicParsing="false" onAction="#controlarLimpeza" text="Limpeza">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
 							</items>
 						</Menu>
 						<Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios" />

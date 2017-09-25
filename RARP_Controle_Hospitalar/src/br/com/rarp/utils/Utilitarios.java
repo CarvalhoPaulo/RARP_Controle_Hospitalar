@@ -3,6 +3,8 @@ package br.com.rarp.utils;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,8 +62,27 @@ public class Utilitarios {
 	}
 	
 	public static LocalDate dateToLocalDate(Date date) {
-		Instant instant = date.toInstant();
-		return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
+	public static Date localDateTimeToDate(LocalDateTime localDateTime) {
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public static LocalTime strToLocalTime(String value) {
+		return LocalTime.parse(value);
+	}
+	
+	public static LocalDateTime dateToLocalDateTime(Date date) {
+		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+	}
+	
+	public static LocalDate localDateTimeToLocalDate(LocalDateTime localDateTime) {
+		return dateToLocalDate(localDateTimeToDate(localDateTime));
+	}
+	
+	public static LocalDateTime localDateToLocalDateTime(LocalDate localDate) {
+		return dateToLocalDateTime(localDateToDate(localDate));
 	}
 
 	public static String formatStringSQL(String sql) {

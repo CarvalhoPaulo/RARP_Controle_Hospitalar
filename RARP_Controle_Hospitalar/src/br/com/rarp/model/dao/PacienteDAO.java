@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class PacienteDAO {
 	public List<Paciente> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Paciente> pacientes = new ArrayList<>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT " 
 					+ "PAC.codigo AS codigo_pac, " 
@@ -71,7 +72,7 @@ public class PacienteDAO {
 					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
 					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Paciente paciente = new Paciente();
@@ -80,7 +81,7 @@ public class PacienteDAO {
 				paciente.setCodigo(rs.getInt("codigo_pac"));
 				ConvenioDAO convenioDAO = new ConvenioDAO();
 				paciente.setConvenio(convenioDAO.get(rs.getInt("codigo_convenio")));
-				paciente.setResponsavel(get(rs.getInt("codigo_resp")));
+				paciente.setResponsavel(getPaciente(rs.getInt("codigo_resp")));
 				paciente.setStatus(rs.getBoolean("status_pac"));
 				paciente.setCpf(rs.getString("cpf"));
 				paciente.setRg(rs.getString("rg"));
@@ -114,16 +115,16 @@ public class PacienteDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return pacientes;
 	}
 	
-	public Paciente get(int codigo) throws Exception {
+	public Paciente getPaciente(int codigo) throws Exception {
 		if(codigo > 0) {
-			List<Paciente> pacientes = consultar("pac.codigo", " - ", codigo + "");
+			List<Paciente> pacientes = consultar("pac.codigo", " = ", codigo + "");
 			if(pacientes.size() > 0)
-				pacientes.get(0);
+				return pacientes.get(0);
 		}
 		return null;
 	}
@@ -138,10 +139,10 @@ public class PacienteDAO {
 
 	private void alterar(Paciente paciente) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE paciente SET codigo_convenio = ?, codigo_resp = ?, status = ? WHERE codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			if(paciente.getConvenio() != null)
 				ps.setInt(1, paciente.getConvenio().getCodigo());
 			else
@@ -157,7 +158,7 @@ public class PacienteDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pf FROM paciente WHERE codigo = " + paciente.getCodigo());
+			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pf FROM paciente WHERE codigo = " + paciente.getCodigo());
 			if(rs.next()) {
 				PessoaFisica pf = paciente.clone();
 				pf.setCodigo(rs.getInt("codigo_pf"));
@@ -165,19 +166,19 @@ public class PacienteDAO {
 				pessoaFisicaDAO.salvar(pf);
 			}
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void inserir(Paciente paciente) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 			pessoaFisicaDAO.salvar(paciente);
 			
 			String sql = "INSERT INTO paciente(codigo_convenio, codigo_pf, codigo_resp, status) VALUES(?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			if(paciente.getConvenio() != null)
 				ps.setInt(1, paciente.getConvenio().getCodigo());
 			else
@@ -196,7 +197,7 @@ public class PacienteDAO {
 				paciente.setCodigo(rs.getInt("codigo"));
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 

@@ -37,6 +37,7 @@ import br.com.rarp.model.dao.SintomaDAO;
 import br.com.rarp.model.dao.TelaDAO;
 import br.com.rarp.model.dao.TelefoneDAO;
 import br.com.rarp.model.dao.UsuarioDAO;
+import br.com.rarp.utils.MyAppointmentGroup;
 import br.com.rarp.view.scnConexao.ConexaoController;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -218,6 +219,35 @@ public class SistemaCtrl {
 		DatabaseMetaData dbm = SistemaCtrl.getInstance().getConexao().getConexao().getMetaData();
 		ResultSet rs = dbm.getTables(null, null, nome, null);
 		return rs.next();		
+	}
+	
+	public List<MyAppointmentGroup> getApontamentos() {
+		List<MyAppointmentGroup> apontamentos = new ArrayList<>();
+		apontamentos.add(new MyAppointmentGroup("group0", "#AC725E"));
+		apontamentos.add(new MyAppointmentGroup("group1", "#D06B64"));
+		apontamentos.add(new MyAppointmentGroup("group2", "#F83A22"));
+		apontamentos.add(new MyAppointmentGroup("group3", "#FA573C"));
+		apontamentos.add(new MyAppointmentGroup("group4", "#FF7537"));
+		apontamentos.add(new MyAppointmentGroup("group5", "#FFAD46"));
+		apontamentos.add(new MyAppointmentGroup("group6", "#42D692"));
+		apontamentos.add(new MyAppointmentGroup("group7", "#16A765"));
+		apontamentos.add(new MyAppointmentGroup("group8", "#7BD148"));
+		apontamentos.add(new MyAppointmentGroup("group9", "#B3DC6C"));
+		apontamentos.add(new MyAppointmentGroup("group10", "#FBE983"));
+		apontamentos.add(new MyAppointmentGroup("group11", "#FAD165"));
+		apontamentos.add(new MyAppointmentGroup("group12", "#92E1C0"));
+		apontamentos.add(new MyAppointmentGroup("group13", "#9FE1E7"));
+		apontamentos.add(new MyAppointmentGroup("group14", "#9FC6E7"));
+		apontamentos.add(new MyAppointmentGroup("group15", "#4986E7"));
+		apontamentos.add(new MyAppointmentGroup("group16", "#9A9CFF"));
+		apontamentos.add(new MyAppointmentGroup("group17", "#B99AFF"));
+		apontamentos.add(new MyAppointmentGroup("group18", "#C2C2C2"));
+		apontamentos.add(new MyAppointmentGroup("group19", "#CABDBF"));
+		apontamentos.add(new MyAppointmentGroup("group20", "#CCA6AC"));
+		apontamentos.add(new MyAppointmentGroup("group21", "#F691B2"));
+		apontamentos.add(new MyAppointmentGroup("group22", "#CD74E6"));
+		apontamentos.add(new MyAppointmentGroup("group23", "#A47AE2"));
+		return apontamentos;
 	}
 	
 	public void criarTabelas() throws ClassNotFoundException, SQLException, Exception {

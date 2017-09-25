@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,10 +43,10 @@ public class UsuarioDAO {
 
 	private void inserir(Usuario usuario) throws Exception {
 		PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "INSERT INTO usuario(nome, usuario, password, codigo_funcionario, codigo_perfilusuario, status) VALUES(?,?,?,?,?,?)";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
             ps.setString(3, usuario.getSenha());
@@ -67,16 +68,16 @@ public class UsuarioDAO {
 				usuario.setCodigo(rs.getInt(1));
 			ps.close();
         } finally {
-        	conexao.getConexao().close();
+        	conexao.close();
 		}
 	}
 
 	private void alterar(Usuario usuario) throws Exception {
 		PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "Update usuario SET nome=?, usuario=?, password=?, codigo_funcionario=?, codigo_perfilusuario=?, status=? WHERE codigo=?";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
             ps.setString(3, usuario.getSenha());
@@ -94,17 +95,17 @@ public class UsuarioDAO {
             ps.executeUpdate();
             ps.close();
         } finally {
-        	conexao.getConexao().close();
+        	conexao.close();
 		}
 	}
 
 	public List<Usuario> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Usuario> usuarios = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, nome, usuario, password, codigo_funcionario, codigo_perfilusuario, status FROM usuario WHERE " + campo + comparacao + termo;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Usuario usuario = new Usuario();
@@ -117,21 +118,24 @@ public class UsuarioDAO {
             	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("codigo_perfilusuario")));
             	
             	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-            	usuario.setFuncionario(funcionarioDAO.consultar(rs.getInt("codigo_funcionario")));
+            	usuario.setFuncionario(funcionarioDAO.getFuncionario(rs.getInt("codigo_funcionario")));
             			
             	usuario.setStatus(rs.getBoolean("status"));
             	usuarios.add(usuario);
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return usuarios;
 	}
 
 	public Usuario getUsuario(int codigo) throws Exception {
-		List<Usuario> usuarios = consultar("codigo", " = ", ""+ codigo);
-		return usuarios.get(0);
+		if (codigo > 0) {
+			List<Usuario> usuarios = consultar("codigo", " = ", "" + codigo);
+			return usuarios.get(0);
+		}
+		return null;
 	}
 
 }

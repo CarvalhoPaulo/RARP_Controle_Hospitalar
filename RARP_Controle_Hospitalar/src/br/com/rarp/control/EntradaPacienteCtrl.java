@@ -1,16 +1,19 @@
 package br.com.rarp.control;
 
-import br.com.rarp.annotations.Objeto;
+import java.util.List;
+
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.bo.EntradaPacienteBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.utils.comparacao.Maior;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class EntradaPacienteCtrl {
 
-	@Objeto
 	private EntradaPaciente entradaPaciente;
 
 	public EntradaPaciente getEntradaPaciente() {
@@ -21,9 +24,10 @@ public class EntradaPacienteCtrl {
 		this.entradaPaciente = entradaPaciente;
 	}
 
-	public ObservableList<EntradaPaciente> consultar(Campo selectedItem, Comparacao selectedItem2, Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	public ObservableList<EntradaPaciente> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		EntradaPacienteBusiness entradaPacienteBusiness = new EntradaPacienteBusiness();
+		return FXCollections.observableList(
+				entradaPacienteBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 
 	public void setEntradaPaciente(Object entradaPaciente) {
@@ -69,6 +73,10 @@ public class EntradaPacienteCtrl {
 
 	public void novaEntradaPaciente() {
 		entradaPaciente = new EntradaPaciente();
+	}
+
+	public List<EntradaPaciente> getEntradasPaciente() throws Exception {
+		return consultar(new Campo("ENT.codigo", "", TipoCampo.texto), new Maior(), "0");
 	}
 
 }

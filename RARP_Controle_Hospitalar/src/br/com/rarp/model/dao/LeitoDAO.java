@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,9 +48,9 @@ public class LeitoDAO {
 	}
 	
 	public void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente) VALUES(?,?,?,?)";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement ps = conexao.prepareStatement(sql);
         try {
         	int i = 0;
         	for (Leito leito : leitos) {
@@ -66,13 +67,14 @@ public class LeitoDAO {
         	ps.executeBatch();
 		} finally {
 			ps.close();
+			conexao.close();
 		}         
 	}
 	
 	public void alterar(List<Leito> leitos, int codigo_espaco) throws Exception {
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=? WHERE codigo=?";
-		PreparedStatement ps = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement ps = conexao.prepareStatement(sql);
         try {
         	int i = 0;
         	for (Leito leito : leitos) { 
@@ -90,16 +92,17 @@ public class LeitoDAO {
         	ps.executeBatch();
 		} finally {
 			ps.close();
+			conexao.close();
 		}  
 	}
 
 	public List<Leito> getLeitos(Espaco espaco) throws Exception {
 		List<Leito> leitos = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, numero, status FROM leito WHERE codigo_espaco = ? ORDER BY numero ASC";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setInt(1, espaco.getCodigo());
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -111,7 +114,7 @@ public class LeitoDAO {
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return leitos;
 	}
@@ -119,23 +122,23 @@ public class LeitoDAO {
 	public List<Leito> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Leito> leitos = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, numero, status, codigo_paciente FROM leito WHERE " + campo + termo + comparacao;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Leito leito = new Leito();
             	leito.setCodigo(rs.getInt("codigo"));
             	leito.setNumero(rs.getInt("numero"));
             	leito.setStatus(rs.getBoolean("status"));
-            	leito.setPaciente(new PacienteDAO().get(rs.getInt("codigo_paciente")));
+            	leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
             	
             	leitos.add(leito);
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return leitos;		
 	}

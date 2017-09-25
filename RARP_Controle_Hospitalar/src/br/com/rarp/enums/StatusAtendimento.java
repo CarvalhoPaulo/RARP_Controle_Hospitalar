@@ -1,7 +1,7 @@
 package br.com.rarp.enums;
 
 public enum StatusAtendimento {
-	emAberto("EmAberto"), emAndamento("EmAndamento"), realizado("Realizado");
+	emAberto("Em Aberto"), emAndamento("Em Andamento"), realizado("Realizado");
 	
 	private String label;
 
@@ -11,7 +11,6 @@ public enum StatusAtendimento {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return label;
 	}
 }

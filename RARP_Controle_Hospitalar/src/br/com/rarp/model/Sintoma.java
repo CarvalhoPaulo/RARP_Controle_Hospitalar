@@ -3,6 +3,10 @@ package br.com.rarp.model;
 public class Sintoma {
 	private int codigo;
 	private String descricao;
+	
+	public Sintoma(String text) {
+		descricao = text;
+	}
 	public int getCodigo() {
 		return codigo;
 	}

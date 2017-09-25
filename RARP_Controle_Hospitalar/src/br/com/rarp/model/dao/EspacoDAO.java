@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,10 +32,10 @@ public class EspacoDAO {
 
 	private void inserir(Espaco espaco) throws Exception {
 		PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "INSERT INTO espaco(nome, bloco, andar, status) VALUES(?,?,?,?)";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, espaco.getNome());
             ps.setString(2, espaco.getBloco());
             ps.setString(3, espaco.getAndar());
@@ -49,16 +50,16 @@ public class EspacoDAO {
             LeitoDAO leitoDAO = new LeitoDAO();
             leitoDAO.salvar(espaco);
         } finally {
-        	conexao.getConexao().close();
+        	conexao.close();
 		}
 	}
 
 	private void alterar(Espaco espaco) throws Exception {
 		PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "Update espaco SET nome=?, bloco=?, andar=?, status=? WHERE codigo=?";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, espaco.getNome());
             ps.setString(2, espaco.getBloco());
             ps.setString(3, espaco.getAndar());
@@ -71,17 +72,17 @@ public class EspacoDAO {
             ps.executeUpdate();
             ps.close();
         } finally {
-        	conexao.getConexao().close();
+        	conexao.close();
 		}
 	}
 
 	public List<Espaco> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Espaco> espacos = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, nome, bloco, andar, status FROM espaco WHERE " + campo + comparacao + termo;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Espaco espaco = new Espaco();
@@ -98,7 +99,7 @@ public class EspacoDAO {
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return espacos;
 	}

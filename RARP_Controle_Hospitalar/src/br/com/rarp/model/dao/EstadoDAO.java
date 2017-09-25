@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,10 +25,10 @@ public class EstadoDAO {
 	public List<Estado> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
 		List<Estado> estados = new ArrayList<>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT uf, nome FROM estado WHERE " + campo + comparacao + termo;
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Estado estado = new Estado();
@@ -38,7 +39,7 @@ public class EstadoDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return estados;
 	}

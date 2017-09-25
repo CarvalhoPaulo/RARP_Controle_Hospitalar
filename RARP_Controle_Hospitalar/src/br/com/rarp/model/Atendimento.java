@@ -1,15 +1,16 @@
 package br.com.rarp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.enums.StatusAtendimento;
 
 public class Atendimento extends Movimentacao {
 
-	private Date dataAtendimento;
-	private Date horaIni;
-	private Date horaFim;
+	private LocalDate dataAtendimento;
+	private LocalTime horaIni;
+	private LocalTime horaFim;
 	private String detalheMedico;
 	private String descricao;
 	private ReceitaMedica receitaMedica;
@@ -17,7 +18,26 @@ public class Atendimento extends Movimentacao {
 	private EntradaPaciente entradaPaciente;
 	private Funcionario responsavel;
 	private List<Sintoma> sintomas;
+	private String styleClass;
 
+	public LocalDate getDataAtendimento() {
+		return dataAtendimento;
+	}
+	public void setDataAtendimento(LocalDate dataAtendimento) {
+		this.dataAtendimento = dataAtendimento;
+	}
+	public LocalTime getHoraIni() {
+		return horaIni;
+	}
+	public void setHoraIni(LocalTime horaIni) {
+		this.horaIni = horaIni;
+	}
+	public LocalTime getHoraFim() {
+		return horaFim;
+	}
+	public void setHoraFim(LocalTime horaFim) {
+		this.horaFim = horaFim;
+	}
 	public String getDetalheMedico() {
 		return detalheMedico;
 	}
@@ -36,29 +56,11 @@ public class Atendimento extends Movimentacao {
 	public void setReceitaMedica(ReceitaMedica receitaMedica) {
 		this.receitaMedica = receitaMedica;
 	}
-	public Date getDataAtendimento() {
-		return dataAtendimento;
-	}
-	public void setDataAtendimento(Date dataAtendimento) {
-		this.dataAtendimento = dataAtendimento;
-	}
-	public Date getHoraIni() {
-		return horaIni;
-	}
-	public void setHoraIni(Date horaIni) {
-		this.horaIni = horaIni;
-	}
 	public StatusAtendimento getStatusAtendimento() {
 		return statusAtendimento;
 	}
 	public void setStatusAtendimento(StatusAtendimento statusAtendimento) {
 		this.statusAtendimento = statusAtendimento;
-	}
-	public Date getHoraFim() {
-		return horaFim;
-	}
-	public void setHoraFim(Date horaFim) {
-		this.horaFim = horaFim;
 	}
 	public EntradaPaciente getEntradaPaciente() {
 		return entradaPaciente;
@@ -77,6 +79,33 @@ public class Atendimento extends Movimentacao {
 	}
 	public void setSintomas(List<Sintoma> sintomas) {
 		this.sintomas = sintomas;
+	}
+	
+	@Override
+	public Atendimento clone() {
+		Atendimento atendimento = new Atendimento();
+		atendimento.setCodigo(getCodigo());
+		atendimento.setDataAtendimento(getDataAtendimento());
+		atendimento.setDescricao(getDescricao());
+		atendimento.setDetalheMedico(getDetalheMedico());
+		atendimento.setDtMovimentacao(getDtMovimentacao());
+		atendimento.setEntradaPaciente(getEntradaPaciente());
+		atendimento.setHoraFim(getHoraFim());
+		atendimento.setHoraIni(getHoraIni());
+		atendimento.setHrMovimentacao(getHrMovimentacao());
+		atendimento.setReceitaMedica(getReceitaMedica());
+		atendimento.setResponsavel(getResponsavel());
+		atendimento.setSintomas(getSintomas());
+		atendimento.setStatus(isStatus());
+		atendimento.setStatusAtendimento(getStatusAtendimento());
+		atendimento.setUsuario(getUsuario());
+		return atendimento;
+	}
+	public String getStyleClass() {
+		return styleClass;
+	}
+	public void setStyleClass(String styleClass) {
+		this.styleClass = styleClass;
 	}
 
 }

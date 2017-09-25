@@ -1,31 +1,33 @@
 package br.com.rarp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Movimentacao {
 
 	private int codigo;
-	private Date dtMovimentacao;
-	private Date hrMovimentacao;
+	private LocalDate dtMovimentacao;
+	private LocalTime hrMovimentacao;
 	private Usuario usuario;
 	private boolean status;
+	
+	public LocalDate getDtMovimentacao() {
+		return dtMovimentacao;
+	}
+	public void setDtMovimentacao(LocalDate dtMovimentacao) {
+		this.dtMovimentacao = dtMovimentacao;
+	}
+	public LocalTime getHrMovimentacao() {
+		return hrMovimentacao;
+	}
+	public void setHrMovimentacao(LocalTime hrMovimentacao) {
+		this.hrMovimentacao = hrMovimentacao;
+	}
 	public int getCodigo() {
 		return codigo;
 	}
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
-	}
-	public Date getDtMovimentacao() {
-		return dtMovimentacao;
-	}
-	public void setDtMovimentacao(Date dtMovimentacao) {
-		this.dtMovimentacao = dtMovimentacao;
-	}
-	public Date getHrMovimentacao() {
-		return hrMovimentacao;
-	}
-	public void setHrMovimentacao(Date hrMovimentacao) {
-		this.hrMovimentacao = hrMovimentacao;
 	}
 	public Usuario getUsuario() {
 		return usuario;

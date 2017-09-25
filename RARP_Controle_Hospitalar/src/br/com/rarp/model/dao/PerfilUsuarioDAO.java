@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,10 +41,10 @@ public class PerfilUsuarioDAO {
 	public List<PerfilUsuario> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
 		List<PerfilUsuario> perfilUsuarios = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, nome, status FROM perfilusuario WHERE " + campo + comparacao + termo;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	PerfilUsuario perfilUsuario = new PerfilUsuario();
@@ -55,7 +56,7 @@ public class PerfilUsuarioDAO {
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return perfilUsuarios;
 	}
@@ -70,10 +71,10 @@ public class PerfilUsuarioDAO {
 	
 	private void inserir(PerfilUsuario perfilUsuario) throws Exception {
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
             String sql= "INSERT INTO perfilusuario(nome, status) VALUES(?,?)";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, perfilUsuario.getNome());
             ps.setBoolean(2, perfilUsuario.isStatus());            
             ps.executeUpdate();
@@ -86,16 +87,16 @@ public class PerfilUsuarioDAO {
             telaDAO.salvar(perfilUsuario);
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 	}
 	
 	private void alterar(PerfilUsuario perfilUsuario) throws Exception {
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
             String sql= "UPDATE perfilusuario SET nome=?, status=? WHERE codigo=?";
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ps.setString(1, perfilUsuario.getNome());
             ps.setBoolean(2, perfilUsuario.isStatus());
             ps.setInt(3, perfilUsuario.getCodigo());
@@ -104,7 +105,7 @@ public class PerfilUsuarioDAO {
             telaDAO.salvar(perfilUsuario);
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }		
 	}
 	

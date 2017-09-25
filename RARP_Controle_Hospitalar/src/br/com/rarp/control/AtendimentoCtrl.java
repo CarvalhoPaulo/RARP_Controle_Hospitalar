@@ -2,7 +2,9 @@ package br.com.rarp.control;
 
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Atendimento;
+import br.com.rarp.model.bo.AtendimentoBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.ObservableList;
 
 public class AtendimentoCtrl {
@@ -20,12 +22,41 @@ public class AtendimentoCtrl {
 		atendimento = new Atendimento();
 	}
 	
-	public boolean salvar() {
-		return false;
+	public boolean salvar() throws Exception {
+		if (atendimento == null)
+			throw new Exception("O atendimento não foi instânciada");
+
+		if (confirmarDesativacao()) {
+			if (atendimento.isStatus())
+				validarDadosObrigatorios();
+			AtendimentoBusiness atendimentoBusiness = new AtendimentoBusiness();
+			atendimentoBusiness.salvar(atendimento);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean confirmarDesativacao() {
+		if(atendimento != null && !atendimento.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar este atendimento?");
+		return true;
+	}
+
+	private void validarDadosObrigatorios() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public ObservableList<Atendimento> consultar(Campo selectedItem, Comparacao selectedItem2, Object object) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public AtendimentoCtrl clone() throws CloneNotSupportedException {
+		AtendimentoCtrl a = new AtendimentoCtrl();
+		a.setAtendimento(atendimento.clone());
+		return a;
 	}
 }

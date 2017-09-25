@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,8 +25,8 @@ public class MedicoDAO {
 		sql += "medico(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "codigo_funcionario integer NOT NULL REFERENCES funcionario(codigo), ";
-		sql += "CRM VARCHAR(15), ";	
-		sql += "status boolean,  ";		
+		sql += "CRM VARCHAR(15), ";
+		sql += "status boolean,  ";
 		sql += "CONSTRAINT medico_funcionario UNIQUE (codigo_funcionario)";
 		sql += ")";
 		st.executeUpdate(sql);
@@ -56,14 +57,14 @@ public class MedicoDAO {
 		}
 
 	}
-	
-	public void inserir(Medico medico) throws Exception{
+
+	public void inserir(Medico medico) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 
 			String sql = "INSERT INTO medico(crm,status,codigo_funcionario) VALUES(?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, medico.getCRM());
 			ps.setBoolean(2, medico.isStatus());
 			ps.setInt(3, medico.getCodigo());
@@ -80,16 +81,16 @@ public class MedicoDAO {
 
 		} finally {
 
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void alterar(Medico medico) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE medico SET crm=? , codigo_funcionario=?, status=?  WHERE codigo=?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, medico.getCRM());
 			ps.setInt(2, medico.getCodigo());
 			ps.setBoolean(3, medico.isStatus());
@@ -101,7 +102,7 @@ public class MedicoDAO {
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
 
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
@@ -109,7 +110,7 @@ public class MedicoDAO {
 
 		List<Medico> medicos = new ArrayList<>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			/**
 			 * nome,status,codigo_medico
@@ -133,11 +134,10 @@ public class MedicoDAO {
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
 					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao
 					+ termo;
-			ps = conexao.getConexao().prepareStatement(sql);
-
+			ps = conexao.prepareStatement(sql);
 
 			ResultSet rs = ps.executeQuery();
-			while (rs.next() ) {
+			while (rs.next()) {
 				Medico medico = new Medico();
 
 				medico.setCodigoMedico(rs.getInt("codigo_med"));
@@ -198,18 +198,18 @@ public class MedicoDAO {
 
 			ps.close();
 		} catch (Exception e) {
-			
-			System.out.println(e.getMessage()); 
+
+			System.out.println(e.getMessage());
 			throw new Exception("Erro a consultar medico");
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return medicos;
 	}
 
 	private void salvarEspecialidades(Medico medico) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			/**
 			 * INSERT INTO public.medico_especialidade( codigo_medico, codigo_especialidade)
@@ -234,7 +234,7 @@ public class MedicoDAO {
 
 			}
 
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 
 			int i = 1;
 			for (Especialidade especialidade : medico.getEspecialidades()) {
@@ -259,7 +259,7 @@ public class MedicoDAO {
 
 			}
 			sql += ")";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setInt(1, medico.getCodigoMedico());
 			ps.executeUpdate();
 			ps.close();
@@ -270,10 +270,18 @@ public class MedicoDAO {
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
 
-			conexao.getConexao().close();
+			conexao.close();
 		}
 
 	}
 
-	
+	public Medico getMedico(int codigo) throws Exception {
+		if (codigo > 0) {
+			List<Medico> medicos = consultar("MED.codigo", " = ", codigo + "");
+			if (medicos != null && medicos.size() > 0)
+				return medicos.get(0);
+		}
+		return null;
+	}
+
 }

@@ -1,11 +1,16 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
 
 public class EntradaPacienteDAO {
@@ -49,17 +54,17 @@ public class EntradaPacienteDAO {
 
 	private void alterar(EntradaPaciente entradaPaciente) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		conexao.getConexao().setAutoCommit(false);
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
-    		movimentacaoDAO.salvar(conexao.getConexao(), entradaPaciente);
+    		movimentacaoDAO.salvar(conexao, entradaPaciente);
     		
     		AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
-			atendimentoDAO.salvar(conexao.getConexao(), entradaPaciente);
+			atendimentoDAO.salvar(conexao, entradaPaciente);
 			
 			EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
-			encaminhamentoDAO.salvar(conexao.getConexao(), entradaPaciente);
+			encaminhamentoDAO.salvar(conexao, entradaPaciente);
     		
 			String sql = "UPDATE "
 					+ "entradapaciente "
@@ -74,7 +79,7 @@ public class EntradaPacienteDAO {
 					+ "status = ? "
 					+ "WHERE "
 					+ "codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
     		
 			if(entradaPaciente.getPaciente() != null)
 				ps.setInt(1, entradaPaciente.getPaciente().getCodigo());
@@ -92,7 +97,7 @@ public class EntradaPacienteDAO {
 				ps.setNull(3, Types.INTEGER);
 			
 			if(entradaPaciente.getMedico() != null)
-				ps.setInt(4, entradaPaciente.getMedico().getCodigo());
+				ps.setInt(4, entradaPaciente.getMedico().getCodigoMedico());
 			else
 				ps.setNull(4, Types.INTEGER);
 			
@@ -107,75 +112,132 @@ public class EntradaPacienteDAO {
 			ps.setInt(9, entradaPaciente.getCodigo());
 			ps.executeUpdate();
 			ps.close();
-			conexao.getConexao().commit();
+			conexao.commit();
 		} catch (Exception e) {
-			conexao.getConexao().rollback();
+			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		} 
 	}
 
 	private void inserir(EntradaPaciente entradaPaciente) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
-		conexao.getConexao().setAutoCommit(false);
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
-			String sql = "INSERT INTO entradapaciente(codigo, codigo_paciente, atendente_funcionario, enfermeira_funcionario, codigo_medico, pretriagem, alta, emergencia, status) VALUES(?,?,?,?,?,?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			String sql = "INSERT INTO entradapaciente(codigo_paciente, atendente_funcionario, enfermeira_funcionario, codigo_medico, pretriagem, alta, emergencia, codigo_mov, status) VALUES(?,?,?,?,?,?,?,?,?)";
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
-    		movimentacaoDAO.salvar(conexao.getConexao(), entradaPaciente);
+    		movimentacaoDAO.salvar(conexao, entradaPaciente);
 			
-			ps.setInt(1, entradaPaciente.getCodigo());
 			if(entradaPaciente.getPaciente() != null)
-				ps.setInt(2, entradaPaciente.getPaciente().getCodigo());
+				ps.setInt(1, entradaPaciente.getPaciente().getCodigo());
+			else
+				ps.setNull(1, Types.INTEGER);
+			
+			if(entradaPaciente.getAtendente() != null)
+				ps.setInt(2, entradaPaciente.getAtendente() .getCodigo());
 			else
 				ps.setNull(2, Types.INTEGER);
 			
-			if(entradaPaciente.getAtendente() != null)
-				ps.setInt(3, entradaPaciente.getAtendente() .getCodigo());
+			if(entradaPaciente.getEnfermeira() != null)
+				ps.setInt(3, entradaPaciente.getEnfermeira().getCodigo());
 			else
 				ps.setNull(3, Types.INTEGER);
 			
-			if(entradaPaciente.getEnfermeira() != null)
-				ps.setInt(4, entradaPaciente.getEnfermeira().getCodigo());
+			if(entradaPaciente.getMedico() != null)
+				ps.setInt(4, entradaPaciente.getMedico().getCodigoMedico());
 			else
 				ps.setNull(4, Types.INTEGER);
 			
-			if(entradaPaciente.getMedico() != null)
-				ps.setInt(5, entradaPaciente.getMedico().getCodigo());
-			else
-				ps.setNull(5, Types.INTEGER);
-			
 			if(entradaPaciente.getPreTriagem() != null)
-				ps.setString(6, entradaPaciente.getPreTriagem());
+				ps.setString(5, entradaPaciente.getPreTriagem());
 			else
-				ps.setNull(6, Types.VARCHAR);
+				ps.setNull(5, Types.VARCHAR);
 			
-			ps.setBoolean(7, entradaPaciente.isAlta());
-			ps.setBoolean(8, entradaPaciente.isEmergencia());
+			ps.setBoolean(6, entradaPaciente.isAlta());
+			ps.setBoolean(7, entradaPaciente.isEmergencia());
+			ps.setInt(8, entradaPaciente.getCodigo());
 			ps.setBoolean(9, entradaPaciente.isStatus());
 			
 			ps.executeUpdate();
-			ResultSet rs = ps.getResultSet();
+			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next())
 				entradaPaciente.setCodigo(rs.getInt(1));
 			
+			for(Atendimento a: entradaPaciente.getAtendimentos())
+				a.setEntradaPaciente(entradaPaciente);
+			
 			AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
-			atendimentoDAO.salvar(conexao.getConexao(), entradaPaciente);
+			atendimentoDAO.salvar(conexao, entradaPaciente);
 			
 			EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
-			encaminhamentoDAO.salvar(conexao.getConexao(), entradaPaciente);
+			encaminhamentoDAO.salvar(conexao, entradaPaciente);
 			
 			ps.close();
-			conexao.getConexao().commit();
+			conexao.commit();
 		} catch (Exception e) {
-			conexao.getConexao().rollback();
+			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		} 
+	}
+
+	public List<EntradaPaciente> consultar(String campo, String comparacao, String termo) throws Exception {
+		List<EntradaPaciente> entradas = new ArrayList<EntradaPaciente>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "SELECT "
+					+ "ENT.codigo AS codigo_entrada, "
+					+ "ENT.pretriagem, "
+					+ "ENT.emergencia, "
+					+ "ENT.alta, "
+					+ "ENT.status AS status_entrada, "
+					+ "MOV.data, "
+					+ "MOV.hora, "
+					+ "MOV.codigo AS codigo_mov, "
+					+ "USU.codigo AS codigo_usuario, "
+					+ "MED.codigo AS codigo_medico, "
+					+ "ENF.codigo AS codigo_enfermeira, "
+					+ "PAC.codigo AS codigo_paciente, "
+					+ "ATE.codigo AS codigo_atendente "
+					+ "FROM entradapaciente ENT "
+					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN medico MED ON ENT.codigo_medico = MED.codigo "
+					+ "LEFT JOIN funcionario ENF ON ENT.enfermeira_funcionario = ENF.codigo "
+					+ "LEFT JOIN paciente PAC ON ENT.codigo_paciente = PAC.codigo "
+					+ "LEFT JOIN funcionario ATE ON ENT.atendente_funcionario = ATE.codigo "
+					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
+					+ "WHERE "
+					+ campo + comparacao + termo;
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				EntradaPaciente entradaPaciente = new EntradaPaciente();
+				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
+				entradaPaciente.setPreTriagem(rs.getString("pretriagem"));
+				entradaPaciente.setEmergencia(rs.getBoolean("emergencia"));
+				entradaPaciente.setAlta(rs.getBoolean("alta"));
+				entradaPaciente.setStatus(rs.getBoolean("status_entrada"));
+				if(rs.getDate("data") != null)
+					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
+				if(rs.getDate("hora") != null)
+					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
+				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
+				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
+				entradaPaciente.setAtendimentos(new AtendimentoDAO().getAtendimentos(entradaPaciente.getCodigo()));
+				entradas.add(entradaPaciente);
+			}
+			return entradas;	
+		} finally {
+			conexao.close();
+		}
 	}
 
 }
