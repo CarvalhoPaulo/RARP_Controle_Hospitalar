@@ -3,9 +3,17 @@ package br.com.rarp.view.scnCadastroEncaminhamento;
 import java.net.URL;
 import java.util.ResourceBundle;
 import br.com.rarp.control.EncaminhamentoCtrl;
+import br.com.rarp.control.EntradaPacienteCtrl;
+import br.com.rarp.control.EspacoCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Leito;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
+import br.com.rarp.view.scnComponents.ImageCard;
 import br.com.rarp.view.scnComponents.IntegerTextField;
+import br.com.rarp.view.scnComponents.SelectionNode;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,17 +31,32 @@ public class CadastroEncaminhamentoController extends Application implements Ini
 	
 	private static Stage stage;
 
-	@FXML
-	private Button btnSalvar;
+    @FXML
+    private IntegerTextField txtCodigo;
 
-	@FXML
-	private Button btnVoltar;
+    @FXML
+    private SwitchButton sbAtivado;
+    
+    @FXML
+    private AutoCompleteComboBox<Espaco> cmbOrigem;
 
-	@FXML
-	private IntegerTextField txtCodigo;
-	
-	@FXML
-	private SwitchButton sbAtivado;
+    @FXML
+    private AutoCompleteComboBox<Espaco> cmbDestino;
+    
+    @FXML
+    private AutoCompleteComboBox<EntradaPaciente> cmbEntradaPaciente;
+    
+    @FXML
+    private Button btnSalvar;
+
+    @FXML
+    private Button btnVoltar;
+    
+    @FXML
+    private SelectionNode<ImageCard> pnlOrigem;
+
+    @FXML
+    private SelectionNode<ImageCard> pnlDestino;
 
 	private static EncaminhamentoCtrl encaminhamentoCtrl;
 	private static boolean visualizando;
@@ -54,7 +77,8 @@ public class CadastroEncaminhamentoController extends Application implements Ini
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setResizable(false);
+		stage.setMinWidth(600);
+		stage.setMinHeight(450);
 	}
 
 	public Stage getStage() {
@@ -68,25 +92,70 @@ public class CadastroEncaminhamentoController extends Application implements Ini
 
 	private void limparCampos() {
 		txtCodigo.clear();
-
+		cmbDestino.getSelectionModel().select(-1);
+		cmbOrigem.getSelectionModel().select(-1);
+		cmbEntradaPaciente.getSelectionModel().select(-1);
+		pnlDestino.getSelectionModel().select(-1);
+		pnlOrigem.getSelectionModel().select(-1);
 		sbAtivado.switchOnProperty().set(true);
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		sbAtivado.switchOnProperty().set(true);
-		txtCodigo.setDisable(true);
+	public void initialize(URL location, ResourceBundle resources) {		
+		prepararTela();
 		if (encaminhamentoCtrl != null && encaminhamentoCtrl.getEncaminhamento() != null)
 			preencherTela();
 		if (visualizando)
 			bloquearTela();
 	}
 
+	private void prepararTela() {
+		sbAtivado.switchOnProperty().set(true);
+		txtCodigo.setDisable(true);
+		try {
+			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacos());
+			cmbDestino.getItems().setAll(cmbOrigem.getItems());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			cmbEntradaPaciente.getItems().setAll(new EntradaPacienteCtrl().getEntradasPaciente());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		cmbOrigem.setOnAction(onChange);
+		cmbDestino.setOnAction(onChange);
+	}
+	
+	EventHandler<ActionEvent> onChange = (event) -> {
+		if(event.getSource() == cmbOrigem && cmbOrigem.getValue() != null) {
+			for (Leito l: cmbOrigem.getValue().getLeitos()) {
+				ImageCard img = new ImageCard();
+				img.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
+				img.setLeito(l);
+				pnlOrigem.getItems().add(img);
+			}
+		}
+		
+		if(event.getSource() == cmbDestino && cmbOrigem.getValue() != null) {
+			for (Leito l: cmbOrigem.getValue().getLeitos()) {
+				ImageCard img = new ImageCard();
+				img.getPathImage().set(getClass().getResource("../img/leitos.png").toString());
+				img.setLeito(l);
+				pnlDestino.getItems().add(img);
+			}
+		}
+	};
+
 	private void bloquearTela() {
 		txtCodigo.setDisable(true);
-		sbAtivado.setDisable(true);
+		sbAtivado.setEditable(true);
+		cmbOrigem.setEditable(false);
+		cmbDestino.setEditable(false);
+		cmbDestino.setEditable(false);
+		pnlOrigem.setEditable(false);
+		pnlDestino.setEditable(false);
 		btnSalvar.setDisable(true);
-		sbAtivado.setDisable(true);
 	}
 
 	public void inserir() throws Exception {
@@ -139,14 +208,32 @@ public class CadastroEncaminhamentoController extends Application implements Ini
 
 		if (encaminhamentoCtrl.getEncaminhamento() == null)
 			encaminhamentoCtrl.novoEncaminhamento();
-
+		
+		encaminhamentoCtrl.getEncaminhamento().setEntradaPaciente(cmbEntradaPaciente.getValue());
 		encaminhamentoCtrl.getEncaminhamento().setCodigo(txtCodigo.getValue());
+		encaminhamentoCtrl.getEncaminhamento().setDestino(pnlDestino.getValue().getLeito());
+		encaminhamentoCtrl.getEncaminhamento().setOrigem(pnlOrigem.getValue().getLeito());
 		encaminhamentoCtrl.getEncaminhamento().setStatus(sbAtivado.getValue());
 	}
 
 	private void preencherTela() {
 		txtCodigo.setText(encaminhamentoCtrl.getEncaminhamento().getCodigo() + "");
-
+		cmbEntradaPaciente.setValue(encaminhamentoCtrl.getEncaminhamento().getEntradaPaciente());
+		cmbOrigem.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getOrigem().getEspaco());
+		cmbDestino.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getDestino().getEspaco());
+		
+		ImageCard origem = new ImageCard();
+		origem.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
+		origem.setLeito(encaminhamentoCtrl.getEncaminhamento().getOrigem());
+		pnlOrigem.getItems().add(origem);
+		
+		ImageCard destino = new ImageCard();
+		destino.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
+		destino.setLeito(encaminhamentoCtrl.getEncaminhamento().getDestino());
+		pnlOrigem.getItems().add(destino);
+		
+		pnlOrigem.getSelectionModel().select(origem);
+		pnlDestino.getSelectionModel().select(destino);
 		sbAtivado.setValue(encaminhamentoCtrl.getEncaminhamento().isStatus());
 	}
 

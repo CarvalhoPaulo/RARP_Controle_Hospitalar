@@ -4,6 +4,7 @@ public class Encaminhamento extends Movimentacao {
 
 	private Leito origem;
 	private Leito destino;
+	private EntradaPaciente entradaPaciente;
 	
 	public Leito getDestino() {
 		return destino;
@@ -16,6 +17,12 @@ public class Encaminhamento extends Movimentacao {
 	}
 	public void setOrigem(Leito origem) {
 		this.origem = origem;
+	}
+	public EntradaPaciente getEntradaPaciente() {
+		return entradaPaciente;
+	}
+	public void setEntradaPaciente(EntradaPaciente entradaPaciente) {
+		this.entradaPaciente = entradaPaciente;
 	}
 
 }

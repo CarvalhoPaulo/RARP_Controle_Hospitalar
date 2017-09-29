@@ -2,13 +2,13 @@ package br.com.rarp.view.scnCadastroEspaco;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import br.com.rarp.control.EspacoCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Leito;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.ImageCard;
 import br.com.rarp.view.scnComponents.IntegerTextField;
+import br.com.rarp.view.scnComponents.SelectionNode;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,14 +16,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 public class CadastroEspacoController extends Application implements Initializable {
@@ -67,7 +65,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	private ScrollPane sclLeitos;
 
 	@FXML
-	private FlowPane pnlLeitos;
+	private SelectionNode<ImageCard> pnlLeitos;
 
 	private static EspacoCtrl espacoCtrl;
 	private static boolean visualizando;
@@ -76,25 +74,19 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void adicionar(ActionEvent event) {
 		ImageCard imageCard = new ImageCard();
 		imageCard.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
-		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText())));
-		boolean existe = false;
-		for (Node n : pnlLeitos.getChildren()) {
-			if (n.equals(imageCard)) {
-				Utilitarios.atencao("Este leito ja existe");
-				existe = true;
-			}
+		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText(), 1)));
+		if(pnlLeitos.getItems().contains(imageCard))
+			Utilitarios.atencao("Este leito ja foi inserido");
+		else {
+			pnlLeitos.getItems().add(imageCard);
+			txtNumeroLeito.setValue(txtNumeroLeito.getValue() + 1);
 		}
-		if (!existe)
-			pnlLeitos.getChildren().add(imageCard);
-		txtNumeroLeito.setValue(txtNumeroLeito.getValue() + 1);
 	}
 
 	@FXML
 	private void remover(ActionEvent event) {
-		ImageCard imageCard = new ImageCard();
-		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText())));
-		if(pnlLeitos.getChildren().contains(imageCard))
-			pnlLeitos.getChildren().remove(pnlLeitos.getChildren().indexOf(imageCard));
+		if(Utilitarios.pergunta("Tem certeza que deseja remover esse leito?"))
+			pnlLeitos.removeSelected();
 	}
 
 	@Override
@@ -113,7 +105,8 @@ public class CadastroEspacoController extends Application implements Initializab
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setResizable(false);
+		stage.setMinWidth(800);
+		stage.setMinHeight(550);
 	}
 
 	public Stage getStage() {
@@ -217,11 +210,11 @@ public class CadastroEspacoController extends Application implements Initializab
 		for(Leito l: espacoCtrl.getEspaco().getLeitos())
 			l.setStatus(false);
 		
-		for(Node n: pnlLeitos.getChildren()) {
-			if(espacoCtrl.getEspaco().getLeitos().contains(((ImageCard) n).getLeito()))
-				espacoCtrl.getEspaco().getLeitos().get(espacoCtrl.getEspaco().getLeitos().indexOf(((ImageCard) n).getLeito())).setStatus(true);
+		for(ImageCard img: pnlLeitos.getItems()) {
+			if(espacoCtrl.getEspaco().getLeitos().contains(img.getLeito()))
+				espacoCtrl.getEspaco().getLeitos().get(espacoCtrl.getEspaco().getLeitos().indexOf(img.getLeito())).setStatus(true);
 			else
-				espacoCtrl.getEspaco().getLeitos().add(((ImageCard) n).getLeito());
+				espacoCtrl.getEspaco().getLeitos().add(img.getLeito());
 		}
 		espacoCtrl.getEspaco().setStatus(sbAtivado.switchOnProperty().get());
 	}
@@ -232,13 +225,11 @@ public class CadastroEspacoController extends Application implements Initializab
 		txtBloco.setText(espacoCtrl.getEspaco().getBloco());
 		txtAndar.setText(espacoCtrl.getEspaco().getAndar());
 
-		for (Leito l : espacoCtrl.getEspaco().getLeitos()) {
+		for (Leito l: espacoCtrl.getEspaco().getLeitos()) {
 			ImageCard img = new ImageCard();
 			img.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
-			if(l.isStatus()) {
-				img.setLeito(l);
-				pnlLeitos.getChildren().add(img);
-			}
+			img.setLeito(l);
+			pnlLeitos.getItems().add(img);
 		}
 
 		sbAtivado.switchOnProperty().set(espacoCtrl.getEspaco().isStatus());

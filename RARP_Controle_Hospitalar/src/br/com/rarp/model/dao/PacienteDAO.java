@@ -178,7 +178,7 @@ public class PacienteDAO {
 			pessoaFisicaDAO.salvar(paciente);
 			
 			String sql = "INSERT INTO paciente(codigo_convenio, codigo_pf, codigo_resp, status) VALUES(?,?,?,?)";
-			ps = conexao.prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			if(paciente.getConvenio() != null)
 				ps.setInt(1, paciente.getConvenio().getCodigo());
 			else

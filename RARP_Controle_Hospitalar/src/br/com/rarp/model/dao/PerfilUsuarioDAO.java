@@ -74,7 +74,7 @@ public class PerfilUsuarioDAO {
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
             String sql= "INSERT INTO perfilusuario(nome, status) VALUES(?,?)";
-            ps = conexao.prepareStatement(sql);
+            ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, perfilUsuario.getNome());
             ps.setBoolean(2, perfilUsuario.isStatus());            
             ps.executeUpdate();

@@ -1,5 +1,6 @@
 package br.com.rarp.model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EntradaPaciente extends Movimentacao {
@@ -69,4 +70,10 @@ public class EntradaPaciente extends Movimentacao {
 		this.emergencia = emergencia;
 	}
 
+	@Override
+	public String toString() {
+		return getPaciente().getNome() 
+				+ " dia " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
+				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:MM:ss"));
+	}
 }

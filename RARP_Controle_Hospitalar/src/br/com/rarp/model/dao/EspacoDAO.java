@@ -35,7 +35,7 @@ public class EspacoDAO {
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "INSERT INTO espaco(nome, bloco, andar, status) VALUES(?,?,?,?)";
-            ps = conexao.prepareStatement(sql);
+            ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, espaco.getNome());
             ps.setString(2, espaco.getBloco());
             ps.setString(3, espaco.getAndar());

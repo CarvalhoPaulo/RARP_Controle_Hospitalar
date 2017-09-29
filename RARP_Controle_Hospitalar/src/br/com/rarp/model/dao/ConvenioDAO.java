@@ -156,7 +156,7 @@ public class ConvenioDAO {
 			pessoaJuridicaDAO.salvar(convenio);
 			
 			String sql = "INSERT INTO convenio(ans, tipo, codigo_pj, status) VALUES(?,?,?,?)";
-			ps = conexao.prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
 			ps.setInt(3, convenio.getCodigo());

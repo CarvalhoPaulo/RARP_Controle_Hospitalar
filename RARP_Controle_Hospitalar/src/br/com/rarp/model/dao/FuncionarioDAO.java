@@ -168,7 +168,7 @@ public class FuncionarioDAO {
 			pessoaFisicaDAO.salvar(funcionario);
 			
 			String sql = "INSERT INTO funcionario(dataAdmissao, salarioContratual, ctps, codigo_cargo, codigo_pf, status) VALUES(?,?,?,?,?,?)";
-			ps = conexao.prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
 			ps.setString(3, funcionario.getCTPS());

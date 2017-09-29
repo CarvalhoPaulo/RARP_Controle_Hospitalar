@@ -16,6 +16,7 @@ import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
 import br.com.rarp.view.scnManutencao.cidade.CidadeController;
 import br.com.rarp.view.scnManutencao.convenio.ConvenioController;
+import br.com.rarp.view.scnManutencao.encaminhamento.EncaminhamentoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
@@ -416,7 +417,16 @@ public class MainController extends Application implements Initializable {
 
     @FXML
     void controlarEncaminhamento(ActionEvent event) {
-
+    	try {
+			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.acesso);
+			manutencao = new EncaminhamentoController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
     @FXML

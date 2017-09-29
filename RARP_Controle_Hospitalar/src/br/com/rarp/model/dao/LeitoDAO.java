@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,10 @@ public class LeitoDAO {
         		ps.setInt(1, leito.getNumero());
         		ps.setInt(2, codigo_espaco);
         		ps.setBoolean(3, leito.isStatus());
+        		if(leito.getPaciente() != null)
+        			ps.setInt(4, leito.getPaciente().getCodigo());
+        		else
+        			ps.setNull(4, Types.INTEGER);
         		ps.addBatch();
                 i++;
 
@@ -81,7 +86,11 @@ public class LeitoDAO {
         		ps.setInt(1, leito.getNumero());
         		ps.setInt(2, codigo_espaco);
         		ps.setBoolean(3, leito.isStatus());
-        		ps.setInt(4, leito.getCodigo());
+        		if(leito.getPaciente() != null)
+        			ps.setInt(4, leito.getPaciente().getCodigo());
+        		else
+        			ps.setNull(4, Types.INTEGER);
+        		ps.setInt(5, leito.getCodigo());
         		ps.addBatch();
                 i++;
 
@@ -110,6 +119,7 @@ public class LeitoDAO {
             	leito.setCodigo(rs.getInt("codigo"));
             	leito.setNumero(rs.getInt("numero"));
             	leito.setStatus(rs.getBoolean("status"));
+            	//leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
             	leitos.add(leito);
             }
             ps.close();

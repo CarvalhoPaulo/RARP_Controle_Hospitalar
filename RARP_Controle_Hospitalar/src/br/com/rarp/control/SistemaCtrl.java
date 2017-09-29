@@ -125,6 +125,7 @@ public class SistemaCtrl {
 		telas.add(new Tela(10, "manutencaoMedico", "Manutenção de Especialidade"));
 		
 		telas.add(new Tela(11, "controleEntradaPaciente", "Controle de Entrada de Paciente"));
+		telas.add(new Tela(12, "controleEncaminhamento", "Controle de Encaminhamentos"));
 		
 		return telas;
 	}
@@ -136,11 +137,6 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoPerfilUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoPerfilUsuario", tipoMovimentacao))
-			throw new Exception("Acesso negado a essa área");
-	}
-	
-	public void liberarControleEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
-		if(!podeLiberar("controleEntradaPaciente", tipoMovimentacao))
 			throw new Exception("Acesso negado a essa área");
 	}
 	
@@ -181,6 +177,16 @@ public class SistemaCtrl {
 	
 	public void liberarManutencaoMedico(TipoMovimentacao tipoMovimentacao) throws Exception {
 		if(!podeLiberar("manutencaoMedico", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+	
+	public void liberarControleEncaminhamento(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("controleEncaminhamento", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+	
+	public void liberarControleEntradaPaciente(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("controleEntradaPaciente", tipoMovimentacao))
 			throw new Exception("Acesso negado a essa área");
 	}
 	

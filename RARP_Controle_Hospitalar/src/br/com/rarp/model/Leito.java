@@ -5,6 +5,7 @@ public class Leito {
 	private int codigo;
 	private int numero;
 	private boolean status;
+	private Espaco espaco;
 	private Paciente paciente;
 	
 	public Leito(int numero) {
@@ -31,7 +32,6 @@ public class Leito {
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
 		return numero == ((Leito) obj).getNumero();
 	}
 
@@ -49,5 +49,18 @@ public class Leito {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+	
+	@Override
+	public String toString() {
+		return numero + "";
+	}
+
+	public Espaco getEspaco() {
+		return espaco;
+	}
+
+	public void setEspaco(Espaco espaco) {
+		this.espaco = espaco;
 	}
 }

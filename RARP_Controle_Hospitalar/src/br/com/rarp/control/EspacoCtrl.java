@@ -1,10 +1,15 @@
 package br.com.rarp.control;
 
+import java.util.List;
+
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Espaco;
 import br.com.rarp.model.bo.EspacoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.utils.comparacao.Ativado;
+import br.com.rarp.utils.comparacao.Igual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -59,6 +64,11 @@ public class EspacoCtrl {
 		if(espaco != null && !espaco.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este espaço?");
 		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Espaco> getEspacos() throws Exception {
+		return consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado");
 	}
 	
 }

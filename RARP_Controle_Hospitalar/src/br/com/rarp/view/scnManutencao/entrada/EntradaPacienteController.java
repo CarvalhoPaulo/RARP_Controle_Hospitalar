@@ -1,6 +1,5 @@
 package br.com.rarp.view.scnManutencao.entrada;
 
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 import br.com.rarp.control.EntradaPacienteCtrl;
@@ -82,6 +81,7 @@ public class EntradaPacienteController extends ManutencaoController {
 		hora.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.13));
 		paciente.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.3));
 		atendente.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.3));
+		
 		tblManutencao.getColumns().addAll(codigo, data, hora, paciente, atendente);
 		tblManutencao.setEditable(false);
 		adicionarCampos();

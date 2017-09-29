@@ -31,6 +31,12 @@ public class EncaminhamentoController extends ManutencaoController {
 		TableColumn<Encaminhamento, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
+		TableColumn<Encaminhamento, String> origem = new TableColumn<>("Leito de origem");
+		codigo.setCellValueFactory(new PropertyValueFactory<>("origem"));
+		
+		TableColumn<Encaminhamento, String> destino = new TableColumn<>("Leito de destino");
+		codigo.setCellValueFactory(new PropertyValueFactory<>("origem"));
+		
 		TableColumn<Encaminhamento, String> status = new TableColumn<>("Status");
 		status.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Encaminhamento,String>, ObservableValue<String>>() {
 
@@ -43,20 +49,23 @@ public class EncaminhamentoController extends ManutencaoController {
 			}
 		});
 		
-		codigo.setPrefWidth(100);
-		status.setPrefWidth(200);
+		codigo.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.2));
+		origem.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.3));
+		destino.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.3));
+		status.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.2));
 
-		tblManutencao.getColumns().addAll(codigo, status);
+		tblManutencao.getColumns().addAll(codigo, origem, destino, status);
 		tblManutencao.setEditable(false);
 		adicionarCampos();
 		cmbCampo.getSelectionModel().select(0);
 		cmbCampo.getOnAction().handle(new ActionEvent());
-
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
+		cmbCampo.getItems().add(new Campo("ENC.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("ORI.nome", "Leito de Origem", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("DEST.nome", "Leito de Destino", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("ENC.status", "Ativado", TipoCampo.booleano));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -76,7 +85,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	@Override
 	public void inserir() {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.insercao);
+			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.insercao);
 			CadastroEncaminhamentoController controler = new CadastroEncaminhamentoController();
 			controler.inserir();
 		} catch (Exception e) {
@@ -88,7 +97,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	@Override
 	public void alterar() {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.alteracao);
+			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.alteracao);
 			CadastroEncaminhamentoController controller = new CadastroEncaminhamentoController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
@@ -106,7 +115,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	@Override
 	public void visualizar() {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoCargo(TipoMovimentacao.visualizaco);
+			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.visualizaco);
 			CadastroEncaminhamentoController controller = new CadastroEncaminhamentoController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");

@@ -41,18 +41,19 @@ public class EncaminhamentoDAO {
 			List<Encaminhamento> listaInserir = new ArrayList<>(), listaAlterar = new ArrayList<>();
 			for (Encaminhamento e : entradaPaciente.getEncaminhamentos()) {
 				if (e != null) {
-					if (e.getCodigo() == 0)
-						listaInserir.add(e);
+					e.setEntradaPaciente(entradaPaciente);
+					if (e.getCodigo() == 0) 
+						listaInserir.add(e);	
 					else
 						listaAlterar.add(e);
 				}
 			}
-			inserir(connection, listaInserir, entradaPaciente);
-			alterar(connection, listaAlterar, entradaPaciente);
+			inserir(connection, listaInserir);
+			alterar(connection, listaAlterar);
 		}
 	}
 
-	private void alterar(Connection connection, List<Encaminhamento> listaAlterar, EntradaPaciente entradaPaciente) throws SQLException {
+	private void alterar(Connection connection, List<Encaminhamento> listaAlterar) throws SQLException {
 		String sql = "UPDATE encaminhamento SET origem_leito = ?, destino_leito = ?, status = ? WHERE codigo = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		int i = 0;
@@ -79,7 +80,7 @@ public class EncaminhamentoDAO {
 		ps.close();
 	}
 
-	private void inserir(Connection connection, List<Encaminhamento> listaInserir, EntradaPaciente entradaPaciente) throws Exception {
+	private void inserir(Connection connection, List<Encaminhamento> listaInserir) throws Exception {
 		String sql = "INSERT encaminhamento(origem_leito, destino_leito, codigo_mov, codigo_entrada, status) VALUES(?,?,?,?,?)";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		int i = 0;
@@ -98,7 +99,7 @@ public class EncaminhamentoDAO {
 				ps.setNull(2, Types.INTEGER);
 			
 			ps.setInt(3, e.getCodigo());
-			ps.setInt(4, entradaPaciente.getCodigo());
+			ps.setInt(4, e.getEntradaPaciente().getCodigo());
 			ps.setBoolean(5, e.isStatus());
 			
 			ps.addBatch();
@@ -115,5 +116,20 @@ public class EncaminhamentoDAO {
 				e.setCodigo(rs.getInt(1));
 		}
 		ps.close();
+	}
+
+	public void salvar(Encaminhamento encaminhamento) throws Exception {
+		Connection connection = SistemaCtrl.getInstance().getConexao().getConexao();
+		List<Encaminhamento> encaminhamentos = new ArrayList<>();
+		try {
+			if (encaminhamento != null)
+				if (encaminhamento.getCodigo() == 0) {
+					inserir(connection, encaminhamentos);
+				} else {
+					alterar(connection, encaminhamentos);
+				}
+		} finally {
+			connection.close();
+		}
 	}
 }

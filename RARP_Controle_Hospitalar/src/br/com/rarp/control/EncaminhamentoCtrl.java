@@ -2,6 +2,7 @@ package br.com.rarp.control;
 
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Encaminhamento;
+import br.com.rarp.model.bo.EncaminhamentoBusiness;
 import br.com.rarp.utils.Campo;
 import javafx.collections.ObservableList;
 
@@ -16,7 +17,27 @@ public class EncaminhamentoCtrl {
 		this.encaminhamento = (Encaminhamento) encaminhamento;
 	}
 
-	public boolean salvar() {
+	public boolean salvar() throws Exception {
+		if (encaminhamento == null)
+			throw new Exception("O encaminhamento não foi instânciada");
+
+		if (confirmarDesativacao()) {
+			if (encaminhamento.isStatus())
+				validarDadosObrigatorios();
+			EncaminhamentoBusiness encaminhamentoBusiness = new EncaminhamentoBusiness();
+			encaminhamentoBusiness.salvar(encaminhamento);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void validarDadosObrigatorios() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean confirmarDesativacao() {
 		// TODO Auto-generated method stub
 		return false;
 	}

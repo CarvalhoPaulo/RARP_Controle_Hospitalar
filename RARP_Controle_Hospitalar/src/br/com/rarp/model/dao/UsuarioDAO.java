@@ -46,7 +46,7 @@ public class UsuarioDAO {
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql= "INSERT INTO usuario(nome, usuario, password, codigo_funcionario, codigo_perfilusuario, status) VALUES(?,?,?,?,?,?)";
-            ps = conexao.prepareStatement(sql);
+            ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
             ps.setString(3, usuario.getSenha());
