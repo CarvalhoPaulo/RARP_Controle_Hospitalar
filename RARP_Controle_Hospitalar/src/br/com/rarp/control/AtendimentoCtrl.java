@@ -5,6 +5,7 @@ import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.bo.AtendimentoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AtendimentoCtrl {
@@ -48,9 +49,8 @@ public class AtendimentoCtrl {
 		
 	}
 
-	public ObservableList<Atendimento> consultar(Campo selectedItem, Comparacao selectedItem2, Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	public ObservableList<Atendimento> consultar(Campo campo, Comparacao comparacao, String termo) throws ClassNotFoundException, Exception {
+		return FXCollections.observableList(new AtendimentoBusiness().consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 	
 	@Override

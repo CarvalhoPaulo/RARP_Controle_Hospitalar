@@ -9,7 +9,7 @@ import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroEntrada.CadastroEntradaController;
+import br.com.rarp.view.scnControleEntrada.ControleEntradaController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -112,7 +112,7 @@ public class EntradaPacienteController extends ManutencaoController {
 	public void inserir() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEntradaPaciente(TipoMovimentacao.insercao);
-			CadastroEntradaController controler = new CadastroEntradaController();
+			ControleEntradaController controler = new ControleEntradaController();
 			controler.inserir();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -124,7 +124,7 @@ public class EntradaPacienteController extends ManutencaoController {
 	public void alterar() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEntradaPaciente(TipoMovimentacao.alteracao);
-			CadastroEntradaController controller = new CadastroEntradaController();
+			ControleEntradaController controller = new ControleEntradaController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
@@ -142,7 +142,7 @@ public class EntradaPacienteController extends ManutencaoController {
 	public void visualizar() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEntradaPaciente(TipoMovimentacao.visualizaco);
-			CadastroEntradaController controller = new CadastroEntradaController();
+			ControleEntradaController controller = new ControleEntradaController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {

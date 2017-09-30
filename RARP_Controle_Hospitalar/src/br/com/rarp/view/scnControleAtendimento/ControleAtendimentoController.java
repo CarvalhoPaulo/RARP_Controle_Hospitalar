@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnCadastroAtendimento;
+package br.com.rarp.view.scnControleAtendimento;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -16,10 +16,10 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.ReceitaMedica;
 import br.com.rarp.model.Sintoma;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroApontamento.CadastroApontamentoController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
+import br.com.rarp.view.scnControleApontamento.ControleApontamentoController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -43,7 +43,7 @@ import jfxtras.scene.control.LocalTimeTextField;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 
-public class CadastroAtendimentoController extends Application implements Initializable {
+public class ControleAtendimentoController extends Application implements Initializable {
 
 	private static Stage stage;
 
@@ -119,7 +119,7 @@ public class CadastroAtendimentoController extends Application implements Initia
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroAtendimento.fxml"))));
+		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ControleAtendimento.fxml"))));
 		stage.setTitle("Cadastro de Atendimentos");
 		setStage(stage);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -261,7 +261,7 @@ public class CadastroAtendimentoController extends Application implements Initia
 		}
 		agdAtendimento.editAppointmentCallbackProperty().set((param) -> {
 			if (param == appointment) {
-				CadastroApontamentoController controller = new CadastroApontamentoController();
+				ControleApontamentoController controller = new ControleApontamentoController();
 				try {
 					controller.abrir(appointment);
 				} catch (Exception e) {
@@ -336,13 +336,13 @@ public class CadastroAtendimentoController extends Application implements Initia
 		preencherObjeto();
 		try {
 			if (salvar && atendimentoCtrl.salvar()) {
-				Utilitarios.message("Espaço salvo com sucesso.");
+				Utilitarios.message("Atendimento salvo com sucesso.");
 				limparCampos();
 			}
 			if (!salvar)
 				voltar(new ActionEvent());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar espaço.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 

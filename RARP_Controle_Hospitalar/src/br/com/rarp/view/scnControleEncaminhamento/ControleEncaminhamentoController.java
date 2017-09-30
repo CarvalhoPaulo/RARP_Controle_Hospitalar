@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnCadastroEncaminhamento;
+package br.com.rarp.view.scnControleEncaminhamento;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +27,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-public class CadastroEncaminhamentoController extends Application implements Initializable {
+public class ControleEncaminhamentoController extends Application implements Initializable {
 	
 	private static Stage stage;
 
@@ -63,7 +63,7 @@ public class CadastroEncaminhamentoController extends Application implements Ini
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEncaminhamento.fxml"))));
+		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ControleEncaminhamento.fxml"))));
 		stage.setTitle("Cadastro de Encaminhamentos");
 		setStage(stage);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {

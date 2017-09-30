@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnCadastroEntrada;
+package br.com.rarp.view.scnControleEntrada;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,10 +18,10 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroAtendimento.CadastroAtendimentoController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
+import br.com.rarp.view.scnControleAtendimento.ControleAtendimentoController;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
 
-public class CadastroEntradaController extends Application implements Initializable {
+public class ControleEntradaController extends Application implements Initializable {
 
 	private static Stage stage;
 	private static EntradaPacienteCtrl entradaPacienteCtrl;
@@ -135,7 +135,7 @@ public class CadastroEntradaController extends Application implements Initializa
     		Utilitarios.atencao("Para inserir um atendimento é necessário selecionar um médico.");
     		cmbMedico.requestFocus();
     	} else {
-	    	CadastroAtendimentoController controller = new CadastroAtendimentoController();
+	    	ControleAtendimentoController controller = new ControleAtendimentoController();
 	    	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
 	    	atendimentoCtrl.novoAtendimento();
 	    	atendimentoCtrl.getAtendimento().setResponsavel(cmbMedico.getValue());
@@ -147,7 +147,7 @@ public class CadastroEntradaController extends Application implements Initializa
 
     @FXML
     void alterarAtendimento(ActionEvent event) throws Exception {
-    	CadastroAtendimentoController controller = new CadastroAtendimentoController();
+    	ControleAtendimentoController controller = new ControleAtendimentoController();
     	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
     	atendimentoCtrl.setAtendimento(tblAtendimentos.getSelectionModel().getSelectedItem());
     	controller.abrir(atendimentoCtrl);
@@ -209,7 +209,7 @@ public class CadastroEntradaController extends Application implements Initializa
 	@Override
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
-		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("CadastroEntrada.fxml"))));
+		stage.setScene(new Scene((Parent) FXMLLoader.load(getClass().getResource("ControleEntrada.fxml"))));
 		stage.setTitle("Cadastro de Entrada de Pacientes");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -430,7 +430,7 @@ public class CadastroEntradaController extends Application implements Initializa
 	}
 
 	public static void setVisualizando(boolean visualizando) {
-		CadastroEntradaController.visualizando = visualizando;
+		ControleEntradaController.visualizando = visualizando;
 	}
 
 	@SuppressWarnings("static-access")

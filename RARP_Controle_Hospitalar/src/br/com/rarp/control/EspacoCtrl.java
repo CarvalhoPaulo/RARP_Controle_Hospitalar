@@ -9,7 +9,6 @@ import br.com.rarp.model.bo.EspacoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
-import br.com.rarp.utils.comparacao.Igual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

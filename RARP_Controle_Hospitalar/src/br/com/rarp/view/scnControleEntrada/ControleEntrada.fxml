@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.LocalTimeTextField?>
 
-<AnchorPane minHeight="550.0" minWidth="755.0" prefHeight="550.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEntrada.CadastroEntradaController">
+<AnchorPane minHeight="550.0" minWidth="755.0" prefHeight="550.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnControleEntrada.ControleEntradaController">
 	<children>
 		<BorderPane fx:id="pnlPrincipal" styleClass="font" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>

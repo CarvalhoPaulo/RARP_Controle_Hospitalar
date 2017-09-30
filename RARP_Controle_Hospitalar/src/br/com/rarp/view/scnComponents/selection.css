@@ -1,0 +1,7 @@
+.draggable {
+ 	-fx-padding: 10px;  
+}
+
+.draggable:selected {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,154,255,100), 10, 0, 0, 0);
+}

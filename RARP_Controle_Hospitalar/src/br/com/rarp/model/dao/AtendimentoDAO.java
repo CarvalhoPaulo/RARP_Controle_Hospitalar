@@ -218,7 +218,7 @@ public class AtendimentoDAO {
 		return null;
 	}
 
-	private List<Atendimento> consultar(String campo, String comparacao, String termo) throws ClassNotFoundException, Exception {
+	public List<Atendimento> consultar(String campo, String comparacao, String termo) throws ClassNotFoundException, Exception {
 		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {

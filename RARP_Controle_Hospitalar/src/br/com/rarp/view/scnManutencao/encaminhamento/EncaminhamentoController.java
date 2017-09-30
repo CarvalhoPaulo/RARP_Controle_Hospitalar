@@ -7,7 +7,7 @@ import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.scnCadastroEncaminhamento.CadastroEncaminhamentoController;
+import br.com.rarp.view.scnControleEncaminhamento.ControleEncaminhamentoController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -86,7 +86,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	public void inserir() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.insercao);
-			CadastroEncaminhamentoController controler = new CadastroEncaminhamentoController();
+			ControleEncaminhamentoController controler = new ControleEncaminhamentoController();
 			controler.inserir();
 		} catch (Exception e) {
 			Utilitarios.erro(e.getMessage());
@@ -98,7 +98,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	public void alterar() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.alteracao);
-			CadastroEncaminhamentoController controller = new CadastroEncaminhamentoController();
+			ControleEncaminhamentoController controller = new ControleEncaminhamentoController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {
@@ -116,7 +116,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	public void visualizar() {
 		try {
 			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.visualizaco);
-			CadastroEncaminhamentoController controller = new CadastroEncaminhamentoController();
+			ControleEncaminhamentoController controller = new ControleEncaminhamentoController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
 			else {

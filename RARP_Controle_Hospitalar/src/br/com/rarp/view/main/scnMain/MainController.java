@@ -13,6 +13,7 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import br.com.rarp.view.scnManutencao.atendimento.AtendimentoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
 import br.com.rarp.view.scnManutencao.cidade.CidadeController;
 import br.com.rarp.view.scnManutencao.convenio.ConvenioController;
@@ -412,7 +413,16 @@ public class MainController extends Application implements Initializable {
     
     @FXML
     void controlarAtendimento(ActionEvent event) {
-
+    	try {
+			SistemaCtrl.getInstance().liberarControleAtendimento(TipoMovimentacao.acesso);
+			manutencao = new AtendimentoController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
     @FXML

@@ -1,4 +1,4 @@
-package br.com.rarp.view.scnCadastroApontamento;
+package br.com.rarp.view.scnControleApontamento;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 
-public class CadastroApontamentoController extends Application implements Initializable {
+public class ControleApontamentoController extends Application implements Initializable {
 	private static Stage stage;
 
 	@FXML
@@ -61,7 +61,7 @@ public class CadastroApontamentoController extends Application implements Initia
 	@Override
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
-		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroApontamento.fxml"))));
+		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ControleApontamento.fxml"))));
 		stage.setTitle("Cadastro de apontamento");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 

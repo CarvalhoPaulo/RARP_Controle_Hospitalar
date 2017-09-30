@@ -72,8 +72,10 @@ public class EntradaPaciente extends Movimentacao {
 
 	@Override
 	public String toString() {
-		return getPaciente().getNome() 
-				+ " dia " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
-				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:MM:ss"));
+		if(getPaciente() != null)
+			return getPaciente().getNome() 
+				+ " - " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
+				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+		return "";
 	}
 }

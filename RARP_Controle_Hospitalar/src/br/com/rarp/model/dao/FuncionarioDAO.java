@@ -124,10 +124,22 @@ public class FuncionarioDAO {
 				Cargo cargo = new Cargo();
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
-				try {
-					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
-				} catch (Exception e) {
+				switch (rs.getString("funcao")) {
+				case "limpeza":
+					cargo.setFuncao(Funcao.limpeza);
+					break;
+					
+				case "atendente":
+					cargo.setFuncao(Funcao.atendente);
+					break;
+					
+				case "enfermeira":
+					cargo.setFuncao(Funcao.enfermeira);
+					break;
+
+				default:
 					cargo.setFuncao(Funcao.outros);
+					break;
 				}
 				cargo.setNivel(rs.getString("nivel"));
 				cargo.setRequisitos(rs.getString("requisitos"));
