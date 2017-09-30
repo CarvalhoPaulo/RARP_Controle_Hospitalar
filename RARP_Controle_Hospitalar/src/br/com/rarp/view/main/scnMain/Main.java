@@ -1,8 +1,5 @@
 package br.com.rarp.view.main.scnMain;
 
-import java.lang.reflect.Field;
-
-import br.com.rarp.control.SistemaCtrl;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -20,7 +17,7 @@ public class Main {
 			
 			MainController.abrir();
 		} catch (Exception e) {
-			new Alert(AlertType.ERROR, "Erro ao inicializar a aplicação. "
+			new Alert(AlertType.ERROR, "Erro ao inicializar a aplicaï¿½ï¿½o. "
 					+ "\n\tEntre em contato com o grupo RARP telefone: (62)"
 					+ " 98526-4619\\ (62) 98548-3271", ButtonType.OK).show();
 			e.printStackTrace();

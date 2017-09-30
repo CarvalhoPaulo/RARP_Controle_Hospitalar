@@ -5,6 +5,11 @@ import br.com.rarp.annotations.IgnorarField;
 public class Configuracoes {
 	@IgnorarField
 	private static Configuracoes INSTANCE = new Configuracoes();
+	private boolean controleAcesso;
+	private String usuario;
+	private String senha;
+	private int codigoRARP;
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -21,12 +26,8 @@ public class Configuracoes {
 		this.senha = senha;
 	}
 
-
-	private boolean controleAcesso;
-	private String usuario;
-	private String senha;
 	private Configuracoes() {
-		
+
 	}
 
 	public boolean isControleAcesso() {
@@ -37,10 +38,16 @@ public class Configuracoes {
 		this.controleAcesso = controleAcesso;
 	}
 
-
 	public static Configuracoes getInstance() {
 		return INSTANCE;
 	}
-	
-	
+
+	public int getCodigoRARP() {
+		return codigoRARP;
+	}
+
+	public void setCodigoRARP(int codigoRARP) {
+		this.codigoRARP = codigoRARP;
+	}
+
 }

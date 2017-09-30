@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Configuracoes;
 import br.com.rarp.model.Organizacao;
+import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.MaskTextField;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -47,8 +50,14 @@ public class OpcoesController extends Application implements Initializable {
 
 	@FXML // fx:id="btnCancelar"
 	private Button btnCancelar; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="txtCodigoRARP"
+    private IntegerTextField txtCodigoRARP; // Value injected by FXMLLoader
 
 	private Stage stage;
+
+	   @FXML // fx:id="tblTelefones"
+	    private TableView<Telefone> tblTelefones; // Value injected by FXMLLoader
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -109,11 +118,13 @@ public class OpcoesController extends Application implements Initializable {
 		txtUsuario.setText(configuracoes.getUsuario());
 
 		txtSenha.setText(configuracoes.getSenha());
+		txtCodigoRARP.setValue(configuracoes.getCodigoRARP());
 	}
 
 	private void preencherConfiguracoes() {
 		SistemaCtrl.getInstance().getConfiguracoes().setSenha(txtSenha.getText());
 		SistemaCtrl.getInstance().getConfiguracoes().setUsuario(txtUsuario.getText());
+		SistemaCtrl.getInstance().getConfiguracoes().setCodigoRARP(txtCodigoRARP.getValue());
 
 	}
 
@@ -122,6 +133,7 @@ public class OpcoesController extends Application implements Initializable {
 		SistemaCtrl.getInstance().getOrganizacao().setEmail(txtEmail.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setLogradouro(txtEndereco.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setRazaoSocial(txtRazao.getText());
+		SistemaCtrl.getInstance().getOrganizacao().setTelefones(tblTelefones.getItems());
 		//SistemaCtrl.getInstance().getEmpresa().setTelefone(txtFone.getText());
 	}
 }

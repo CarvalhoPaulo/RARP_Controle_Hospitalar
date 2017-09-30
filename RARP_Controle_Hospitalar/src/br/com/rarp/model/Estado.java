@@ -1,7 +1,5 @@
 package br.com.rarp.model;
 
-import static org.mockito.Mockito.verify;
-
 public class Estado {
 
 	private int codigo;
