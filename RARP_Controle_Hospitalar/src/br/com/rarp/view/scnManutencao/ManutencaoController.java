@@ -124,7 +124,8 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				public void handle(KeyEvent event) {
 					if(event.getCode() == KeyCode.INSERT)
 						inserir();
-					if(!(event.getTarget() instanceof Button) 
+					if(!(event.getTarget() instanceof Button 
+							&& tblManutencao.getItems() != null) 
 							&& tblManutencao.getItems().size() > 0
 							&& tblManutencao.getSelectionModel().getSelectedIndex() > -1) {
 						if (event.getCode() == KeyCode.ENTER && !event.isControlDown())

@@ -37,6 +37,7 @@ public class SelectionNode<T extends Node> extends FlowPane {
 		items.addListener(new ListChangeListener<T>() {
 			@Override
 			public void onChanged(Change<? extends T> c) {
+				getChildren().clear();
 				for (Node node : c.getList()) {
 					node.setOnMouseClicked(onClick);
 					if(!node.getStyleClass().contains("node.getStyleClass()"))

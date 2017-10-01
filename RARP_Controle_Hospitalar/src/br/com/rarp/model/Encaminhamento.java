@@ -24,5 +24,19 @@ public class Encaminhamento extends Movimentacao {
 	public void setEntradaPaciente(EntradaPaciente entradaPaciente) {
 		this.entradaPaciente = entradaPaciente;
 	}
+	
+	@Override
+	public Encaminhamento clone() {
+		Encaminhamento encaminhamento = new Encaminhamento();
+		encaminhamento.setCodigo(getCodigo());
+		encaminhamento.setDestino(getDestino().clone());
+		encaminhamento.setOrigem(getOrigem().clone());
+		encaminhamento.setDtMovimentacao(getDtMovimentacao());
+		encaminhamento.setEntradaPaciente(getEntradaPaciente());
+		encaminhamento.setHrMovimentacao(getHrMovimentacao());
+		encaminhamento.setStatus(isStatus());
+		encaminhamento.setUsuario(getUsuario());
+		return encaminhamento;
+	}
 
 }

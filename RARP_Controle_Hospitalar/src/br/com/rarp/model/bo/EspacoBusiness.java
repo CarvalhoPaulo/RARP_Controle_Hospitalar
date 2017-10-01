@@ -24,4 +24,12 @@ public class EspacoBusiness {
 		EspacoDAO espacoDAO = new EspacoDAO();
 		return espacoDAO.consultar(campo, comparacao, termo);
 	}
+
+	public List<Espaco> getEspacosLivres() throws ClassNotFoundException, Exception {
+		return new EspacoDAO().getEspacos(true);
+	}
+
+	public List<Espaco> getEspacosCheios() throws ClassNotFoundException, Exception {
+		return new EspacoDAO().getEspacos(false);
+	}
 }

@@ -4,9 +4,11 @@ import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.model.bo.EncaminhamentoBusiness;
 import br.com.rarp.utils.Campo;
+import br.com.rarp.utils.Utilitarios;
 import javafx.collections.ObservableList;
 
 public class EncaminhamentoCtrl {
+	
 	private Encaminhamento encaminhamento;
 
 	public Encaminhamento getEncaminhamento() {
@@ -17,19 +19,29 @@ public class EncaminhamentoCtrl {
 		this.encaminhamento = (Encaminhamento) encaminhamento;
 	}
 
-	public boolean salvar() throws Exception {
+	public boolean salvar(EncaminhamentoCtrl encaminhamentoCtrl) throws Exception {
 		if (encaminhamento == null)
 			throw new Exception("O encaminhamento não foi instânciada");
-
+		
+		Encaminhamento encaminhamentoAntigo = null;
+		if (encaminhamentoCtrl != null)
+			encaminhamentoAntigo = encaminhamentoCtrl.getEncaminhamento();
+		
 		if (confirmarDesativacao()) {
 			if (encaminhamento.isStatus())
 				validarDadosObrigatorios();
 			EncaminhamentoBusiness encaminhamentoBusiness = new EncaminhamentoBusiness();
-			encaminhamentoBusiness.salvar(encaminhamento);
+			encaminhamentoBusiness.salvar(encaminhamento, encaminhamentoAntigo);
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public EncaminhamentoCtrl clone() {
+		EncaminhamentoCtrl encaminhamentoCtrl = new EncaminhamentoCtrl();
+		encaminhamentoCtrl.setEncaminhamento(encaminhamento.clone());
+		return encaminhamentoCtrl;
 	}
 
 	private void validarDadosObrigatorios() {
@@ -38,8 +50,9 @@ public class EncaminhamentoCtrl {
 	}
 
 	private boolean confirmarDesativacao() {
-		// TODO Auto-generated method stub
-		return false;
+		if(encaminhamento != null && !encaminhamento.isStatus())
+			return Utilitarios.pergunta("Tem certeza que você deseja desativar esta entrada de paciente?");
+		return true;
 	}
 
 	public void novoEncaminhamento() {
@@ -50,4 +63,5 @@ public class EncaminhamentoCtrl {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

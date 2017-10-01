@@ -29,12 +29,14 @@ public class SintomaDAO {
 	}
 
 	private void inserir(Connection connection, Atendimento atendimento) throws SQLException {
+		if(atendimento.getSintomas() == null)
+			return;
 		String sql= "INSERT INTO sintoma( "
 				+ "descricao, "
 				+ "codigo_atendimento) "
 				+ "VALUES(?,?)";
 		PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-    	int i = 0;
+    	int i = 0;  	
     	for (Sintoma s : atendimento.getSintomas()) { 
     		ps.setString(1, s.getDescricao());
     		ps.setInt(2, atendimento.getCodigo());

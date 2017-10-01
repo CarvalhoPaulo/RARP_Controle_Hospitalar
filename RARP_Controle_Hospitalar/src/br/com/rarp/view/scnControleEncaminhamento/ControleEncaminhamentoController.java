@@ -1,7 +1,10 @@
 package br.com.rarp.view.scnControleEncaminhamento;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
 import br.com.rarp.control.EncaminhamentoCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.EspacoCtrl;
@@ -9,6 +12,7 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Leito;
+import br.com.rarp.model.Paciente;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.ImageCard;
@@ -59,6 +63,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
     private SelectionNode<ImageCard> pnlDestino;
 
 	private static EncaminhamentoCtrl encaminhamentoCtrl;
+	private EncaminhamentoCtrl encaminhamentoCtrlAntigo;
 	private static boolean visualizando;
 
 	@Override
@@ -108,13 +113,27 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		if (visualizando)
 			bloquearTela();
 	}
+	
+	public void filtrarOrigem(Paciente paciente) {
+		if(paciente != null) {
+			List<ImageCard> items = new ArrayList<>();
+			for(ImageCard imageCard: pnlOrigem.getItems()) {
+				if(imageCard != null 
+						&& imageCard.getLeito() != null 
+						&& imageCard.getLeito().getPaciente() != null
+						&& imageCard.getLeito().getPaciente().equals(paciente))
+					items.add(imageCard);
+			}
+			pnlOrigem.getItems().setAll(items);
+		}
+	}
 
 	private void prepararTela() {
 		sbAtivado.switchOnProperty().set(true);
 		txtCodigo.setDisable(true);
 		try {
-			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacos());
-			cmbDestino.getItems().setAll(cmbOrigem.getItems());
+			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios());
+			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -125,6 +144,9 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		}
 		cmbOrigem.setOnAction(onChange);
 		cmbDestino.setOnAction(onChange);
+		cmbEntradaPaciente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			filtrarOrigem(newValue.getPaciente());
+		});
 	}
 	
 	EventHandler<ActionEvent> onChange = (event) -> {
@@ -145,6 +167,9 @@ public class ControleEncaminhamentoController extends Application implements Ini
 				pnlDestino.getItems().add(img);
 			}
 		}
+		
+		if(cmbEntradaPaciente.getValue() != null)
+			filtrarOrigem(cmbEntradaPaciente.getValue().getPaciente());
 	};
 
 	private void bloquearTela() {
@@ -183,9 +208,11 @@ public class ControleEncaminhamentoController extends Application implements Ini
 
 	@FXML
 	private void salvar(ActionEvent event) {
+		if(encaminhamentoCtrl != null)
+			encaminhamentoCtrlAntigo = encaminhamentoCtrl.clone();
 		preencherObjeto();
 		try {
-			if(encaminhamentoCtrl.salvar()) {
+			if(encaminhamentoCtrl.salvar(encaminhamentoCtrlAntigo)) {
 				Utilitarios.message("Espaço salvo com sucesso.");
 				limparCampos();
 			}
@@ -193,6 +220,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 			Utilitarios.erro("Erro ao salvar espaço.\n"
 						   + "Descrição: " + e.getMessage());
 		}
+		encaminhamentoCtrl = null;
 	}
 
 	@FXML

@@ -7,10 +7,12 @@ public class Leito {
 	private boolean status;
 	private Espaco espaco;
 	private Paciente paciente;
+	private boolean sujo;
 	
 	public Leito(int numero) {
 		this.numero = numero;
 		this.status = true;
+		this.sujo = false;
 	}
 	
 	public Leito() {
@@ -63,4 +65,25 @@ public class Leito {
 	public void setEspaco(Espaco espaco) {
 		this.espaco = espaco;
 	}
+
+	public boolean isSujo() {
+		return sujo;
+	}
+
+	public void setSujo(boolean sujo) {
+		this.sujo = sujo;
+	}
+	
+	@Override
+	public Leito clone() {
+		Leito leito = new Leito();
+		leito.setCodigo(getCodigo());
+		leito.setEspaco(getEspaco());
+		leito.setNumero(getNumero());
+		leito.setPaciente(getPaciente());
+		leito.setStatus(isStatus());
+		leito.setSujo(isSujo());
+		return leito;
+	}
+
 }

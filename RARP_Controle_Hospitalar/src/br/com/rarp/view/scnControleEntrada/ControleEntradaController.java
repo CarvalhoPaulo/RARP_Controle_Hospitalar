@@ -171,6 +171,7 @@ public class ControleEntradaController extends Application implements Initializa
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar a entrada de paciente.\n" + "Descrição: " + e.getMessage());
 		}
+		entradaPacienteCtrl = null;
     }
 	
 	private void limparCampos() {
@@ -178,10 +179,10 @@ public class ControleEntradaController extends Application implements Initializa
 		txtData.setValue(LocalDate.now());
 		txtHora.setLocalTime(LocalTime.now());
 		txtPreTriagem.setText("");
-		cmbAtendente.getSelectionModel().select(-1);
-		cmbEnfermeira.getSelectionModel().select(-1);
-		cmbMedico.getSelectionModel().select(-1);
-		cmbPaciente.getSelectionModel().select(-1);
+		cmbAtendente.setValue(null);
+		cmbEnfermeira.setValue(null);
+		cmbMedico.setValue(null);
+		cmbPaciente.setValue(null);
 		sbAlta.setValue(false);
 		sbAtivado.setValue(true);
 		tblAtendimentos.getItems().clear();

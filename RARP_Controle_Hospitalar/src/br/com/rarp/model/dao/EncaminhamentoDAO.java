@@ -63,7 +63,7 @@ public class EncaminhamentoDAO {
 			else
 				ps.setNull(1, Types.INTEGER);
 			
-			if(e.getOrigem() != null)
+			if(e.getDestino() != null)
 				ps.setInt(2, e.getDestino().getCodigo());
 			else
 				ps.setNull(2, Types.INTEGER);
@@ -93,7 +93,7 @@ public class EncaminhamentoDAO {
 			else
 				ps.setNull(1, Types.INTEGER);
 			
-			if(e.getOrigem() != null)
+			if(e.getDestino() != null)
 				ps.setInt(2, e.getDestino().getCodigo());
 			else
 				ps.setNull(2, Types.INTEGER);
@@ -118,16 +118,31 @@ public class EncaminhamentoDAO {
 		ps.close();
 	}
 
-	public void salvar(Encaminhamento encaminhamento) throws Exception {
+	public void salvar(Encaminhamento encaminhamento, Encaminhamento encaminhamentoAnt) throws Exception {
 		Connection connection = SistemaCtrl.getInstance().getConexao().getConexao();
-		List<Encaminhamento> encaminhamentos = new ArrayList<>();
 		try {
+			connection.setAutoCommit(false);		
+			LeitoDAO leitoDAO = new LeitoDAO();
+			
+			leitoDAO.salvar(connection, encaminhamentoAnt.getOrigem());
+			leitoDAO.salvar(connection, encaminhamentoAnt.getDestino());
+			
+			leitoDAO.salvar(connection, encaminhamento.getOrigem());
+			leitoDAO.salvar(connection, encaminhamento.getDestino());
+			
+			List<Encaminhamento> encaminhamentos = new ArrayList<>();
+			encaminhamentos.add(encaminhamento);
+			
 			if (encaminhamento != null)
 				if (encaminhamento.getCodigo() == 0) {
 					inserir(connection, encaminhamentos);
 				} else {
 					alterar(connection, encaminhamentos);
 				}
+			connection.commit();
+		} catch (Exception e) {
+			connection.rollback();
+			throw new Exception("Não foi possível salvar este encaminhamento\nErro: " + e.toString());
 		} finally {
 			connection.close();
 		}

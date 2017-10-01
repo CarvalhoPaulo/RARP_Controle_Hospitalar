@@ -2,6 +2,7 @@ package br.com.rarp.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.enums.StatusAtendimento;
@@ -17,7 +18,7 @@ public class Atendimento extends Movimentacao {
 	private StatusAtendimento statusAtendimento;
 	private EntradaPaciente entradaPaciente;
 	private Funcionario responsavel;
-	private List<Sintoma> sintomas;
+	private List<Sintoma> sintomas = new ArrayList<>();
 	private String styleClass;
 
 	public LocalDate getDataAtendimento() {

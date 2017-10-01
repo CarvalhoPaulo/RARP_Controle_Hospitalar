@@ -1,20 +1,22 @@
 package br.com.rarp.model;
 
 public class Limpeza extends Movimentacao {
-	private FuncionarioLimpeza funcionarioLimpeza;
-	private Espaco espaco;
-	public FuncionarioLimpeza getFuncionarioLimpeza() {
+	private Funcionario funcionarioLimpeza;
+	private Leito espaco;
+
+	public Funcionario getFuncionarioLimpeza() {
 		return funcionarioLimpeza;
 	}
-	public void setFuncionarioLimpeza(FuncionarioLimpeza funcionarioLimpeza) {
+
+	public void setFuncionarioLimpeza(Funcionario funcionarioLimpeza) {
 		this.funcionarioLimpeza = funcionarioLimpeza;
 	}
-	public Espaco getEspaco() {
+
+	public Leito getEspaco() {
 		return espaco;
 	}
-	public void setEspaco(Espaco espaco) {
+
+	public void setEspaco(Leito espaco) {
 		this.espaco = espaco;
 	}
-	
-	
 }

@@ -27,7 +27,7 @@ public class LeitoDAO {
 		sql += "leito(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "numero INTEGER, ";
-		sql += "statusLimpeza INTEGER, ";
+		sql += "sujo BOOLEAN, ";
 		sql += "codigo_espaco INTEGER REFERENCES espaco(codigo), ";
 		sql += "codigo_paciente INTEGER REFERENCES paciente(codigo), ";
 		sql += "status boolean)";
@@ -48,9 +48,9 @@ public class LeitoDAO {
 		alterar(leitosAlterar, espaco.getCodigo());
 	}
 	
-	public void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {
+	private void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente) VALUES(?,?,?,?)";
+		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente, sujo) VALUES(?,?,?,?,?)";
 		PreparedStatement ps = conexao.prepareStatement(sql);
         try {
         	int i = 0;
@@ -62,6 +62,7 @@ public class LeitoDAO {
         			ps.setInt(4, leito.getPaciente().getCodigo());
         		else
         			ps.setNull(4, Types.INTEGER);
+        		ps.setBoolean(5, leito.isSujo());
         		ps.addBatch();
                 i++;
 
@@ -76,9 +77,9 @@ public class LeitoDAO {
 		}         
 	}
 	
-	public void alterar(List<Leito> leitos, int codigo_espaco) throws Exception {
+	private void alterar(List<Leito> leitos, int codigo_espaco) throws Exception {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=? WHERE codigo=?";
+		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=?, sujo=? WHERE codigo=?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
         try {
         	int i = 0;
@@ -90,7 +91,8 @@ public class LeitoDAO {
         			ps.setInt(4, leito.getPaciente().getCodigo());
         		else
         			ps.setNull(4, Types.INTEGER);
-        		ps.setInt(5, leito.getCodigo());
+        		ps.setBoolean(5, leito.isSujo());
+        		ps.setInt(6, leito.getCodigo());
         		ps.addBatch();
                 i++;
 
@@ -129,12 +131,12 @@ public class LeitoDAO {
 		return leitos;
 	}
 	
-	public List<Leito> consultar(String campo, String comparacao, String termo) throws Exception {
+	public List<Leito> consultar(String condicao) throws Exception {
 		List<Leito> leitos = new ArrayList<>();
         PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
-        	String sql = "SELECT codigo, numero, status, codigo_paciente FROM leito WHERE " + campo + termo + comparacao;
+        	String sql = "SELECT codigo, numero, status, codigo_paciente FROM leito WHERE " + condicao;
             ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -151,5 +153,81 @@ public class LeitoDAO {
             conexao.close();
         }
 		return leitos;		
+	}
+	
+	public List<Leito> consultar(String campo, String comparacao, String termo) throws Exception {
+		return consultar(campo + comparacao + termo);		
+	}
+
+	public void salvar(Leito leito) throws Exception {
+		Espaco espaco = new Espaco();
+		espaco.getLeitos().add(leito);
+		salvar(espaco);
+	}
+
+	public void salvar(Connection conexao, Leito leito) throws Exception {
+		if(leito != null)
+			if(leito.getCodigo() == 0)
+				inserir(conexao, leito);
+			else
+				alterar(conexao, leito);
+		
+	}
+	
+	private void inserir(Connection conexao, Leito leito) throws Exception {
+		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente, sujo) VALUES(?,?,?,?)";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+        try {
+        		ps.setInt(1, leito.getNumero());
+        		if(leito.getEspaco() != null)
+        			ps.setInt(2, leito.getEspaco().getCodigo());
+        		else
+        			ps.setNull(2, Types.INTEGER);
+        		ps.setBoolean(3, leito.isStatus());
+        		if(leito.getPaciente() != null)
+        			ps.setInt(4, leito.getPaciente().getCodigo());
+        		else
+        			ps.setNull(4, Types.INTEGER);
+        		ps.setBoolean(5, leito.isSujo());
+        		ps.executeUpdate();
+
+		} finally {
+			ps.close();
+			conexao.close();
+		}         
+	}
+	
+	private void alterar(Connection conexao, Leito leito) throws Exception {
+		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=?, sujo=? WHERE codigo=?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+        try {
+    		ps.setInt(1, leito.getNumero());
+    		if(leito.getEspaco() != null)
+    			ps.setInt(2, leito.getEspaco().getCodigo());
+    		else
+    			ps.setNull(2, Types.INTEGER);
+    		ps.setBoolean(3, leito.isStatus());
+    		if(leito.getPaciente() != null)
+    			ps.setInt(4, leito.getPaciente().getCodigo());
+    		else
+    			ps.setNull(4, Types.INTEGER);
+    		ps.setBoolean(5, leito.isSujo());
+    		ps.setInt(6, leito.getCodigo());
+    		ps.executeUpdate();
+		} finally {
+			ps.close();
+		}  
+	}
+
+	public List<Leito> getLeitosLivres(Espaco espaco) throws Exception {
+		if(espaco != null && espaco.getCodigo() > 0)
+			return consultar("codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL");
+		return null;
+	}
+
+	public List<Leito> getLeitosCheios(Espaco espaco) throws Exception {
+		if(espaco != null && espaco.getCodigo() > 0)
+			return consultar("codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NOT NULL");
+		return null;
 	}
 }

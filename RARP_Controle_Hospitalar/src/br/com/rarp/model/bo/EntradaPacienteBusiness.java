@@ -1,10 +1,16 @@
 package br.com.rarp.model.bo;
 
 import java.util.List;
+
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.enums.StatusAtendimento;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Leito;
 import br.com.rarp.model.dao.EntradaPacienteDAO;
+import br.com.rarp.model.dao.EspacoDAO;
+import br.com.rarp.model.dao.LeitoDAO;
 
 public class EntradaPacienteBusiness {
 
@@ -14,6 +20,27 @@ public class EntradaPacienteBusiness {
 		
 		if(entradaPaciente.isStatus())
 			validarEntradaPaciente(entradaPaciente);
+		
+		Espaco recepcao = new EspacoDAO().getRecepcao();
+		if(recepcao == null) {
+			recepcao = SistemaCtrl.getInstance().getRecepcao();
+			recepcao.getLeitos().get(0).setPaciente(entradaPaciente.getPaciente());
+			if(new LeitoDAO().consultar("codigo_paciente = " + entradaPaciente.getPaciente().getCodigo()).size() == 0)
+				new EspacoDAO().salvar(recepcao);
+		} else {
+			Leito livre = new Leito(1);
+			for(Leito leito: recepcao.getLeitos()) {
+				if(leito.getPaciente() == null) {
+					livre = leito;
+					break;
+				}
+			}
+			livre.setPaciente(entradaPaciente.getPaciente());
+			livre.setEspaco(recepcao);
+			LeitoDAO leitoDAO = new LeitoDAO();
+			if(leitoDAO.consultar("codigo_paciente = " + entradaPaciente.getPaciente().getCodigo()).size() == 0)
+				leitoDAO.salvar(livre);
+		}
 		EntradaPacienteDAO entradaPacienteDAO = new EntradaPacienteDAO();
 		entradaPacienteDAO.salvar(entradaPaciente);		
 	}

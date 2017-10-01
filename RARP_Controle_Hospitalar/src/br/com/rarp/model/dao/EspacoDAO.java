@@ -104,4 +104,47 @@ public class EspacoDAO {
 		return espacos;
 	}
 
+	public List<Espaco> getEspacos() throws Exception {
+		return consultar("status", " = ", "TRUE");
+	}
+
+	public Espaco getRecepcao() throws Exception {
+		List<Espaco> espacos = consultar("nome", " = ", "'" + SistemaCtrl.getInstance().getRecepcao().getNome() + "'");
+		if(espacos.size() > 0)
+			return espacos.get(0);
+		return null;
+	}
+
+	public List<Espaco> getEspacos(boolean livres) throws ClassNotFoundException, Exception {
+		List<Espaco> espacos = new ArrayList<>();
+        PreparedStatement ps;
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+        try {
+        	String sql = "SELECT codigo, nome, bloco, andar, status FROM espaco WHERE status = TRUE";
+            ps = conexao.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	Espaco espaco = new Espaco();
+            	espaco.setCodigo(rs.getInt("codigo"));
+            	espaco.setNome(rs.getString("nome"));
+            	espaco.setBloco(rs.getString("bloco"));
+            	espaco.setAndar(rs.getString("andar"));
+            	espaco.setStatus(rs.getBoolean("status"));
+            	
+            	LeitoDAO leitoDAO = new LeitoDAO();
+            	if(livres)
+            		espaco.setLeitos(leitoDAO.getLeitosLivres(espaco));
+            	else
+            		espaco.setLeitos(leitoDAO.getLeitosCheios(espaco));
+            	
+            	if(espaco.getLeitos().size() > 0)
+            		espacos.add(espaco);
+            }
+            ps.close();
+        } finally{
+            conexao.close();
+        }
+		return espacos;
+	}
+
 }

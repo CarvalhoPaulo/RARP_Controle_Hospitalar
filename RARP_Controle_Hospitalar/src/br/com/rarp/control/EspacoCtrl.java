@@ -69,5 +69,13 @@ public class EspacoCtrl {
 	public List<Espaco> getEspacos() throws Exception {
 		return consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado");
 	}
+
+	public List<Espaco> getEspacosLivres() throws Exception {
+		return new EspacoBusiness().getEspacosLivres();
+	}
+	
+	public List<Espaco> getEspacosCheios() throws Exception {
+		return new EspacoBusiness().getEspacosCheios();
+	}
 	
 }

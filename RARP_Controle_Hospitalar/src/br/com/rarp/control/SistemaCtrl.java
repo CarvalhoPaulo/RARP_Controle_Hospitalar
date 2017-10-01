@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Configuracoes;
+import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Leito;
 import br.com.rarp.model.Organizacao;
 import br.com.rarp.model.Tela;
 import br.com.rarp.model.Usuario;
@@ -309,6 +311,18 @@ public class SistemaCtrl {
 	public void getOrganizacaoDB() throws Exception {
 		// TODO Auto-generated method stub 
 		new OrganizacaoDAO().getOrganizacao();
+	}
+
+	public Espaco getRecepcao() {
+		Espaco espaco = new Espaco();
+		espaco.setAndar("Não definido");
+		espaco.setBloco("Não definido");
+		List<Leito> leitos = new ArrayList<>();
+		leitos.add(new Leito(1));
+		espaco.setLeitos(leitos);
+		espaco.setNome("Recepção");
+		espaco.setStatus(true);
+		return espaco;
 	}
 
 	

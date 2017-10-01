@@ -25,4 +25,11 @@ public class Paciente extends PessoaFisica {
 		return getNome();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Paciente)
+			return ((Paciente) obj).getCodigo() == getCodigo();
+		return false;
+	}
+	
 }
