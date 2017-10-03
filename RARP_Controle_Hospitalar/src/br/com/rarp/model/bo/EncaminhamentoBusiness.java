@@ -1,5 +1,7 @@
 package br.com.rarp.model.bo;
 
+import java.util.List;
+
 import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.model.dao.EncaminhamentoDAO;
 
@@ -9,19 +11,34 @@ public class EncaminhamentoBusiness {
 		if(encaminhamento == null)
 			throw new Exception("O encaminhamento não foi instânciada");
 		
-		if(encaminhamento.isStatus())
-			validarEncaminhamento(encaminhamento);
-		
-		encaminhamentoAntigo.getOrigem().setPaciente(encaminhamentoAntigo.getDestino().getPaciente());
-		encaminhamentoAntigo.getOrigem().setSujo(false);
-		encaminhamentoAntigo.getDestino().setPaciente(null);
-				
-		encaminhamento.getDestino().setPaciente(encaminhamento.getOrigem().getPaciente());
-		encaminhamento.getOrigem().setSujo(true);
-		encaminhamento.getOrigem().setPaciente(null);
-		
-		EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
-		encaminhamentoDAO.salvar(encaminhamento, encaminhamentoAntigo);		
+		try {
+			if (encaminhamento.isStatus())
+				validarEncaminhamento(encaminhamento);
+			
+			if (encaminhamentoAntigo != null) {
+				encaminhamentoAntigo.getOrigem().setPaciente(encaminhamentoAntigo.getDestino().getPaciente());
+				encaminhamentoAntigo.getOrigem().setSujo(false);
+				encaminhamentoAntigo.getDestino().setPaciente(null);
+			}
+			
+			encaminhamento.getDestino().setPaciente(encaminhamento.getOrigem().getPaciente());
+			encaminhamento.getOrigem().setSujo(true);
+			encaminhamento.getOrigem().setPaciente(null);
+			
+			EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
+			encaminhamentoDAO.salvar(encaminhamento, encaminhamentoAntigo);
+		} catch (Exception e) {
+			if (encaminhamentoAntigo != null) {
+				encaminhamentoAntigo.getDestino().setPaciente(encaminhamentoAntigo.getOrigem().getPaciente());
+				encaminhamentoAntigo.getOrigem().setSujo(true);
+				encaminhamentoAntigo.getOrigem().setPaciente(null);
+			}
+			
+			encaminhamento.getOrigem().setPaciente(encaminhamento.getDestino().getPaciente());
+			encaminhamento.getOrigem().setSujo(false);
+			encaminhamento.getDestino().setPaciente(null);
+			throw new Exception(e);
+		}		
 	}
 
 	private void validarEncaminhamento(Encaminhamento encaminhamento) throws Exception {
@@ -30,6 +47,10 @@ public class EncaminhamentoBusiness {
 		
 		if(encaminhamento.getDestino().getPaciente() != null)
 			throw new Exception("O leito de destino deve estar livre para realizar o encaminhamento");
+	}
+
+	public List<Encaminhamento> consultar(String campo, String comparacao, String termo) throws Exception {
+		return new EncaminhamentoDAO().consultar(campo, comparacao, termo);
 	}
 
 }

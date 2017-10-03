@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Paciente;
 import br.com.rarp.model.bo.EspacoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -70,12 +71,12 @@ public class EspacoCtrl {
 		return consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado");
 	}
 
-	public List<Espaco> getEspacosLivres() throws Exception {
-		return new EspacoBusiness().getEspacosLivres();
+	public List<Espaco> getEspacosLivres(Paciente paciente) throws Exception {
+		return new EspacoBusiness().getEspacosLivres(paciente);
 	}
 	
-	public List<Espaco> getEspacosCheios() throws Exception {
-		return new EspacoBusiness().getEspacosCheios();
+	public List<Espaco> getEspacosCheios(Paciente paciente) throws Exception {
+		return new EspacoBusiness().getEspacosCheios(paciente);
 	}
 	
 }

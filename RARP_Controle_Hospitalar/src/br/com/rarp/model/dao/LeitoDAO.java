@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Leito;
+import br.com.rarp.model.Paciente;
 
 public class LeitoDAO {
 	
@@ -136,16 +137,28 @@ public class LeitoDAO {
         PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
-        	String sql = "SELECT codigo, numero, status, codigo_paciente FROM leito WHERE " + condicao;
+        	String sql = "SELECT "
+        			+ "LEI.codigo codigo_leito, "
+        			+ "LEI.codigo_espaco, "
+        			+ "ESP.nome, "
+        			+ "LEI.numero, "
+        			+ "LEI.status status_leito, "
+        			+ "LEI.codigo_paciente "
+        			+ "FROM leito LEI "
+        			+ "LEFT JOIN espaco ESP ON LEI.codigo_espaco = ESP.codigo "
+        			+ "WHERE "
+        			+ "" + condicao;
             ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Leito leito = new Leito();
-            	leito.setCodigo(rs.getInt("codigo"));
+            	leito.setCodigo(rs.getInt("codigo_leito"));
             	leito.setNumero(rs.getInt("numero"));
-            	leito.setStatus(rs.getBoolean("status"));
+            	leito.setStatus(rs.getBoolean("status_leito"));
             	leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
-            	
+            	leito.setEspaco(new Espaco());
+            	leito.getEspaco().setCodigo(rs.getInt("codigo_espaco"));
+            	leito.getEspaco().setNome(rs.getString("nome"));
             	leitos.add(leito);
             }
             ps.close();
@@ -220,14 +233,28 @@ public class LeitoDAO {
 	}
 
 	public List<Leito> getLeitosLivres(Espaco espaco) throws Exception {
-		if(espaco != null && espaco.getCodigo() > 0)
-			return consultar("codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL");
+		if(espaco != null && espaco.getCodigo() > 0) {
+			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL";
+			return consultar(consulta);
+		}
 		return null;
 	}
 
-	public List<Leito> getLeitosCheios(Espaco espaco) throws Exception {
-		if(espaco != null && espaco.getCodigo() > 0)
-			return consultar("codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NOT NULL");
+	public List<Leito> getLeitosCheios(Espaco espaco, Paciente paciente) throws Exception {
+		if(espaco != null && espaco.getCodigo() > 0) {
+			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NOT NULL";
+			if(paciente != null && paciente.getCodigo() > 0)
+				consulta += " AND codigo_paciente = " + paciente.getCodigo();
+			return consultar(consulta);
+		}
+		return null;
+	}
+
+	public Leito getLeito(int codigo) throws Exception {
+		String consulta = "LEI.codigo = " + codigo;
+		List<Leito> leitos = consultar(consulta);
+		if(leitos.size() > 0)
+			return leitos.get(0);
 		return null;
 	}
 }

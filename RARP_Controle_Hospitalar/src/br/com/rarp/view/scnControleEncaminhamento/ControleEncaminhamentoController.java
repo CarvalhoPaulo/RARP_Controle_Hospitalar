@@ -1,10 +1,9 @@
 package br.com.rarp.view.scnControleEncaminhamento;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
-
 import br.com.rarp.control.EncaminhamentoCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.EspacoCtrl;
@@ -27,9 +26,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import jfxtras.scene.control.LocalTimeTextField;
 
 public class ControleEncaminhamentoController extends Application implements Initializable {
 	
@@ -37,6 +38,12 @@ public class ControleEncaminhamentoController extends Application implements Ini
 
     @FXML
     private IntegerTextField txtCodigo;
+    
+    @FXML
+    private DatePicker txtData;
+
+    @FXML
+    private LocalTimeTextField txtHora;
 
     @FXML
     private SwitchButton sbAtivado;
@@ -82,8 +89,8 @@ public class ControleEncaminhamentoController extends Application implements Ini
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(600);
-		stage.setMinHeight(450);
+		stage.setMinWidth(650);
+		stage.setMinHeight(500);
 	}
 
 	public Stage getStage() {
@@ -96,12 +103,20 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	}
 
 	private void limparCampos() {
+		txtData.setValue(LocalDate.now());
+		txtHora.setLocalTime(LocalTime.now());
 		txtCodigo.clear();
-		cmbDestino.getSelectionModel().select(-1);
-		cmbOrigem.getSelectionModel().select(-1);
+		cmbDestino.getItems().clear();
+		cmbOrigem.getItems().clear();
+		try {
+			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(null));
+			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		cmbEntradaPaciente.getSelectionModel().select(-1);
-		pnlDestino.getSelectionModel().select(-1);
-		pnlOrigem.getSelectionModel().select(-1);
+		pnlDestino.getItems().clear();
+		pnlOrigem.getItems().clear();
 		sbAtivado.switchOnProperty().set(true);
 	}
 
@@ -116,24 +131,24 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	
 	public void filtrarOrigem(Paciente paciente) {
 		if(paciente != null) {
-			List<ImageCard> items = new ArrayList<>();
-			for(ImageCard imageCard: pnlOrigem.getItems()) {
-				if(imageCard != null 
-						&& imageCard.getLeito() != null 
-						&& imageCard.getLeito().getPaciente() != null
-						&& imageCard.getLeito().getPaciente().equals(paciente))
-					items.add(imageCard);
+			pnlOrigem.getItems().clear();
+			try {
+				cmbOrigem.getSelectionModel().clearSelection();
+				cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(paciente));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			pnlOrigem.getItems().setAll(items);
 		}
 	}
 
 	private void prepararTela() {
+		txtData.setValue(LocalDate.now());
+		txtHora.setLocalTime(LocalTime.now());
 		sbAtivado.switchOnProperty().set(true);
 		txtCodigo.setDisable(true);
 		try {
-			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios());
-			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres());
+			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(null));
+			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -151,6 +166,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	
 	EventHandler<ActionEvent> onChange = (event) -> {
 		if(event.getSource() == cmbOrigem && cmbOrigem.getValue() != null) {
+			pnlOrigem.getItems().clear();
 			for (Leito l: cmbOrigem.getValue().getLeitos()) {
 				ImageCard img = new ImageCard();
 				img.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
@@ -159,21 +175,21 @@ public class ControleEncaminhamentoController extends Application implements Ini
 			}
 		}
 		
-		if(event.getSource() == cmbDestino && cmbOrigem.getValue() != null) {
-			for (Leito l: cmbOrigem.getValue().getLeitos()) {
+		if(event.getSource() == cmbDestino && cmbDestino.getValue() != null) {
+			pnlDestino.getItems().clear();
+			for (Leito l: cmbDestino.getValue().getLeitos()) {
 				ImageCard img = new ImageCard();
 				img.getPathImage().set(getClass().getResource("../img/leitos.png").toString());
 				img.setLeito(l);
 				pnlDestino.getItems().add(img);
 			}
 		}
-		
-		if(cmbEntradaPaciente.getValue() != null)
-			filtrarOrigem(cmbEntradaPaciente.getValue().getPaciente());
 	};
 
 	private void bloquearTela() {
 		txtCodigo.setDisable(true);
+		txtData.setEditable(true);
+		txtHora.setOnKeyTyped(Utilitarios.getBloquear());
 		sbAtivado.setEditable(true);
 		cmbOrigem.setEditable(false);
 		cmbDestino.setEditable(false);
@@ -207,13 +223,13 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	}
 
 	@FXML
-	private void salvar(ActionEvent event) {
-		if(encaminhamentoCtrl != null)
-			encaminhamentoCtrlAntigo = encaminhamentoCtrl.clone();
-		preencherObjeto();
+	private void salvar(ActionEvent event) {	
 		try {
+			if(encaminhamentoCtrl != null)
+				encaminhamentoCtrlAntigo = encaminhamentoCtrl.clone();
+			preencherObjeto();
 			if(encaminhamentoCtrl.salvar(encaminhamentoCtrlAntigo)) {
-				Utilitarios.message("Espaço salvo com sucesso.");
+				Utilitarios.message("Encaminhamento salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
@@ -237,11 +253,14 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		if (encaminhamentoCtrl.getEncaminhamento() == null)
 			encaminhamentoCtrl.novoEncaminhamento();
 		
+		encaminhamentoCtrl.getEncaminhamento().setDtMovimentacao(txtData.getValue());
+		encaminhamentoCtrl.getEncaminhamento().setHrMovimentacao(txtHora.getLocalTime());
 		encaminhamentoCtrl.getEncaminhamento().setEntradaPaciente(cmbEntradaPaciente.getValue());
 		encaminhamentoCtrl.getEncaminhamento().setCodigo(txtCodigo.getValue());
 		encaminhamentoCtrl.getEncaminhamento().setDestino(pnlDestino.getValue().getLeito());
 		encaminhamentoCtrl.getEncaminhamento().setOrigem(pnlOrigem.getValue().getLeito());
 		encaminhamentoCtrl.getEncaminhamento().setStatus(sbAtivado.getValue());
+		encaminhamentoCtrl.getEncaminhamento().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}
 
 	private void preencherTela() {
@@ -249,6 +268,8 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		cmbEntradaPaciente.setValue(encaminhamentoCtrl.getEncaminhamento().getEntradaPaciente());
 		cmbOrigem.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getOrigem().getEspaco());
 		cmbDestino.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getDestino().getEspaco());
+		txtData.setValue(encaminhamentoCtrl.getEncaminhamento().getDtMovimentacao());
+		txtHora.setLocalTime(encaminhamentoCtrl.getEncaminhamento().getHrMovimentacao());
 		
 		ImageCard origem = new ImageCard();
 		origem.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());

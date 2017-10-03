@@ -32,10 +32,10 @@ public class EncaminhamentoController extends ManutencaoController {
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
 		TableColumn<Encaminhamento, String> origem = new TableColumn<>("Leito de origem");
-		codigo.setCellValueFactory(new PropertyValueFactory<>("origem"));
+		origem.setCellValueFactory(new PropertyValueFactory<>("origem"));
 		
 		TableColumn<Encaminhamento, String> destino = new TableColumn<>("Leito de destino");
-		codigo.setCellValueFactory(new PropertyValueFactory<>("origem"));
+		destino.setCellValueFactory(new PropertyValueFactory<>("origem"));
 		
 		TableColumn<Encaminhamento, String> status = new TableColumn<>("Status");
 		status.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Encaminhamento,String>, ObservableValue<String>>() {

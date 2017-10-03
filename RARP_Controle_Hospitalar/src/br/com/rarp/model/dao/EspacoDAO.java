@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Paciente;
 public class EspacoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
@@ -115,7 +116,7 @@ public class EspacoDAO {
 		return null;
 	}
 
-	public List<Espaco> getEspacos(boolean livres) throws ClassNotFoundException, Exception {
+	public List<Espaco> getEspacos(Paciente paciente, boolean livres) throws ClassNotFoundException, Exception {
 		List<Espaco> espacos = new ArrayList<>();
         PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
@@ -135,7 +136,7 @@ public class EspacoDAO {
             	if(livres)
             		espaco.setLeitos(leitoDAO.getLeitosLivres(espaco));
             	else
-            		espaco.setLeitos(leitoDAO.getLeitosCheios(espaco));
+            		espaco.setLeitos(leitoDAO.getLeitosCheios(espaco, paciente));
             	
             	if(espaco.getLeitos().size() > 0)
             		espacos.add(espaco);

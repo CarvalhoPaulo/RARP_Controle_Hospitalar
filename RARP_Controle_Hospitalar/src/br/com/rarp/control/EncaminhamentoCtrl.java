@@ -5,6 +5,7 @@ import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.model.bo.EncaminhamentoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class EncaminhamentoCtrl {
@@ -44,9 +45,17 @@ public class EncaminhamentoCtrl {
 		return encaminhamentoCtrl;
 	}
 
-	private void validarDadosObrigatorios() {
-		// TODO Auto-generated method stub
-		
+	private void validarDadosObrigatorios() throws Exception {
+		if(encaminhamento.getEntradaPaciente() == null)
+			throw new Exception("Para realizar um encaminhamento é necessário informar a entrada do paciente que será encaminhado");
+		if(encaminhamento.getHrMovimentacao() == null)
+			throw new Exception("Para realizar um encaminhamento é necessário informar o horário do encaminhamento");
+		if(encaminhamento.getDtMovimentacao() == null)
+			throw new Exception("Para realizar um encaminhamento é necessário informar a data do encaminhamento");
+		if(encaminhamento.getOrigem() == null)
+			throw new Exception("Para realizar um encaminhamento é necessário informar o leito de origem");
+		if(encaminhamento.getDestino() == null)
+			throw new Exception("Para realizar um encaminhamento é necessário informar o leito de destino");
 	}
 
 	private boolean confirmarDesativacao() {
@@ -59,9 +68,8 @@ public class EncaminhamentoCtrl {
 		encaminhamento = new Encaminhamento();
 	}
 
-	public ObservableList<Encaminhamento> consultar(Campo selectedItem, Comparacao selectedItem2, Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	public ObservableList<Encaminhamento> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		return FXCollections.observableList(new EncaminhamentoBusiness().consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 
 }

@@ -1,55 +1,40 @@
 package br.com.rarp.view.scnComponents;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.css.PseudoClass;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 public class SelectionNode<T extends Node> extends FlowPane {
 	
-	private static final PseudoClass SELECTED_PSEUDO_CLASS = PseudoClass.getPseudoClass("selected");
-	
 	private boolean editable = true;
-	private ObservableList<T> items = FXCollections.observableArrayList();
-	private SingleSelectionModel<T> selectionModel = new SingleSelectionModel<T>() {
-		@Override
-		protected int getItemCount() {
-			return items.size();
-		}
+	private boolean multipleSelection = false;
 
-		@Override
-		protected T getModelItem(int index) {
-			return (T) items.get(index);
-		}
-	};
+	private SingleMultipleSelectionModel<T> selectionModel = new SingleMultipleSelectionModel<>();
 	
 	public SelectionNode() {
 		super();
-		getStylesheets().add(getClass().getResource("selection.css").toExternalForm());
-		setWidth(532);
+		setWidth(400);
 		setHeight(400);
 
-		items.addListener(new ListChangeListener<T>() {
+		selectionModel.getItems().addListener(new ListChangeListener<T>() {
 			@Override
 			public void onChanged(Change<? extends T> c) {
 				getChildren().clear();
 				for (Node node : c.getList()) {
 					node.setOnMouseClicked(onClick);
-					if(!node.getStyleClass().contains("node.getStyleClass()"))
-						node.getStyleClass().add("draggable");
-					getChildren().setAll(items);
+					node.setStyle("fx-padding: 14px");
+					getChildren().setAll(selectionModel.getItems());
 				}
 			}
 		});
 	}
 	
 	public void removeSelected() {
-		items.remove(selectionModel.getSelectedItem());
+		selectionModel.getItems().remove(selectionModel.getSelectedItem());
 	}
 	
 	public boolean isEditable() {
@@ -61,36 +46,57 @@ public class SelectionNode<T extends Node> extends FlowPane {
 	}
 
 	EventHandler<MouseEvent> onClick = (event) -> {
-		if(editable)
-			for(Node n: items) {
-				if(n.equals(event.getSource())) {
-					selectionModel.select(items.indexOf(n));
-					n.pseudoClassStateChanged(SELECTED_PSEUDO_CLASS, true);
-				} else {
-					n.getStyleClass().removeAll("selected");
-					n.pseudoClassStateChanged(SELECTED_PSEUDO_CLASS, false);
-				}
+		if(editable) {
+			if(selectionModel.getItems().contains(event.getSource())) {
+				if(!multipleSelection)
+					selectionModel.clearSelection();
+				if(!selectionModel.getSelectedItems().contains(event.getSource()))
+					selectionModel.select(selectionModel.getItems().indexOf(event.getSource()));
+				else
+					selectionModel.clearSelection(selectionModel.getItems().indexOf(event.getSource()));
 			}
+			upgradeSelection();
+		}
 	};
-
-	public ObservableList<T> getItems() {
-		return items;
+	
+	private void upgradeSelection() {
+		for(T t: selectionModel.getItems()) {
+			if (t != null) {
+				if (selectionModel.getSelectedItems().contains(t))
+					t.setStyle("fx-padding: 14px;-fx-effect: dropshadow(three-pass-box, rgba(0,154,255,100), 10, 0, 0, 0)");
+				else
+					t.setStyle("fx-padding: 14px");
+			}
+		}
 	}
 
-	public void setItems(ObservableList<T> items) {
-		this.items = items;
-	}
-
-	public SingleSelectionModel<T> getSelectionModel() {
+	public SingleMultipleSelectionModel<T> getSelectionModel() {
 		return selectionModel;
 	}
 
-	public void setSelectionModel(SingleSelectionModel<T> selectionModel) {
+	public void setSelectionModel(SingleMultipleSelectionModel<T> selectionModel) {
 		this.selectionModel = selectionModel;
+	}
+
+	public ObservableList<T> getItems() {
+		return selectionModel.getItems();
+	}
+
+	public void setItems(ObservableList<T> items) {
+		this.selectionModel.setItems(items);
 	}
 	
 	public T getValue() {
-		return getItems().get(selectionModel.getSelectedIndex());
+		return selectionModel.getSelectedItem();
+	}
+
+	public boolean isMultipleSelection() {
+		return multipleSelection;
+	}
+
+	public void setMultipleSelection(boolean multipleSelection) {
+		this.multipleSelection = multipleSelection;
+		selectionModel.setSelectionMode(multipleSelection ? SelectionMode.MULTIPLE : SelectionMode.SINGLE);
 	}
 
 }

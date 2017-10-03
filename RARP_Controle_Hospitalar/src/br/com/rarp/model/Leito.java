@@ -55,7 +55,7 @@ public class Leito {
 	
 	@Override
 	public String toString() {
-		return numero + "";
+		return (getEspaco() != null && getEspaco().getNome() != null ? getEspaco().getNome() + " - " : "") + "leito: " + numero;
 	}
 
 	public Espaco getEspaco() {

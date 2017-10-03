@@ -81,8 +81,8 @@ public class EncaminhamentoDAO {
 	}
 
 	private void inserir(Connection connection, List<Encaminhamento> listaInserir) throws Exception {
-		String sql = "INSERT encaminhamento(origem_leito, destino_leito, codigo_mov, codigo_entrada, status) VALUES(?,?,?,?,?)";
-		PreparedStatement ps = connection.prepareStatement(sql);
+		String sql = "INSERT INTO encaminhamento(origem_leito, destino_leito, codigo_mov, codigo_entrada, status) VALUES(?,?,?,?,?)";
+		PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		int i = 0;
 		for(Encaminhamento e: listaInserir) {
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
@@ -99,7 +99,10 @@ public class EncaminhamentoDAO {
 				ps.setNull(2, Types.INTEGER);
 			
 			ps.setInt(3, e.getCodigo());
-			ps.setInt(4, e.getEntradaPaciente().getCodigo());
+			if(e.getEntradaPaciente() != null)
+				ps.setInt(4, e.getEntradaPaciente().getCodigo());
+			else
+				ps.setNull(4, Types.INTEGER);
 			ps.setBoolean(5, e.isStatus());
 			
 			ps.addBatch();
@@ -110,7 +113,7 @@ public class EncaminhamentoDAO {
 		}
 		ps.executeBatch();
 		
-    	ResultSet rs = ps.getResultSet();
+    	ResultSet rs = ps.getGeneratedKeys();
     	for (Encaminhamento e : listaInserir) {
 			if (rs.next())
 				e.setCodigo(rs.getInt(1));
@@ -124,8 +127,10 @@ public class EncaminhamentoDAO {
 			connection.setAutoCommit(false);		
 			LeitoDAO leitoDAO = new LeitoDAO();
 			
-			leitoDAO.salvar(connection, encaminhamentoAnt.getOrigem());
-			leitoDAO.salvar(connection, encaminhamentoAnt.getDestino());
+			if(encaminhamentoAnt != null) {
+				leitoDAO.salvar(connection, encaminhamentoAnt.getOrigem());
+				leitoDAO.salvar(connection, encaminhamentoAnt.getDestino());
+			}
 			
 			leitoDAO.salvar(connection, encaminhamento.getOrigem());
 			leitoDAO.salvar(connection, encaminhamento.getDestino());
@@ -145,6 +150,59 @@ public class EncaminhamentoDAO {
 			throw new Exception("Não foi possível salvar este encaminhamento\nErro: " + e.toString());
 		} finally {
 			connection.close();
+		}
+	}
+
+	public List<Encaminhamento> consultar(String campo, String comparacao, String termo) throws Exception {
+		return consultar(campo + comparacao + termo);
+	}
+
+	private List<Encaminhamento> consultar(String consulta) throws Exception {
+		List<Encaminhamento> encaminhamentos = new ArrayList<>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "SELECT "
+					+ "ENC.codigo codigo_enc, "
+					+ "ENC.origem_leito, "
+					+ "ENC.destino_leito, "
+					+ "MOV.data dtmov_enc, "
+					+ "MOV.hora hrmov_enc, "
+					+ "ENC.codigo_entrada, "
+					+ "ENC.status status_enc, "
+					+ "ENT.codigo_paciente, "
+					+ "MOV1.data dtmov_ent, "
+					+ "MOV1.hora hrmov_ent "
+					+ "FROM encaminhamento ENC "
+					+ "LEFT JOIN entradapaciente ENT ON ENC.codigo_entrada = ENT.codigo "
+					+ "LEFT JOIN movimentacao MOV ON ENC.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN movimentacao MOV1 ON ENT.codigo_mov = MOV1.codigo "		
+					+ "LEFT JOIN leito ORI ON ENC.origem_leito = ORI.codigo "
+					+ "LEFT JOIN leito DEST ON ENC.destino_leito = DEST.codigo "
+					+ "WHERE "
+					+ consulta;
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Encaminhamento encaminhamento = new Encaminhamento();
+				encaminhamentos.add(encaminhamento);
+				
+				encaminhamento.setCodigo(rs.getInt("codigo_enc"));
+				encaminhamento.setDestino(new LeitoDAO().getLeito(rs.getInt("destino_leito")));
+				encaminhamento.setOrigem(new LeitoDAO().getLeito(rs.getInt("origem_leito")));
+				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
+				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
+				encaminhamento.setStatus(rs.getBoolean("status_enc"));
+				
+				EntradaPaciente entradaPaciente = new EntradaPaciente();
+				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+				entradaPaciente.setDtMovimentacao(rs.getDate("dtmov_ent").toLocalDate());
+				entradaPaciente.setHrMovimentacao(rs.getTime("hrmov_ent").toLocalTime());
+				
+				encaminhamento.setEntradaPaciente(entradaPaciente);
+			}
+			return encaminhamentos;	
+		} finally {
+			conexao.close();
 		}
 	}
 }

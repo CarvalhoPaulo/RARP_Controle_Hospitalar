@@ -3,6 +3,7 @@ package br.com.rarp.model.bo;
 import java.util.List;
 
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Paciente;
 import br.com.rarp.model.dao.EspacoDAO;
 
 public class EspacoBusiness {
@@ -25,11 +26,11 @@ public class EspacoBusiness {
 		return espacoDAO.consultar(campo, comparacao, termo);
 	}
 
-	public List<Espaco> getEspacosLivres() throws ClassNotFoundException, Exception {
-		return new EspacoDAO().getEspacos(true);
+	public List<Espaco> getEspacosLivres(Paciente paciente) throws ClassNotFoundException, Exception {
+		return new EspacoDAO().getEspacos(paciente, true);
 	}
 
-	public List<Espaco> getEspacosCheios() throws ClassNotFoundException, Exception {
-		return new EspacoDAO().getEspacos(false);
+	public List<Espaco> getEspacosCheios(Paciente paciente) throws Exception {
+		return new EspacoDAO().getEspacos(paciente, false);
 	}
 }
