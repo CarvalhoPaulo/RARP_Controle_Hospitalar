@@ -1,8 +1,10 @@
 package br.com.rarp.model;
 
+import java.util.List;
+
 public class Limpeza extends Movimentacao {
 	private Funcionario funcionarioLimpeza;
-	private Leito espaco;
+	private List<Leito> leitos;
 
 	public Funcionario getFuncionarioLimpeza() {
 		return funcionarioLimpeza;
@@ -12,11 +14,11 @@ public class Limpeza extends Movimentacao {
 		this.funcionarioLimpeza = funcionarioLimpeza;
 	}
 
-	public Leito getEspaco() {
-		return espaco;
+	public List<Leito> getLeitos() {
+		return leitos;
 	}
 
-	public void setEspaco(Leito espaco) {
-		this.espaco = espaco;
+	public void setLeitos(List<Leito> leitos) {
+		this.leitos = leitos;
 	}
 }

@@ -7,7 +7,7 @@ import br.com.rarp.model.dao.EncaminhamentoDAO;
 
 public class EncaminhamentoBusiness {
 
-	public void salvar(Encaminhamento encaminhamento, Encaminhamento encaminhamentoAntigo) throws Exception {
+	public void salvar(Encaminhamento encaminhamento) throws Exception {
 		if(encaminhamento == null)
 			throw new Exception("O encaminhamento não foi instânciada");
 		
@@ -15,25 +15,13 @@ public class EncaminhamentoBusiness {
 			if (encaminhamento.isStatus())
 				validarEncaminhamento(encaminhamento);
 			
-			if (encaminhamentoAntigo != null) {
-				encaminhamentoAntigo.getOrigem().setPaciente(encaminhamentoAntigo.getDestino().getPaciente());
-				encaminhamentoAntigo.getOrigem().setSujo(false);
-				encaminhamentoAntigo.getDestino().setPaciente(null);
-			}
-			
 			encaminhamento.getDestino().setPaciente(encaminhamento.getOrigem().getPaciente());
 			encaminhamento.getOrigem().setSujo(true);
 			encaminhamento.getOrigem().setPaciente(null);
 			
 			EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
-			encaminhamentoDAO.salvar(encaminhamento, encaminhamentoAntigo);
+			encaminhamentoDAO.salvar(encaminhamento);
 		} catch (Exception e) {
-			if (encaminhamentoAntigo != null) {
-				encaminhamentoAntigo.getDestino().setPaciente(encaminhamentoAntigo.getOrigem().getPaciente());
-				encaminhamentoAntigo.getOrigem().setSujo(true);
-				encaminhamentoAntigo.getOrigem().setPaciente(null);
-			}
-			
 			encaminhamento.getOrigem().setPaciente(encaminhamento.getDestino().getPaciente());
 			encaminhamento.getOrigem().setSujo(false);
 			encaminhamento.getDestino().setPaciente(null);

@@ -63,9 +63,13 @@ public class EntradaPacienteBusiness {
 				}	
 				
 				if(!realizado)
-					throw new Exception("Para cadastrar uma entrada de paciente é necessário possuir pelo menos um atendimento realizado");
-				
+					throw new Exception("Para cadastrar uma entrada de paciente é necessário possuir pelo menos um atendimento realizado");		
 			}
+
+			List<EntradaPaciente> entradas = new EntradaPacienteDAO().getEntradasByPaciente(entradaPaciente.getPaciente());
+			for (EntradaPaciente e : entradas)
+				if ((e.getSaidaPaciente() == null || e.getSaidaPaciente().getCodigo() <= 0) && e.getCodigo() != entradaPaciente.getCodigo())
+					throw new Exception("Não será possível cadastrar um entrada para este paciente, pois o mesmo possui uma entrada em aberto.");
 		}
 	}
 

@@ -108,15 +108,9 @@ public class OpcoesController extends Application implements Initializable {
 		txtCNPJ.setText(empresa.getCnpj());
 
 		txtEndereco.setText(empresa.getLogradouro());
-
-	//	txtFone.setText(empresa.getT);
-
 		txtEmail.setText(empresa.getEmail());
-
 		Configuracoes configuracoes = SistemaCtrl.getInstance().getConfiguracoes();
-
 		txtUsuario.setText(configuracoes.getUsuario());
-
 		txtSenha.setText(configuracoes.getSenha());
 		txtCodigoRARP.setValue(configuracoes.getCodigoRARP());
 	}
@@ -125,15 +119,11 @@ public class OpcoesController extends Application implements Initializable {
 		SistemaCtrl.getInstance().getConfiguracoes().setSenha(txtSenha.getText());
 		SistemaCtrl.getInstance().getConfiguracoes().setUsuario(txtUsuario.getText());
 		SistemaCtrl.getInstance().getConfiguracoes().setCodigoRARP(txtCodigoRARP.getValue());
-
-	}
-
-	private void PreencherEmpresa() {
 		SistemaCtrl.getInstance().getOrganizacao().setCnpj(txtCNPJ.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setEmail(txtEmail.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setLogradouro(txtEndereco.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setRazaoSocial(txtRazao.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setTelefones(tblTelefones.getItems());
-		//SistemaCtrl.getInstance().getEmpresa().setTelefone(txtFone.getText());
+
 	}
 }

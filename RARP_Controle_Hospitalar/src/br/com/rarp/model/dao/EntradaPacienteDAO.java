@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Paciente;
 import br.com.rarp.model.SaidaPaciente;
 
 public class EntradaPacienteDAO {
@@ -188,6 +189,10 @@ public class EntradaPacienteDAO {
 	}
 
 	public List<EntradaPaciente> consultar(String campo, String comparacao, String termo) throws Exception {
+		return consultar(campo + comparacao + termo);
+	}
+
+	public List<EntradaPaciente> consultar(String consulta) throws Exception {
 		List<EntradaPaciente> entradas = new ArrayList<EntradaPaciente>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
@@ -215,7 +220,7 @@ public class EntradaPacienteDAO {
 					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
 					+ "LEFT JOIN saidapaciente SAI ON SAI.codigo_entrada = ENT.codigo "
 					+ "WHERE "
-					+ campo + comparacao + termo;
+					+ consulta;
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -243,6 +248,12 @@ public class EntradaPacienteDAO {
 		} finally {
 			conexao.close();
 		}
+	}
+
+	public List<EntradaPaciente> getEntradasByPaciente(Paciente paciente) throws Exception {
+		if(paciente != null) 
+			return consultar("ENT.codigo_paciente = " + paciente.getCodigo() + " AND ENT.status = TRUE");
+		return new ArrayList<>();
 	}
 
 }

@@ -124,6 +124,7 @@ public class LeitoDAO {
         			+ "LEI.codigo_espaco, "
         			+ "ESP.nome, "
         			+ "LEI.numero, "
+        			+ "LEI.sujo, "
         			+ "LEI.status status_leito, "
         			+ "LEI.codigo_paciente "
         			+ "FROM leito LEI "
@@ -137,6 +138,7 @@ public class LeitoDAO {
             	leito.setCodigo(rs.getInt("codigo_leito"));
             	leito.setNumero(rs.getInt("numero"));
             	leito.setStatus(rs.getBoolean("status_leito"));
+            	leito.setSujo(rs.getBoolean("sujo"));
             	leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
             	leito.setEspaco(new Espaco());
             	leito.getEspaco().setCodigo(rs.getInt("codigo_espaco"));

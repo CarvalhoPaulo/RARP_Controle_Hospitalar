@@ -121,16 +121,11 @@ public class EncaminhamentoDAO {
 		ps.close();
 	}
 
-	public void salvar(Encaminhamento encaminhamento, Encaminhamento encaminhamentoAnt) throws Exception {
+	public void salvar(Encaminhamento encaminhamento) throws Exception {
 		Connection connection = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			connection.setAutoCommit(false);		
 			LeitoDAO leitoDAO = new LeitoDAO();
-			
-			if(encaminhamentoAnt != null) {
-				leitoDAO.salvar(connection, encaminhamentoAnt.getOrigem());
-				leitoDAO.salvar(connection, encaminhamentoAnt.getDestino());
-			}
 			
 			leitoDAO.salvar(connection, encaminhamento.getOrigem());
 			leitoDAO.salvar(connection, encaminhamento.getDestino());

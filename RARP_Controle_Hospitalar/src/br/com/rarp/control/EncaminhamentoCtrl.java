@@ -24,15 +24,11 @@ public class EncaminhamentoCtrl {
 		if (encaminhamento == null)
 			throw new Exception("O encaminhamento não foi instânciada");
 		
-		Encaminhamento encaminhamentoAntigo = null;
-		if (encaminhamentoCtrl != null)
-			encaminhamentoAntigo = encaminhamentoCtrl.getEncaminhamento();
-		
 		if (confirmarDesativacao()) {
 			if (encaminhamento.isStatus())
 				validarDadosObrigatorios();
 			EncaminhamentoBusiness encaminhamentoBusiness = new EncaminhamentoBusiness();
-			encaminhamentoBusiness.salvar(encaminhamento, encaminhamentoAntigo);
+			encaminhamentoBusiness.salvar(encaminhamento);
 			return true;
 		} else {
 			return false;

@@ -35,7 +35,7 @@ public class SelectionNode<T extends Node> extends FlowPane {
 				getChildren().clear();
 				for (Node node : c.getList()) {
 					node.setOnMouseClicked(onClick);
-					node.setStyle("fx-padding: 14px");
+					node.setStyle("-fx-padding: 10px");
 					getChildren().setAll(selectionModel.getItems());
 				}
 			}
@@ -72,9 +72,9 @@ public class SelectionNode<T extends Node> extends FlowPane {
 		for(T t: selectionModel.getItems()) {
 			if (t != null) {
 				if (selectionModel.getSelectedItems().contains(t))
-					t.setStyle("fx-padding: 14px;-fx-effect: dropshadow(three-pass-box, rgba(0,154,255,100), 10, 0, 0, 0)");
+					t.setStyle("-fx-padding: 10px;-fx-effect: dropshadow(three-pass-box, rgba(0,154,255,100), 10, 0, 0, 0)");
 				else
-					t.setStyle("fx-padding: 14px");
+					t.setStyle("-fx-padding: 10px");
 			}
 		}
 	}

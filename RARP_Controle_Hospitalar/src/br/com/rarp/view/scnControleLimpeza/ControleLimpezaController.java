@@ -82,8 +82,8 @@ public class ControleLimpezaController extends Application implements Initializa
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(800);
-		stage.setMinHeight(565);
+		stage.setMinWidth(650);
+		stage.setMinHeight(500);
 	}
 
 	public Stage getStage() {

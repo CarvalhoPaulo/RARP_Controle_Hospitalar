@@ -3,13 +3,10 @@ package br.com.rarp.view.scnSplash;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.rarp.control.SistemaCtrl;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
@@ -42,9 +39,6 @@ public class SplashController extends Application implements Initializable {
 	public void next() {
 		if (progress < 100)
 			progress = progress + (100 / count);
-		
-	//	initProgress();
-		
 	}
 
 	@SuppressWarnings("static-access")
@@ -59,30 +53,7 @@ public class SplashController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	//	initProgress();
-
-	}
-
-	private void initProgress() {
-		
-			
-		Task task = new Task<Void>() {
-		    @Override public Void call() {
-		         final int max = 1000000;
-		        for (int i=1; i<=max; i++) {
-		            if (isCancelled()) {
-		               break;
-		            }
-		            updateProgress(i, max);
-		        }
-		        return null;
-		    }
-		};
 	
-		pgsSplash.progressProperty().bind(task.progressProperty());
-		
-		new Thread(task).start();
-
 	}
 	
 }
