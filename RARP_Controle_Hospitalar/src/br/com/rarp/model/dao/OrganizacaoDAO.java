@@ -5,12 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cidade;
-import br.com.rarp.model.Convenio;
 import br.com.rarp.model.Organizacao;
 import br.com.rarp.model.Estado;
 

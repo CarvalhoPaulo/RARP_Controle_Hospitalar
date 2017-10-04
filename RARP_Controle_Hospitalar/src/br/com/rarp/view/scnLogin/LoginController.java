@@ -145,15 +145,15 @@ public class LoginController extends Application implements Initializable, Event
 				if (txtNovaSenha.getText().isEmpty())
 					throw new Exception("Digite a nova senha");
 				if (txtConfirmaSenha.getText().isEmpty())
-					throw new Exception("Digite a confirmação da nova senha");
+					throw new Exception("Digite a confirmaï¿½ï¿½o da nova senha");
 				if (!txtConfirmaSenha.getText().equals(txtNovaSenha.getText()))
-					throw new Exception("As senhas digitadas são diferentes");
+					throw new Exception("As senhas digitadas sï¿½o diferentes");
 				usuarioCtrl.getUsuario().setSenha(txtNovaSenha.getText());
 				usuarioCtrl.salvar();
 			} else {
 				if (usuarioCtrl.getUsuario() == null)
-					throw new Exception("Este usuário não existe");
-				if (!usuarioCtrl.getUsuario().getSenha().equals(txtSenha.getText())) {
+					throw new Exception("Este usuï¿½rio nï¿½o existe");
+				if (!usuarioCtrl.getUsuario().getSenha().equals(String.valueOf(txtSenha.getText().hashCode()))) {
 					tentativas++;
 					throw new Exception("Senha incorreta");
 				}
@@ -171,7 +171,7 @@ public class LoginController extends Application implements Initializable, Event
 					
 		} catch (Exception e) {
 			if (tentativas > MAX_TENTATIVAS) {
-				Utilitarios.atencao("Você atingiu o limite de 3 tentativas");
+				Utilitarios.atencao("Vocï¿½ atingiu o limite de 3 tentativas");
 				cancelar(event);
 			} else {
 				Utilitarios.atencao(e.getMessage());

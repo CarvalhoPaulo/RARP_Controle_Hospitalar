@@ -4,12 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.EspecialidadeCtrl;
-import br.com.rarp.control.EstadoCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.MedicoCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
-import br.com.rarp.model.Estado;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.IntegerTextField;
