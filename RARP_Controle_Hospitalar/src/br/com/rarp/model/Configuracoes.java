@@ -8,7 +8,7 @@ public class Configuracoes {
 	private boolean controleAcesso;
 	private String usuario;
 	private String senha;
-	private int codigoRARP;
+	private long codigoRARP;
 
 	public String getUsuario() {
 		return usuario;
@@ -42,11 +42,11 @@ public class Configuracoes {
 		return INSTANCE;
 	}
 
-	public int getCodigoRARP() {
+	public long getCodigoRARP() {
 		return codigoRARP;
 	}
 
-	public void setCodigoRARP(int codigoRARP) {
+	public void setCodigoRARP(long codigoRARP) {
 		this.codigoRARP = codigoRARP;
 	}
 

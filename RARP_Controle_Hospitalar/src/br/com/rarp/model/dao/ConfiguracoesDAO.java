@@ -27,7 +27,7 @@ public class ConfiguracoesDAO {
 			st.executeUpdate(sql);
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception("Falha ao criar tabela de configuraçoes");
+			throw new Exception("Falha ao criar tabela de configuraï¿½oes");
 		}
 
 		String sql2 = "SELECT proname  FROM pg_proc where   proname = 'AtualizaValor'";
@@ -62,7 +62,7 @@ public class ConfiguracoesDAO {
 				st.executeUpdate(sql);
 			} catch (Exception e) {
 				// TODO: handle exception
-				throw new Exception("Falha ao criar function trigger de configuraçoes");
+				throw new Exception("Falha ao criar function trigger de configuraï¿½oes");
 			}
 			sql = "";
 
@@ -72,7 +72,7 @@ public class ConfiguracoesDAO {
 				st.executeUpdate(sql);
 			} catch (Exception e) {
 				// TODO: handle exception
-				throw new Exception("Falha ao alterar function trigger de configuraçoes");
+				throw new Exception("Falha ao alterar function trigger de configuraï¿½oes");
 			}
 			sql = "";
 			sql += "CREATE TRIGGER \"ValidaInsert\" ";
@@ -85,7 +85,7 @@ public class ConfiguracoesDAO {
 				st.executeUpdate(sql);
 			} catch (Exception e) {
 				// TODO: handle exception
-				throw new Exception("Falha ao criar tabela de configuraçoes");
+				throw new Exception("Falha ao criar tabela de configuraï¿½oes");
 			}
 		}
 
@@ -141,7 +141,15 @@ public class ConfiguracoesDAO {
 							// TODO: handle exception
 	            			field.set(configuracoes,0);
 						}
-	            		
+	            	
+	            	
+	            	if (field.getType() == long.class)
+	            		try {
+	            			field.set(configuracoes, Long.parseLong(valor));
+	            		}catch (Exception e) {
+							// TODO: handle exception
+	            			field.set(configuracoes,0);
+						}	
 	   
 	            }
 	            ps.close();

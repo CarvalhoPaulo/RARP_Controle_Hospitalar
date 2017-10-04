@@ -118,7 +118,7 @@ public class OpcoesController extends Application implements Initializable {
 		txtUsuario.setText(configuracoes.getUsuario());
 
 		txtSenha.setText(configuracoes.getSenha());
-		txtCodigoRARP.setValue(configuracoes.getCodigoRARP());
+		txtCodigoRARP.setText(String.valueOf(configuracoes.getCodigoRARP()));
 	}
 
 	private void preencherConfiguracoes() {
