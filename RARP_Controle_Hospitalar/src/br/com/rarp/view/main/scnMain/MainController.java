@@ -11,6 +11,7 @@ import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
+import br.com.rarp.view.scnConsulta.ConsultaController;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
 import br.com.rarp.view.scnManutencao.atendimento.AtendimentoController;
@@ -557,5 +558,12 @@ public class MainController extends Application implements Initializable {
 			Utilitarios.erro(e.getMessage());
 
 		}
+    }
+    
+    
+    
+    @FXML
+    private void consultaOnline(ActionEvent event) {
+    	new ConsultaController().abrir();
     }
 }
