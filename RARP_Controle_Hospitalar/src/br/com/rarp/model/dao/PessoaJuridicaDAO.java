@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,10 +36,10 @@ public class PessoaJuridicaDAO {
 
 	private void alterar(PessoaJuridica pessoaJuridica) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE pessoajuridica SET cnpj = ?, razaosocial = ?, status = ? WHERE codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, pessoaJuridica.getCnpjSemMascara());
 			ps.setString(2, pessoaJuridica.getRazaoSocial());
 			ps.setBoolean(3, pessoaJuridica.isStatus());
@@ -47,7 +48,7 @@ public class PessoaJuridicaDAO {
 			ps.executeUpdate();
 			ps.close();
 				
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoajuridica WHERE codigo = " + pessoaJuridica.getCodigo());
+			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pessoa FROM pessoajuridica WHERE codigo = " + pessoaJuridica.getCodigo());
 			if (rs.next()) {
 				Pessoa pessoa = pessoaJuridica.clone();
 				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
@@ -55,32 +56,31 @@ public class PessoaJuridicaDAO {
 				pessoaDAO.salvar(pessoa);
 			}
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void inserir(PessoaJuridica pessoaJuridica) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaJuridica);
 
 			String sql = "INSERT INTO pessoajuridica(cnpj, razaosocial, codigo_pessoa, status) VALUES(?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoaJuridica.getCnpjSemMascara());
 			ps.setString(2, pessoaJuridica.getRazaoSocial());
 			ps.setInt(3, pessoaJuridica.getCodigo());
 			ps.setBoolean(4, pessoaJuridica.isStatus());
 			ps.executeUpdate();
-			ps.close();
 			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoajuridica");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				pessoaJuridica.setCodigo(rs.getInt("lastCodigo"));
+				pessoaJuridica.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 }

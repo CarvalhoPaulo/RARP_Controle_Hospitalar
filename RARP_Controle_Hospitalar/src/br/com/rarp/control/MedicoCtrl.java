@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class MedicoCtrl {
-	Medico a;
 	private Medico medico;
 
 	public Medico getMedico() {
@@ -42,9 +41,13 @@ public class MedicoCtrl {
 	}
 	
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (medico == null)
+			throw new Exception("O médico não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(medico.isStatus())
+				validaCamposObrigatorios();
 			MedicoBusiness medicoBusiness = new MedicoBusiness();
-			validaCamposObrigatorios();
 			medicoBusiness.salvar(medico);
 			return true;
 		} else {
@@ -52,7 +55,7 @@ public class MedicoCtrl {
 		}	
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(!medico.isStatus())
 			return Utilitarios.pergunta("Tem certeza que deseja desativar este cargo?");
 		return true;
@@ -64,11 +67,13 @@ public class MedicoCtrl {
 
 	@SuppressWarnings("rawtypes")
 	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
-		// TODO Auto-generated method stub
-		
 		MedicoBusiness MedicoBusiness = new MedicoBusiness();
 		return FXCollections.observableArrayList(MedicoBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
-	
+	}
+
+	public ObservableList<Medico> getMedicos() throws Exception {
+		MedicoBusiness MedicoBusiness = new MedicoBusiness();
+		return FXCollections.observableArrayList(MedicoBusiness.consultar("MED.codigo", " > ", "0"));
 	}
 
 }

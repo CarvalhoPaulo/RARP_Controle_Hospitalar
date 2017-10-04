@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +18,8 @@ public class EspecialidadeDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "especialidade(";
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome varchar(250) ,";
-		sql += "observacoes character varying ,";
+		sql += "nome varchar(250), ";
+		sql += "observacoes VARCHAR, ";
 		sql += "status boolean ";
 		sql  += ")";
 		st.executeUpdate(sql);
@@ -33,11 +34,11 @@ public class EspecialidadeDAO {
 
 	private void inserir(Especialidade especialidade) throws Exception{
 			PreparedStatement ps;
-			Conexao conexao = SistemaCtrl.getInstance().getConexao();
+			Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			
 			String sql = "INSERT INTO especialidade(nome,observacoes,status) VALUES(?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps = conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, especialidade.getNome());
 			ps.setString(2, especialidade.getObservacoes());
 			ps.setBoolean(3, especialidade.isStatus());
@@ -53,17 +54,17 @@ public class EspecialidadeDAO {
 			
 		}finally {
 		
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 	
 	private void  alterar(Especialidade especialidade) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			
 			String sql = "UPDATE especialidade SET nome=?,  observacoes=?,  status=? WHERE codigo=?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, especialidade.getNome());
 			ps.setString(2, especialidade.getObservacoes());
 			ps.setBoolean(3, especialidade.isStatus());
@@ -72,10 +73,8 @@ public class EspecialidadeDAO {
 			ps.close();
 		}catch(Exception e){
 			throw new Exception("Erro a alterar Especialidade");
-			
-			
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 	
@@ -101,10 +100,10 @@ public class EspecialidadeDAO {
 	public List<Especialidade> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Especialidade> especialidades = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT * FROM especialidade WHERE " + campo + comparacao + termo;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             
             ResultSet rs = ps.executeQuery();
         	while(rs.next()){
@@ -120,7 +119,7 @@ public class EspecialidadeDAO {
         	e.printStackTrace();
 			throw new Exception("Erro a consultar Especialidade");
 		} finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return especialidades;
 	}
@@ -128,7 +127,7 @@ public class EspecialidadeDAO {
 	public List<Especialidade> getEspecialidesByMedico(Medico medico) throws Exception {
 		PreparedStatement ps;
 		List<Especialidade>  especialidades =  new ArrayList<>() ;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 	
 		try {
 			/**
@@ -137,7 +136,7 @@ public class EspecialidadeDAO {
 			
 			String sql = " select * from especialidade where codigo in ("
 					+ "  select codigo_especialidade from medico_especialidade where codigo_medico = ? )";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setInt(1, medico.getCodigoMedico());
 			ResultSet rs = ps.executeQuery();
 			while ((rs.next()) ) {

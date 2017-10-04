@@ -1,9 +1,11 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
@@ -18,7 +20,7 @@ public class CargoDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "funcao VARCHAR(100), ";
-		sql += "requisitos VARCHAR(255), ";
+		sql += "requisitos VARCHAR, ";
 		sql += "nivel VARCHAR(20), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -34,12 +36,15 @@ public class CargoDAO {
 
 	private void inserir(Cargo cargo) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "INSERT INTO cargo(nome, funcao, requisitos, nivel, status) VALUES(?,?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao().name());
+			if(cargo.getFuncao() != null)
+				ps.setString(2, cargo.getFuncao().toString());
+			else
+				ps.setNull(2, Types.VARCHAR);
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());
@@ -47,18 +52,21 @@ public class CargoDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void alterar(Cargo cargo) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE cargo SET nome = ?, funcao = ?, requisitos = ?, nivel = ?, status = ? WHERE codigo=?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, cargo.getNome());
-			ps.setString(2, cargo.getFuncao().name());
+			if(cargo.getFuncao() != null)
+				ps.setString(2, cargo.getFuncao().toString());
+			else
+				ps.setNull(2, Types.VARCHAR);
 			ps.setString(3, cargo.getRequisitos());
 			ps.setString(4, cargo.getNivel());
 			ps.setBoolean(5, cargo.isStatus());
@@ -67,17 +75,17 @@ public class CargoDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	public List<Cargo> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Cargo> cargos = new ArrayList<>();
         PreparedStatement ps;
-        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
         	String sql = "SELECT codigo, nome, funcao, nivel, requisitos, status FROM cargo WHERE " + campo + comparacao + termo;
-            ps = conexao.getConexao().prepareStatement(sql);
+            ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	Cargo cargo = new Cargo();
@@ -95,7 +103,7 @@ public class CargoDAO {
             }
             ps.close();
         } finally{
-            conexao.getConexao().close();
+            conexao.close();
         }
 		return cargos;
 	}

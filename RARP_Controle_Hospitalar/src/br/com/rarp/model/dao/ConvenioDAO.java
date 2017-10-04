@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class ConvenioDAO {
 	public List<Convenio> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Convenio> convenios = new ArrayList<Convenio>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT " 
 					+ "CONV.codigo AS codigo_conv, " 
@@ -53,15 +54,16 @@ public class ConvenioDAO {
 					+ "CID.codigo AS codigo_cidade, " 
 					+ "CID.nome AS nome_cidade, "
 					+ "CID.status AS status_cidade, "
+					+ "ES.codigo AS codigo_estado, "
 					+ "ES.uf, "
 					+ "ES.nome AS nome_estado "
 					+ "FROM convenio AS CONV "
 					+ "LEFT JOIN pessoajuridica AS PJ ON CONV.codigo_pj = PJ.codigo "
 					+ "LEFT JOIN pessoa AS PE ON PJ.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "LEFT JOIN estado AS ES ON CID.uf_estado = ES.uf " 
+					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " 
 					+ "WHERE " + campo + comparacao + termo;
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Convenio convenio = new Convenio();
@@ -87,6 +89,7 @@ public class ConvenioDAO {
 				cidade.setStatus(rs.getBoolean("status_cidade"));
 
 				Estado estado = new Estado();
+				estado.setCodigo(rs.getInt("codigo_estado"));
 				estado.setNome(rs.getString("nome_estado"));
 				estado.setUF(rs.getString("uf"));
 
@@ -98,7 +101,7 @@ public class ConvenioDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return convenios;
 	}
@@ -122,10 +125,10 @@ public class ConvenioDAO {
 
 	private void alterar(Convenio convenio) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE convenio SET ans = ?, tipo = ?, status = ? WHERE codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
 			ps.setBoolean(3, convenio.isStatus());
@@ -133,7 +136,7 @@ public class ConvenioDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pj FROM convenio WHERE codigo = " + convenio.getCodigo());
+			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pj FROM convenio WHERE codigo = " + convenio.getCodigo());
 			if(rs.next()) {
 				PessoaJuridica pj = convenio.clone();
 				pj.setCodigo(rs.getInt("codigo_pj"));
@@ -141,33 +144,31 @@ public class ConvenioDAO {
 				pessoaJuridicaDAO.salvar(pj);
 			}
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void inserir(Convenio convenio) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 			pessoaJuridicaDAO.salvar(convenio);
 			
 			String sql = "INSERT INTO convenio(ans, tipo, codigo_pj, status) VALUES(?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
 			ps.setInt(3, convenio.getCodigo());
 			ps.setBoolean(4, convenio.isStatus());
 
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM convenio");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				convenio.setCodigo(rs.getInt("lastCodigo"));
+				convenio.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 }

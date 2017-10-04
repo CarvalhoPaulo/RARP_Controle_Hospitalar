@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import br.com.rarp.view.scnComponents.IntegerTextField?>
+<?import br.com.rarp.view.scnComponents.SelectionNode?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -13,12 +14,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="391.0" prefWidth="523.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
@@ -181,16 +181,13 @@
 											</children>
 										</GridPane>
 										<ScrollPane fx:id="sclLeitos" focusTraversable="false" prefHeight="243.0" prefWidth="461.0" GridPane.rowIndex="1">
-											<content>
-												<FlowPane fx:id="pnlLeitos" prefHeight="244.0" prefWidth="545.0" rowValignment="TOP">
-													<padding>
-														<Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-													</padding>
-												</FlowPane>
-											</content>
 											<GridPane.margin>
 												<Insets top="8.0" />
 											</GridPane.margin>
+                                 <content>
+                                    <SelectionNode fx:id="pnlLeitos" columnHalignment="CENTER" prefHeight="400.0" prefWidth="532.0" prefWrapLength="532.0" stylesheets="@../scnComponents/selection.css">
+                                    </SelectionNode>
+                                 </content>
 										</ScrollPane>
 									</children>
 								</GridPane>

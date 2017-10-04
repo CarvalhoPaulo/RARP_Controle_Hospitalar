@@ -1,5 +1,6 @@
 package br.com.rarp.control;
 
+import br.com.rarp.enums.Funcao;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.bo.FuncionarioBusiness;
@@ -20,9 +21,13 @@ public class FuncionarioCtrl {
 	}
 
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (funcionario == null)
+			throw new Exception("O funcionário não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(funcionario.isStatus())
+				validarDadosObrigatorios();
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
-			validarDadosObrigatorios();
 			funcionarioBusiness.salvar(funcionario);
 			return true;
 		} else {
@@ -37,20 +42,20 @@ public class FuncionarioCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (funcionario.getNome().isEmpty()) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o nome");
-		}
-		
-		if (funcionario.getCpf().isEmpty()) {
-			throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
-		}
-		
-		if (funcionario.getCargo() == null) {
-			 throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
+		if (funcionario != null) {
+			if (funcionario.getNome().isEmpty()) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o nome");
+			}
+			if (funcionario.getCpf().isEmpty()) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o CPF");
+			}
+			if (funcionario.getCargo() == null) {
+				throw new Exception("Para cadastrar um funcionário é necessário informar o cargo");
+			} 
 		}
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(funcionario != null && !funcionario.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este funcionário?");
 		return true;
@@ -64,7 +69,11 @@ public class FuncionarioCtrl {
 			FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 			return FXCollections.observableList(
 					funcionarioBusiness.consultar("FUNC.codigo", " > ", "0"));
-
 	}
-	
+
+	public ObservableList<Funcionario> getFuncionarios(Funcao funcao) throws Exception {
+		FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
+		return FXCollections.observableList(
+				funcionarioBusiness.consultar("CA.funcao", " = ", "'" + funcao.toString() + "'"));
+	}
 }

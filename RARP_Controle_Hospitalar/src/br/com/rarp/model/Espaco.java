@@ -48,5 +48,18 @@ public class Espaco {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Espaco)
+			return ((Espaco) obj).getCodigo() == codigo;
+		else
+			return false;
+	}
 
 }

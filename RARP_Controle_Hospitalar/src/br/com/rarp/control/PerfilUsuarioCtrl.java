@@ -21,16 +21,23 @@ public class PerfilUsuarioCtrl extends Object {
 		perfilUsuario = new PerfilUsuario();
 	}
 
-	public void salvar() throws Exception {
-		PerfilUsuarioBusiness perfilUsuarioBusiness = new PerfilUsuarioBusiness();
-		if (verificarDesativacao()) {
-			validarDadosObrigatorios();
+	public boolean salvar() throws Exception {
+		if (perfilUsuario == null)
+			throw new Exception("O perfil de usuário não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(perfilUsuario.isStatus())
+				validarDadosObrigatorios();
+			PerfilUsuarioBusiness perfilUsuarioBusiness = new PerfilUsuarioBusiness();
 			perfilUsuarioBusiness.salvar(perfilUsuario);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
-	private boolean verificarDesativacao() {
-		if(!perfilUsuario.isStatus())
+	private boolean confirmarDesativacao() {
+		if(perfilUsuario != null && !perfilUsuario.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este perfil de usuário?");
 		return true;
 	}

@@ -24,9 +24,13 @@ public class PacienteCtrl {
 	}
 	
 	public boolean salvar() throws Exception {
-		if (verificarDesativacao()) {
+		if (paciente == null)
+			throw new Exception("O paciente não foi instânciado");
+		
+		if (confirmarDesativacao()) {
+			if(paciente.isStatus())
+				validarDadosObrigatorios();
 			PacienteBusiness pacienteBusiness = new PacienteBusiness();
-			validarDadosObrigatorios();
 			pacienteBusiness.salvar(paciente);
 			return true;
 		} else {
@@ -42,24 +46,26 @@ public class PacienteCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (paciente != null) 
-			novoPaciente();
-
-		if (paciente.getNome().isEmpty()) {
+		if (paciente.getNome() != null && paciente.getNome().isEmpty()) {
 			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
 		}
-		if (paciente.getCpf().isEmpty()) {
+		if (paciente.getCpf() != null && paciente.getCpf().isEmpty()) {
 			throw new Exception("Para cadastrar um paciente é necessário informar o CPF");
 		}
-		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
-			throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
-		}
+		if(!Utilitarios.isCPF(paciente.getCpfSemMascara()))
+			throw new Exception("CPF inválido");
 	}
 	
-	private boolean verificarDesativacao() {
+	private boolean confirmarDesativacao() {
 		if(paciente != null && !paciente.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este paciente?");
 		return true;
+	}
+
+	public ObservableList<Paciente> getPacientes() throws Exception {
+		PacienteBusiness pacienteBusiness = new PacienteBusiness();
+		return FXCollections.observableList(
+				pacienteBusiness.consultar("PAC.codigo",  " > ", "0"));
 	}
 
 }

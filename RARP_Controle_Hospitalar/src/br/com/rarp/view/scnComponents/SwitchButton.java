@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 public class SwitchButton extends Label
 {
     private SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(true);
+    private boolean editable = true;
 
     public SwitchButton()
     {
@@ -21,9 +22,9 @@ public class SwitchButton extends Label
         switchBtn.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
-            public void handle(ActionEvent t)
-            {
-                switchedOn.set(!switchedOn.get());
+            public void handle(ActionEvent t) {
+            	if(editable)
+            		switchedOn.set(!switchedOn.get());
             }
         });
 
@@ -73,5 +74,13 @@ public class SwitchButton extends Label
 	
 	public void setValue(boolean value) {
 		switchedOn.set(value);
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 }

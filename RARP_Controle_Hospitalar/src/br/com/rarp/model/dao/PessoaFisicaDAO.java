@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,11 +38,11 @@ public class PessoaFisicaDAO {
 
 	private void alterar(PessoaFisica pessoaFisica) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 
 			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, status=? WHERE codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
@@ -53,7 +54,7 @@ public class PessoaFisicaDAO {
 			ps.executeUpdate();
 			ps.close();
 				
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
+			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
 			if (rs.next()) {
 				Pessoa pessoa = pessoaFisica.clone();
 				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
@@ -61,19 +62,19 @@ public class PessoaFisicaDAO {
 				pessoaDAO.salvar(pessoa);
 			}
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void inserir(PessoaFisica pessoaFisica) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.salvar(pessoaFisica);
 
 			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoaFisica.getCpfSemMascara());
 			ps.setString(2, pessoaFisica.getRg());
 			ps.setString(3, pessoaFisica.getSexo());
@@ -82,14 +83,12 @@ public class PessoaFisicaDAO {
 			ps.setInt(6, pessoaFisica.getCodigo());
 			ps.setBoolean(7, pessoaFisica.isStatus());
 			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next())
+				pessoaFisica.setCodigo(rs.getInt(1));
 			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM pessoafisica");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				pessoaFisica.setCodigo(rs.getInt("lastCodigo"));
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 }

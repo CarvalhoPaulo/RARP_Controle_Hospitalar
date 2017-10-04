@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class FuncionarioDAO {
 		sql += "dataAdmissao TIMESTAMP, ";
 		sql += "ctps VARCHAR(20), ";
 		sql += "salarioContratual NUMERIC(13, 2), ";
-		sql += "codigo_cargo INTEGER NOT NULL  REFERENCES cargo(codigo), ";
+		sql += "codigo_cargo INTEGER NOT NULL REFERENCES cargo(codigo), ";
 		sql += "codigo_pf INTEGER REFERENCES pessoaFisica(codigo), ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
@@ -40,7 +41,7 @@ public class FuncionarioDAO {
 	public List<Funcionario> consultar(String campo, String comparacao, String termo) throws Exception {
 		List<Funcionario> funcionarios = new ArrayList<>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT " 
 					+ "FUNC.codigo AS codigo_func, " 
@@ -81,7 +82,7 @@ public class FuncionarioDAO {
 					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
 					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Funcionario funcionario = new Funcionario();
@@ -123,10 +124,22 @@ public class FuncionarioDAO {
 				Cargo cargo = new Cargo();
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
-				try {
-					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
-				} catch (Exception e) {
+				switch (rs.getString("funcao")) {
+				case "limpeza":
+					cargo.setFuncao(Funcao.limpeza);
+					break;
+					
+				case "atendente":
+					cargo.setFuncao(Funcao.atendente);
+					break;
+					
+				case "enfermeira":
+					cargo.setFuncao(Funcao.enfermeira);
+					break;
+
+				default:
 					cargo.setFuncao(Funcao.outros);
+					break;
 				}
 				cargo.setNivel(rs.getString("nivel"));
 				cargo.setRequisitos(rs.getString("requisitos"));
@@ -138,17 +151,18 @@ public class FuncionarioDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return funcionarios;
 	}
 
-	public Funcionario consultar(int codigo) throws Exception {
-		List<Funcionario> funcionarios = consultar("func.codigo", " = ", codigo + "");
-		if (funcionarios.size() > 0)
-			return funcionarios.get(0);
-		else
-			return null;
+	public Funcionario getFuncionario(int codigo) throws Exception {
+		if (codigo > 0) {
+			List<Funcionario> funcionarios = consultar("func.codigo", " = ", codigo + "");
+			if (funcionarios.size() > 0)
+				return funcionarios.get(0);
+		}
+		return null;
 	}
 
 	public void salvar(Funcionario funcionario) throws Exception {
@@ -160,13 +174,13 @@ public class FuncionarioDAO {
 
 	private void inserir(Funcionario funcionario) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 			pessoaFisicaDAO.salvar(funcionario);
 			
 			String sql = "INSERT INTO funcionario(dataAdmissao, salarioContratual, ctps, codigo_cargo, codigo_pf, status) VALUES(?,?,?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
 			ps.setString(3, funcionario.getCTPS());
@@ -178,23 +192,21 @@ public class FuncionarioDAO {
 			ps.setBoolean(6, funcionario.isStatus());
 
 			ps.executeUpdate();
-			ps.close();
-			
-			ps = conexao.getConexao().prepareStatement("SELECT MAX(codigo) AS lastCodigo FROM funcionario");
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next())
-				funcionario.setCodigo(rs.getInt("lastCodigo"));
+				funcionario.setCodigo(rs.getInt("codigo"));
+			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
 	private void alterar(Funcionario funcionario) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE funcionario SET dataAdmissao = ?, salarioContratual = ?, ctps = ?, codigo_cargo = ?, status = ? WHERE codigo = ?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
 			ps.setString(3, funcionario.getCTPS());
@@ -207,7 +219,7 @@ public class FuncionarioDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			ResultSet rs = conexao.getConexao().createStatement().executeQuery("SELECT codigo_pf FROM funcionario WHERE codigo = " + funcionario.getCodigo());
+			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pf FROM funcionario WHERE codigo = " + funcionario.getCodigo());
 			if(rs.next()) {
 				PessoaFisica pf = funcionario.clone();
 				pf.setCodigo(rs.getInt("codigo_pf"));
@@ -215,7 +227,7 @@ public class FuncionarioDAO {
 				pessoaFisicaDAO.salvar(pf);
 			}
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 

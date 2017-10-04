@@ -3,6 +3,8 @@ package br.com.rarp.utils;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,14 +12,24 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.ButtonType;
 
 public class Utilitarios {
 	static boolean resultPergunta = false;
+	
+	private static EventHandler<KeyEvent> bloquear = new EventHandler<KeyEvent>() {
+		
+		@Override
+		public void handle(KeyEvent event) {
+			event.consume();
+		}
+	};
 
 	public static void atencao(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
@@ -50,8 +62,27 @@ public class Utilitarios {
 	}
 	
 	public static LocalDate dateToLocalDate(Date date) {
-		Instant instant = date.toInstant();
-		return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
+	public static Date localDateTimeToDate(LocalDateTime localDateTime) {
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public static LocalTime strToLocalTime(String value) {
+		return LocalTime.parse(value);
+	}
+	
+	public static LocalDateTime dateToLocalDateTime(Date date) {
+		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+	}
+	
+	public static LocalDate localDateTimeToLocalDate(LocalDateTime localDateTime) {
+		return dateToLocalDate(localDateTimeToDate(localDateTime));
+	}
+	
+	public static LocalDateTime localDateToLocalDateTime(LocalDate localDate) {
+		return dateToLocalDateTime(localDateToDate(localDate));
 	}
 
 	public static String formatStringSQL(String sql) {
@@ -246,6 +277,14 @@ public class Utilitarios {
 		date2.setTime(dtNascimento);
 		date.add(Calendar.DAY_OF_MONTH, -6570);
 		return !date.before(date2);
+	}
+
+	public static EventHandler<KeyEvent> getBloquear() {
+		return bloquear;
+	}
+
+	public static void setBloquear(EventHandler<KeyEvent> bloquear) {
+		Utilitarios.bloquear = bloquear;
 	}
 
 }

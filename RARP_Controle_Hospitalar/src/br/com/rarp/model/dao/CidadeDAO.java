@@ -1,5 +1,6 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,10 +48,10 @@ public class CidadeDAO {
 
 	private void inserir(Cidade cidade) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "INSERT INTO cidade(nome, codigo_ibge, codigo_estado, status) VALUES(?,?,?,?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, cidade.getNome());
 			ps.setInt(2, cidade.getCodigoIBGE());
 			if (cidade.getEstado() != null)
@@ -61,16 +62,16 @@ public class CidadeDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		} 
 	}
 
 	private void alterar(Cidade cidade) throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "UPDATE cidade SET nome = ?, codigo_ibge = ?, codigo_estado=?, status=? WHERE codigo=?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setString(1, cidade.getNome());
 			ps.setInt(2, cidade.getCodigoIBGE());
 			if (cidade.getEstado() != null)
@@ -82,14 +83,14 @@ public class CidadeDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		} 
 	}
 
 	public List<Cidade> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {
 		List<Cidade> cidades = new ArrayList<>();
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT "
 					+ "cid.codigo, "
@@ -102,7 +103,7 @@ public class CidadeDAO {
 					+ "FROM cidade AS cid "
 					+ "LEFT JOIN estado AS es ON es.codigo = cid.codigo_estado "
 					+ "WHERE " + campo + comparacao + termo;
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Cidade cidade = new Cidade();
@@ -118,7 +119,7 @@ public class CidadeDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 		return cidades;
 	}

@@ -14,14 +14,19 @@ public class PacienteBusiness {
 	}
 
 	public void salvar(Paciente paciente) throws Exception {
+		if(paciente == null)
+			throw new Exception("O paciente não foi instânciado");
+		
+		if(paciente.isStatus())
+			validarPaciente(paciente);
 		PacienteDAO pacienteDAO = new PacienteDAO();
-		validarPaciente(paciente);
 		pacienteDAO.salvar(paciente);
 	}
 
 	private void validarPaciente(Paciente paciente) throws Exception {
-		if(!Utilitarios.isCPF(paciente.getCpfSemMascara()))
-			throw new Exception("CPF inválido");
+		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
+			throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
+		}
 	}
 
 }

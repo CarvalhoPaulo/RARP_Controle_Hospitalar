@@ -1,6 +1,7 @@
 package br.com.rarp.model.dao;
 
 import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -28,6 +29,7 @@ public class ConfiguracoesDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw new Exception("Falha ao criar tabela de configura�oes");
+
 		}
 
 		String sql2 = "SELECT proname  FROM pg_proc where   proname = 'AtualizaValor'";
@@ -96,11 +98,11 @@ public class ConfiguracoesDAO {
 		// SistemaCtrl.getInstance().getConfiguracoes().setControlerAcesso(true);
 		
 		 PreparedStatement ps;
-	        Conexao conexao = SistemaCtrl.getInstance().getConexao();
+	        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 	        Configuracoes configuracoes = Configuracoes.getInstance();
 	        try {
 	        	String sql = "SELECT * FROM configuracoes " ;
-	            ps = conexao.getConexao().prepareStatement(sql);
+	            ps = conexao.prepareStatement(sql);
 	            
 	            ResultSet rs = ps.executeQuery();
 	        	while(rs.next()){
@@ -157,7 +159,7 @@ public class ConfiguracoesDAO {
 	        	e.printStackTrace();
 				throw new Exception("Erro a obter Configuracoes");
 			} finally{
-	            conexao.getConexao().close();
+	            conexao.close();
 	        }
 		
 
@@ -165,7 +167,7 @@ public class ConfiguracoesDAO {
 
 	public void salvar() throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			/**
 			 * INSERT INTO public.medico_especialidade( codigo_medico, codigo_especialidade)
@@ -176,8 +178,7 @@ public class ConfiguracoesDAO {
 
 			String sql;
 			sql = "INSERT INTO configuracoes("; 
-
-			sql += "chave,valor ) ";
+			sql += "chave,valor) ";
 			sql += " VALUES ";
 			Configuracoes configuracoes = Configuracoes.getInstance();
 			int i = 0;
@@ -198,15 +199,16 @@ public class ConfiguracoesDAO {
 				}
 			}
 
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Erro ao salvar Configuracoes");
 		} finally {
 
-			conexao.getConexao().close();
+			conexao.close();
 		}
 
 	}

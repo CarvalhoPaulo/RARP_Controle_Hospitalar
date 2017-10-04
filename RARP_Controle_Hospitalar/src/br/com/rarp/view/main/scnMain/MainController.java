@@ -9,19 +9,21 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
-import br.com.rarp.model.Configuracoes;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnConsulta.ConsultaController;
 import br.com.rarp.view.scnLogin.LoginController;
 import br.com.rarp.view.scnManutencao.ManutencaoController;
+import br.com.rarp.view.scnManutencao.atendimento.AtendimentoController;
 import br.com.rarp.view.scnManutencao.cargo.CargoController;
 import br.com.rarp.view.scnManutencao.cidade.CidadeController;
 import br.com.rarp.view.scnManutencao.convenio.ConvenioController;
+import br.com.rarp.view.scnManutencao.encaminhamento.EncaminhamentoController;
 import br.com.rarp.view.scnManutencao.entrada.EntradaPacienteController;
 import br.com.rarp.view.scnManutencao.espaco.EspacoController;
 import br.com.rarp.view.scnManutencao.especialidade.EspecialidadeController;
 import br.com.rarp.view.scnManutencao.funcionario.FuncionarioController;
+import br.com.rarp.view.scnManutencao.limpeza.LimpezaController;
 import br.com.rarp.view.scnManutencao.medico.MedicoController;
 import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
@@ -166,9 +168,6 @@ public class MainController extends Application implements Initializable {
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-			
-			
-			
 			SplashController splash = new SplashController();
 			splash.abrir(3);
 			SistemaCtrl.getInstance().configuraConexao();
@@ -401,9 +400,9 @@ public class MainController extends Application implements Initializable {
     }
     
     @FXML
-	private void manterEntrada(ActionEvent event) {
+	private void controlarEntrada(ActionEvent event) {
 		try {
-			SistemaCtrl.getInstance().liberarManutencaoEntradaPaciente(TipoMovimentacao.acesso);
+			SistemaCtrl.getInstance().liberarControleEntradaPaciente(TipoMovimentacao.acesso);
 			manutencao = new EntradaPacienteController();
 			pnMain.setCenter(manutencao.getNode());
 			focarToolBar(false);
@@ -413,6 +412,58 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
 	}
+    
+    @FXML
+    void controlarAtendimento(ActionEvent event) {
+    	try {
+			SistemaCtrl.getInstance().liberarControleAtendimento(TipoMovimentacao.acesso);
+			manutencao = new AtendimentoController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
+
+    @FXML
+    void controlarEncaminhamento(ActionEvent event) {
+    	try {
+			SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.acesso);
+			manutencao = new EncaminhamentoController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
+
+    @FXML
+    void controlarLimpeza(ActionEvent event) {
+    	try {
+			//SistemaCtrl.getInstance().liberarControleEncaminhamento(TipoMovimentacao.acesso);
+			manutencao = new LimpezaController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
+    }
+
+    @FXML
+    void controlarReceitaMedica(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlarSaida(ActionEvent event) {
+
+    }
 
 	@FXML
 	private void manterEspacos(ActionEvent event) {

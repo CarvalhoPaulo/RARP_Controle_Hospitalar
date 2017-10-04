@@ -1,22 +1,20 @@
 package br.com.rarp.model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import br.com.rarp.annotations.Coluna;
 
 public class EntradaPaciente extends Movimentacao {
 
 	private String preTriagem;
 	private Medico medico;
-	
-	@Coluna(posicao=3, descricao="Paciente")
 	private Paciente paciente;
-	
-	@Coluna(posicao=4, descricao="Atendente")
-	private Atendente atendente;
-	private Enfermeira enfermeira;
-	private List<Agendamento> agendamentos;
+	private Funcionario atendente;
+	private Funcionario enfermeira;
+	private List<Atendimento> atendimentos;
 	private List<Encaminhamento> encaminhamentos;
+	private SaidaPaciente saidaPaciente;
+	private boolean alta;
+	private boolean emergencia;
 	
 	public String getPreTriagem() {
 		return preTriagem;
@@ -36,29 +34,55 @@ public class EntradaPaciente extends Movimentacao {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	public Atendente getAtendente() {
-		return atendente;
-	}
-	public void setAtendente(Atendente atendente) {
-		this.atendente = atendente;
-	}
-	public Enfermeira getEnfermeira() {
-		return enfermeira;
-	}
-	public void setEnfermeira(Enfermeira enfermeira) {
-		this.enfermeira = enfermeira;
-	}
-	public List<Agendamento> getAgendamentos() {
-		return agendamentos;
-	}
-	public void setAgendamentos(List<Agendamento> agendamentos) {
-		this.agendamentos = agendamentos;
-	}
 	public List<Encaminhamento> getEncaminhamentos() {
 		return encaminhamentos;
 	}
 	public void setEncaminhamentos(List<Encaminhamento> encaminhamentos) {
 		this.encaminhamentos = encaminhamentos;
 	}
+	public Funcionario getAtendente() {
+		return atendente;
+	}
+	public void setAtendente(Funcionario atendente) {
+		this.atendente = atendente;
+	}
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
+	}
+	public void setAtendimentos(List<Atendimento> agendamentos) {
+		this.atendimentos = agendamentos;
+	}
+	public Funcionario getEnfermeira() {
+		return enfermeira;
+	}
+	public void setEnfermeira(Funcionario enfermeira) {
+		this.enfermeira = enfermeira;
+	}
+	public boolean isAlta() {
+		return alta;
+	}
+	public void setAlta(boolean alta) {
+		this.alta = alta;
+	}
+	public boolean isEmergencia() {
+		return emergencia;
+	}
+	public void setEmergencia(boolean emergencia) {
+		this.emergencia = emergencia;
+	}
 
+	@Override
+	public String toString() {
+		if(getPaciente() != null)
+			return getPaciente().getNome() 
+				+ " - " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
+				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+		return "";
+	}
+	public SaidaPaciente getSaidaPaciente() {
+		return saidaPaciente;
+	}
+	public void setSaidaPaciente(SaidaPaciente saidaPaciente) {
+		this.saidaPaciente = saidaPaciente;
+	}
 }

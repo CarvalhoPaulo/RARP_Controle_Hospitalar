@@ -1,15 +1,12 @@
 package br.com.rarp.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cidade;
-import br.com.rarp.model.Convenio;
 import br.com.rarp.model.Organizacao;
 import br.com.rarp.model.Estado;
 
@@ -44,11 +41,11 @@ public class OrganizacaoDAO {
 
 	public void inserir() throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 
 			String sql = "INSERT INTO organizacao(codigo_pj) VALUES(?)";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setInt(1, SistemaCtrl.getInstance().getOrganizacao().getCodigo());
 			ps.executeUpdate();
 			ps.close();
@@ -57,17 +54,17 @@ public class OrganizacaoDAO {
 			// TODO: handle exception
 			throw new Exception("Falha ao salvar organizaçao");
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 	
 	public void alterar() throws Exception {
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 
 			String sql = "update organizacao set  codigo_pj=?";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ps.setInt(1, SistemaCtrl.getInstance().getOrganizacao().getCodigo());
 			ps.executeUpdate();
 			ps.close();
@@ -76,7 +73,7 @@ public class OrganizacaoDAO {
 			// TODO: handle exception
 			throw new Exception("Falha ao salvar organizaçao");
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 	}
 
@@ -85,7 +82,7 @@ public class OrganizacaoDAO {
 	public void getOrganizacao() throws Exception {
 
 		PreparedStatement ps;
-		Conexao conexao = SistemaCtrl.getInstance().getConexao();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			String sql = "SELECT PJ.razaosocial, " + "PJ.cnpj, " + "PE.codigo AS codigo_pessoa, "
 					+ "PE.nome AS nome_pessoa, " + "PE.datanascimento, " + "PE.logradouro, " + "PE.complemento, "
@@ -96,7 +93,7 @@ public class OrganizacaoDAO {
 					+ "LEFT JOIN pessoa AS PE ON PJ.codigo_pessoa = PE.codigo "
 					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
 					+ "LEFT JOIN estado AS ES ON CID.uf_estado = ES.uf  ";
-			ps = conexao.getConexao().prepareStatement(sql);
+			ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Organizacao empresa = SistemaCtrl.getInstance().getOrganizacao();
@@ -132,7 +129,7 @@ public class OrganizacaoDAO {
 
 			throw new Exception("falha ao consultar empresa");
 		} finally {
-			conexao.getConexao().close();
+			conexao.close();
 		}
 
 	}

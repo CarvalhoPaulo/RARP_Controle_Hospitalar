@@ -35,7 +35,16 @@ public class CargoController extends ManutencaoController {
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
 		TableColumn<Cargo, String> funcao = new TableColumn<>("Função");
-		funcao.setCellValueFactory(new PropertyValueFactory<>("funcao"));
+		funcao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Cargo,String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Cargo, String> param) {
+				String value = "";
+				if(param != null && param.getValue() != null && param.getValue().getFuncao() != null)
+					value = param.getValue().getFuncao().toString();
+				return new SimpleStringProperty(value);
+			}
+		});
 		
 		TableColumn<Cargo, String> nivel = new TableColumn<>("Nível");
 		nivel.setCellValueFactory(new PropertyValueFactory<>("nivel"));

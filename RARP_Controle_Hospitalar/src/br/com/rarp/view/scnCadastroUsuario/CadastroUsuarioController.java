@@ -136,9 +136,10 @@ public class CadastroUsuarioController extends Application implements Initializa
     private void salvar(ActionEvent event) {
     	preencherObjeto();
 		try {
-			usuarioCtrl.salvar();
-			Utilitarios.message("Usuário salvo com sucesso.");
-			limparCampos();
+			if(usuarioCtrl.salvar()) {
+				Utilitarios.message("Usuário salvo com sucesso.");
+				limparCampos();
+			}
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
 						   + "Descrição: " + e.getMessage());
