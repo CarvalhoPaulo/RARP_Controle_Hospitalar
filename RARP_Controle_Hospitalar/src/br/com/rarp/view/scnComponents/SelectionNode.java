@@ -1,5 +1,7 @@
 package br.com.rarp.view.scnComponents;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -19,7 +21,14 @@ public class SelectionNode<T extends Node> extends FlowPane {
 		super();
 		setWidth(400);
 		setHeight(400);
+		
+		selectionModel.selectedItemProperty().addListener(new ChangeListener<T>() {
 
+			@Override
+			public void changed(ObservableValue<? extends T> observable, T oldValue, T newValue) {
+				upgradeSelection();
+			}
+		});
 		selectionModel.getItems().addListener(new ListChangeListener<T>() {
 			@Override
 			public void onChanged(Change<? extends T> c) {

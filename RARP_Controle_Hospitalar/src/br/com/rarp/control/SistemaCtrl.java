@@ -35,6 +35,7 @@ import br.com.rarp.model.dao.PessoaFisicaDAO;
 import br.com.rarp.model.dao.PessoaJuridicaDAO;
 import br.com.rarp.model.dao.Propriedades;
 import br.com.rarp.model.dao.ReceitaMedicaDAO;
+import br.com.rarp.model.dao.SaidaPacienteDAO;
 import br.com.rarp.model.dao.SintomaDAO;
 import br.com.rarp.model.dao.TelaDAO;
 import br.com.rarp.model.dao.TelefoneDAO;
@@ -290,6 +291,7 @@ public class SistemaCtrl {
 		AtendimentoDAO.criarTabela();
 		SintomaDAO.criarTabela();
 		EncaminhamentoDAO.criarTabela();
+		SaidaPacienteDAO.criarTabela();
 
 		//SQLDAO sqldao = new SQLDAO();
 		//sqldao.executarSQLFile("cidades_estados.sql");

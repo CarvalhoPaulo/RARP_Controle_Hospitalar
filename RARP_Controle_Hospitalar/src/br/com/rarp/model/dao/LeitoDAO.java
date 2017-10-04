@@ -109,27 +109,9 @@ public class LeitoDAO {
 	}
 
 	public List<Leito> getLeitos(Espaco espaco) throws Exception {
-		List<Leito> leitos = new ArrayList<>();
-        PreparedStatement ps;
-        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-        try {
-        	String sql = "SELECT codigo, numero, status FROM leito WHERE codigo_espaco = ? ORDER BY numero ASC";
-            ps = conexao.prepareStatement(sql);
-            ps.setInt(1, espaco.getCodigo());
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-            	Leito leito = new Leito();
-            	leito.setCodigo(rs.getInt("codigo"));
-            	leito.setNumero(rs.getInt("numero"));
-            	leito.setStatus(rs.getBoolean("status"));
-            	//leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
-            	leitos.add(leito);
-            }
-            ps.close();
-        } finally{
-            conexao.close();
-        }
-		return leitos;
+		if(espaco != null)
+			return consultar("codigo_espaco = " + espaco.getCodigo() + " ORDER BY numero ASC");
+		return null;
 	}
 	
 	public List<Leito> consultar(String condicao) throws Exception {
@@ -173,7 +155,9 @@ public class LeitoDAO {
 	}
 
 	public void salvar(Leito leito) throws Exception {
-		Espaco espaco = new Espaco();
+		Espaco espaco = leito.getEspaco();
+		if(espaco == null)
+			espaco = new Espaco();
 		espaco.getLeitos().add(leito);
 		salvar(espaco);
 	}

@@ -30,6 +30,7 @@ public class EntradaPacienteBusiness {
 		} else {
 			Leito livre = new Leito(1);
 			for(Leito leito: recepcao.getLeitos()) {
+				livre.setNumero(livre.getNumero() + 1);
 				if(leito.getPaciente() == null) {
 					livre = leito;
 					break;

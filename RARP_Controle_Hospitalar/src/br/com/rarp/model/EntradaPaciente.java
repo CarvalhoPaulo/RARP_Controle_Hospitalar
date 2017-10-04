@@ -12,6 +12,7 @@ public class EntradaPaciente extends Movimentacao {
 	private Funcionario enfermeira;
 	private List<Atendimento> atendimentos;
 	private List<Encaminhamento> encaminhamentos;
+	private SaidaPaciente saidaPaciente;
 	private boolean alta;
 	private boolean emergencia;
 	
@@ -77,5 +78,11 @@ public class EntradaPaciente extends Movimentacao {
 				+ " - " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
 				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 		return "";
+	}
+	public SaidaPaciente getSaidaPaciente() {
+		return saidaPaciente;
+	}
+	public void setSaidaPaciente(SaidaPaciente saidaPaciente) {
+		this.saidaPaciente = saidaPaciente;
 	}
 }

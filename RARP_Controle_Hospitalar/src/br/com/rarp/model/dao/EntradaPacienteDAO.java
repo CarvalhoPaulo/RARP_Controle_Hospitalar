@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.SaidaPaciente;
 
 public class EntradaPacienteDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -203,6 +204,7 @@ public class EntradaPacienteDAO {
 					+ "MED.codigo AS codigo_medico, "
 					+ "ENF.codigo AS codigo_enfermeira, "
 					+ "PAC.codigo AS codigo_paciente, "
+					+ "SAI.codigo AS codigo_saida, "
 					+ "ATE.codigo AS codigo_atendente "
 					+ "FROM entradapaciente ENT "
 					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
@@ -211,6 +213,7 @@ public class EntradaPacienteDAO {
 					+ "LEFT JOIN paciente PAC ON ENT.codigo_paciente = PAC.codigo "
 					+ "LEFT JOIN funcionario ATE ON ENT.atendente_funcionario = ATE.codigo "
 					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
+					+ "LEFT JOIN saidapaciente SAI ON SAI.codigo_entrada = ENT.codigo "
 					+ "WHERE "
 					+ campo + comparacao + termo;
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -232,6 +235,8 @@ public class EntradaPacienteDAO {
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
 				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
 				entradaPaciente.setAtendimentos(new AtendimentoDAO().getAtendimentos(entradaPaciente.getCodigo()));
+				entradaPaciente.setSaidaPaciente(new SaidaPaciente());
+				entradaPaciente.getSaidaPaciente().setCodigo(rs.getInt("codigo_saida"));
 				entradas.add(entradaPaciente);
 			}
 			return entradas;	

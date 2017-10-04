@@ -110,7 +110,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		cmbOrigem.getItems().clear();
 		try {
 			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(null));
-			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));
+			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +130,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	}
 	
 	public void filtrarOrigem(Paciente paciente) {
-		if(paciente != null) {
+		if(paciente != null && encaminhamentoCtrl == null) {
 			pnlOrigem.getItems().clear();
 			try {
 				cmbOrigem.getSelectionModel().clearSelection();
@@ -147,8 +147,13 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		sbAtivado.switchOnProperty().set(true);
 		txtCodigo.setDisable(true);
 		try {
-			cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(null));
-			cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));
+			if(encaminhamentoCtrl == null) {
+				cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacosCheios(null));
+				cmbDestino.getItems().setAll(new EspacoCtrl().getEspacosLivres(null));
+			} else {
+				cmbOrigem.getItems().setAll(new EspacoCtrl().getEspacos());
+				cmbDestino.getItems().setAll(new EspacoCtrl().getEspacos());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,10 +195,10 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		txtCodigo.setDisable(true);
 		txtData.setEditable(true);
 		txtHora.setOnKeyTyped(Utilitarios.getBloquear());
-		sbAtivado.setEditable(true);
-		cmbOrigem.setEditable(false);
-		cmbDestino.setEditable(false);
-		cmbDestino.setEditable(false);
+		sbAtivado.setEditable(false);
+		cmbEntradaPaciente.setDisable(true);
+		cmbOrigem.setDisable(true);
+		cmbDestino.setDisable(true);
 		pnlOrigem.setEditable(false);
 		pnlDestino.setEditable(false);
 		btnSalvar.setDisable(true);
@@ -268,18 +273,18 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		cmbEntradaPaciente.setValue(encaminhamentoCtrl.getEncaminhamento().getEntradaPaciente());
 		cmbOrigem.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getOrigem().getEspaco());
 		cmbDestino.getSelectionModel().select(encaminhamentoCtrl.getEncaminhamento().getDestino().getEspaco());
+		onChange.handle(new ActionEvent(cmbOrigem, null));
+		onChange.handle(new ActionEvent(cmbDestino, null));
 		txtData.setValue(encaminhamentoCtrl.getEncaminhamento().getDtMovimentacao());
 		txtHora.setLocalTime(encaminhamentoCtrl.getEncaminhamento().getHrMovimentacao());
 		
 		ImageCard origem = new ImageCard();
 		origem.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
 		origem.setLeito(encaminhamentoCtrl.getEncaminhamento().getOrigem());
-		pnlOrigem.getItems().add(origem);
 		
 		ImageCard destino = new ImageCard();
 		destino.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
 		destino.setLeito(encaminhamentoCtrl.getEncaminhamento().getDestino());
-		pnlOrigem.getItems().add(destino);
 		
 		pnlOrigem.getSelectionModel().select(origem);
 		pnlDestino.getSelectionModel().select(destino);
