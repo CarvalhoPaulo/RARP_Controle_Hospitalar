@@ -125,15 +125,15 @@ public class FuncionarioDAO {
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
 				switch (rs.getString("funcao")) {
-				case "limpeza":
+				case "Limpeza":
 					cargo.setFuncao(Funcao.limpeza);
 					break;
 					
-				case "atendente":
+				case "Atendente":
 					cargo.setFuncao(Funcao.atendente);
 					break;
 					
-				case "enfermeira":
+				case "Enfermeira":
 					cargo.setFuncao(Funcao.enfermeira);
 					break;
 

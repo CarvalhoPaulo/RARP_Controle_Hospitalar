@@ -96,7 +96,7 @@ public class LimpezaController extends ManutencaoController {
 		});
 		
 		codigo.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.15));
-		funcionarioLimpeza.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.35));
+		funcionarioLimpeza.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.30));
 		data.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.2));
 		hora.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.2));
 		status.prefWidthProperty().bind(tblManutencao.widthProperty().multiply(0.15));

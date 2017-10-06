@@ -5,6 +5,7 @@ import br.com.rarp.model.Limpeza;
 import br.com.rarp.model.bo.LimpezaBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class LimpezaCtrl {
@@ -18,7 +19,7 @@ public class LimpezaCtrl {
 		limpeza = new Limpeza();
 	}
 	
-	public boolean salvar() throws Exception {
+	public boolean salvar(LimpezaCtrl limpezaCtrlAnt) throws Exception {
 		if (limpeza == null)
 			throw new Exception("A limpeza não foi instânciada");
 		
@@ -26,7 +27,7 @@ public class LimpezaCtrl {
 			if (limpeza.isStatus())
 				validarDadosObrigatorios();
 			LimpezaBusiness limpezaBusiness = new LimpezaBusiness();
-			limpezaBusiness.salvar(limpeza);
+			limpezaBusiness.salvar(limpeza, limpezaCtrlAnt.getLimpeza());
 			return true;
 		} else {
 			return false;
@@ -50,8 +51,8 @@ public class LimpezaCtrl {
 		return true;
 	}
 
-	public ObservableList<Limpeza> consultar(Campo campo, Comparacao comparacao, String termo) {
-		return null;
+	public ObservableList<Limpeza> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+		return FXCollections.observableList(new LimpezaBusiness().consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
 	}
 
 	public void setLimpeza(Object limpeza) {

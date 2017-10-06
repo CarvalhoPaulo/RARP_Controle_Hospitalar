@@ -177,10 +177,22 @@ public class MedicoDAO {
 				Cargo cargo = new Cargo();
 				cargo.setCodigo(rs.getInt("codigo_cargo"));
 				cargo.setNome(rs.getString("nome_cargo"));
-				try {
-					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
-				} catch (Exception e) {
+				switch (rs.getString("funcao")) {
+				case "Atendente":
+					cargo.setFuncao(Funcao.atendente);
+					break;
+					
+				case "Enfermeira":
+					cargo.setFuncao(Funcao.enfermeira);
+					break;
+					
+				case "Limpeza":
+					cargo.setFuncao(Funcao.limpeza);
+					break;
+
+				default:
 					cargo.setFuncao(Funcao.outros);
+					break;
 				}
 				cargo.setNivel(rs.getString("nivel"));
 				cargo.setRequisitos(rs.getString("requisitos"));

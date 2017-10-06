@@ -1,10 +1,11 @@
 package br.com.rarp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Limpeza extends Movimentacao {
 	private Funcionario funcionarioLimpeza;
-	private List<Leito> leitos;
+	private List<Leito> leitos = new ArrayList<>();
 
 	public Funcionario getFuncionarioLimpeza() {
 		return funcionarioLimpeza;

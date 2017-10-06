@@ -26,6 +26,7 @@ import br.com.rarp.model.dao.EspecialidadeDAO;
 import br.com.rarp.model.dao.EstadoDAO;
 import br.com.rarp.model.dao.FuncionarioDAO;
 import br.com.rarp.model.dao.LeitoDAO;
+import br.com.rarp.model.dao.LimpezaDAO;
 import br.com.rarp.model.dao.MedicoDAO;
 import br.com.rarp.model.dao.MovimentacaoDAO;
 import br.com.rarp.model.dao.PacienteDAO;
@@ -292,7 +293,7 @@ public class SistemaCtrl {
 		SintomaDAO.criarTabela();
 		EncaminhamentoDAO.criarTabela();
 		SaidaPacienteDAO.criarTabela();
-
+		LimpezaDAO.criarTabela();
 		//SQLDAO sqldao = new SQLDAO();
 		//sqldao.executarSQLFile("cidades_estados.sql");
 	}

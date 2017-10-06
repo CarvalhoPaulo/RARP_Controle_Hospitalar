@@ -90,7 +90,7 @@ public class SingleMultipleSelectionModel<T> extends MultipleSelectionModel<T> {
 		if(index >= 0 && index < items.size()) {
 			if(selectedItems.contains(items.get(index)))
 				selectedItems.remove(items.get(index));
-			if(getSelectedItem().equals(items.get(index))) {
+			if(getSelectedItem() != null && getSelectedItem().equals(items.get(index))) {
 				setSelectedItem(null);
 				setSelectedIndex(-1);
 			}
@@ -139,5 +139,10 @@ public class SingleMultipleSelectionModel<T> extends MultipleSelectionModel<T> {
 			setSelectedItem(items.get(items.indexOf(getSelectedItem()) - 1));
 			setSelectedIndex(items.indexOf(getSelectedItem()) - 1);
 		}
+	}
+
+	public void clearSelecteds() {
+		items.removeAll(getSelectedItems());
+		clearSelection();
 	}
 }

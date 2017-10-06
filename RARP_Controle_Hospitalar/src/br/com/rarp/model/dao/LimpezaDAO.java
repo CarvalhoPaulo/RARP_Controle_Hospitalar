@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Leito;
 import br.com.rarp.model.Limpeza;
 
@@ -30,31 +33,109 @@ public class LimpezaDAO {
 		sql += "codigo_mov INTEGER REFERENCES movimentacao(codigo), ";
 		sql += "codigo_funcionario INTEGER REFERENCES funcionario(codigo), ";
 		sql += "status boolean)";
+		st.executeUpdate(sql);
+		st.close();
 		
+		st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		sql = "CREATE TABLE IF NOT EXISTS ";
 		sql += "limpeza_leito(";
-		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "codigo_limpeza INTEGER REFERENCES limpeza(codigo), ";
 		sql += "codigo_leito INTEGER REFERENCES leito(codigo), ";
-		sql += "status boolean)";
+		sql += "CONSTRAINT limpeza_leito_pkey PRIMARY KEY(codigo_limpeza, codigo_leito))";
 		st.executeUpdate(sql);
+		st.close();
+	}
+	
+	public List<Leito> getLeitosLimpeza(Connection connection, int codigo) throws Exception {
+		List<Leito> leitos = new ArrayList<>();
+    	String sql = "SELECT "
+    			+ "LEI.codigo codigo_leito, "
+    			+ "LEI.codigo_espaco, "
+    			+ "ESP.nome, "
+    			+ "LEI.numero, "
+    			+ "LEI.sujo, "
+    			+ "LEI.status status_leito, "
+    			+ "LEI.codigo_paciente "
+    			+ "FROM "
+    			+ "limpeza_leito LL "
+    			+ "LEFT JOIN leito LEI ON LL.codigo_leito = LEI.codigo "
+    			+ "LEFT JOIN espaco ESP ON LEI.codigo_espaco = ESP.codigo "
+    			+ "WHERE "
+    			+ "LL.codigo_limpeza = " + codigo;
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+        	Leito leito = new Leito();
+        	leito.setCodigo(rs.getInt("codigo_leito"));
+        	leito.setNumero(rs.getInt("numero"));
+        	leito.setStatus(rs.getBoolean("status_leito"));
+        	leito.setSujo(rs.getBoolean("sujo"));
+        	leito.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+        	leito.setEspaco(new Espaco());
+        	leito.getEspaco().setCodigo(rs.getInt("codigo_espaco"));
+        	leito.getEspaco().setNome(rs.getString("nome"));
+        	leitos.add(leito);
+		}
+		return leitos;
+	}
+	
+	public List<Limpeza> consultar(String consulta) throws Exception {
+		List<Limpeza> limpezas = new ArrayList<>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
+		try {
+			String sql = "SELECT "
+					+ "LIM.codigo AS codigo_limpeza, "
+					+ "LIM.codigo_mov, "
+					+ "MOV.data AS dtmovimentacao, "
+					+ "MOV.hora AS hrmovimentacao, "
+					+ "MOV.codigo_usuario, "
+					+ "LIM.codigo_funcionario, "
+					+ "LIM.status AS status_limpeza "
+					+ "FROM "
+					+ "limpeza LIM "
+					+ "LEFT JOIN movimentacao MOV ON LIM.codigo_mov = MOV.codigo "
+					+ "WHERE "
+					+ consulta;
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Limpeza limpeza = new Limpeza();
+				limpeza.setCodigo(rs.getInt("codigo_limpeza"));
+				limpeza.setDtMovimentacao(rs.getDate("dtMovimentacao").toLocalDate());
+				limpeza.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
+				limpeza.setFuncionarioLimpeza(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
+				limpeza.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				limpeza.setStatus(rs.getBoolean("status_limpeza"));
+				limpeza.setLeitos(getLeitosLimpeza(conexao, limpeza.getCodigo()));
+				limpezas.add(limpeza);
+			}
+			ps.close();
+		} finally {
+			conexao.close();
+		} 
+		return limpezas;
 	}
 
-	public void salvar(Limpeza limpeza) throws Exception {
+	public void salvar(Limpeza limpeza, Limpeza limpezaAnt) throws Exception {
 		if(limpeza != null)
 			if(limpeza.getCodigo() == 0)
 				inserir(limpeza);
 			else
-				alterar(limpeza);
+				alterar(limpeza, limpezaAnt);
 	}
 
-	private void alterar(Limpeza limpeza) throws Exception {
+	private void alterar(Limpeza limpeza, Limpeza limpezaAnt) throws Exception {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		conexao.setAutoCommit(false);
 		try {
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
     		movimentacaoDAO.salvar(conexao, limpeza);
+    		
+    		for(Leito l : limpezaAnt.getLeitos())
+    			new LeitoDAO().salvar(conexao, l);
     		
 			String sql = "UPDATE "
 					+ "limpeza "
@@ -71,15 +152,6 @@ public class LimpezaDAO {
     		ps.setBoolean(2, limpeza.isStatus());
     		ps.setInt(3, limpeza.getCodigo());
 			ps.executeUpdate();
-			
-			ps.close();			
-			sql = "INSERT INTO limpeza_leito(codigo_limpeza, codigo_leito, status) ";
-			sql += "VALUES(?,?,?) ";
-			sql += "ON CONFLICT (codigo) ";
-			sql += "DO UPDATE SET ";
-			sql += "codigo_limpeza = ?, ";
-			sql += "codigo_leito = ?, ";
-			sql += "status = ?";
 			ps.close();	
 			salvarLeitosLimpeza(conexao, limpeza);
 			
@@ -92,16 +164,21 @@ public class LimpezaDAO {
 		} 
 	}
 	
-	private void salvarLeitosLimpeza(Connection conexao, Limpeza limpeza) throws SQLException {
+	private void salvarLeitosLimpeza(Connection conexao, Limpeza limpeza) throws Exception {
 		if(limpeza != null && conexao != null && limpeza.getCodigo() > 0) {
-			String sql = "INSERT INTO limpeza_leito(codigo_limpeza, codigo_leito, status) ";
-			sql += "VALUES(?,?,?) ";
-			sql += "ON CONFLICT (codigo) ";
+			String sql = "DELETE FROM limpeza_leito WHERE codigo_limpeza = " + limpeza.getCodigo();
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+			
+			sql = "INSERT INTO limpeza_leito(codigo_limpeza, codigo_leito) ";
+			sql += "VALUES(?,?) ";
+			sql += "ON CONFLICT (codigo_limpeza, codigo_leito) ";
 			sql += "DO UPDATE SET ";
 			sql += "codigo_limpeza = ?, ";
-			sql += "codigo_leito = ?, ";
-			sql += "status = ?";
-			PreparedStatement ps = conexao.prepareStatement(sql);
+			sql += "codigo_leito = ? ";
+			
+			ps = conexao.prepareStatement(sql);
         	int i = 0;
         	
         	if (limpeza.getCodigo() != 0) {
@@ -110,10 +187,9 @@ public class LimpezaDAO {
 						continue;
 					ps.setInt(1, limpeza.getCodigo());
 					ps.setInt(2, leito.getCodigo());
-					ps.setBoolean(3, limpeza.isStatus());
-					ps.setInt(4, limpeza.getCodigo());
-					ps.setInt(5, leito.getCodigo());
-					ps.setBoolean(6, limpeza.isStatus());
+					ps.setInt(3, limpeza.getCodigo());
+					ps.setInt(4, leito.getCodigo());
+					new LeitoDAO().salvar(conexao, leito);
 					ps.addBatch();
 					i++;
 
@@ -159,6 +235,11 @@ public class LimpezaDAO {
 		} finally {
 			conexao.close();
 		} 
+	}
+
+	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {
+		// TODO Auto-generated method stub
+		return consultar(campo + comparacao + termo);
 	}
 
 }

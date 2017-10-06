@@ -62,7 +62,7 @@ public class Cargo {
 	
 	@Override
 	public String toString() {
-		return nome;
+		return nome + (nivel.isEmpty() ? "": " nivel: " + nivel);
 	}
 
 	public Funcao getFuncao() {

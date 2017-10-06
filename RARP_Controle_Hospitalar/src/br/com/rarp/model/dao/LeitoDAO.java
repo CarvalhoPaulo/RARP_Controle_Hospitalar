@@ -35,21 +35,29 @@ public class LeitoDAO {
 		st.executeUpdate(sql);
 	}
 	
-	public void salvar(Espaco espaco) throws Exception {
+	public void salvar(Espaco espaco) throws Exception {	
+		for(Leito l: espaco.getLeitos()) {
+			l.setEspaco(new Espaco());
+			l.getEspaco().setCodigo(espaco.getCodigo());;
+		}
+		salvar(espaco.getLeitos());
+	}
+	
+	public void salvar(List<Leito> leitos) throws Exception {
 		List<Leito> leitosInserir = new ArrayList<>();
 		List<Leito> leitosAlterar = new ArrayList<>();
 		
-		for(Leito l: espaco.getLeitos()) {
+		for(Leito l: leitos) {
 			if(l.getCodigo() == 0)
 				leitosInserir.add(l);
 			else
 				leitosAlterar.add(l);
 		}	
-		inserir(leitosInserir, espaco.getCodigo());
-		alterar(leitosAlterar, espaco.getCodigo());
+		inserir(leitosInserir);
+		alterar(leitosAlterar);
 	}
 	
-	private void inserir(List<Leito> leitos, int codigo_espaco) throws Exception {
+	private void inserir(List<Leito> leitos) throws Exception {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		String sql= "INSERT INTO leito(numero, codigo_espaco, status, codigo_paciente, sujo) VALUES(?,?,?,?,?)";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -57,7 +65,7 @@ public class LeitoDAO {
         	int i = 0;
         	for (Leito leito : leitos) {
         		ps.setInt(1, leito.getNumero());
-        		ps.setInt(2, codigo_espaco);
+        		ps.setInt(2, leito.getEspaco().getCodigo());
         		ps.setBoolean(3, leito.isStatus());
         		if(leito.getPaciente() != null)
         			ps.setInt(4, leito.getPaciente().getCodigo());
@@ -78,7 +86,7 @@ public class LeitoDAO {
 		}         
 	}
 	
-	private void alterar(List<Leito> leitos, int codigo_espaco) throws Exception {
+	private void alterar(List<Leito> leitos) throws Exception {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		String sql= "UPDATE leito SET numero=?, codigo_espaco=?, status=?, codigo_paciente=?, sujo=? WHERE codigo=?";
 		PreparedStatement ps = conexao.prepareStatement(sql);
@@ -86,7 +94,7 @@ public class LeitoDAO {
         	int i = 0;
         	for (Leito leito : leitos) { 
         		ps.setInt(1, leito.getNumero());
-        		ps.setInt(2, codigo_espaco);
+        		ps.setInt(2, leito.getEspaco().getCodigo());
         		ps.setBoolean(3, leito.isStatus());
         		if(leito.getPaciente() != null)
         			ps.setInt(4, leito.getPaciente().getCodigo());
@@ -220,7 +228,7 @@ public class LeitoDAO {
 
 	public List<Leito> getLeitosLivres(Espaco espaco) throws Exception {
 		if(espaco != null && espaco.getCodigo() > 0) {
-			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL";
+			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL AND NOT sujo";
 			return consultar(consulta);
 		}
 		return null;
@@ -243,4 +251,5 @@ public class LeitoDAO {
 			return leitos.get(0);
 		return null;
 	}
+
 }

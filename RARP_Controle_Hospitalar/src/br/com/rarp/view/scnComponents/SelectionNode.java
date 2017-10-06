@@ -42,8 +42,8 @@ public class SelectionNode<T extends Node> extends FlowPane {
 		});
 	}
 	
-	public void removeSelected() {
-		selectionModel.getItems().remove(selectionModel.getSelectedItem());
+	public void removeSelecteds() {
+		selectionModel.clearSelecteds();
 	}
 	
 	public boolean isEditable() {
