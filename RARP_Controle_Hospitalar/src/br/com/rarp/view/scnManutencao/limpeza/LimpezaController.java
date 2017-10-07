@@ -3,7 +3,9 @@ package br.com.rarp.view.scnManutencao.limpeza;
 import java.time.format.DateTimeFormatter;
 
 import br.com.rarp.control.LimpezaCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.enums.TipoCampo;
+import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.model.Limpeza;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -130,7 +132,7 @@ public class LimpezaController extends ManutencaoController {
 	@Override
 	public void inserir() {
 		try {
-			//SistemaCtrl.getInstance().liberarControleAtendimento(TipoMovimentacao.insercao);
+			SistemaCtrl.getInstance().liberarControleLimpeza(TipoMovimentacao.insercao);
 			ControleLimpezaController controler = new ControleLimpezaController();
 			controler.inserir();
 		} catch (Exception e) {
@@ -142,7 +144,7 @@ public class LimpezaController extends ManutencaoController {
 	@Override
 	public void alterar() {
 		try {
-			//SistemaCtrl.getInstance().liberarControleAtendimento(TipoMovimentacao.alteracao);
+			SistemaCtrl.getInstance().liberarControleLimpeza(TipoMovimentacao.alteracao);
 			ControleLimpezaController controller = new ControleLimpezaController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");
@@ -160,7 +162,7 @@ public class LimpezaController extends ManutencaoController {
 	@Override
 	public void visualizar() {
 		try {
-			//SistemaCtrl.getInstance().liberarControleAtendimento(TipoMovimentacao.visualizaco);
+			SistemaCtrl.getInstance().liberarControleLimpeza(TipoMovimentacao.visualizaco);
 			ControleLimpezaController controller = new ControleLimpezaController();
 			if (tblManutencao.getSelectionModel().getSelectedItem() == null)
 				Utilitarios.erro("Nenhum registro foi selecionado");

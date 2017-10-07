@@ -91,6 +91,7 @@ public class EntradaPacienteController extends ManutencaoController {
 
 	private void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("ENT.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data da entrada", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("PAC.nome", "Nome do(a) Paciente", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("MED.nome", "Nome do(a) Médico(a)", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("ENF.nome", "Nome do(a) Enfermeiro(a)", TipoCampo.texto));
