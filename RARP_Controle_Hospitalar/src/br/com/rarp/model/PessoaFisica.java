@@ -8,6 +8,7 @@ public class PessoaFisica extends Pessoa {
 	private boolean possuiNecessidades;
 	private String certidaoNascimento;
 	private boolean compartinhaInformacoes;
+	private String SUS;
 	public boolean isCompartinhaInformacoes() {
 		return compartinhaInformacoes;
 	}
@@ -85,5 +86,13 @@ public class PessoaFisica extends Pessoa {
 		p.setStatus(isStatus());
 		p.setTelefones(getTelefones());
 		return p;
+	}
+
+	public String getSUS() {
+		return SUS;
+	}
+
+	public void setSUS(String sUS) {
+		SUS = sUS;
 	}
 }
