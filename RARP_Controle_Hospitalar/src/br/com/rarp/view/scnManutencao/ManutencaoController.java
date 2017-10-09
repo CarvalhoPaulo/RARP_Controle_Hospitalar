@@ -187,7 +187,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 			case data: 
 				txtTermoData.setVisible(true);
 				cmbTermo.setVisible(false);
-				txtTermo.setVisible(true);
+				txtTermo.setVisible(false);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
 						new Igual(),
 						new Maior(),
@@ -209,17 +209,16 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 			case booleano:
 				cmbTermo.setVisible(true);
 				txtTermo.setVisible(false);
-				cmbTermo.setVisible(false);
+				txtTermoData.setVisible(false);
 				cmbComparacao.getItems().clear();
 				cmbComparacao.getItems().add(new Ativado());
 				cmbComparacao.getSelectionModel().select(0);
-				txtTermoData.setVisible(false);
 				cmbTermo.setItems(FXCollections.observableArrayList("Ativado", "Desativado"));
 				cmbTermo.getSelectionModel().select(0);
 				break;
 			default:
 				txtTermo.setVisible(true);
-				cmbTermo.setVisible(false);
+				txtTermoData.setVisible(false);
 				cmbTermo.setVisible(false);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
 						new Igual(), 

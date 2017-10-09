@@ -257,7 +257,7 @@ public class EntradaPacienteDAO {
 	}
 
 	public List<EntradaPaciente> getEntradasAbertas() throws Exception {
-		return consultar("codigo_saida IS NULL");
+		return consultar("SAI.codigo IS NULL AND alta");
 	}
 
 	public EntradaPaciente getEntrada(int codigo) throws Exception {

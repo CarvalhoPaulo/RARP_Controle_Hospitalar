@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.LocalDateTextField?>
 
-<BorderPane fx:id="pnlPrincipal" prefHeight="474.0" prefWidth="720.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="pnlPrincipal" prefHeight="474.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <AnchorPane prefHeight="73.0" prefWidth="720.0">
+            <AnchorPane prefHeight="73.0" prefWidth="720.0" stylesheets="@../style/style.css">
                <children>
                   <AutoCompleteComboBox fx:id="cmbCampo" hideOutside="false" layoutX="8.0" layoutY="28.0" negativeIndex="false" onAction="#cmbCampoChange" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <AutoCompleteComboBox fx:id="cmbComparacao" hideOutside="false" layoutX="224.0" layoutY="32.0" negativeIndex="false" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" />
@@ -86,7 +86,7 @@
             <Insets bottom="8.0" left="8.0" />
          </padding>
          <center>
-            <TableView fx:id="tblManutencao" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblManutencao" prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin></TableView>
@@ -94,7 +94,7 @@
       </BorderPane>
    </center>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="130.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="130.0" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnInserir" contentDisplay="TOP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserir" prefHeight="60.0" text="Inserir" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>

@@ -116,7 +116,7 @@ public class SaidaPacienteDAO {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		conexao.setAutoCommit(false);
 		try {
-			String sql = "INSERT INTO entradapaciente(estadopaciente, codigo_mov, codigo_entrada, status) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO saidapaciente(estadopaciente, codigo_mov, codigo_entrada, status) VALUES(?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
