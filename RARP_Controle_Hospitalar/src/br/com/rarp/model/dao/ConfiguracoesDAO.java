@@ -27,8 +27,9 @@ public class ConfiguracoesDAO {
 		try {
 			st.executeUpdate(sql);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Falha ao criar tabela de configuraçoes");	
+			// TODO: handle exception
+			throw new Exception("Falha ao criar tabela de configuraï¿½oes");
+
 		}
 
 		String sql2 = "SELECT proname  FROM pg_proc where   proname = 'AtualizaValor'";

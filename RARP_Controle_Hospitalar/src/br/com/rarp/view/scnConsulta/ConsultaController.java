@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
+import br.com.rarp.view.scnComponents.TextFieldFormatter;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,25 +14,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ConsultaController extends Application implements Initializable {
 
-	@FXML
-    private TextField txtPesquisa;
 
-    @FXML
-    private Button btnPesquisar;
-    
-    @FXML
-    private TableView<?> tbvResultado;
+    @FXML // fx:id="txtPesquisa"
+    private TextFieldFormatter  txtPesquisa; // Value injected by FXMLLoader
 
-    @FXML
-    private TableColumn<?, ?> tbcData;
+    @FXML // fx:id="btnPesquisar"
+    private Button btnPesquisar; // Value injected by FXMLLoader
 
-    @FXML
-    private TableColumn<?, ?> tbcDescricao;
+    @FXML // fx:id="tbvResultado"
+    private TableView<?> tbvResultado; // Value injected by FXMLLoader
+
+    @FXML // fx:id="tbcData"
+    private TableColumn<?, ?> tbcData; // Value injected by FXMLLoader
+
+    @FXML // fx:id="tbcDescricao"
+    private TableColumn<?, ?> tbcDescricao; // Value injected by FXMLLoader
     
     @FXML
     private Button btnVoltar;
@@ -38,14 +40,19 @@ public class ConsultaController extends Application implements Initializable {
     @FXML
     private Button btnImprimir;
     
+    @FXML
+    private AutoCompleteComboBox<String> cmbTipoDocumento;
+     
     private static Stage stage;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
 		primaryStage = SistemaCtrl.getInstance().getStage();
 																	 
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ConsultaOnline.fxml"))));
@@ -55,12 +62,23 @@ public class ConsultaController extends Application implements Initializable {
 		
 	}
 	
-	@SuppressWarnings("static-access")
 	public void abrir() {
 		try {
 			start(this.stage);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	@FXML 
+	private void consultar() {
+
+	}
+	
+	@FXML
+	private void tipoDocumentoChange() {
+		if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 0) {
+			
 		}
 	}
 	
@@ -70,6 +88,7 @@ public class ConsultaController extends Application implements Initializable {
 			if (stage !=  null)
 					stage.hide();
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
