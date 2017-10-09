@@ -2,6 +2,7 @@ package br.com.rarp.view.scnManutencao;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.interfaces.Manutencao;
@@ -32,6 +33,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import jfxtras.scene.control.LocalDateTextField;
 
 public abstract class ManutencaoController implements Initializable, Manutencao {
 	
@@ -70,9 +72,27 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 	
 	@FXML
 	protected ComboBox<String> cmbTermo;
+	
+	@FXML
+    private LocalDateTextField txtTermoData;
 
 	@FXML
 	private BorderPane pnlPrincipal;
+	
+	protected void configurarTermo() {
+		switch (cmbCampo.getValue().getTipo()) {
+		case booleano:
+			txtTermo.setText(cmbTermo.getValue());
+			break;
+			
+		case data:
+			txtTermo.setText(txtTermoData.getLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
+			break;
+
+		default:
+			return;
+		}
+	}
 
 	public ManutencaoController() {
 		FXMLLoader loader = new FXMLLoader();
@@ -164,19 +184,19 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 				&& cmbTermo != null && txtTermo != null 
 				&& cmbComparacao != null) {
 			switch (cmbCampo.getSelectionModel().getSelectedItem().getTipo()) {
-			case texto: 
+			case data: 
+				txtTermoData.setVisible(true);
 				cmbTermo.setVisible(false);
-				txtTermo.setVisible(true);
+				txtTermo.setVisible(false);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
-						new Igual(), 
-						new Contem(), 
-						new Iniciado(), 
-						new Terminado()));
-				cmbComparacao.getSelectionModel().select(0);
+						new Igual(),
+						new Maior(),
+						new Menor()));
 				break;
 			case numerico:
-				cmbTermo.setVisible(false);
 				txtTermo.setVisible(true);
+				cmbTermo.setVisible(false);
+				txtTermoData.setVisible(false);
 				cmbComparacao.setItems(FXCollections.observableArrayList(
 						new Igual(), 
 						new Contem(), 
@@ -186,14 +206,26 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 						new Maior()));
 				cmbComparacao.getSelectionModel().select(0);
 				break;
-			case booleano: 
+			case booleano:
+				cmbTermo.setVisible(true);
+				txtTermo.setVisible(false);
+				txtTermoData.setVisible(false);
 				cmbComparacao.getItems().clear();
 				cmbComparacao.getItems().add(new Ativado());
 				cmbComparacao.getSelectionModel().select(0);
-				cmbTermo.setVisible(true);
-				txtTermo.setVisible(false);
 				cmbTermo.setItems(FXCollections.observableArrayList("Ativado", "Desativado"));
 				cmbTermo.getSelectionModel().select(0);
+				break;
+			default:
+				txtTermo.setVisible(true);
+				txtTermoData.setVisible(false);
+				cmbTermo.setVisible(false);
+				cmbComparacao.setItems(FXCollections.observableArrayList(
+						new Igual(), 
+						new Contem(), 
+						new Iniciado(), 
+						new Terminado()));
+				cmbComparacao.getSelectionModel().select(0);
 				break;
 			}
 		}

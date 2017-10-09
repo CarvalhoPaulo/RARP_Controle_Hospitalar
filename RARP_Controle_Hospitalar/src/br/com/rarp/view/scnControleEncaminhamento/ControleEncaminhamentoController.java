@@ -262,8 +262,10 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		encaminhamentoCtrl.getEncaminhamento().setHrMovimentacao(txtHora.getLocalTime());
 		encaminhamentoCtrl.getEncaminhamento().setEntradaPaciente(cmbEntradaPaciente.getValue());
 		encaminhamentoCtrl.getEncaminhamento().setCodigo(txtCodigo.getValue());
-		encaminhamentoCtrl.getEncaminhamento().setDestino(pnlDestino.getValue().getLeito());
-		encaminhamentoCtrl.getEncaminhamento().setOrigem(pnlOrigem.getValue().getLeito());
+		if(pnlDestino.getValue() != null)
+			encaminhamentoCtrl.getEncaminhamento().setDestino(pnlDestino.getValue().getLeito());
+		if(pnlOrigem.getValue() != null)
+			encaminhamentoCtrl.getEncaminhamento().setOrigem(pnlOrigem.getValue().getLeito());
 		encaminhamentoCtrl.getEncaminhamento().setStatus(sbAtivado.getValue());
 		encaminhamentoCtrl.getEncaminhamento().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}

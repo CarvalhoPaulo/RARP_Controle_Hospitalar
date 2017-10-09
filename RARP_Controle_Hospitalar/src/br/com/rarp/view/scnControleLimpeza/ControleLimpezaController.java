@@ -37,6 +37,7 @@ public class ControleLimpezaController extends Application implements Initializa
 	private static Stage stage;
 
 	private static LimpezaCtrl limpezaCtrl;
+	private static LimpezaCtrl limpezaCtrlAnt;
 	private static boolean visualizando;
 
     @FXML
@@ -117,6 +118,7 @@ public class ControleLimpezaController extends Application implements Initializa
 		txtCodigo.setDisable(true);
 		txtData.setValue(LocalDate.now());
 		txtHora.setLocalTime(LocalTime.now());
+		limpezaCtrlAnt = new LimpezaCtrl();
 		
 		cmbEspaco.setOnAction((vent) -> {
 			if(cmbEspaco.getValue() != null 
@@ -125,6 +127,16 @@ public class ControleLimpezaController extends Application implements Initializa
 				for (Leito leito: cmbEspaco.getValue().getLeitos()) {
 					if(leito.isSujo()) {
 						ImageCard img = new ImageCard();
+						img.setLeito(leito);
+						img.getPathImage().set(getClass().getResource("../img/leitoSujo.png").toString());
+						pnlLeitos.getItems().add(img);
+					} else if(!leito.isSujo() 
+							&& limpezaCtrl != null 
+							&& limpezaCtrl.getLimpeza() != null 
+							&& limpezaCtrl.getLimpeza().getLeitos() != null 
+							&& limpezaCtrl.getLimpeza().getLeitos().contains(leito)) {
+						ImageCard img = new ImageCard();
+						leito.setSujo(true);
 						img.setLeito(leito);
 						img.getPathImage().set(getClass().getResource("../img/leitoSujo.png").toString());
 						pnlLeitos.getItems().add(img);
@@ -177,21 +189,28 @@ public class ControleLimpezaController extends Application implements Initializa
 
 	@FXML
 	private void salvar(ActionEvent event) {
-		preencherObjeto();
 		try {
-			if (limpezaCtrl.salvar()) {
-				Utilitarios.message("Atendimento salvo com sucesso.");
+			if(limpezaCtrl != null && limpezaCtrl.getLimpeza() != null && limpezaCtrlAnt.getLimpeza() == null) {				
+				limpezaCtrlAnt.novaLimpeza();
+				for(Leito l: limpezaCtrl.getLimpeza().getLeitos())
+					limpezaCtrlAnt.getLimpeza().getLeitos().add(l.clone());
+			}
+			preencherObjeto();
+			if (limpezaCtrl.salvar(limpezaCtrlAnt)) {
+				Utilitarios.message("Limpeza salva com sucesso.");
 				limparCampos();
 			}
 			voltar(new ActionEvent());
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descrição: " + e.getMessage());
 		}
+		limpezaCtrl = null;
 	}
 
 	@FXML
 	private void voltar(ActionEvent event) {
 		limpezaCtrl = null;
+		limpezaCtrlAnt = null;
 		stage.hide();
 		visualizando = false;
 	}
@@ -206,6 +225,10 @@ public class ControleLimpezaController extends Application implements Initializa
 		limpezaCtrl.getLimpeza().setCodigo(txtCodigo.getValue());
 		limpezaCtrl.getLimpeza().setDtMovimentacao(txtData.getValue());
 		limpezaCtrl.getLimpeza().setHrMovimentacao(txtHora.getLocalTime());
+		limpezaCtrl.getLimpeza().getLeitos().clear();
+		for(ImageCard img : pnlLeitos.getSelectionModel().getSelectedItems())
+			limpezaCtrl.getLimpeza().getLeitos().add(img.getLeito());
+		limpezaCtrl.getLimpeza().setFuncionarioLimpeza(cmbFuncionarioLimpeza.getValue());
 		limpezaCtrl.getLimpeza().setStatus(sbAtivado.getValue());
 	}
 
@@ -215,6 +238,16 @@ public class ControleLimpezaController extends Application implements Initializa
 			txtData.setValue(limpezaCtrl.getLimpeza().getDtMovimentacao());
 		if(limpezaCtrl.getLimpeza().getHrMovimentacao() != null)
 			txtHora.setLocalTime(limpezaCtrl.getLimpeza().getHrMovimentacao());
+		cmbFuncionarioLimpeza.setValue(limpezaCtrl.getLimpeza().getFuncionarioLimpeza());
+		if(limpezaCtrl.getLimpeza().getLeitos().size() > 0) {
+			cmbEspaco.getSelectionModel().select(limpezaCtrl.getLimpeza().getLeitos().get(0).getEspaco());
+			cmbEspaco.fireEvent(new ActionEvent());
+			for(Leito l: limpezaCtrl.getLimpeza().getLeitos()) {
+				ImageCard img = new ImageCard();
+				img.setLeito(l);
+				pnlLeitos.getSelectionModel().select(img);
+			}
+		}
 		sbAtivado.setValue(limpezaCtrl.getLimpeza().isStatus());
 	}
 }

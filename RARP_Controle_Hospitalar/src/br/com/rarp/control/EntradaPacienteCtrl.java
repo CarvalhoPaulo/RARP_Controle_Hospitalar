@@ -6,6 +6,7 @@ import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.bo.EntradaPacienteBusiness;
+import br.com.rarp.model.dao.EntradaPacienteDAO;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Maior;
@@ -77,6 +78,10 @@ public class EntradaPacienteCtrl {
 
 	public List<EntradaPaciente> getEntradasPaciente() throws Exception {
 		return consultar(new Campo("ENT.codigo", "", TipoCampo.texto), new Maior(), "0");
+	}
+
+	public List<EntradaPaciente> getEntradasAbertas() throws Exception {
+		return new EntradaPacienteDAO().getEntradasAbertas();
 	}
 
 }

@@ -185,7 +185,7 @@
 												<Insets top="8.0" />
 											</GridPane.margin>
                                  <content>
-                                    <SelectionNode fx:id="pnlLeitos" columnHalignment="CENTER" prefHeight="400.0" prefWidth="532.0" prefWrapLength="532.0" stylesheets="@../scnComponents/selection.css">
+                                    <SelectionNode fx:id="pnlLeitos" columnHalignment="CENTER" multipleSelection="true" prefHeight="400.0" prefWidth="532.0" prefWrapLength="532.0">
                                     </SelectionNode>
                                  </content>
 										</ScrollPane>

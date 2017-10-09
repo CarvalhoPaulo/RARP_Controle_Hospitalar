@@ -256,4 +256,17 @@ public class EntradaPacienteDAO {
 		return new ArrayList<>();
 	}
 
+	public List<EntradaPaciente> getEntradasAbertas() throws Exception {
+		return consultar("SAI.codigo IS NULL AND alta");
+	}
+
+	public EntradaPaciente getEntrada(int codigo) throws Exception {
+		if(codigo > 0) {
+			List<EntradaPaciente> entradaPacientes = consultar("ENT.codigo = " + codigo);
+			if(entradaPacientes.size() > 0)
+				entradaPacientes.get(0);
+		}
+		return null;
+	}
+
 }

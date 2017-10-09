@@ -74,6 +74,8 @@ public class CadastroEspacoController extends Application implements Initializab
 	private void adicionar(ActionEvent event) {
 		ImageCard imageCard = new ImageCard();
 		imageCard.getPathImage().set(getClass().getResource("../img/patient128x128.png").toString());
+		if(txtNumeroLeito.getText().isEmpty())
+			txtNumeroLeito.setText("1");
 		imageCard.setLeito(new Leito(Utilitarios.strToInt(txtNumeroLeito.getText(), 1)));
 		if(pnlLeitos.getItems().contains(imageCard))
 			Utilitarios.atencao("Este leito ja foi inserido");
@@ -85,14 +87,16 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@FXML
 	private void remover(ActionEvent event) {
-		if(Utilitarios.pergunta("Tem certeza que deseja remover esse leito?"))
-			pnlLeitos.removeSelected();
+		if(Utilitarios.pergunta("Tem certeza que deseja remover esses leitos?"))
+			pnlLeitos.removeSelecteds();
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		stage.setMinWidth(695);
+		stage.setMinHeight(550);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEspaco.fxml"))));
-		stage.setTitle("Cadastro de Usuários");
+		stage.setTitle("Cadastro de Espaço");
 		setStage(stage);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -105,8 +109,6 @@ public class CadastroEspacoController extends Application implements Initializab
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(800);
-		stage.setMinHeight(550);
 	}
 
 	public Stage getStage() {
@@ -137,6 +139,7 @@ public class CadastroEspacoController extends Application implements Initializab
 			bloquearTela();
 		pnlLeitos.prefWidthProperty().bind(sclLeitos.prefWidthProperty());
 		pnlLeitos.prefHeightProperty().bind(sclLeitos.prefHeightProperty());
+		pnlLeitos.prefWrapLengthProperty().bind(sclLeitos.prefWidthProperty());
 	}
 
 	private void bloquearTela() {

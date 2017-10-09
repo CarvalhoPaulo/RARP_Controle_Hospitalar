@@ -27,6 +27,7 @@ import br.com.rarp.view.scnManutencao.limpeza.LimpezaController;
 import br.com.rarp.view.scnManutencao.medico.MedicoController;
 import br.com.rarp.view.scnManutencao.paciente.PacienteController;
 import br.com.rarp.view.scnManutencao.perfilUsuario.PerfilUsuarioController;
+import br.com.rarp.view.scnManutencao.saida.SaidaController;
 import br.com.rarp.view.scnManutencao.usuario.UsuarioController;
 import br.com.rarp.view.scnOpcoes.OpcoesController;
 import br.com.rarp.view.scnSplash.SplashController;
@@ -462,7 +463,16 @@ public class MainController extends Application implements Initializable {
 
     @FXML
     void controlarSaida(ActionEvent event) {
-
+    	try {
+			SistemaCtrl.getInstance().liberarControleSaida(TipoMovimentacao.acesso);
+			manutencao = new SaidaController();
+			pnMain.setCenter(manutencao.getNode());
+			focarToolBar(false);
+			manutencao.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
 	@FXML
