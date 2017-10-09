@@ -18,74 +18,83 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroMedico.CadastroMedicoController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroMedico.CadastroMedicoController">
 	<children>
-		<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="595.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+		<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane prefHeight="477.0" prefWidth="461.0" BorderPane.alignment="CENTER">
+				<AnchorPane BorderPane.alignment="CENTER">
 					<BorderPane.margin>
 						<Insets />
 					</BorderPane.margin>
 					<children>
-						<Label layoutY="14.0" text="Código" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<Label layoutY="14.0" text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="txtCodigo" editable="false" layoutY="36.0" prefHeight="25.0" prefWidth="115.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" editable="false" layoutY="36.0" prefHeight="30.0" prefWidth="106.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</IntegerTextField>
-						<Label layoutY="69.0" text="Funcionário" AnchorPane.topAnchor="58.0">
+						<Label layoutY="174.0" text="Especialidades:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<font>
 								<Font name="System Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label layoutY="120.0" text="CRM" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
-							<font>
-								<Font name="System Bold" size="14.0" />
-							</font>
-						</Label>
-						<Label layoutY="174.0" text="Especialidades" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="174.0">
-							<font>
-								<Font name="System Bold" size="14.0" />
-							</font>
-						</Label>
-						<TableView fx:id="tbvEspecialidades" layoutY="239.0" prefHeight="200.0" prefWidth="387.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="232.0">
-							<columns>
-								<TableColumn fx:id="tbcNome" prefWidth="478.0" text="Especialidas" />
-							</columns>
-						</TableView>
-						<Label layoutX="373.0" layoutY="16.0" prefWidth="72.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<Label layoutX="373.0" layoutY="16.0" prefHeight="20.0" prefWidth="67.0" text="Ativado:" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<SwitchButton fx:id="swStatus" layoutX="360.0" layoutY="36.0" value="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-						<AutoCompleteComboBox fx:id="cmbFuncionario" layoutX="259.0" layoutY="88.0" style="-fx-font-size: 14;" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0" />
-						<GridPane layoutX="9.0" layoutY="129.0" prefHeight="30.0" prefWidth="455.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+						<SwitchButton fx:id="swStatus" layoutX="360.0" layoutY="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+						<GridPane layoutX="9.0" layoutY="129.0" prefHeight="30.0" prefWidth="455.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
 							<columnConstraints>
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="111.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="353.0" />
 							</columnConstraints>
 							<rowConstraints>
-								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
 							</rowConstraints>
 							<children>
 								<AnchorPane prefHeight="30.0" prefWidth="85.0">
                            <children>
-            						<TextFieldFormatter fx:id="txtCRM" caracteresValidos="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" layoutX="1.0" layoutY="4.0" mask="UU-#######" promptText="GO-999999" AnchorPane.leftAnchor="0.0" />
+            						<TextFieldFormatter fx:id="txtCRM" caracteresValidos="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" layoutX="1.0" layoutY="4.0" mask="UU-#######" promptText="GO-999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextFieldFormatter>
+            						<Label layoutX="-2.0" layoutY="4.0" text="CRM:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            							<font>
+            								<Font name="System Bold" size="14.0" />
+            							</font>
+            						</Label>
                            </children>
 								</AnchorPane>
-								<AnchorPane prefHeight="30.0" prefWidth="260.0" GridPane.columnIndex="1" />
+								<AnchorPane prefHeight="30.0" prefWidth="260.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label layoutY="28.0" text="Funcionário:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <AutoCompleteComboBox fx:id="cmbFuncionario" layoutX="78.0" layoutY="23.0" style="-fx-font-size: 14;" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="24.0" />
+                              <Button layoutX="326.0" layoutY="31.0" minWidth="36.0" mnemonicParsing="false" onAction="#inserirFuncionario" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/add%20(1).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children></AnchorPane>
 							</children>
 						</GridPane>
-						<GridPane layoutX="112.0" layoutY="163.0" prefHeight="30.0" prefWidth="276.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0">
+						<GridPane layoutX="112.0" layoutY="163.0" prefHeight="30.0" prefWidth="276.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
 							<columnConstraints>
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="390.0" />
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="44.0" />
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="45.0" />
+								<ColumnConstraints hgrow="SOMETIMES" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -93,7 +102,16 @@
 							<children>
 								<AnchorPane prefHeight="30.0" prefWidth="380.0">
 									<children>
-										<AutoCompleteComboBox fx:id="cmbEspecialidades" prefHeight="30.0" prefWidth="266.0" style="-fx-font-size: 14;" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+										<AutoCompleteComboBox fx:id="cmbEspecialidades" prefHeight="30.0" prefWidth="266.0" style="-fx-font-size: 14;" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0" />
+                              <Button layoutX="343.0" layoutY="-3.0" minWidth="36.0" mnemonicParsing="false" onAction="#inserirEspecialidade" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/add%20(1).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
 									</children>
 								</AnchorPane>
 								<AnchorPane prefHeight="30.0" prefWidth="61.0" GridPane.columnIndex="1">
@@ -124,12 +142,17 @@
 								</AnchorPane>
 							</children>
 						</GridPane>
+						<TableView fx:id="tbvEspecialidades" layoutY="239.0" prefHeight="200.0" prefWidth="387.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="174.0">
+							<columns>
+								<TableColumn fx:id="tbcNome" prefWidth="478.0" text="Especialidade" />
+							</columns>
+						</TableView>
 
 					</children>
 				</AnchorPane>
 			</center>
 			<right>
-				<AnchorPane focusTraversable="true" prefWidth="116.0" BorderPane.alignment="CENTER">
+				<AnchorPane focusTraversable="true" BorderPane.alignment="CENTER">
 					<children>
 						<ImageView fitHeight="108.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<image>

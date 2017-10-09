@@ -13,6 +13,7 @@ import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Leito;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.ImageCard;
 import br.com.rarp.view.scnComponents.IntegerTextField;
@@ -66,6 +67,17 @@ public class ControleLimpezaController extends Application implements Initializa
 
     @FXML
     private Button btnVoltar;
+    
+    @FXML
+    void inserirFuncionario(ActionEvent event) {
+    	try {
+			new CadastroFuncionarioController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
 
 	@Override
 	public void start(Stage stage) throws Exception {

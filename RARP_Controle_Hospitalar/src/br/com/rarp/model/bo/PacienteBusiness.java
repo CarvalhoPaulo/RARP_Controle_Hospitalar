@@ -29,4 +29,8 @@ public class PacienteBusiness {
 		}
 	}
 
+	public List<Paciente> getPacientesSemResponsavel() throws Exception {
+		return new PacienteDAO().getPacientesSemResponsavel();
+	}
+
 }

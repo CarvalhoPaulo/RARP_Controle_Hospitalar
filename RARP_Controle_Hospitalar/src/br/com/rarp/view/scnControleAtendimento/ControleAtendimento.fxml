@@ -28,8 +28,9 @@
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="391.0" prefWidth="523.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="font" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+				<AnchorPane fx:id="pnlPrincipal" prefHeight="200.0" prefWidth="200.0" styleClass="font" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
 					<children>
+                  <AutoCompleteComboBox fx:id="cmbStatusAtendimento" focusTraversable="false" layoutX="109.0" layoutY="27.0" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="24.0" />
 						<Label text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
@@ -46,7 +47,7 @@
 							</font>
 						</Label>
 						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="262.0" layoutY="43.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                  <TabPane layoutX="2.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+                  <TabPane fx:id="tbpAtendimento" layoutX="2.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
                     <tabs>
                       <Tab text="Agendamento">
                         <content>
@@ -84,12 +85,21 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                                              <children>
-                                                <AutoCompleteComboBox fx:id="cmbFuncionario" layoutX="23.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+                                                <AutoCompleteComboBox fx:id="cmbFuncionario" layoutX="23.0" layoutY="38.0" styleClass="font" stylesheets="@../style/style.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="24.0" />
                                                 <Label layoutX="23.0" layoutY="14.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Funcionario(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
+                                                <Button focusTraversable="false" layoutX="202.0" layoutY="24.0" minWidth="36.0" mnemonicParsing="false" onAction="#inserirFuncionario" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../img/add%20(1).png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -158,6 +168,27 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <AutoCompleteComboBox fx:id="cmbEntradaPaciente" layoutY="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="24.0" />
+                                                <TextArea fx:id="txtReceita" layoutX="6.0" layoutY="100.0" prefHeight="151.0" prefWidth="334.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0" />
+                                                <Label layoutY="73.0" text="Receita:" AnchorPane.topAnchor="58.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutY="6.0" text="Entrada de paciente:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Button focusTraversable="false" minWidth="36.0" mnemonicParsing="false" onAction="#inserirEntrada" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../img/add%20(1).png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
                                           <GridPane GridPane.columnIndex="1">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -214,18 +245,6 @@
                                                 </AnchorPane>
                                              </children>
                                           </GridPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                             <children>
-                                                <Label layoutY="73.0" text="Receita:" AnchorPane.topAnchor="58.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextArea fx:id="txtReceita" layoutX="6.0" layoutY="100.0" prefHeight="151.0" prefWidth="334.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0" />
-                                                <Label layoutY="6.0" text="Entrada de paciente:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <AutoCompleteComboBox fx:id="cmbEntradaPaciente" layoutY="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                                             </children>
-                                          </AnchorPane>
                                        </children>
                                     </GridPane>
                                     <GridPane prefHeight="231.0" prefWidth="537.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="259.0">
@@ -265,7 +284,6 @@
                       </Tab>
                     </tabs>
                   </TabPane>
-                  <AutoCompleteComboBox fx:id="cmbStatusAtendimento" layoutX="109.0" layoutY="27.0" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="24.0" />
                   <Label layoutX="124.0" text="Estado do atendimento:" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />

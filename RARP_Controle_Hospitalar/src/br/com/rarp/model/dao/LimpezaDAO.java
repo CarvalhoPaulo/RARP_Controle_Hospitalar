@@ -131,9 +131,6 @@ public class LimpezaDAO {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		conexao.setAutoCommit(false);
 		try {
-			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
-    		movimentacaoDAO.salvar(conexao, limpeza);
-    		
     		for(Leito l : limpezaAnt.getLeitos())
     			new LeitoDAO().salvar(conexao, l);
     		
@@ -154,6 +151,10 @@ public class LimpezaDAO {
 			ps.executeUpdate();
 			ps.close();	
 			salvarLeitosLimpeza(conexao, limpeza);
+			
+			limpeza.setCodigo(SQLDAO.getCodigoMovimentacao("limpeza", limpeza.getCodigo()));
+			if(limpeza.getCodigo() > 0)
+				new MovimentacaoDAO().salvar(conexao, limpeza);
 			
 			conexao.commit();
 		} catch (Exception e) {

@@ -192,6 +192,7 @@ public abstract class ManutencaoController implements Initializable, Manutencao 
 						new Igual(),
 						new Maior(),
 						new Menor()));
+				cmbComparacao.getSelectionModel().select(0);
 				break;
 			case numerico:
 				txtTermo.setVisible(true);

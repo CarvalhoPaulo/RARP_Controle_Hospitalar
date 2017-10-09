@@ -1,5 +1,7 @@
 package br.com.rarp.control;
 
+import java.util.List;
+
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.model.bo.PacienteBusiness;
@@ -66,6 +68,10 @@ public class PacienteCtrl {
 		PacienteBusiness pacienteBusiness = new PacienteBusiness();
 		return FXCollections.observableList(
 				pacienteBusiness.consultar("PAC.codigo",  " > ", "0"));
+	}
+
+	public List<Paciente> getPacientesSemResponsavel() throws Exception {
+		return new PacienteBusiness().getPacientesSemResponsavel();
 	}
 
 }

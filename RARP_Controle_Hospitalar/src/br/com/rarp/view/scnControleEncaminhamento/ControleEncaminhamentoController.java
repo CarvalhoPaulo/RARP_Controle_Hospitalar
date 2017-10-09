@@ -13,6 +13,7 @@ import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Leito;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.ImageCard;
 import br.com.rarp.view.scnComponents.IntegerTextField;
@@ -92,6 +93,18 @@ public class ControleEncaminhamentoController extends Application implements Ini
 		stage.setMinWidth(650);
 		stage.setMinHeight(500);
 	}
+	
+
+    @FXML
+    void inserirEspaco(ActionEvent event) {
+    	try {
+			new CadastroEspacoController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um espaço.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
 
 	public Stage getStage() {
 		return stage;

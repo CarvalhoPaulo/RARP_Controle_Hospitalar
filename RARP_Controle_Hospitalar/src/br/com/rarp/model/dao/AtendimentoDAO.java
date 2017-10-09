@@ -113,6 +113,10 @@ public class AtendimentoDAO {
     		ps.setBoolean(11, a.isStatus());
     		ps.setInt(12, a.getCodigo());
     		ps.addBatch();
+    		
+    		a.setCodigo(SQLDAO.getCodigoMovimentacao("atendimento", a.getCodigo()));
+			if(a.getCodigo() > 0)
+				new MovimentacaoDAO().salvar(connection, a);
             i++;
             if (i == atendimentos.size()) {
             	ps.executeBatch();

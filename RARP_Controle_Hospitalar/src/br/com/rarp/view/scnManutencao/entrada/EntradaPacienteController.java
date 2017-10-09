@@ -26,8 +26,8 @@ public class EntradaPacienteController extends ManutencaoController {
 	@Override
 	public void prepararTela() throws Exception {
 		getLblTitle().setText("Controle de Entrada de Pacientes");
-		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
-		getLblTitle().setStyle("-fx-background-color: #006F4C;"
+		getLblTitle().setTextFill(Paint.valueOf("#000000"));
+		getLblTitle().setStyle("-fx-background-color: #FFD700;"
 				+ "-fx-font-weight: bold;"
 				+ "-fx-color: white");
 		

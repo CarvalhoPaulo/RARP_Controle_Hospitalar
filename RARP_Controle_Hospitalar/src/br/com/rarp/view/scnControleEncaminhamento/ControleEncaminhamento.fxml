@@ -40,52 +40,6 @@
 							</font>
 						</Label>
 						<SwitchButton fx:id="sbAtivado" focusTraversable="false" layoutX="262.0" layoutY="43.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                  <GridPane layoutX="65.0" layoutY="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="174.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <children>
-                              <Label layoutX="1.0" layoutY="4.0" styleClass="obrigatorio" text="Origem(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <ScrollPane layoutX="10.0" layoutY="34.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
-                                 <content>
-                                    <SelectionNode fx:id="pnlOrigem" prefHeight="292.0" prefWidth="228.0" />
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <Label layoutX="10.0" styleClass="obrigatorio" text="Destino(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0" />
-                              <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-                                 <content>
-                                    <SelectionNode fx:id="pnlDestino" prefHeight="292.0" prefWidth="227.0" />
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <AutoCompleteComboBox fx:id="cmbOrigem" layoutX="3.0" layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0" />
-                              <Label layoutY="6.0" text="Espaço origem:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <AutoCompleteComboBox fx:id="cmbDestino" layoutX="5.0" layoutY="29.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-                              <Label layoutX="4.0" layoutY="6.0" text="Espaço destino:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-                  <AutoCompleteComboBox fx:id="cmbEntradaPaciente" layoutY="91.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0" />
-                  <Label layoutY="61.0" styleClass="obrigatorio" text="Entrada de Paciente(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0" />
                   <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="234.0" />
@@ -113,6 +67,61 @@
                                  </font>
                               </Label>
                               <LocalTimeTextField fx:id="txtHora" layoutX="14.0" layoutY="32.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </GridPane>
+                  <AutoCompleteComboBox fx:id="cmbEntradaPaciente" layoutY="91.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0" />
+                  <Label layoutY="61.0" styleClass="obrigatorio" text="Entrada de Paciente(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0" />
+                  <GridPane layoutX="65.0" layoutY="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="174.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="58.0" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <AutoCompleteComboBox fx:id="cmbOrigem" layoutX="3.0" layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0" />
+                              <Label layoutY="6.0" text="Espaço origem:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <AutoCompleteComboBox fx:id="cmbDestino" layoutX="5.0" layoutY="29.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="24.0" />
+                              <Label layoutX="4.0" layoutY="6.0" text="Espaço destino:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0" />
+                              <Button minWidth="36.0" mnemonicParsing="false" onAction="#inserirEspaco" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/add%20(1).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label layoutX="1.0" layoutY="4.0" styleClass="obrigatorio" text="Origem(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ScrollPane layoutX="10.0" layoutY="34.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
+                                 <content>
+                                    <SelectionNode fx:id="pnlOrigem" prefHeight="292.0" prefWidth="228.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label layoutX="10.0" styleClass="obrigatorio" text="Destino(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0" />
+                              <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                                 <content>
+                                    <SelectionNode fx:id="pnlDestino" prefHeight="292.0" prefWidth="227.0" />
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </AnchorPane>
                      </children>

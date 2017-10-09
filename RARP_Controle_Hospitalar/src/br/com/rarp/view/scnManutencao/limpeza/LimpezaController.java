@@ -26,7 +26,7 @@ public class LimpezaController extends ManutencaoController {
 	public void prepararTela() {
 		getLblTitle().setText("Controle de limpeza");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
-		getLblTitle().setStyle("-fx-background-color: #8F929C;"
+		getLblTitle().setStyle("-fx-background-color: #00008B;"
 				+ "-fx-font-weight: bold");
 
 		TableColumn<Limpeza, String> codigo = new TableColumn<>("Código");
@@ -112,6 +112,7 @@ public class LimpezaController extends ManutencaoController {
 
 	public void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("LIM.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("LIM.status", "Ativado", TipoCampo.booleano));
 	}
 

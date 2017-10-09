@@ -113,6 +113,9 @@ public class EntradaPacienteDAO {
 			ps.setBoolean(8, entradaPaciente.isStatus());	
 			ps.setInt(9, entradaPaciente.getCodigo());
 			ps.executeUpdate();
+			entradaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao("entradapaciente", entradaPaciente.getCodigo()));
+			if(entradaPaciente.getCodigo() > 0)
+				new MovimentacaoDAO().salvar(conexao, entradaPaciente);
 			ps.close();
 			conexao.commit();
 		} catch (Exception e) {
@@ -264,7 +267,7 @@ public class EntradaPacienteDAO {
 		if(codigo > 0) {
 			List<EntradaPaciente> entradaPacientes = consultar("ENT.codigo = " + codigo);
 			if(entradaPacientes.size() > 0)
-				entradaPacientes.get(0);
+				return entradaPacientes.get(0);
 		}
 		return null;
 	}

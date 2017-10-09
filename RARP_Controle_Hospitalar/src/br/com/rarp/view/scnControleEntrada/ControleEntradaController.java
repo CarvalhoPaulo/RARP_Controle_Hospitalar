@@ -18,6 +18,9 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
+import br.com.rarp.view.scnCadastroMedico.CadastroMedicoController;
+import br.com.rarp.view.scnCadastroPaciente.CadastroPacienteController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
@@ -130,6 +133,39 @@ public class ControleEntradaController extends Application implements Initializa
     private Label lblPaciente;
     
     @FXML
+    void inserirFuncionario(ActionEvent event) {
+    	try {
+			new CadastroFuncionarioController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			e.printStackTrace();
+		}  	
+    }
+
+    @FXML
+    void inserirMedico(ActionEvent event) {
+    	try {
+			new CadastroMedicoController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um médico.\n" + e.getMessage());
+			e.printStackTrace();
+		}  	
+    }
+
+    @FXML
+    void inserirPaciente(ActionEvent event) {
+    	try {
+			new CadastroPacienteController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um paciente.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
+    
+    @FXML
     void inserirAtendimento(ActionEvent event) throws Exception {
     	if(cmbMedico.getValue() == null) {
     		Utilitarios.atencao("Para inserir um atendimento é necessário selecionar um médico.");
@@ -223,8 +259,8 @@ public class ControleEntradaController extends Application implements Initializa
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(755);
-		stage.setMinHeight(550);
+		stage.setMinWidth(800);
+		stage.setMinHeight(600);
 	}
 	
 	@FXML

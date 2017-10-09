@@ -10,6 +10,8 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Especialidade;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController;
+import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import br.com.rarp.view.scnComponents.TextFieldFormatter;
@@ -72,37 +74,56 @@ public class CadastroMedicoController extends Application implements Initializab
 		stage.setResizable(false);
 		stage.showAndWait();
 	}
+	
+    @FXML
+    void inserirFuncionario(ActionEvent event) {
+    	try {
+			new CadastroFuncionarioController().inserir();
+			preencherTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			e.printStackTrace();
+		}  	
+    }
+    
+    @FXML
+    void inserirEspecialidade(ActionEvent event) {
+    	try {
+			new CadastroEspecialidadeController().inserir();
+			preencherTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir uma especialidade.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+			prepararTela();
 			preencherTela();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Utilitarios.erro("Falha ao preencher tela");
 			e.printStackTrace();
 		}
 		if (visualizando)
 			bloquearTela();
+	}
 
+	private void prepararTela() throws Exception {
+		cmbFuncionario.getItems().setAll(new FuncionarioCtrl().getFuncionarios());
+		cmbEspecialidades.getItems().setAll(new EspecialidadeCtrl().getEspecialidades());
 		tbcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		// new AutoCompleteComboBoxListener<>(cmbFuncionario);
-
 	}
 
 	private void preencherTela() throws Exception {
-		
-		cmbFuncionario.getItems().setAll(new FuncionarioCtrl().getFuncionarios());
-		cmbEspecialidades.getItems().setAll(new EspecialidadeCtrl().getEspecialidades());
 		if ((medicoCtrl != null) && (medicoCtrl.getMedico() != null)) {
 			cmbFuncionario.getSelectionModel().select(medicoCtrl.getMedico());
 			cmbEspecialidades.getSelectionModel().select(-1);
 			tbvEspecialidades.getItems().setAll(medicoCtrl.getMedico().getEspecialidades());
 			txtCRM.setText(medicoCtrl.getMedico().getCRM());
 			txtCodigo.setValue(medicoCtrl.getMedico().getCodigoMedico());
-		}
-		
-
+		}	
 	}
 
 	private void bloquearTela() {
@@ -122,6 +143,8 @@ public class CadastroMedicoController extends Application implements Initializab
 		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroMedico.fxml"))));
 		primaryStage.setTitle("Cadastro de Especialidades");
 		this.stage = primaryStage;
+		this.stage.setMinWidth(600);
+		this.stage.setMaxWidth(400);
 	}
 
 	public static boolean isVisualizando() {

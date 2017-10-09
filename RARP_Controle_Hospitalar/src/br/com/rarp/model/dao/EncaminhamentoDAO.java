@@ -53,7 +53,7 @@ public class EncaminhamentoDAO {
 		}
 	}
 
-	private void alterar(Connection connection, List<Encaminhamento> listaAlterar) throws SQLException {
+	private void alterar(Connection connection, List<Encaminhamento> listaAlterar) throws Exception {
 		String sql = "UPDATE encaminhamento SET origem_leito = ?, destino_leito = ?, status = ? WHERE codigo = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		int i = 0;
@@ -71,6 +71,10 @@ public class EncaminhamentoDAO {
 			ps.setBoolean(3, e.isStatus());
 			ps.setInt(4, e.getCodigo());
 			ps.addBatch();
+			
+			e.setCodigo(SQLDAO.getCodigoMovimentacao("encaminhamento", e.getCodigo()));
+			if(e.getCodigo() > 0)
+				new MovimentacaoDAO().salvar(connection, e);
             i++;
             if (i == listaAlterar.size()) {
             	ps.executeBatch();

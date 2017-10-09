@@ -22,6 +22,7 @@
                   <AutoCompleteComboBox fx:id="cmbCampo" hideOutside="false" layoutX="8.0" layoutY="28.0" negativeIndex="false" onAction="#cmbCampoChange" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <AutoCompleteComboBox fx:id="cmbComparacao" hideOutside="false" layoutX="224.0" layoutY="32.0" negativeIndex="false" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" />
                   <AutoCompleteComboBox fx:id="cmbTermo" hideOutside="false" layoutX="234.0" layoutY="42.0" negativeIndex="false" prefHeight="30.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0" />
+                  <LocalDateTextField fx:id="txtTermoData" layoutX="570.0" layoutY="47.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0" />
                   <TextField fx:id="txtTermo" layoutX="428.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0">
                      <font>
                         <Font size="14.0" />
@@ -54,7 +55,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <LocalDateTextField fx:id="txtTermoData" layoutX="570.0" layoutY="47.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="122.0" />
                </children>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

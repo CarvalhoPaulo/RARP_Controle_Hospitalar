@@ -18,7 +18,11 @@
 			<center>
 				<AnchorPane styleClass="font" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <children>
+                  <JFXDatePicker fx:id="txtData" layoutX="14.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
                   <JFXTimePicker fx:id="txtHoraInicial" layoutY="76.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+                  <JFXTimePicker fx:id="txtHoraFinal" layoutY="134.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="136.0" />
+                  <JFXComboBox fx:id="cmbCor" layoutX="4.0" layoutY="187.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="192.0" />
+                  <JFXTextArea fx:id="txtDescricao" layoutX="-169.0" layoutY="138.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
                   <Label layoutY="52.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Hora Inicial(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="56.0">
                      <font>
                         <Font size="14.0" />
@@ -29,8 +33,6 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTimePicker fx:id="txtHoraFinal" layoutY="134.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="136.0" />
-                  <JFXDatePicker fx:id="txtData" layoutX="14.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
                   <Label styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data do Atend. (Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />
@@ -41,13 +43,11 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="txtDescricao" layoutX="-169.0" layoutY="138.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
                   <Label layoutY="172.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Cor(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="168.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="cmbCor" layoutX="4.0" layoutY="187.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="192.0" />
                </children>
 				</AnchorPane>
 			</center>

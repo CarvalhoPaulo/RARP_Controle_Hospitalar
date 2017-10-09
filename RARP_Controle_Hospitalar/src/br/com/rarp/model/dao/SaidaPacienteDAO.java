@@ -76,10 +76,7 @@ public class SaidaPacienteDAO {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		conexao.setAutoCommit(false);
-		try {
-			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
-    		movimentacaoDAO.salvar(conexao, saidaPaciente);
-    		
+		try {    		
 			String sql = "UPDATE "
 					+ "saidapaciente "
 					+ "SET "
@@ -101,6 +98,11 @@ public class SaidaPacienteDAO {
     		ps.setInt(4, saidaPaciente.getCodigo());
 			
 			ps.executeUpdate();
+			
+			saidaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao("saidapaciente", saidaPaciente.getCodigo()));
+			if(saidaPaciente.getCodigo() > 0)
+				new MovimentacaoDAO().salvar(conexao, saidaPaciente);
+    		
 			ps.close();
 			conexao.commit();
 		} catch (Exception e) {

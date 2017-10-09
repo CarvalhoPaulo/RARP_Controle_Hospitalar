@@ -25,8 +25,8 @@ public class AtendimentoController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Controle de Atendimentos");
-		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
-		getLblTitle().setStyle("-fx-background-color: #8F929C;"
+		getLblTitle().setTextFill(Paint.valueOf("#000000"));
+		getLblTitle().setStyle("-fx-background-color: #FF4500;"
 				+ "-fx-font-weight: bold");
 
 		TableColumn<Atendimento, String> codigo = new TableColumn<>("Código");
@@ -127,6 +127,7 @@ public class AtendimentoController extends ManutencaoController {
 
 	public void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("ATE.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("ATE.status", "Ativado", TipoCampo.booleano));
 	}
 

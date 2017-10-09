@@ -16,10 +16,12 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.ReceitaMedica;
 import br.com.rarp.model.Sintoma;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import br.com.rarp.view.scnControleApontamento.ControleApontamentoController;
+import br.com.rarp.view.scnControleEntrada.ControleEntradaController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -27,15 +29,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
@@ -104,7 +109,36 @@ public class ControleAtendimentoController extends Application implements Initia
 	private Button btnVoltar;
 	
     @FXML
+    private AnchorPane pnlPrincipal;
+    
+    @FXML
+    private TabPane tbpAtendimento;
+	
+    @FXML
     private AutoCompleteComboBox<StatusAtendimento> cmbStatusAtendimento;
+    
+
+    @FXML
+    void inserirEntrada(ActionEvent event) {
+    	try {
+			new ControleEntradaController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir uma entrada.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
+
+    @FXML
+    void inserirFuncionario(ActionEvent event) {
+    	try {
+			new CadastroFuncionarioController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			e.printStackTrace();
+		}  
+    }
 
 	@FXML
 	void adicionarSintoma(MouseEvent event) {
@@ -248,6 +282,49 @@ public class ControleAtendimentoController extends Application implements Initia
 		cmbStatusAtendimento.getItems().setAll(StatusAtendimento.values());
 		cmbStatusAtendimento.getSelectionModel().select(0);
 		agdAtendimento.setSkin(new AgendaWeekSkin(agdAtendimento));
+		
+		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getTarget() != null 
+						&& event.getTarget() instanceof Node 
+						&& ((Node) event.getTarget()).getId() != null
+						&& event.getCode() == KeyCode.TAB) {
+					String id = ((Node) event.getTarget()).getId();
+					if (!event.isShiftDown()) {
+						if(id.contains("txtHoraFinal"))	{
+							tbpAtendimento.getSelectionModel().select(1);
+							cmbEntradaPaciente.requestFocus();
+						}
+						
+						if(id.contains("txtDescricao")) {
+							btnSalvar.requestFocus();
+						}
+						
+						if(id.contains("btnSalvar")) {
+							tbpAtendimento.getSelectionModel().select(0);
+							txtData.requestFocus();
+						}
+					}
+					if (event.isShiftDown()) {	
+						if(id.contains("btnSalvar")) {
+							tbpAtendimento.getSelectionModel().select(1);
+							txtDescricao.requestFocus();
+						}
+						
+						if(id.contains("cmbEntradaPaciente")) {
+							tbpAtendimento.getSelectionModel().select(1);
+							txtHoraFinal.requestFocus();
+						}
+						
+						if(id.contains("txtData")) {
+							btnSalvar.requestFocus();
+						}
+					} 
+				}
+			}
+		});
 		
 		try {
 			cmbFuncionario.getItems().setAll(new FuncionarioCtrl().getFuncionarios());

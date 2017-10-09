@@ -198,6 +198,7 @@ public class CadastroPacienteController extends Application implements Initializ
 			txtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbConvenio.setItems(new ConvenioCtrl().consultar(new Campo("CONV.status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
+			cmbResponsavel.getItems().setAll(new PacienteCtrl().getPacientesSemResponsavel());
 			
 			ToggleGroup tgPossuiNecessidades = new ToggleGroup();
 			tgPossuiNecessidades.getToggles().add(rbSim);
@@ -292,6 +293,7 @@ public class CadastroPacienteController extends Application implements Initializ
 	private void limparCampos() {
 		txtBairro.clear();
 		cmbConvenio.getSelectionModel().select(-1);
+		cmbResponsavel.setValue(null);
 		txtCEP.clear();
 		txtCodigo.clear();
 		txtComplemento.clear();
@@ -307,21 +309,23 @@ public class CadastroPacienteController extends Application implements Initializ
 		rbNao.setSelected(true);
 		sbAtivado.setValue(true);
 		lsTelefones.getItems().clear();
+		prepararTela();
 	}
 
 	private void bloquearTela() {
-		txtBairro.setDisable(true);
-		cmbConvenio.setDisable(true);
-		txtCEP.setDisable(true);
-		txtCodigo.setDisable(true);
-		txtComplemento.setDisable(true);
-		txtCPF.setDisable(true);
+		txtBairro.setEditable(true);
+		cmbConvenio.setEditable(true);
+		cmbResponsavel.setDisable(true);
+		txtCEP.setEditable(false);
+		txtCodigo.setEditable(false);
+		txtComplemento.setEditable(false);
+		txtCPF.setEditable(false);
 		txtDataNasc.setDisable(true);
-		txtLogradouro.setDisable(true);
-		txtNome.setDisable(true);
-		txtNumero.setDisable(true);
-		txtRG.setDisable(true);
-		txtTelefone.setDisable(true);
+		txtLogradouro.setEditable(false);
+		txtNome.setEditable(false);
+		txtNumero.setEditable(false);
+		txtRG.setEditable(false);
+		txtTelefone.setEditable(false);
 		sbAtivado.setDisable(true);
 		btnSalvar.setDisable(true);
 		cmbCidade.setDisable(true);
@@ -343,6 +347,7 @@ public class CadastroPacienteController extends Application implements Initializ
 		pacienteCtrl.getPaciente().setConvenio(cmbConvenio.getSelectionModel().getSelectedItem());
 		pacienteCtrl.getPaciente().setCep(txtCEP.getText());
 		pacienteCtrl.getPaciente().setCpf(txtCPF.getText());
+		pacienteCtrl.getPaciente().setResponsavel(cmbResponsavel.getValue());
 		if (txtDataNasc.getCalendar() != null)
 			pacienteCtrl.getPaciente().setDtNascimento(txtDataNasc.getCalendar().getTime());
 		pacienteCtrl.getPaciente().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
@@ -375,6 +380,7 @@ public class CadastroPacienteController extends Application implements Initializ
 		txtRG.setText(pacienteCtrl.getPaciente().getRg());
 		cmbConvenio.getSelectionModel().select(pacienteCtrl.getPaciente().getConvenio());
 		cmbCidade.getSelectionModel().select(pacienteCtrl.getPaciente().getCidade());
+		cmbResponsavel.getSelectionModel().select(pacienteCtrl.getPaciente().getResponsavel());
 		rbSim.setSelected(pacienteCtrl.getPaciente().isPossuiNecessidades());
 		if(pacienteCtrl.getPaciente().getSexo() == "M")
 			rbMasculino.setSelected(true);

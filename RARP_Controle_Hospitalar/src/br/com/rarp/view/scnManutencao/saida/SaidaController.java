@@ -26,7 +26,7 @@ public class SaidaController extends ManutencaoController {
 	public void prepararTela() {
 		getLblTitle().setText("Controle de Saída de Paciente");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
-		getLblTitle().setStyle("-fx-background-color: #8F929C;"
+		getLblTitle().setStyle("-fx-background-color: #4682B4;"
 				+ "-fx-font-weight: bold");
 
 		TableColumn<SaidaPaciente, String> codigo = new TableColumn<>("Código");

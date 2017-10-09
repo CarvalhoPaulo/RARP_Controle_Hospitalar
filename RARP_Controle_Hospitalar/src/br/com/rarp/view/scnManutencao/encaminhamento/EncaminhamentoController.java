@@ -24,8 +24,8 @@ public class EncaminhamentoController extends ManutencaoController {
 	@Override
 	public void prepararTela() {
 		getLblTitle().setText("Controle de Encaminhamentos");
-		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
-		getLblTitle().setStyle("-fx-background-color: #8F929C;"
+		getLblTitle().setTextFill(Paint.valueOf("#C0FF3E"));
+		getLblTitle().setStyle("-fx-background-color: #000000;"
 				+ "-fx-font-weight: bold");
 
 		TableColumn<Encaminhamento, String> codigo = new TableColumn<>("Código");
@@ -63,6 +63,7 @@ public class EncaminhamentoController extends ManutencaoController {
 
 	public void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("ENC.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("ORI.nome", "Leito de Origem", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("DEST.nome", "Leito de Destino", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("ENC.status", "Ativado", TipoCampo.booleano));
