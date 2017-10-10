@@ -50,13 +50,17 @@ public class ConvenioCtrl {
 		if (convenio == null) 
 			novoConvenio();
 
-		if (convenio.getNome().isEmpty()) {
+		if (convenio.getNome().isEmpty()) 
 			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
-		}
-		
-		if (convenio.getCnpj().isEmpty()) {
+			
+		if (convenio.getCnpj().isEmpty()) 
 			throw new Exception("Para cadastrar um paciente é necessário informar o CNPJ");
-		}
+		
+		if (convenio.getANS().isEmpty()) 
+			throw new Exception("Para cadastrar um paciente é necessário informar o codigo de registro da ANS");
+		
+		if (convenio.getTipo() == -1)
+			throw new Exception("Para cadastrar um paciente é necessário informar o tipo do convênio");
 	}
 	
 	private boolean confirmarDesativacao() {

@@ -93,8 +93,6 @@ public class CadastroEspacoController extends Application implements Initializab
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setMinWidth(695);
-		stage.setMinHeight(550);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEspaco.fxml"))));
 		stage.setTitle("Cadastro de Espaço");
 		setStage(stage);
@@ -109,6 +107,8 @@ public class CadastroEspacoController extends Application implements Initializab
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinHeight(490);
+		stage.setMinWidth(680);
 	}
 
 	public Stage getStage() {

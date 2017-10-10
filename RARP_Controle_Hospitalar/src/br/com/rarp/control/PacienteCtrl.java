@@ -48,12 +48,15 @@ public class PacienteCtrl {
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
-		if (paciente.getNome() != null && paciente.getNome().isEmpty()) {
+		if (paciente.getNome() != null && paciente.getNome().isEmpty()) 
 			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
-		}
-		if (paciente.getCpf() != null && paciente.getCpf().isEmpty()) {
+		
+		if (paciente.getCpf() != null && paciente.getCpf().isEmpty())
 			throw new Exception("Para cadastrar um paciente é necessário informar o CPF");
-		}
+		
+		if (paciente.getDtNascimento() == null) 
+			throw new Exception("Para cadastrar um paciente é necessário informar a data de nascimento");
+		
 		if(!Utilitarios.isCPF(paciente.getCpfSemMascara()))
 			throw new Exception("CPF inválido");
 	}

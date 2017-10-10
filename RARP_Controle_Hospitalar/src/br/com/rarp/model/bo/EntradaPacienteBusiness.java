@@ -20,7 +20,10 @@ public class EntradaPacienteBusiness {
 		
 		if(entradaPaciente.isStatus())
 			validarEntradaPaciente(entradaPaciente);
+		else
+			validarDesativacao(entradaPaciente);
 		
+		//Coloca o paciente em um leito da recepção
 		Espaco recepcao = new EspacoDAO().getRecepcao();
 		if(recepcao == null) {
 			recepcao = SistemaCtrl.getInstance().getRecepcao();
@@ -46,6 +49,20 @@ public class EntradaPacienteBusiness {
 		entradaPacienteDAO.salvar(entradaPaciente);		
 	}
 	
+	private void validarDesativacao(EntradaPaciente entradaPaciente) throws Exception {
+		for(Atendimento a: entradaPaciente.getAtendimentos()) {
+			try {
+			new AtendimentoBusiness().validarDesativacao(a);
+			} catch (Exception e) {
+				throw new Exception("Não é possível desativar uma entrada de paciente que possui atendimentos realizados");
+			}
+			a.setStatus(false);
+		}
+		
+		if(entradaPaciente.getEncaminhamentos().size() > 0)
+			throw new Exception("Não é possível desativar uma entrada de paciente que possui encaminhamentos realizados");
+	}
+
 	private void validarEntradaPaciente(EntradaPaciente entradaPaciente) throws Exception {
 		if (entradaPaciente != null) {
 			if (entradaPaciente.getMedico() == null && entradaPaciente.getAtendimentos().size() > 0)

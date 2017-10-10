@@ -15,6 +15,7 @@ import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.MascaraUtil;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
+import br.com.rarp.view.scnCadastroCargo.CadastroCargoController;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.MaskTextField;
@@ -124,6 +125,17 @@ public class CadastroFuncionarioController extends Application implements Initia
 
 	@FXML
 	private ListView<Telefone> lsTelefones;
+	
+    @FXML
+    void inserirCargo(ActionEvent event) throws Exception {
+    	try {
+			new CadastroCargoController().inserir();
+			prepararTela();
+		} catch (Exception e) {
+			Utilitarios.erro("Não foi possível inserir um cargo.\n" + e.getMessage());
+			e.printStackTrace();
+		}  	
+    }
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -141,6 +153,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinWidth(620);
+		stage.setMinHeight(534);
 	}
 
 	public Stage getStage() {

@@ -79,7 +79,7 @@ public class CadastroMedicoController extends Application implements Initializab
     void inserirFuncionario(ActionEvent event) {
     	try {
 			new CadastroFuncionarioController().inserir();
-			preencherTela();
+			prepararTela();
 		} catch (Exception e) {
 			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
 			e.printStackTrace();

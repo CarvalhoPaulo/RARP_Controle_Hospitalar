@@ -143,6 +143,9 @@ public class CadastroPacienteController extends Application implements Initializ
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinWidth(647);
+		stage.setMinHeight(538);
+		
 	}
 
 	public Stage getStage() {

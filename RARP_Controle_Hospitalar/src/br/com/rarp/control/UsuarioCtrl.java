@@ -56,6 +56,8 @@ public class UsuarioCtrl {
 			throw new Exception("Para cadastrar um usuário é necessário informar o usuário");
 		if(usuario.getPerfilUsuario() == null)
 			throw new Exception("Para cadastrar um usuário é necessário informar o perfil de usuário");
+		if(usuario.getFuncionario() == null)
+			throw new Exception("Para cadastrar um usuário é necessário informar o funcionário");
 	}
 
 	@SuppressWarnings("rawtypes")

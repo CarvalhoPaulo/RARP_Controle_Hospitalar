@@ -14,10 +14,17 @@ public class UsuarioBusiness {
 		
 		if(usuario.isStatus())
 			validarUsuario(usuario);
+		else
+			validarDesativacao(usuario);
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.salvar(usuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
 			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+	}
+
+	private void validarDesativacao(Usuario usuario) throws Exception {
+		if(usuario.equals(SistemaCtrl.getInstance().getUsuarioSessao()))
+			throw new Exception("O usuário da sessão não pode ser desativado");
 	}
 
 	private void validarUsuario(Usuario usuario) {

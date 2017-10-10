@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.rarp.view.scnComponents.AutoCompleteComboBox?>
 <?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.MaskTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
@@ -19,7 +20,6 @@
 <?import jfxtras.scene.control.CalendarTextField?>
 <?import jfxtras.scene.control.ImageViewButton?>
 <?import jfxtras.scene.control.ListView?>
-<?import br.com.rarp.view.scnComponents.AutoCompleteComboBox?>
 
 <AnchorPane fx:id="pnlPrincipal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroConvenio.CadastroConvenioController">
 	<children>
@@ -33,7 +33,7 @@
 									<content>
 										<AnchorPane>
 											<children>
-												<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+												<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
 													<font>
 														<Font size="14.0" />
 													</font>
@@ -68,7 +68,7 @@
 													<children>
                                           <AnchorPane>
                                              <children>
-                                                <Label layoutX="-142.0" layoutY="-22.0" stylesheets="@../style/style.css" text="Registro da ANS:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Registro da ANS(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -82,7 +82,7 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" GridPane.columnIndex="1">
                                              <children>
-                                                <Label layoutX="-142.0" layoutY="-22.0" stylesheets="@../style/style.css" text="Tipo:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                                                <Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Tipo(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -92,7 +92,7 @@
                                           </AnchorPane>
 														<AnchorPane GridPane.rowIndex="1">
 															<children>
-																<Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CNPJ:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+																<Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CNPJ(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -106,7 +106,7 @@
 														</AnchorPane>
                         														<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                         															<children>
-                        																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="139.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Nascimento:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                        																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="139.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Nascimento(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                         																	<font>
                         																		<Font size="14.0" />
                         																	</font>

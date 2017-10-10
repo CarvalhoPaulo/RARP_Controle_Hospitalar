@@ -46,6 +46,7 @@ public class MedicoController extends ManutencaoController {
 		cmbCampo.getItems().add(new Campo("MED.codigo", "Código", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("PE.nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("MED.crm", "CRM", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("MED.status", "Ativado", TipoCampo.booleano));
 	}
 
 	@SuppressWarnings("unchecked")

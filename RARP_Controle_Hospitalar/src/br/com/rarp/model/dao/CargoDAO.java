@@ -91,10 +91,27 @@ public class CargoDAO {
             	Cargo cargo = new Cargo();
             	cargo.setCodigo(rs.getInt("codigo"));
             	cargo.setNome(rs.getString("nome"));
-            	try {
-					cargo.setFuncao(Enum.valueOf(Funcao.class, rs.getString("funcao")));
-				} catch (Exception e) {
+        
+            	switch (rs.getString("funcao")) {
+				case "Limpeza":
+					cargo.setFuncao(Funcao.limpeza);
+					break;
+					
+				case "Atendente":
+					cargo.setFuncao(Funcao.atendente);
+					break;
+					
+				case "Enfermeira":
+					cargo.setFuncao(Funcao.enfermeira);
+					break;
+				
+				case "Medico":
+					cargo.setFuncao(Funcao.medico);
+					break;
+					
+				default:
 					cargo.setFuncao(Funcao.outros);
+					break;
 				}
             	cargo.setRequisitos(rs.getString("requisitos"));
             	cargo.setNivel(rs.getString("nivel"));

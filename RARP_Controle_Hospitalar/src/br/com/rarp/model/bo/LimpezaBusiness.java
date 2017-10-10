@@ -14,14 +14,22 @@ public class LimpezaBusiness {
 			if(limpezaAnt != null)
 				for(Leito l: limpezaAnt.getLeitos())
 					l.setSujo(true);
-			for(Leito l: limpeza.getLeitos())
-				l.setSujo(false);
+			if(limpeza.isStatus()) {
+				validarLimpeza(limpeza);
+				for(Leito l: limpeza.getLeitos())
+					l.setSujo(false);
+			} 
 			limpezaDAO.salvar(limpeza, limpezaAnt);
 		} catch (Exception e) {
 			for(Leito l: limpeza.getLeitos())
 				l.setSujo(true);
 			throw new Exception(e.getMessage());
 		}
+	}
+
+	private void validarLimpeza(Limpeza limpeza) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {

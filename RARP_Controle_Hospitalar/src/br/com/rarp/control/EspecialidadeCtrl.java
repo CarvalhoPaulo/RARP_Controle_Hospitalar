@@ -20,12 +20,11 @@ public class EspecialidadeCtrl {
 	}
 	
 	private void validaCamposObrigatorios() throws Exception {
-		if (especialidade == null ){
-			throw new  Exception("Favor criar nova Especialidade");
-		}
+		if (especialidade == null )
+			novaEspecialidade();
 		
-		if (especialidade.getNome().equals("")) {
-			throw new  Exception("Favor Inserir um nome");
+		if (especialidade.getNome().isEmpty()) {
+			throw new Exception("Para cadastrar uma especialidade é necessário informar um nome");
 		}
 	}
 	

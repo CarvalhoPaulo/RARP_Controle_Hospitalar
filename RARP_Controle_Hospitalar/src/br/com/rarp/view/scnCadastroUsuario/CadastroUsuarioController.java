@@ -61,6 +61,8 @@ public class CadastroUsuarioController extends Application implements Initializa
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinWidth(450);
+		stage.setMinHeight(302);
 	}
 
 	public Stage getStage() {

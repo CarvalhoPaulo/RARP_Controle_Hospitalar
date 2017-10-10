@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.rarp.view.scnComponents.AutoCompleteComboBox?>
 <?import br.com.rarp.view.scnComponents.IntegerTextField?>
 <?import br.com.rarp.view.scnComponents.SwitchButton?>
 <?import javafx.scene.control.Button?>
@@ -10,20 +11,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<?import br.com.rarp.view.scnComponents.AutoCompleteComboBox?>
 
-<AnchorPane fx:id="pnlPrincipal" prefHeight="268.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroCidade.CadastroCidadeController">
+<AnchorPane fx:id="pnlPrincipal" prefHeight="270.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroCidade.CadastroCidadeController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="453.0" prefWidth="568.0" style="-fx-font-size: 14px;" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane BorderPane.alignment="CENTER">
+				<AnchorPane stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
 					<children>
 						<Label layoutX="-32.0" layoutY="-1.0" text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<IntegerTextField fx:id="txtCodigo" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+						<IntegerTextField fx:id="txtCodigo" disable="true" editable="false" focusTraversable="false" layoutX="-32.0" layoutY="23.0" prefHeight="30.0" prefWidth="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -39,27 +39,27 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Label layoutY="66.0" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
+                  <Label layoutY="66.0" styleClass="obrigatorio" text="Nome(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <IntegerTextField fx:id="txtIBGE" layoutY="141.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                  <AutoCompleteComboBox fx:id="cmbEstado" layoutY="140.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0" />
+                  <IntegerTextField fx:id="txtIBGE" layoutY="141.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </IntegerTextField>
-                  <Label layoutX="7.0" layoutY="126.0" text="Codigo do IBGE:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
+                  <Label layoutX="7.0" layoutY="126.0" text="Codigo do IBGE:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="174.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutY="182.0" text="Estado:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="175.0">
+                  <Label layoutX="-2.0" layoutY="116.0" styleClass="obrigatorio" text="Estado(Obrigatório):" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="116.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <AutoCompleteComboBox fx:id="cmbEstado" layoutY="202.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="199.0" />
 					</children>
 				</AnchorPane>
 			</center>
@@ -71,7 +71,7 @@
 								<Image url="@../img/cityscape.png" />
 							</image>
 						</ImageView>
-						<Button fx:id="btnSalvar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="66.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+						<Button fx:id="btnSalvar" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#salvar" prefHeight="48.0" prefWidth="108.0" text="Salvar" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<graphic>
 								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
 									<image>

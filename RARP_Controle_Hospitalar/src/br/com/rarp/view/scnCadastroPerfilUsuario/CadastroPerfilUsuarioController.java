@@ -66,6 +66,8 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinWidth(680);
+		stage.setMinHeight(490);
 	}
 	
 	private void limparCampos() {

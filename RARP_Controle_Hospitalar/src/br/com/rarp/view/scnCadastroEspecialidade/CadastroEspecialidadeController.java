@@ -89,6 +89,8 @@ public class CadastroEspecialidadeController extends Application implements Init
 				 voltar(null); 
 			}
 		});
+		this.stage.setMinWidth(420);
+		this.stage.setMinHeight(270);
 	}
 
 	public static boolean isVisualizando() {

@@ -23,7 +23,7 @@
 <?import jfxtras.scene.control.ImageViewButton?>
 <?import jfxtras.scene.control.ListView?>
 
-<AnchorPane fx:id="pnlPrincipal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
+<AnchorPane fx:id="pnlPrincipal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="461.0" prefWidth="599.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
@@ -35,7 +35,7 @@
 									<content>
 										<AnchorPane>
 											<children>
-												<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+												<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
 													<font>
 														<Font size="14.0" />
 													</font>
@@ -56,22 +56,31 @@
 													<children>
 														<AnchorPane>
 															<children>
-																<Label layoutX="27.0" layoutY="19.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Cargo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+																<Label layoutX="27.0" layoutY="19.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Cargo(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-                                                <AutoCompleteComboBox fx:id="cmbCargo" layoutY="31.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="28.0" />
+                                                <AutoCompleteComboBox fx:id="cmbCargo" layoutY="31.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="24.0" />
+                                                <Button layoutX="191.0" layoutY="29.0" minWidth="36.0" mnemonicParsing="false" onAction="#inserirCargo" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="24.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../img/add%20(1).png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
 															</children>
 														</AnchorPane>
 														<AnchorPane GridPane.columnIndex="1">
 															<children>
-																<Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CPF:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+																<Label layoutX="-142.0" layoutY="-22.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="CPF(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="0.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
 																</Label>
-                                                <MaskTextField fx:id="txtCPF" cpf="true" layoutX="4.0" layoutY="36.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                                                <MaskTextField fx:id="txtCPF" cpf="true" layoutX="4.0" layoutY="36.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -80,7 +89,7 @@
 														</AnchorPane>
 													</children>
 												</GridPane>
-												<GridPane layoutX="11.0" layoutY="296.0" prefHeight="60.0" prefWidth="479.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="128.0">
+												<GridPane layoutX="11.0" layoutY="296.0" prefHeight="60.0" prefWidth="479.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.0">
 													<columnConstraints>
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,7 +100,7 @@
 													<children>
 														<AnchorPane>
 															<children>
-																<Label layoutX="-197.0" layoutY="-10.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Sexo:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+																<Label layoutX="-197.0" layoutY="-10.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Sexo(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -121,7 +130,7 @@
 														</AnchorPane>
 														<AnchorPane GridPane.columnIndex="1">
 															<children>
-																<Label layoutX="8.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Possui Necessidades Especiais:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+																<Label layoutX="8.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Necessidades Especiais(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
@@ -151,7 +160,7 @@
 														</AnchorPane>
 													</children>
 												</GridPane>
-												<GridPane layoutX="14.0" layoutY="254.0" prefHeight="233.0" prefWidth="507.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="192.0">
+												<GridPane layoutX="14.0" layoutY="254.0" prefHeight="233.0" prefWidth="507.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="188.0">
 													<columnConstraints>
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroEspaco.CadastroEspacoController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="391.0" prefWidth="523.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
@@ -52,7 +52,7 @@
 							<children>
 								<AnchorPane prefHeight="200.0" prefWidth="200.0">
 									<children>
-										<Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+										<Label layoutX="7.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -66,7 +66,7 @@
 								</AnchorPane>
 								<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
 									<children>
-										<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Bloco:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+										<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Bloco(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -80,7 +80,7 @@
 								</AnchorPane>
 								<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
 									<children>
-										<Label layoutX="6.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Andar:" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+										<Label layoutX="6.0" layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Andar(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -98,7 +98,7 @@
 							<top>
 								<AnchorPane prefHeight="32.0" prefWidth="410.0" BorderPane.alignment="CENTER">
 									<children>
-										<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Leitos:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+										<Label layoutY="6.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Leitos(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<font>
 												<Font size="14.0" />
 											</font>

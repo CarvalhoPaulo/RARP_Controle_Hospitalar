@@ -136,7 +136,11 @@ public class FuncionarioDAO {
 				case "Enfermeira":
 					cargo.setFuncao(Funcao.enfermeira);
 					break;
-
+				
+				case "Medico":
+					cargo.setFuncao(Funcao.medico);
+					break;
+					
 				default:
 					cargo.setFuncao(Funcao.outros);
 					break;

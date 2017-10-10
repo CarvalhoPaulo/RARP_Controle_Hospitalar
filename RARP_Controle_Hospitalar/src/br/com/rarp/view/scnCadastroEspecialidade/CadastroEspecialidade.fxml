@@ -29,7 +29,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label layoutY="73.0" text="Nome:" AnchorPane.topAnchor="62.0">
+						<Label layoutY="73.0" text="Nome(Obrigatório):" AnchorPane.topAnchor="62.0">
 							<font>
 								<Font name="System Bold" size="14.0" />
 							</font>

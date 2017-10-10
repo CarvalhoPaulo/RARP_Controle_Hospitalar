@@ -45,6 +45,9 @@ public class CargoCtrl {
 		
 		if(cargo.getNome().isEmpty())
 			throw new Exception("Para cadastrar um cargo é necessário informar o nome");
+		
+		if(cargo.getFuncao() == null)
+			throw new Exception("Para cadastrar um cargo é necessário informar o a função");
 	}
 
 	private boolean confirmarDesativacao() {

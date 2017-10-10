@@ -72,6 +72,8 @@ public class CadastroCidadeController extends Application implements Initializab
 					voltar(new ActionEvent());
 			}
 		});
+		stage.setMinWidth(380);
+		stage.setMinHeight(270);
 	}
 
 	public Stage getStage() {

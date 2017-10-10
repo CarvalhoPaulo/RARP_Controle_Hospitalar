@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="302.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController">
+<AnchorPane prefHeight="302.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController">
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="293.0" prefWidth="437.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+				<AnchorPane BorderPane.alignment="CENTER">
 					<children>
                   <AutoCompleteComboBox fx:id="cmbFuncionario" layoutY="259.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="256.0" />
                   <AutoCompleteComboBox fx:id="cmbPerfilUsuario" layoutX="28.0" layoutY="201.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0" />
@@ -30,22 +30,22 @@
 								<Font size="14.0" />
 							</font>
 						</IntegerTextField>
-						<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
+						<Label layoutY="58.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Nome(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label layoutY="116.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Usuário:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
+						<Label layoutY="116.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Usuário(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="116.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label layoutY="174.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Perfil de Usuário:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="174.0">
+						<Label layoutY="174.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Perfil de Usuário(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="174.0">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<Label layoutY="232.0" text="Funcionário:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="232.0">
+						<Label layoutY="232.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Funcionário(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="232.0">
 							<font>
 								<Font size="14.0" />
 							</font>

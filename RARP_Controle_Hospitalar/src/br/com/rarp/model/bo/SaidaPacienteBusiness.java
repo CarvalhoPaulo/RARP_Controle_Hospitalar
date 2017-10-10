@@ -15,6 +15,7 @@ public class SaidaPacienteBusiness {
 			validarSaidaPaciente(saidaPaciente);
 		else
 			saidaPaciente.setEntradaPaciente(null);
+	
 		SaidaPacienteDAO saidaPacienteDAO = new SaidaPacienteDAO();
 		saidaPacienteDAO.salvar(saidaPaciente);
 	}

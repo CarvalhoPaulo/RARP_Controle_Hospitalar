@@ -16,10 +16,17 @@ public class PerfilUsuarioBusiness {
 			
 		if(perfilUsuario.isStatus())
 			validarPerfilUsuario(perfilUsuario);
+		else
+			validarDesativacao(perfilUsuario);
 		PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
 		perfilUsuarioDAO.salvar(perfilUsuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
 			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+	}
+
+	private void validarDesativacao(PerfilUsuario perfilUsuario) throws Exception {
+		if(new UsuarioDAO().consultar("codigo_perfilusuario", " = ", perfilUsuario.getCodigo() + "").size() > 0)
+			throw new Exception("Não é possível desativar um perfil de usuário que possui usuários");
 	}
 
 	private void validarPerfilUsuario(PerfilUsuario perfilUsuario) {

@@ -1,7 +1,7 @@
 package br.com.rarp.enums;
 
 public enum Funcao {
-	limpeza("Limpeza"), enfermeira("Enfermeira"), atendente("Atendente"), outros("Outros");
+	limpeza("Limpeza"), enfermeira("Enfermeira"), atendente("Atendente"), medico("Medico"), outros("Outros");
 	
 	private String label;
 
