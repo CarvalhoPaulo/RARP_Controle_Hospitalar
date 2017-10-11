@@ -143,7 +143,7 @@ public class MedicoDAO {
 				medico.setCodigoMedico(rs.getInt("codigo_med"));
 				medico.setCodigo(rs.getInt("codigo_funcionario"));
 				if (rs.getDate("dataAdmissao") != null)
-					medico.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
+					medico.setDtAdmissao(rs.getDate("dataAdmissao").toLocalDate());
 				medico.setCTPS(rs.getString("ctps"));
 				medico.setSalarioContratual(rs.getDouble("salarioContratual"));
 				medico.setStatus(rs.getBoolean("status_medico"));
@@ -155,7 +155,7 @@ public class MedicoDAO {
 				medico.setNome(rs.getString("nome_pessoa"));
 				medico.setLogradouro(rs.getString("logradouro"));
 				if (rs.getDate("datanascimento") != null)
-					medico.setDtNascimento(new java.util.Date(rs.getDate("datanascimento").getTime()));
+					medico.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
 				medico.setComplemento(rs.getString("complemento"));
 				medico.setNumero(rs.getString("numero"));
 				medico.setBairro(rs.getString("bairro"));

@@ -1,5 +1,6 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import br.com.rarp.model.Paciente;
@@ -24,6 +25,9 @@ public class PacienteBusiness {
 	}
 
 	private void validarPaciente(Paciente paciente) throws Exception {
+		if(paciente.getDtNascimento().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
+		
 		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
 			throw new Exception("Para cadastrar um paciente menor que 18 anos é necessário informar o responsável");
 		}

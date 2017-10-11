@@ -44,9 +44,27 @@ public class AtendimentoCtrl {
 		return true;
 	}
 
-	private void validarDadosObrigatorios() {
-		// TODO Auto-generated method stub
+	private void validarDadosObrigatorios() throws Exception {
+		if(atendimento.getDtMovimentacao() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a data");
 		
+		if(atendimento.getHrMovimentacao() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a hora");
+		
+		if(atendimento.getResponsavel() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar o funcionário responsável pelo atendimento");
+		
+		if(atendimento.getDataAtendimento() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a data do atendimento");
+		
+		if(atendimento.getHoraIni() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a hora do inicio do atendimento");
+		
+		if(atendimento.getHoraFim() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a hora do fim do atendimento");
+		
+		if(atendimento.getEntradaPaciente() == null)
+			throw new Exception("Para cadastrar um atendimento é necessário informar a entrada de paciente");
 	}
 
 	public ObservableList<Atendimento> consultar(Campo campo, Comparacao comparacao, String termo) throws ClassNotFoundException, Exception {

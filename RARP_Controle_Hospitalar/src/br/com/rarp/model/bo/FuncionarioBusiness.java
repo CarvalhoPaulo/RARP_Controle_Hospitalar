@@ -1,5 +1,6 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.dao.FuncionarioDAO;
@@ -18,6 +19,9 @@ public class FuncionarioBusiness {
 	}
 
 	private void validarFuncionario(Funcionario funcionario) throws Exception {
+		if(funcionario.getDtNascimento().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
+		
 		if(!Utilitarios.isCPF(funcionario.getCpfSemMascara()))
 			throw new Exception("CPF inválido");
 	}

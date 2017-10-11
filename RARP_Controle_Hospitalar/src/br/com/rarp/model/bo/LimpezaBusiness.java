@@ -1,5 +1,7 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.model.Leito;
@@ -27,9 +29,12 @@ public class LimpezaBusiness {
 		}
 	}
 
-	private void validarLimpeza(Limpeza limpeza) {
-		// TODO Auto-generated method stub
+	private void validarLimpeza(Limpeza limpeza) throws Exception {
+		if(limpeza.getDtMovimentacao().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
 		
+		if(limpeza.getDtMovimentacao().isEqual(LocalDate.now()) && limpeza.getHrMovimentacao().isAfter(LocalTime.now()))
+			throw new Exception("A hora informada deve ser menor que a hora atual");
 	}
 
 	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {

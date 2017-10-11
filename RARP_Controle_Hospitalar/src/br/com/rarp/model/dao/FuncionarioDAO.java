@@ -90,7 +90,7 @@ public class FuncionarioDAO {
 				
 				funcionario.setCodigo(rs.getInt("codigo_func"));
 				if(rs.getDate("dataAdmissao") != null)
-					funcionario.setDtAdmissao(new java.util.Date(rs.getDate("dataAdmissao").getTime()));
+					funcionario.setDtAdmissao(rs.getDate("dataAdmissao").toLocalDate());
 				funcionario.setCTPS(rs.getString("ctps"));
 				funcionario.setSalarioContratual(rs.getDouble("salarioContratual"));
 				funcionario.setStatus(rs.getBoolean("status_func"));
@@ -102,7 +102,7 @@ public class FuncionarioDAO {
 				funcionario.setNome(rs.getString("nome_pessoa"));
 				funcionario.setLogradouro(rs.getString("logradouro"));
 				if(rs.getDate("datanascimento") != null)
-					funcionario.setDtNascimento(new java.util.Date(rs.getDate("datanascimento").getTime()));
+					funcionario.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
 				funcionario.setComplemento(rs.getString("complemento"));
 				funcionario.setNumero(rs.getString("numero"));
 				funcionario.setBairro(rs.getString("bairro"));
@@ -185,7 +185,7 @@ public class FuncionarioDAO {
 			
 			String sql = "INSERT INTO funcionario(dataAdmissao, salarioContratual, ctps, codigo_cargo, codigo_pf, status) VALUES(?,?,?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
+			ps.setDate(1, Date.valueOf(funcionario.getDtAdmissao()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
 			ps.setString(3, funcionario.getCTPS());
 			if(funcionario.getCargo() != null)
@@ -211,7 +211,7 @@ public class FuncionarioDAO {
 		try {
 			String sql = "UPDATE funcionario SET dataAdmissao = ?, salarioContratual = ?, ctps = ?, codigo_cargo = ?, status = ? WHERE codigo = ?";
 			ps = conexao.prepareStatement(sql);
-			ps.setDate(1, new Date(funcionario.getDtAdmissao().getTime()));
+			ps.setDate(1, Date.valueOf(funcionario.getDtAdmissao()));
 			ps.setDouble(2, funcionario.getSalarioContratual());
 			ps.setString(3, funcionario.getCTPS());
 			if(funcionario.getCargo() != null)

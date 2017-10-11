@@ -1,8 +1,7 @@
 package br.com.rarp.view.scnCadastroPaciente;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.ConvenioCtrl;
@@ -42,7 +41,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jfxtras.scene.control.CalendarTextField;
+import jfxtras.scene.control.LocalDateTextField;
 
 public class CadastroPacienteController extends Application implements Initializable {
 
@@ -81,7 +80,7 @@ public class CadastroPacienteController extends Application implements Initializ
 	private RadioButton rbMasculino;
 
 	@FXML
-	private CalendarTextField txtDataNasc;
+	private LocalDateTextField txtDataNasc;
 
 	@FXML
 	private TextField txtLogradouro;
@@ -198,7 +197,7 @@ public class CadastroPacienteController extends Application implements Initializ
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
-			txtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			txtDataNasc.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbConvenio.setItems(new ConvenioCtrl().consultar(new Campo("CONV.status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbResponsavel.getItems().setAll(new PacienteCtrl().getPacientesSemResponsavel());
@@ -218,7 +217,7 @@ public class CadastroPacienteController extends Application implements Initializ
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					if(!newValue) {
-						if (txtDataNasc.getCalendar() != null && Utilitarios.isMaiorIdade(txtDataNasc.getCalendar().getTime())) {
+						if (txtDataNasc.getLocalDate() != null && Utilitarios.isMaiorIdade(txtDataNasc.getLocalDate())) {
 							if(lblResponsavel.getStyleClass().indexOf("obrigatorio") == -1)
 								lblResponsavel.getStyleClass().add("obrigatorio");	
 						} else {
@@ -351,8 +350,8 @@ public class CadastroPacienteController extends Application implements Initializ
 		pacienteCtrl.getPaciente().setCep(txtCEP.getText());
 		pacienteCtrl.getPaciente().setCpf(txtCPF.getText());
 		pacienteCtrl.getPaciente().setResponsavel(cmbResponsavel.getValue());
-		if (txtDataNasc.getCalendar() != null)
-			pacienteCtrl.getPaciente().setDtNascimento(txtDataNasc.getCalendar().getTime());
+		if (txtDataNasc.getLocalDate() != null)
+			pacienteCtrl.getPaciente().setDtNascimento(txtDataNasc.getLocalDate());
 		pacienteCtrl.getPaciente().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
 		pacienteCtrl.getPaciente().setNumero(txtNumero.getText());
 		pacienteCtrl.getPaciente().setRg(txtRG.getText());
@@ -373,8 +372,7 @@ public class CadastroPacienteController extends Application implements Initializ
 		txtCPF.setText(pacienteCtrl.getPaciente().getCpf());
 		
 		if(pacienteCtrl.getPaciente().getDtNascimento() != null) {
-			txtDataNasc.setCalendar(new GregorianCalendar());
-			txtDataNasc.getCalendar().setTime(pacienteCtrl.getPaciente().getDtNascimento());
+			txtDataNasc.setLocalDate(pacienteCtrl.getPaciente().getDtNascimento());
 		}
 		
 		txtLogradouro.setText(pacienteCtrl.getPaciente().getLogradouro());

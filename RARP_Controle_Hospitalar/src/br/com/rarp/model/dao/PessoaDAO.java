@@ -56,7 +56,7 @@ public class PessoaDAO {
 			else
 				ps.setNull(7, Types.INTEGER);
 			if(pessoa.getDtNascimento() != null)
-				ps.setDate(8, new Date(pessoa.getDtNascimento().getTime()));
+				ps.setDate(8, Date.valueOf(pessoa.getDtNascimento()));
 			else
 				ps.setNull(8, Types.TIMESTAMP);
 			ps.setBoolean(9, pessoa.isStatus());
@@ -85,7 +85,7 @@ public class PessoaDAO {
 			ps.setString(5, pessoa.getBairro());
 			ps.setString(6, pessoa.getCepSemMascara());
 			if(pessoa.getDtNascimento() != null)
-				ps.setDate(7, new Date(pessoa.getDtNascimento().getTime()));
+				ps.setDate(7, Date.valueOf(pessoa.getDtNascimento()));
 			else
 				ps.setNull(7, Types.TIMESTAMP);
 			if(pessoa.getCidade() != null)

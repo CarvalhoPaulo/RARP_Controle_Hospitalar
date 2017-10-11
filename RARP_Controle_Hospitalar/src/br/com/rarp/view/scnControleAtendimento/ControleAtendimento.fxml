@@ -177,7 +177,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutY="6.0" text="Entrada de paciente:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label layoutY="6.0" styleClass="obrigatorio" text="Entrada de paciente(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                 <Button focusTraversable="false" minWidth="36.0" mnemonicParsing="false" onAction="#inserirEntrada" prefHeight="30.0" prefWidth="36.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">

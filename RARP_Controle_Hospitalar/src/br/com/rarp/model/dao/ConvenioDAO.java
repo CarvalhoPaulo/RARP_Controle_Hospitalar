@@ -76,7 +76,7 @@ public class ConvenioDAO {
 				convenio.setRazaoSocial(rs.getString("razaosocial"));
 				convenio.setCnpj(rs.getString("cnpj"));
 				convenio.setNome(rs.getString("nome_pessoa"));
-				convenio.setDtNascimento(rs.getDate("datanascimento"));
+				convenio.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
 				convenio.setLogradouro(rs.getString("logradouro"));
 				convenio.setComplemento(rs.getString("complemento"));
 				convenio.setNumero(rs.getString("numero"));

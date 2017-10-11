@@ -182,13 +182,13 @@ public class ControleAtendimentoController extends Application implements Initia
 
 	private void limparCampos() {
 		txtCodigo.clear();
-		txtData.setPromptText("");
-		txtDataAtendimento.setPromptText("");
+		txtData.setValue(null);
+		txtData.setValue(LocalDate.now());
+		txtHora.setLocalTime(LocalTime.now());
 		txtDescricao.clear();
 		txtDetalheMedico.clear();
-		txtHora.setPromptText("");
-		txtHoraFinal.setPromptText("");
-		txtHoraInicial.setPromptText("");
+		txtHoraFinal.setLocalTime(null);
+		txtHoraInicial.setLocalTime(null);
 		txtReceita.clear();
 		txtSintoma.clear();
 		cmbEntradaPaciente.getSelectionModel().select(-1);
@@ -196,6 +196,8 @@ public class ControleAtendimentoController extends Application implements Initia
 		cmbStatusAtendimento.getSelectionModel().select(0);
 		lsSintomas.getItems().clear();
 		sbAtivado.switchOnProperty().set(true);
+		agdAtendimento.appointments().clear();
+		appointment = null;
 	}
 
 	@Override
@@ -358,7 +360,6 @@ public class ControleAtendimentoController extends Application implements Initia
 					atualizarCampos();
 					agdAtendimento.refresh();
 				}
-				;
 				return null;
 			}
 		});
@@ -388,6 +389,7 @@ public class ControleAtendimentoController extends Application implements Initia
 	public void inserir() throws Exception {
 		atendimentoCtrl = null;
 		visualizando = false;
+		salvar = true;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
 	}
@@ -395,6 +397,7 @@ public class ControleAtendimentoController extends Application implements Initia
 	@SuppressWarnings("static-access")
 	public void alterar(AtendimentoCtrl atendimentoCtrl) throws Exception {
 		this.atendimentoCtrl = atendimentoCtrl;
+		salvar = true;
 		visualizando = false;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
@@ -403,6 +406,7 @@ public class ControleAtendimentoController extends Application implements Initia
 	@SuppressWarnings("static-access")
 	public void visualizar(AtendimentoCtrl atendimentoCtrl) throws Exception {
 		visualizando = true;
+		salvar = true;
 		this.atendimentoCtrl = atendimentoCtrl;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();

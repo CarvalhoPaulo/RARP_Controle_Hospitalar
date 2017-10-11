@@ -1,8 +1,7 @@
 package br.com.rarp.view.scnCadastroConvenio;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CidadeCtrl;
 import br.com.rarp.control.ConvenioCtrl;
@@ -34,8 +33,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jfxtras.scene.control.CalendarTextField;
 import jfxtras.scene.control.ImageViewButton;
+import jfxtras.scene.control.LocalDateTextField;
 
 public class CadastroConvenioController extends Application implements Initializable {
 	
@@ -64,7 +63,7 @@ public class CadastroConvenioController extends Application implements Initializ
     private MaskTextField txtCEP;
 
     @FXML
-    private CalendarTextField txtDataNasc;
+    private LocalDateTextField txtDataNasc;
 
     @FXML
     private MaskTextField txtCNPJ;
@@ -180,7 +179,7 @@ public class CadastroConvenioController extends Application implements Initializ
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
-			txtDataNasc.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+			txtDataNasc.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
 			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -292,8 +291,8 @@ public class CadastroConvenioController extends Application implements Initializ
 		convenioCtrl.getConvenio().setBairro(txtBairro.getText());
 		convenioCtrl.getConvenio().setCep(txtCEP.getText());
 		convenioCtrl.getConvenio().setCnpj(txtCNPJ.getText());
-		if (txtDataNasc.getCalendar() != null)
-			convenioCtrl.getConvenio().setDtNascimento(txtDataNasc.getCalendar().getTime());
+		if (txtDataNasc.getLocalDate() != null)
+			convenioCtrl.getConvenio().setDtNascimento(txtDataNasc.getLocalDate());
 		convenioCtrl.getConvenio().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
 		convenioCtrl.getConvenio().setNumero(txtNumero.getText());
 		convenioCtrl.getConvenio().setComplemento(txtComplemento.getText());
@@ -313,10 +312,8 @@ public class CadastroConvenioController extends Application implements Initializ
 		txtRazaoSocial.setText(convenioCtrl.getConvenio().getRazaoSocial());
 		cmbTipo.getSelectionModel().select(convenioCtrl.getConvenio().getTipo()-1);
 		
-		if(convenioCtrl.getConvenio().getDtNascimento() != null) {
-			txtDataNasc.setCalendar(new GregorianCalendar());
-			txtDataNasc.getCalendar().setTime(convenioCtrl.getConvenio().getDtNascimento());
-		}
+		if(convenioCtrl.getConvenio().getDtNascimento() != null)
+			txtDataNasc.setLocalDate(convenioCtrl.getConvenio().getDtNascimento());
 		
 		txtLogradouro.setText(convenioCtrl.getConvenio().getLogradouro());
 		txtNome.setText(convenioCtrl.getConvenio().getNome());

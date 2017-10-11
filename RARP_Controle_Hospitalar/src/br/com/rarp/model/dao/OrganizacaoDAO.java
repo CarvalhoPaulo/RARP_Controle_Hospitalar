@@ -101,7 +101,7 @@ public class OrganizacaoDAO {
 				empresa.setRazaoSocial(rs.getString("razaosocial"));
 				empresa.setCnpj(rs.getString("cnpj"));
 				empresa.setNome(rs.getString("nome_pessoa"));
-				empresa.setDtNascimento(rs.getDate("datanascimento"));
+				empresa.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
 				empresa.setLogradouro(rs.getString("logradouro"));
 				empresa.setComplemento(rs.getString("complemento"));
 				empresa.setNumero(rs.getString("numero"));

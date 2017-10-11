@@ -1,5 +1,7 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.model.Encaminhamento;
@@ -14,6 +16,8 @@ public class EncaminhamentoBusiness {
 		try {
 			if (encaminhamento.isStatus())
 				validarEncaminhamento(encaminhamento);
+			else
+				validarDesativacao(encaminhamento);
 			
 			encaminhamento.getDestino().setPaciente(encaminhamento.getOrigem().getPaciente());
 			encaminhamento.getOrigem().setSujo(true);
@@ -29,7 +33,17 @@ public class EncaminhamentoBusiness {
 		}		
 	}
 
+	private void validarDesativacao(Encaminhamento encaminhamento) throws Exception {
+		throw new Exception("Não é possivel desativar um encaminhamento. Dica: Realize um nome rencaminhamento de estorno");
+	}
+
 	private void validarEncaminhamento(Encaminhamento encaminhamento) throws Exception {
+		if(encaminhamento.getDtMovimentacao().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
+		
+		if(encaminhamento.getDtMovimentacao().isEqual(LocalDate.now()) && encaminhamento.getHrMovimentacao().isAfter(LocalTime.now()))
+			throw new Exception("A hora informada deve ser menor que a hora atual");
+		
 		if(encaminhamento.getCodigo() != 0)
 			throw new Exception("Não é possivel alterar um encaminhamento realizado. Realize um novo encaminhamento.");
 		

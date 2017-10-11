@@ -1,5 +1,6 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import br.com.rarp.model.Medico;
@@ -20,6 +21,8 @@ public class MedicoBusiness {
 	}
 
 	private void validarMedico(Medico medico) throws Exception {
+		if(medico.getDtNascimento().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
 		if(!Utilitarios.isCPF(medico.getCpfSemMascara()))
 			throw new Exception("CPF inválido");
 		if (medico.getCodigoMedico() == 0)

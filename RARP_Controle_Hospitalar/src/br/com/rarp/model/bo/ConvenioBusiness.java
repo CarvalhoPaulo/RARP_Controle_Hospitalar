@@ -1,5 +1,6 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import br.com.rarp.model.Convenio;
@@ -24,6 +25,9 @@ public class ConvenioBusiness {
 	}
 
 	private void validarConvenio(Convenio convenio) throws Exception {
+		if(convenio.getDtNascimento().isAfter(LocalDate.now()))
+			throw new Exception("A data de nascimento informada deve ser menor que a data atual");
+		
 		if(!Utilitarios.isCNPJ(convenio.getCnpjSemMascara()))
 			throw new Exception("CNPJ Inválido");
 	}

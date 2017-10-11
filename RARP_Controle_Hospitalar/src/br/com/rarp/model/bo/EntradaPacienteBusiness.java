@@ -1,5 +1,7 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
@@ -65,6 +67,12 @@ public class EntradaPacienteBusiness {
 
 	private void validarEntradaPaciente(EntradaPaciente entradaPaciente) throws Exception {
 		if (entradaPaciente != null) {
+			if(entradaPaciente.getDtMovimentacao().isAfter(LocalDate.now()))
+				throw new Exception("A data informada deve ser menor que a data atual");
+			
+			if(entradaPaciente.getDtMovimentacao().isEqual(LocalDate.now()) && entradaPaciente.getHrMovimentacao().isAfter(LocalTime.now()))
+				throw new Exception("A hora informada deve ser menor que a hora atual");
+			
 			if (entradaPaciente.getMedico() == null && entradaPaciente.getAtendimentos().size() > 0)
 				throw new Exception("Para cadastrar os atendimentos para esta entrada de paciente é necessário informar o médico");			
 			if(entradaPaciente.isAlta()) {
@@ -82,6 +90,9 @@ public class EntradaPacienteBusiness {
 				if(!realizado)
 					throw new Exception("Para cadastrar uma entrada de paciente é necessário possuir pelo menos um atendimento realizado");		
 			}
+			
+			for(Atendimento atendimento: entradaPaciente.getAtendimentos())
+				new AtendimentoBusiness().validarAtendimento(atendimento);
 
 			List<EntradaPaciente> entradas = new EntradaPacienteDAO().getEntradasByPaciente(entradaPaciente.getPaciente());
 			for (EntradaPaciente e : entradas)

@@ -1,14 +1,14 @@
 package br.com.rarp.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Pessoa {
 
 	private int codigo;
 	private String nome;
-	private Date dtNascimento;
+	private LocalDate dtNascimento;
 	private String logradouro;
 	private String complemento;
 	private String numero;
@@ -46,14 +46,6 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
 	}
 
 	public String getLogradouro() {
@@ -129,5 +121,13 @@ public class Pessoa {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public LocalDate getDtNascimento() {
+		return dtNascimento;
+	}
+
+	public void setDtNascimento(LocalDate dtNascimento) {
+		this.dtNascimento = dtNascimento;
 	}
 }

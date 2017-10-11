@@ -98,8 +98,6 @@ public class ControleApontamentoController extends Application implements Initia
 	public void abrir(Appointment param) throws Exception {
 		this.appointment = param;
 		start(SistemaCtrl.getInstance().getStage());
-		stage.setMinHeight(1000);
-		stage.setMinWidth(1000);
 		stage.showAndWait();
 	}
 

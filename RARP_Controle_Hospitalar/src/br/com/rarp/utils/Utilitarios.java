@@ -7,11 +7,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
-
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -271,12 +268,10 @@ public class Utilitarios {
         }
     }
 
-	public static boolean isMaiorIdade(Date dtNascimento) {
-		Calendar date = new GregorianCalendar();
-		Calendar date2 = new GregorianCalendar();
-		date2.setTime(dtNascimento);
-		date.add(Calendar.DAY_OF_MONTH, -6570);
-		return !date.before(date2);
+	public static boolean isMaiorIdade(LocalDate dtNascimento) {
+		LocalDate date = LocalDate.now();
+		date.plusDays(-6570);
+		return !date.isBefore(dtNascimento);
 	}
 
 	public static EventHandler<KeyEvent> getBloquear() {

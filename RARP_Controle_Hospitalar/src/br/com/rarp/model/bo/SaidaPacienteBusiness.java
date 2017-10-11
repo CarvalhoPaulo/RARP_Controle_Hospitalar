@@ -1,5 +1,7 @@
 package br.com.rarp.model.bo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.model.SaidaPaciente;
@@ -21,6 +23,12 @@ public class SaidaPacienteBusiness {
 	}
 
 	private void validarSaidaPaciente(SaidaPaciente saidaPaciente) throws Exception {
+		if(saidaPaciente.getDtMovimentacao().isAfter(LocalDate.now()))
+			throw new Exception("A data informada deve ser menor que a data atual");
+		
+		if(saidaPaciente.getDtMovimentacao().isEqual(LocalDate.now()) && saidaPaciente.getHrMovimentacao().isAfter(LocalTime.now()))
+			throw new Exception("A hora informada deve ser menor que a hora atual");
+		
 		if(saidaPaciente.getEntradaPaciente() != null && !saidaPaciente.getEntradaPaciente().isAlta())
 			throw new Exception("O paciente da entrada de paciente relacionada não ganhou alta, portanto não é possível realizar a saída do mesmo");
 	}

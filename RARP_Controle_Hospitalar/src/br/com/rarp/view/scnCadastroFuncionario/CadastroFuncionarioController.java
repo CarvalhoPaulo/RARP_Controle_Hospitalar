@@ -2,6 +2,7 @@ package br.com.rarp.view.scnCadastroFuncionario;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import br.com.rarp.control.CargoCtrl;
 import br.com.rarp.control.CidadeCtrl;
@@ -12,7 +13,6 @@ import br.com.rarp.model.Cargo;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Telefone;
 import br.com.rarp.utils.Campo;
-import br.com.rarp.utils.MascaraUtil;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnCadastroCargo.CadastroCargoController;
@@ -30,7 +30,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
@@ -40,6 +39,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jfxtras.scene.control.LocalDateTextField;
 
 public class CadastroFuncionarioController extends Application implements Initializable {
 
@@ -74,7 +74,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private RadioButton rbMasculino;
 
 	@FXML
-	private DatePicker txtDataNasc;
+	private LocalDateTextField txtDataNasc;
 
 	@FXML
 	private TextField txtLogradouro;
@@ -107,7 +107,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	private TextField txtCTPS;
 
 	@FXML
-	private DatePicker txtDataAdmissao;
+	private LocalDateTextField txtDataAdmissao;
 
 	@FXML
 	private TextField txtSalarioContratual;
@@ -209,7 +209,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
-			txtDataAdmissao.setValue(LocalDate.now());
+			txtDataAdmissao.setLocalDate(LocalDate.now());
+			txtDataAdmissao.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			cmbCidade.setItems(new CidadeCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			cmbCargo.setItems(new CargoCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado"));
 			
@@ -222,8 +223,6 @@ public class CadastroFuncionarioController extends Application implements Initia
 			tgSexo.getToggles().add(rbMasculino);
 			tgSexo.getToggles().add(rbFeminimo);
 			tgSexo.selectToggle(rbMasculino);
-			
-			MascaraUtil.addBarraData(txtDataAdmissao, 10);
 			
 			pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -287,7 +286,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		txtComplemento.clear();
 		txtCPF.clear();
 		txtCTPS.clear();
-		txtDataAdmissao.setValue(LocalDate.now());
+		txtDataAdmissao.setLocalDate(LocalDate.now());
 		txtDataNasc.setPromptText("");
 		txtLogradouro.clear();
 		txtNome.clear();
@@ -341,8 +340,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setCep(txtCEP.getText());
 		funcionarioCtrl.getFuncionario().setCpf(txtCPF.getText());
 		funcionarioCtrl.getFuncionario().setCTPS(txtCTPS.getText());
-		if (txtDataNasc.getValue() != null)
-			funcionarioCtrl.getFuncionario().setDtNascimento(Utilitarios.localDateToDate(txtDataNasc.getValue()));
+		if (txtDataNasc.getLocalDate() != null)
+			funcionarioCtrl.getFuncionario().setDtNascimento(txtDataNasc.getLocalDate());
 		funcionarioCtrl.getFuncionario().setCidade(cmbCidade.getSelectionModel().getSelectedItem());
 		funcionarioCtrl.getFuncionario().setNumero(txtNumero.getText());
 		funcionarioCtrl.getFuncionario().setRg(txtRG.getText());
@@ -351,7 +350,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 		funcionarioCtrl.getFuncionario().setLogradouro(txtLogradouro.getText());
 		funcionarioCtrl.getFuncionario().setStatus(sbAtivado.getValue());
 		funcionarioCtrl.getFuncionario().setNome(txtNome.getText());
-		funcionarioCtrl.getFuncionario().setDtAdmissao(Utilitarios.localDateToDate(txtDataAdmissao.getValue()));
+		funcionarioCtrl.getFuncionario().setDtAdmissao(txtDataAdmissao.getLocalDate());
 		funcionarioCtrl.getFuncionario().setPossuiNecessidades(rbSim.isSelected());
 		funcionarioCtrl.getFuncionario().setSexo(rbMasculino.isSelected() ? "M" : "F");
 		funcionarioCtrl.getFuncionario().setTelefones(lsTelefones.getItems());
@@ -365,8 +364,8 @@ public class CadastroFuncionarioController extends Application implements Initia
 			txtComplemento.setText(funcionarioCtrl.getFuncionario().getComplemento());
 			txtCPF.setText(funcionarioCtrl.getFuncionario().getCpf());
 			txtCTPS.setText(funcionarioCtrl.getFuncionario().getCTPS());
-			txtDataAdmissao.setValue(Utilitarios.dateToLocalDate(funcionarioCtrl.getFuncionario().getDtAdmissao()));
-			txtDataNasc.setValue(Utilitarios.dateToLocalDate(funcionarioCtrl.getFuncionario().getDtNascimento()));
+			txtDataAdmissao.setLocalDate(funcionarioCtrl.getFuncionario().getDtAdmissao());
+			txtDataNasc.setLocalDate(funcionarioCtrl.getFuncionario().getDtNascimento());
 			txtLogradouro.setText(funcionarioCtrl.getFuncionario().getLogradouro());
 			txtNome.setText(funcionarioCtrl.getFuncionario().getNome());
 			txtNumero.setText(funcionarioCtrl.getFuncionario().getNumero());

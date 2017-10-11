@@ -1,21 +1,13 @@
 package br.com.rarp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Funcionario extends PessoaFisica {
 
-	private Date dtAdmissao;
+	private LocalDate dtAdmissao;
 	private double salarioContratual;
 	private Cargo cargo;
 	private String CTPS;
-
-	public Date getDtAdmissao() {
-		return dtAdmissao;
-	}
-
-	public void setDtAdmissao(Date dtAdmissao) {
-		this.dtAdmissao = dtAdmissao;
-	}
 
 	public double getSalarioContratual() {
 		return salarioContratual;
@@ -46,7 +38,7 @@ public class Funcionario extends PessoaFisica {
 		f.setCpf(getCpf());
 		f.setCTPS(getCTPS());
 		f.setDtAdmissao(getDtAdmissao());
-		f.setDtNascimento(getDtAdmissao());
+		f.setDtNascimento(getDtNascimento());
 		f.setLogradouro(getLogradouro());
 		f.setNome(getNome());
 		f.setNumero(getNumero());
@@ -70,5 +62,13 @@ public class Funcionario extends PessoaFisica {
 	@Override
 	public String toString() {
 		return getNome();
+	}
+
+	public LocalDate getDtAdmissao() {
+		return dtAdmissao;
+	}
+
+	public void setDtAdmissao(LocalDate dtAdmissao) {
+		this.dtAdmissao = dtAdmissao;
 	}
 }

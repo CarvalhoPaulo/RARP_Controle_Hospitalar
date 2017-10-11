@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
@@ -180,7 +179,7 @@ public class PacienteDAO {
 				paciente.setNome(rs.getString("nome_pessoa"));
 				paciente.setLogradouro(rs.getString("logradouro"));
 				if(rs.getDate("datanascimento") != null)
-					paciente.setDtNascimento(new Date(rs.getDate("datanascimento").getTime()));
+					paciente.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
 				paciente.setComplemento(rs.getString("complemento"));
 				paciente.setNumero(rs.getString("numero"));
 				paciente.setBairro(rs.getString("bairro"));
