@@ -59,7 +59,7 @@ public class Configuracoes {
 		usuario.setNome(this.usuario);
 		usuario.setSenha(senha);
 		
-		return null;
+		return usuario;
 	}
 
 }
