@@ -49,7 +49,7 @@ public class UsuarioDAO {
             ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getSenha());
+            ps.setLong(3, usuario.getSenha().hashCode());
             
             if(usuario.getFuncionario() != null)
             	ps.setInt(4, usuario.getFuncionario().getCodigo());
@@ -80,7 +80,7 @@ public class UsuarioDAO {
             ps = conexao.prepareStatement(sql);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getSenha());
+            ps.setLong(3, usuario.getSenha().hashCode());
             if(usuario.getFuncionario() != null)
             	ps.setInt(4, usuario.getFuncionario().getCodigo());
             else
