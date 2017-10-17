@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import org.com.rarp.interfaces.Consulta;
 import org.com.rarp.interfaces.Exception_Exception;
 import org.com.rarp.interfaces.PessoaFisica;
@@ -101,6 +102,7 @@ public class ConsultaController extends Application implements Initializable {
 	}
 	@FXML 
 	private void consultar() {
+		
 		try {
 			ConsultaSOAP consultaSOAP = new ConsultaSOAP();
 			Consulta consulta = consultaSOAP.getConsultaSOAPPort();
@@ -131,7 +133,8 @@ public class ConsultaController extends Application implements Initializable {
 			// TODO Auto-generated catch block
 			Utilitarios.atencao("Falha ao Consultar "+e.getMessage());
 		}
-
+		
+		
 	}
 	
 	@FXML
@@ -163,4 +166,7 @@ public class ConsultaController extends Application implements Initializable {
 			// TODO Auto-generated catch block
 		}
 	}
+
+
+	
 }

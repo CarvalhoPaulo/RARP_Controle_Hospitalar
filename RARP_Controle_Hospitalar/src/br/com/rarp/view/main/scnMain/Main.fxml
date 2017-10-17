@@ -113,12 +113,6 @@
 								</MenuItem>
 							</items>
 						</Menu>
-						<Menu mnemonicParsing="false" text="Consulta">
-							<items>
-								<MenuItem mnemonicParsing="false" onAction="#consultaOnline"
-									text="Consulta online" />
-							</items>
-						</Menu>
 						<Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios" />
 						<Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
 							<items>

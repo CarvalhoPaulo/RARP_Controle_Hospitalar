@@ -20,6 +20,7 @@
 		<mkdir dir="externalLibs" />
 	
 		<copy todir="externalLibs">
+<<<<<<< HEAD
 			<fileset dir="C:\Users\paulo\.m2\repository\org\codehaus\plexus\plexus-interpolation\1.14">
 				<filename name="plexus-interpolation-1.14.jar"/>
 			</fileset>
@@ -331,6 +332,319 @@
 		</copy>
 	
 		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="Cp1252">
+=======
+			<fileset dir="C:\Users\rober\.m2\repository\com\google\guava\guava\14.0.1">
+				<filename name="guava-14.0.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-artifact\3.0">
+				<filename name="maven-artifact-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\plugins\maven-compiler-plugin\3.6.1">
+				<filename name="maven-compiler-plugin-3.6.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-plugin-api\3.0">
+				<filename name="maven-plugin-api-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\ow2\asm\asm\6.0_ALPHA">
+				<filename name="asm-6.0_ALPHA.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-compiler-javac\2.8.1">
+				<filename name="plexus-compiler-javac-2.8.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-repository-metadata\3.0">
+				<filename name="maven-repository-metadata-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\sisu\sisu-inject-plexus\1.4.2">
+				<filename name="sisu-inject-plexus-1.4.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\jfxtras\jfxtras-fxml\8.0-r5">
+				<filename name="jfxtras-fxml-8.0-r5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\sisu\sisu-guice\2.1.7">
+				<filename name="sisu-guice-2.1.7-noaop.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-model-builder\3.0">
+				<filename name="maven-model-builder-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\postgresql\postgresql\42.1.4">
+				<filename name="postgresql-42.1.4.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\aether\aether-spi\1.7">
+				<filename name="aether-spi-1.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-model\3.0">
+				<filename name="maven-model-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\shared\maven-shared-utils\3.1.0">
+				<filename name="maven-shared-utils-3.1.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\sisu\sisu-inject-bean\1.4.2">
+				<filename name="sisu-inject-bean-1.4.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\commons-io\commons-io\2.5">
+				<filename name="commons-io-2.5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-component-annotations\1.5.5">
+				<filename name="plexus-component-annotations-1.5.5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\mockito\mockito-all\1.9.5">
+				<filename name="mockito-all-1.9.5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\aether\aether-util\1.7">
+				<filename name="aether-util-1.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-utils\2.0.4">
+				<filename name="plexus-utils-2.0.4.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\shared\maven-shared-incremental\1.1">
+				<filename name="maven-shared-incremental-1.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\plexus\plexus-sec-dispatcher\1.3">
+				<filename name="plexus-sec-dispatcher-1.3.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\jfxtras\jfxtras-common\8.0-r5">
+				<filename name="jfxtras-common-8.0-r5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\junit\junit\4.12">
+				<filename name="junit-4.12.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-compiler-api\2.8.1">
+				<filename name="plexus-compiler-api-2.8.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\plexus\plexus-cipher\1.4">
+				<filename name="plexus-cipher-1.4.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\com\jfoenix\jfoenix\1.8.0">
+				<filename name="jfoenix-1.8.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\jfxtras\jfxtras-agenda\8.0-r5">
+				<filename name="jfxtras-agenda-8.0-r5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\aether\aether-api\1.7">
+				<filename name="aether-api-1.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\jfxtras\jfxtras-test-support\8.0-r5">
+				<filename name="jfxtras-test-support-8.0-r5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-aether-provider\3.0">
+				<filename name="maven-aether-provider-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-settings-builder\3.0">
+				<filename name="maven-settings-builder-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\hamcrest\hamcrest-core\1.3">
+				<filename name="hamcrest-core-1.3.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\com\thoughtworks\qdox\qdox\2.0-M5">
+				<filename name="qdox-2.0-M5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\loadui\testFx\3.1.2">
+				<filename name="testFx-3.1.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\hamcrest\hamcrest-all\1.3">
+				<filename name="hamcrest-all-1.3.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\jfxtras\jfxtras-controls\8.0-r5">
+				<filename name="jfxtras-controls-8.0-r5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-interpolation\1.14">
+				<filename name="plexus-interpolation-1.14.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\javax\mail\javax.mail-api\1.5.5">
+				<filename name="javax.mail-api-1.5.5.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-classworlds\2.2.3">
+				<filename name="plexus-classworlds-2.2.3.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\sonatype\aether\aether-impl\1.7">
+				<filename name="aether-impl-1.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-settings\3.0">
+				<filename name="maven-settings-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\apache\maven\maven-core\3.0">
+				<filename name="maven-core-3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\rober\.m2\repository\org\codehaus\plexus\plexus-compiler-manager\2.8.1">
+				<filename name="plexus-compiler-manager-2.8.1.jar"/>
+			</fileset>
+		</copy>
+	
+		<mkdir dir="project" />
+		<copy todir="project">
+			<fileset dir="C:\Users\rober\OneDrive\javaDesktop\maven.1507160423365\RARP_Controle_Hospitalar">
+				<include name="src/**" />
+			</fileset>
+		</copy>
+		<copy todir="project">
+			<fileset dir="C:\Users\rober\OneDrive\javaDesktop\maven.1507160423365\RARP_Controle_Hospitalar">
+				<include name="testes/**" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="projectRefs" />
+	</target>
+	<target name='do-compile'>
+		<delete dir="build" />
+		<mkdir dir="build/src" />
+		<mkdir dir="build/libs" />
+		<mkdir dir="build/classes" />
+	
+		<!-- Copy project-libs references -->
+		<copy todir="build/libs">
+			<fileset dir="externalLibs">
+				<include name="jfxtras-fxml-8.0-r5.jar"/>
+				<include name="sisu-guice-2.1.7-noaop.jar"/>
+				<include name="maven-shared-incremental-1.1.jar"/>
+				<include name="testFx-3.1.2.jar"/>
+				<include name="plexus-compiler-api-2.8.1.jar"/>
+				<include name="sisu-inject-plexus-1.4.2.jar"/>
+				<include name="maven-model-builder-3.0.jar"/>
+				<include name="mockito-all-1.9.5.jar"/>
+				<include name="hamcrest-core-1.3.jar"/>
+				<include name="plexus-cipher-1.4.jar"/>
+				<include name="maven-artifact-3.0.jar"/>
+				<include name="javax.mail-api-1.5.5.jar"/>
+				<include name="aether-api-1.7.jar"/>
+				<include name="jfxtras-controls-8.0-r5.jar"/>
+				<include name="jfxtras-test-support-8.0-r5.jar"/>
+				<include name="qdox-2.0-M5.jar"/>
+				<include name="asm-6.0_ALPHA.jar"/>
+				<include name="guava-14.0.1.jar"/>
+				<include name="aether-util-1.7.jar"/>
+				<include name="plexus-classworlds-2.2.3.jar"/>
+				<include name="maven-compiler-plugin-3.6.1.jar"/>
+				<include name="hamcrest-all-1.3.jar"/>
+				<include name="plexus-compiler-javac-2.8.1.jar"/>
+				<include name="maven-model-3.0.jar"/>
+				<include name="plexus-sec-dispatcher-1.3.jar"/>
+				<include name="maven-aether-provider-3.0.jar"/>
+				<include name="plexus-utils-2.0.4.jar"/>
+				<include name="plexus-component-annotations-1.5.5.jar"/>
+				<include name="plexus-compiler-manager-2.8.1.jar"/>
+				<include name="maven-settings-3.0.jar"/>
+				<include name="maven-shared-utils-3.1.0.jar"/>
+				<include name="jfxtras-agenda-8.0-r5.jar"/>
+				<include name="jfoenix-1.8.0.jar"/>
+				<include name="commons-io-2.5.jar"/>
+				<include name="maven-settings-builder-3.0.jar"/>
+				<include name="maven-core-3.0.jar"/>
+				<include name="aether-spi-1.7.jar"/>
+				<include name="maven-plugin-api-3.0.jar"/>
+				<include name="plexus-interpolation-1.14.jar"/>
+				<include name="jfxtras-common-8.0-r5.jar"/>
+				<include name="postgresql-42.1.4.jar"/>
+				<include name="aether-impl-1.7.jar"/>
+				<include name="maven-repository-metadata-3.0.jar"/>
+				<include name="sisu-inject-bean-1.4.2.jar"/>
+				<include name="junit-4.12.jar"/>
+			</fileset>
+		</copy>
+	
+		<!-- Copy project references -->
+	
+		<!-- Copy project sources itself -->
+		<copy todir="build/src">
+			<fileset dir="project/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="project/testes">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	
+		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="UTF-8">
+>>>>>>> refs/remotes/origin/robert
 			<classpath>
 				<fileset dir="build/libs">
 					<include name="*"/>

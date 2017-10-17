@@ -50,7 +50,7 @@ public class UsuarioDAO {
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
             ps.setInt(3, usuario.getSenha());
-            
+
             if(usuario.getFuncionario() != null)
             	ps.setInt(4, usuario.getFuncionario().getCodigo());
             else

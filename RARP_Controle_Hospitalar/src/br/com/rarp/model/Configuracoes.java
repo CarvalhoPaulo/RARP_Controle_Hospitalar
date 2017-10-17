@@ -1,7 +1,5 @@
 package br.com.rarp.model;
 
-import org.com.rarp.interfaces.Usuario;
-
 import br.com.rarp.annotations.IgnorarField;
 
 public class Configuracoes {
@@ -52,8 +50,8 @@ public class Configuracoes {
 		this.codigoRARP = codigoRARP;
 	}
 	
-	public Usuario getUsuarioRARP() {
-		Usuario usuario = new Usuario();
+	public org.com.rarp.interfaces.Usuario getUsuarioRARP() {
+		org.com.rarp.interfaces.Usuario usuario = new org.com.rarp.interfaces.Usuario();
 		
 		usuario.setCodigo(codigoRARP);
 		usuario.setNome(this.usuario);
