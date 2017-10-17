@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import br.com.rarp.view.scnComponents.IntegerTextField?>
+<?import br.com.rarp.view.scnComponents.IntegerTextField?> 
 <?import br.com.rarp.view.scnComponents.MaskTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -91,7 +91,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TableView prefHeight="151.0" prefWidth="271.0">
+                                    <TableView fx:id="tblTelefones" prefHeight="151.0" prefWidth="271.0">
                                       <columns>
                                         <TableColumn prefWidth="267.0" text="Telefones" />
                                       </columns>

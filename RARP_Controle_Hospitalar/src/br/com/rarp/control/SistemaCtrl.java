@@ -52,6 +52,8 @@ public class SistemaCtrl {
 	
 	private Usuario usuarioSessao;
 	
+	private Conexao conexao;
+	
 	private SistemaCtrl() {
 		getPropriedades();
 	}
@@ -223,7 +225,13 @@ public class SistemaCtrl {
 	}
 	
 	public Conexao getConexao() throws Exception {
-		return new Conexao();
+		if (conexao !=  null) {
+			
+			conexao.getConexao().close();
+			conexao = null;
+		}
+		conexao = new Conexao();
+		return conexao;
 	}
 	
 	public void configuraConexao() throws Exception {

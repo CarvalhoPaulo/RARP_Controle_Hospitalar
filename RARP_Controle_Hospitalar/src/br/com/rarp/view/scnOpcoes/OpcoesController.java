@@ -123,7 +123,8 @@ public class OpcoesController extends Application implements Initializable {
 		SistemaCtrl.getInstance().getOrganizacao().setEmail(txtEmail.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setLogradouro(txtEndereco.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setRazaoSocial(txtRazao.getText());
-		SistemaCtrl.getInstance().getOrganizacao().setTelefones(tblTelefones.getItems());
+		if (  (tblTelefones.getItems() != null) && (tblTelefones.getItems().size() > 0) )
+			SistemaCtrl.getInstance().getOrganizacao().setTelefones(tblTelefones.getItems());
 
 	}
 }

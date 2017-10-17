@@ -104,7 +104,7 @@ public class UsuarioDAO {
         PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
         try {
-        	String sql = "SELECT codigo, nome, usuario, password, codigo_funcionario, codigo_perfilusuario, status FROM usuario WHERE " + campo + comparacao + termo;
+        	String sql = "SELECT usuario.codigo, usuario.nome, usuario.usuario, usuario.password, usuario.codigo_funcionario, usuario.codigo_perfilusuario as cf , usuario.status FROM usuario WHERE " + campo + comparacao + termo;
             ps = conexao.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -115,7 +115,7 @@ public class UsuarioDAO {
             	usuario.setSenha(rs.getInt("password"));
             	
             	PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
-            	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("codigo_perfilusuario")));
+            	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("cf")));
             	
             	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
             	usuario.setFuncionario(funcionarioDAO.getFuncionario(rs.getInt("codigo_funcionario")));

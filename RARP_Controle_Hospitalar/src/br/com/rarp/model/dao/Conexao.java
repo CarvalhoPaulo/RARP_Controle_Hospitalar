@@ -12,6 +12,11 @@ public class Conexao {
     private Connection conecta;
 
     public Connection getConexao() throws ClassNotFoundException, SQLException {
+    	
+    	if (conecta != null)
+    		return conecta;
+    	
+    	
     	String url = SistemaCtrl.getInstance().getPropriedades().getUrl();
     	String baseDados = SistemaCtrl.getInstance().getPropriedades().getDatabase();
     	String usuario = SistemaCtrl.getInstance().getPropriedades().getUser();

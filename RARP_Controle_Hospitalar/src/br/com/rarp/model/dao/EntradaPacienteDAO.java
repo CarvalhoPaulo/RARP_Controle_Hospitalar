@@ -43,6 +43,8 @@ public class EntradaPacienteDAO {
 		sql += "emergencia BOOLEAN, ";
 		sql += "status boolean)";
 		st.executeUpdate(sql);
+		
+		st.close();
 	}
 
 	public void salvar(EntradaPaciente entradaPaciente) throws Exception {
