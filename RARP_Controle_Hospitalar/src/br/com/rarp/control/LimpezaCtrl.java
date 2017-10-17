@@ -21,7 +21,7 @@ public class LimpezaCtrl {
 	
 	public boolean salvar(LimpezaCtrl limpezaCtrlAnt) throws Exception {
 		if (limpeza == null)
-			throw new Exception("A limpeza n„o foi inst‚nciada");
+			throw new Exception("A limpeza n√£o foi inst√¢nciada");
 		
 		if (confirmarDesativacao()) {
 			if (limpeza.isStatus())
@@ -36,18 +36,18 @@ public class LimpezaCtrl {
 	
 	private void validarDadosObrigatorios() throws Exception {
 		if(limpeza.getHrMovimentacao() == null)
-			throw new Exception("Para realizar uma limpeza È necess·rio informar o hor·rio da limpeza");
+			throw new Exception("Para realizar uma limpeza √© necess√°rio informar o hor√°rio da limpeza");
 		if(limpeza.getDtMovimentacao() == null)
-			throw new Exception("Para realizar uma limpeza È necess·rio informar a data da limpeza");
+			throw new Exception("Para realizar uma limpeza √© necess√°rio informar a data da limpeza");
 		if(limpeza.getLeitos() == null || limpeza.getLeitos().size() == 0)
-			throw new Exception("Para realizar uma limpeza È necess·rio selecionar ao menos um leito");
+			throw new Exception("Para realizar uma limpeza √© necess√°rio selecionar ao menos um leito");
 		if(limpeza.getFuncionarioLimpeza() == null)
-			throw new Exception("Para realizar uma limpeza È necess·rio informar o funcion·rio de limpeza");
+			throw new Exception("Para realizar uma limpeza √© necess√°rio informar o funcion√°rio de limpeza");
 	}
 
 	private boolean confirmarDesativacao() {
 		if(limpeza != null && !limpeza.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar esta entrada de paciente?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar esta entrada de paciente?");
 		return true;
 	}
 

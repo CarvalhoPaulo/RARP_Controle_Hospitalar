@@ -22,7 +22,7 @@ public class FuncionarioCtrl {
 
 	public boolean salvar() throws Exception {
 		if (funcionario == null)
-			throw new Exception("O funcion·rio n„o foi inst‚nciado");
+			throw new Exception("O funcion√°rio n√£o foi inst√¢nciado");
 		
 		if (confirmarDesativacao()) {
 			if(funcionario.isStatus())
@@ -44,20 +44,20 @@ public class FuncionarioCtrl {
 	private void validarDadosObrigatorios() throws Exception {
 		if (funcionario != null) {
 			if (funcionario.getNome().isEmpty()) {
-				throw new Exception("Para cadastrar um funcion·rio È necess·rio informar o nome");
+				throw new Exception("Para cadastrar um funcion√°rio √© necess√°rio informar o nome");
 			}
 			if (funcionario.getCpf().isEmpty()) {
-				throw new Exception("Para cadastrar um funcion·rio È necess·rio informar o CPF");
+				throw new Exception("Para cadastrar um funcion√°rio √© necess√°rio informar o CPF");
 			}
 			if (funcionario.getCargo() == null) {
-				throw new Exception("Para cadastrar um funcion·rio È necess·rio informar o cargo");
+				throw new Exception("Para cadastrar um funcion√°rio √© necess√°rio informar o cargo");
 			} 
 		}
 	}
 	
 	private boolean confirmarDesativacao() {
 		if(funcionario != null && !funcionario.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este funcion·rio?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este funcion√°rio?");
 		return true;
 	}
 

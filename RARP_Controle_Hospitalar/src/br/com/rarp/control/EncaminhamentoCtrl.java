@@ -22,7 +22,7 @@ public class EncaminhamentoCtrl {
 
 	public boolean salvar(EncaminhamentoCtrl encaminhamentoCtrl) throws Exception {
 		if (encaminhamento == null)
-			throw new Exception("O encaminhamento n„o foi inst‚nciada");
+			throw new Exception("O encaminhamento n√£o foi inst√¢nciada");
 		
 		if (confirmarDesativacao()) {
 			if (encaminhamento.isStatus())
@@ -43,20 +43,20 @@ public class EncaminhamentoCtrl {
 
 	private void validarDadosObrigatorios() throws Exception {
 		if(encaminhamento.getEntradaPaciente() == null)
-			throw new Exception("Para realizar um encaminhamento È necess·rio informar a entrada do paciente que ser· encaminhado");
+			throw new Exception("Para realizar um encaminhamento √© necess√°rio informar a entrada do paciente que ser√° encaminhado");
 		if(encaminhamento.getHrMovimentacao() == null)
-			throw new Exception("Para realizar um encaminhamento È necess·rio informar o hor·rio do encaminhamento");
+			throw new Exception("Para realizar um encaminhamento √© necess√°rio informar o hor√°rio do encaminhamento");
 		if(encaminhamento.getDtMovimentacao() == null)
-			throw new Exception("Para realizar um encaminhamento È necess·rio informar a data do encaminhamento");
+			throw new Exception("Para realizar um encaminhamento √© necess√°rio informar a data do encaminhamento");
 		if(encaminhamento.getOrigem() == null)
-			throw new Exception("Para realizar um encaminhamento È necess·rio informar o leito de origem");
+			throw new Exception("Para realizar um encaminhamento √© necess√°rio informar o leito de origem");
 		if(encaminhamento.getDestino() == null)
-			throw new Exception("Para realizar um encaminhamento È necess·rio informar o leito de destino");
+			throw new Exception("Para realizar um encaminhamento √© necess√°rio informar o leito de destino");
 	}
 
 	private boolean confirmarDesativacao() {
 		if(encaminhamento != null && !encaminhamento.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar esta entrada de paciente?");
+			return Utilitarios.pergunta("Tem certeza que voc√© deseja desativar esta entrada de paciente?");
 		return true;
 	}
 

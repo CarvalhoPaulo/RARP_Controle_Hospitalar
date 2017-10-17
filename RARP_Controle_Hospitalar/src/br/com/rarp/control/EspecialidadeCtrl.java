@@ -24,13 +24,13 @@ public class EspecialidadeCtrl {
 			novaEspecialidade();
 		
 		if (especialidade.getNome().isEmpty()) {
-			throw new Exception("Para cadastrar uma especialidade È necess·rio informar um nome");
+			throw new Exception("Para cadastrar uma especialidade √© necess√°rio informar um nome");
 		}
 	}
 	
 	public boolean salvar() throws Exception {
 		if (especialidade == null)
-			throw new Exception("A especialidade n„o foi inst‚nciada");
+			throw new Exception("A especialidade n√£o foi inst√¢nciada");
 		
 		if (confirmarDesativacao()) {
 			if(especialidade.isStatus())
@@ -45,7 +45,7 @@ public class EspecialidadeCtrl {
 	
 	private boolean confirmarDesativacao() {
 		if(especialidade != null && !especialidade.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este Especialidade ?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este Especialidade ?");
 		return true;
 	}
 

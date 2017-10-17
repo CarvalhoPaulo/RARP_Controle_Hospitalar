@@ -32,7 +32,7 @@ public class EspacoCtrl {
 	
 	public boolean salvar() throws Exception {
 		if(espaco == null)
-			throw new Exception("O espaÁo n„o foi inst‚nciado");
+			throw new Exception("O espa√ßo n√£o foi inst√¢nciado");
 		
 		if(confirmarDesativacao()) {
 			if(espaco.isStatus())
@@ -47,13 +47,13 @@ public class EspacoCtrl {
 	
 	private void validarDadosObrigatorios() throws Exception {
 		if(espaco.getNome().isEmpty()) 
-			throw new Exception("Para cadastrar um espaÁo È necess·rio informar o nome");
+			throw new Exception("Para cadastrar um espa√ßo √© necess√°rio informar o nome");
 		if(espaco.getAndar().isEmpty())
-			throw new Exception("Para cadastrar um espaÁo È necess·rio informar o andar. Dica: Coloque 1 caso sÛ possua um andar.");
+			throw new Exception("Para cadastrar um espa√ßo √© necess√°rio informar o andar. Dica: Coloque 1 caso possua um andar.");
 		if(espaco.getBloco().isEmpty())
-			throw new Exception("Para cadastrar um espaÁo È necess·rio informar o bloco. Dica: Coloque 1 caso sÛ possua um bloco");
+			throw new Exception("Para cadastrar um espa√ßo √© necess√°rio informar o bloco. Dica: Coloque 1 caso possua um bloco");
 		if(espaco.getLeitos().size() == 0) 
-			throw new Exception("Para cadastrar um espaÁo È necess·rio informar pelo menos um leito.");
+			throw new Exception("Para cadastrar um espa√ßo √© necess√°rio informar pelo menos um leito.");
 	}
 
 	public void setUsuario(Object object) {
@@ -62,7 +62,7 @@ public class EspacoCtrl {
 	
 	private boolean confirmarDesativacao() {
 		if(espaco != null && !espaco.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este espaÁo?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este espa√ßo?");
 		return true;
 	}
 

@@ -23,7 +23,7 @@ public class PerfilUsuarioCtrl extends Object {
 
 	public boolean salvar() throws Exception {
 		if (perfilUsuario == null)
-			throw new Exception("O perfil de usu·rio n„o foi inst‚nciado");
+			throw new Exception("O perfil de usu√°rio n√£o foi inst√¢nciado");
 		
 		if (confirmarDesativacao()) {
 			if(perfilUsuario.isStatus())
@@ -38,13 +38,13 @@ public class PerfilUsuarioCtrl extends Object {
 	
 	private boolean confirmarDesativacao() {
 		if(perfilUsuario != null && !perfilUsuario.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este perfil de usu·rio?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este perfil de usu√°rio?");
 		return true;
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
 		if(perfilUsuario.getNome().equals("")) 
-			throw new Exception("Para cadastrar um perfil de usu·rio È necess·rio informar o nome");
+			throw new Exception("Para cadastrar um perfil de usu√°rio √© necess√°rio informar o nome");
 		
 		int telasPermitidas = 0;
 		for(Tela tela: perfilUsuario.getTelas()) {
@@ -54,7 +54,7 @@ public class PerfilUsuarioCtrl extends Object {
 			}
 		}
 		if(telasPermitidas == 0)
-			throw new Exception("Para cadastrar um perfil de usu·rio È necess·rio ter ao menos uma tela permitida");
+			throw new Exception("Para cadastrar um perfil de usu√°rio e necess√°rio ter ao menos uma tela permitida");
 	}
 
 	public ObservableList<PerfilUsuario> consultar(Campo campo, Comparacao comparacao, String termo) throws SQLException, Exception {

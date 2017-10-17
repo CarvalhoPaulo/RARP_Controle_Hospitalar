@@ -37,7 +37,7 @@ public class EntradaPacienteCtrl {
 
 	public boolean salvar() throws Exception {
 		if (entradaPaciente == null)
-			throw new Exception("A entrada de paciente n„o foi inst‚nciada");
+			throw new Exception("A entrada de paciente n√£o foi inst√¢nciada");
 
 		if (confirmarDesativacao()) {
 			if (entradaPaciente.isStatus())
@@ -53,22 +53,22 @@ public class EntradaPacienteCtrl {
 	private void validarDadosObrigatorios() throws Exception {
 		if (entradaPaciente != null) {
 			if (entradaPaciente.getDtMovimentacao() == null)
-				throw new Exception("Para cadastrar uma entrada de paciente È necess·rio informar a data");
+				throw new Exception("Para cadastrar uma entrada de paciente √© necess√°rio informar a data");
 
 			if (entradaPaciente.getHrMovimentacao() == null)
-				throw new Exception("Para cadastrar uma entrada de paciente È necess·rio informar a hora");
+				throw new Exception("Para cadastrar uma entrada de paciente √© necess√°rio informar a hora");
 
 			if (entradaPaciente.getAtendente() == null)
-				throw new Exception("Para cadastrar uma entrada de paciente È necess·rio informar a atendente");
+				throw new Exception("Para cadastrar uma entrada de paciente √© necess√°rio informar a atendente");
 			
 			if (entradaPaciente.getPaciente() == null)
-				throw new Exception("Para cadastrar uma entrada de paciente È necess·rio informar o paciente");
+				throw new Exception("Para cadastrar uma entrada de paciente √© necess√°rio informar o paciente");
 		}
 	}
 
 	private boolean confirmarDesativacao() {
 		if(entradaPaciente != null && !entradaPaciente.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar esta entrada de paciente?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar esta entrada de paciente?");
 		return true;
 	}
 

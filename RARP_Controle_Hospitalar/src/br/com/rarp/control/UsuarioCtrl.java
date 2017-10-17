@@ -29,7 +29,7 @@ public class UsuarioCtrl {
 
 	public boolean salvar() throws Exception {
 		if (usuario == null)
-			throw new Exception("O usu·rio n„o foi inst‚nciado");
+			throw new Exception("O usu√°rio n√£o foi inst√¢nciado");
 		
 		if(confirmarDesativacao()) {
 			if(usuario.isStatus())
@@ -44,20 +44,20 @@ public class UsuarioCtrl {
 	
 	private boolean confirmarDesativacao() {
 		if(!usuario.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este usu·rio?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este usuÔøΩrio?");
 		return true;
 	}
 
 
 	private void validarDadosObrigatorios() throws Exception {
 		if(usuario.getNome().equals(""))
-			throw new Exception("Para cadastrar um usu·rio È necess·rio informar o nome");
+			throw new Exception("Para cadastrar um usu√°rio √© necess√°rio informar o nome");
 		if(usuario.getUsuario().equals(""))
-			throw new Exception("Para cadastrar um usu·rio È necess·rio informar o usu·rio");
+			throw new Exception("Para cadastrar um usu√°rio √© necess√°rio informar o uusu√°rio");
 		if(usuario.getPerfilUsuario() == null)
-			throw new Exception("Para cadastrar um usu·rio È necess·rio informar o perfil de usu·rio");
+			throw new Exception("Para cadastrar um usu√°rio √© necess√°rio informar o perfil de usu√°rio");
 		if(usuario.getFuncionario() == null)
-			throw new Exception("Para cadastrar um usu·rio È necess·rio informar o funcion·rio");
+			throw new Exception("Para cadastrar um usu√°rio √© necess√°rio informar o funcion√°rio");
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -33,7 +33,7 @@ public class ConvenioCtrl {
 
 	public boolean salvar() throws Exception {
 		if(convenio == null)
-			throw new Exception("O convênio não foi instânciado");
+			throw new Exception("O convÃªnio nÃ£o foi instÃ¢nciado");
 		
 		if (confirmarDesativacao()) {
 			ConvenioBusiness convenioBusiness = new ConvenioBusiness();
@@ -51,21 +51,21 @@ public class ConvenioCtrl {
 			novoConvenio();
 
 		if (convenio.getNome().isEmpty()) 
-			throw new Exception("Para cadastrar um paciente é necessário informar o nome");
+			throw new Exception("Para cadastrar um paciente Ã© necessÃ¡rio informar o nome");
 			
 		if (convenio.getCnpj().isEmpty()) 
-			throw new Exception("Para cadastrar um paciente é necessário informar o CNPJ");
+			throw new Exception("Para cadastrar um paciente Ã© necessÃ¡rio informar o CNPJ");
 		
 		if (convenio.getANS().isEmpty()) 
-			throw new Exception("Para cadastrar um paciente é necessário informar o codigo de registro da ANS");
+			throw new Exception("Para cadastrar um paciente Ã© necessÃ¡rio informar o codigo de registro da ANS");
 		
 		if (convenio.getTipo() == -1)
-			throw new Exception("Para cadastrar um paciente é necessário informar o tipo do convênio");
+			throw new Exception("Para cadastrar um paciente Ã© necessÃ¡rio informar o tipo do convÃªnio");
 	}
 	
 	private boolean confirmarDesativacao() {
 		if(convenio != null && !convenio.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este convênio?");
+			return Utilitarios.pergunta("Tem certeza que vocÃª deseja desativar este conÃªnio?");
 		return true;
 	}
 

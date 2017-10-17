@@ -29,7 +29,7 @@ public class SaidaPacienteCtrl {
 
 	public boolean salvar() throws Exception {
 		if (saidaPaciente == null)
-			throw new Exception("A saÌda de paciente n„o foi inst‚nciada");
+			throw new Exception("A sa√≠da de paciente n√£o foi inst√¢nciada");
 
 		if (confirmarDesativacao()) {
 			if (saidaPaciente.isStatus())
@@ -45,19 +45,19 @@ public class SaidaPacienteCtrl {
 	private void validarDadosObrigatorios() throws Exception {
 		if(saidaPaciente != null) {
 			if(saidaPaciente.getDtMovimentacao() == null)
-				throw new Exception("Para cadastrar uma saÌda de paciente È necess·rio informar a data");
+				throw new Exception("Para cadastrar uma sa√≠da de paciente √© necess√°rio informar a data");
 			if(saidaPaciente.getHrMovimentacao() == null)
-				throw new Exception("Para cadastrar uma saÌda de paciente È necess·rio informar a hora");
+				throw new Exception("Para cadastrar uma sa√≠da de paciente √© necess√°rio informar a hora");
 			if(saidaPaciente.getEntradaPaciente() == null)
-				throw new Exception("Para cadastrar uma saÌda de paciente È necess·rio informar a entrada de paciente relacionada");
+				throw new Exception("Para cadastrar uma sa√≠da de paciente √© necess√°rio informar a entrada de paciente relacionada");
 			if(saidaPaciente.getEstadoPaciente().isEmpty())
-				throw new Exception("Para cadastrar uma saÌda de paciente È necess·rio informar o estado do paciente");
+				throw new Exception("Para cadastrar uma sa√≠da de paciente √© necess√°rio informar o estado do paciente");
 		}
 	}
 
 	private boolean confirmarDesativacao() {
 		if(!saidaPaciente.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar esta saida de paciente?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar esta saida de paciente?");
 		return true;
 	}
 }

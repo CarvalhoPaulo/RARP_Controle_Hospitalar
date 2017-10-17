@@ -27,7 +27,7 @@ public class PacienteCtrl {
 	
 	public boolean salvar() throws Exception {
 		if (paciente == null)
-			throw new Exception("O paciente n„o foi inst‚nciado");
+			throw new Exception("O paciente n√£o foi inst√¢nciado");
 		
 		if (confirmarDesativacao()) {
 			if(paciente.isStatus())
@@ -49,21 +49,21 @@ public class PacienteCtrl {
 
 	private void validarDadosObrigatorios() throws Exception {
 		if (paciente.getNome() != null && paciente.getNome().isEmpty()) 
-			throw new Exception("Para cadastrar um paciente È necess·rio informar o nome");
+			throw new Exception("Para cadastrar um paciente √© necess√°rio informar o nome");
 		
 		if (paciente.getCpf() != null && paciente.getCpf().isEmpty())
-			throw new Exception("Para cadastrar um paciente È necess·rio informar o CPF");
+			throw new Exception("Para cadastrar um paciente √© necess√°rio informar o CPF");
 		
 		if (paciente.getDtNascimento() == null) 
-			throw new Exception("Para cadastrar um paciente È necess·rio informar a data de nascimento");
+			throw new Exception("Para cadastrar um paciente √© necess√°rio informar a data de nascimento");
 		
 		if(!Utilitarios.isCPF(paciente.getCpfSemMascara()))
-			throw new Exception("CPF inv·lido");
+			throw new Exception("CPF inv√°lido");
 	}
 	
 	private boolean confirmarDesativacao() {
 		if(paciente != null && !paciente.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este paciente?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este paciente?");
 		return true;
 	}
 

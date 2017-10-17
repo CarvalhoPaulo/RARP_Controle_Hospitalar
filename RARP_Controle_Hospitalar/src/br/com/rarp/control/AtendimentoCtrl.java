@@ -25,7 +25,7 @@ public class AtendimentoCtrl {
 	
 	public boolean salvar() throws Exception {
 		if (atendimento == null)
-			throw new Exception("O atendimento n„o foi inst‚nciada");
+			throw new Exception("O atendimento n√£o foi inst√¢nciada");
 
 		if (confirmarDesativacao()) {
 			if (atendimento.isStatus())
@@ -40,31 +40,31 @@ public class AtendimentoCtrl {
 
 	private boolean confirmarDesativacao() {
 		if(atendimento != null && !atendimento.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este atendimento?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este atendimento?");
 		return true;
 	}
 
 	private void validarDadosObrigatorios() throws Exception {
 		if(atendimento.getDtMovimentacao() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a data");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a data");
 		
 		if(atendimento.getHrMovimentacao() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a hora");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a hora");
 		
 		if(atendimento.getResponsavel() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar o funcion·rio respons·vel pelo atendimento");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar o funcion√°rio respons√°vel pelo atendimento");
 		
 		if(atendimento.getDataAtendimento() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a data do atendimento");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a data do atendimento");
 		
 		if(atendimento.getHoraIni() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a hora do inicio do atendimento");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a hora do inicio do atendimento");
 		
 		if(atendimento.getHoraFim() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a hora do fim do atendimento");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a hora do fim do atendimento");
 		
 		if(atendimento.getEntradaPaciente() == null)
-			throw new Exception("Para cadastrar um atendimento È necess·rio informar a entrada de paciente");
+			throw new Exception("Para cadastrar um atendimento √© necess√°rio informar a entrada de paciente");
 	}
 
 	public ObservableList<Atendimento> consultar(Campo campo, Comparacao comparacao, String termo) throws ClassNotFoundException, Exception {

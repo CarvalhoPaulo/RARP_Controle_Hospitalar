@@ -26,7 +26,7 @@ public class CargoCtrl {
 
 	public boolean salvar() throws Exception {
 		if(cargo == null)
-			throw new Exception("O cargo não foi instânciado");
+			throw new Exception("O cargo nÃ£o foi instÃ¢nciado");
 		
 		if (confirmarDesativacao()) {
 			CargoBusiness cargoBusiness = new CargoBusiness();
@@ -44,15 +44,15 @@ public class CargoCtrl {
 			cargo = new Cargo();
 		
 		if(cargo.getNome().isEmpty())
-			throw new Exception("Para cadastrar um cargo é necessário informar o nome");
+			throw new Exception("Para cadastrar um cargo Ã© necessÃ¡rio informar o nome");
 		
 		if(cargo.getFuncao() == null)
-			throw new Exception("Para cadastrar um cargo é necessário informar o a função");
+			throw new Exception("Para cadastrar um cargo Ã© necessÃ¡rio informar o a funï¿½ï¿½o");
 	}
 
 	private boolean confirmarDesativacao() {
 		if(!cargo.isStatus())
-			return Utilitarios.pergunta("Tem certeza que você deseja desativar este cargo?");
+			return Utilitarios.pergunta("Tem certeza que vocÃª deseja desativar este cargo?");
 		return true;
 	}
 

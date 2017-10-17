@@ -21,7 +21,7 @@ public class CidadeCtrl {
 
 	public boolean salvar() throws Exception {
 		if(cidade == null)
-			throw new Exception("A cidade n„o foi inst‚nciada");
+			throw new Exception("A cidade n√£o foi inst√¢nciada");
 		if(confirmarDesativacao()) {
 			CidadeBusiness cidadeBusiness = new CidadeBusiness();
 			if(cidade.isStatus())
@@ -36,15 +36,15 @@ public class CidadeCtrl {
 	private void validarDadosObrigatorios() throws Exception {
 		if(cidade != null) {
 			if(cidade.getNome().isEmpty())
-				throw new Exception("Para cadastrar uma cidade È necess·rio informar o nome");
+				throw new Exception("Para cadastrar uma cidade √© necess√°rio informar o nome");
 			if(cidade.getEstado() == null)
-				throw new Exception("Para cadastrar uma cidade È necess·rio informar o estado");
+				throw new Exception("Para cadastrar uma cidade √© necess√°rio informar o estado");
 		}
 	}
 
 	private boolean confirmarDesativacao() {
 		if(cidade != null && !cidade.isStatus())
-			return Utilitarios.pergunta("Tem certeza que vocÍ deseja desativar este convÍnio?");
+			return Utilitarios.pergunta("Tem certeza que voc√™ deseja desativar este cidade?");
 		return true;
 	}
 

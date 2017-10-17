@@ -21,11 +21,11 @@ public class MedicoCtrl {
 	
 	private void validaCamposObrigatorios() throws Exception {
 		if (medico == null){
-			throw new  Exception("Favor Selecioanr um funcionario");
+			throw new  Exception("Favor Selecioanr um funcion√°rio");
 		}
 		
 		if (medico.getNome().equals("")) {
-			throw new  Exception("Favor Selecione um Funcionario");
+			throw new  Exception("Favor Selecione um Funcion√°rio");
 		}
 		
 		if (medico.getCRM().equals("")) {
@@ -42,7 +42,7 @@ public class MedicoCtrl {
 	
 	public boolean salvar() throws Exception {
 		if (medico == null)
-			throw new Exception("O mÈdico n„o foi inst‚nciado");
+			throw new Exception("O medico n√£o foi inst√¢nciado");
 		
 		if (confirmarDesativacao()) {
 			if(medico.isStatus())
