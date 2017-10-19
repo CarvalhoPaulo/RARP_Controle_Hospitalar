@@ -11,7 +11,7 @@ public class MedicoBusiness {
 
 	public void salvar(Medico medico) throws Exception {
 		if(medico == null)
-			throw new Exception("O medico não foi instânciado");
+			throw new Exception("O medico nï¿½o foi instï¿½nciado");
 		
 		if(medico.isStatus())
 			validarMedico(medico);
@@ -24,7 +24,7 @@ public class MedicoBusiness {
 		if(medico.getDtNascimento().isAfter(LocalDate.now()))
 			throw new Exception("A data informada deve ser menor que a data atual");
 		if(!Utilitarios.isCPF(medico.getCpfSemMascara()))
-			throw new Exception("CPF inválido");
+			throw new Exception("CPF invÃ¡lido");
 		if (medico.getCodigoMedico() == 0)
 			if (!new MedicoDAO().consultar("MED.codigo_funcionario ", " = ", String.valueOf(medico.getCodigo())).isEmpty()) {
 				throw new Exception("Fucionario ja relaciona a um medico");

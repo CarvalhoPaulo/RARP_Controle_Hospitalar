@@ -10,7 +10,7 @@ public class UsuarioBusiness {
 
 	public void salvar(Usuario usuario) throws Exception {
 		if(usuario == null)
-			throw new Exception("O usu·rio n„o foi inst‚nciado");
+			throw new Exception("O usu√∫rio n√£o foi inst√¢nciado");
 		
 		if(usuario.isStatus())
 			validarUsuario(usuario);
@@ -24,11 +24,11 @@ public class UsuarioBusiness {
 
 	private void validarDesativacao(Usuario usuario) throws Exception {
 		if(usuario.equals(SistemaCtrl.getInstance().getUsuarioSessao()))
-			throw new Exception("O usu·rio da sess„o n„o pode ser desativado");
+			throw new Exception("O usu√°rio da sess√£o n√£o pode ser desativado");
 	}
 
 	private void validarUsuario(Usuario usuario) {
-		// valida o usu·rio
+		// valida o usuÔøΩrio
 	}
 
 	public List<Usuario> consultar(String campo, String comparacao, String termo) throws Exception {

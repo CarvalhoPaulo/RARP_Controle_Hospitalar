@@ -19,7 +19,7 @@ public class EncaminhamentoDAO {
 			throw new Exception("Crie a tabela de leitos antes de criar a tabela de encaminhamento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("movimentacao"))
-			throw new Exception("Crie a tabela de movimentação antes de criar a tabela de encaminhamento");
+			throw new Exception("Crie a tabela de movimentaÃ§Ã£o antes de criar a tabela de encaminhamento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("entradapaciente"))
 			throw new Exception("Crie a tabela de entrada de pacientes antes de criar a tabela de encaminhamento");
@@ -146,7 +146,7 @@ public class EncaminhamentoDAO {
 			connection.commit();
 		} catch (Exception e) {
 			connection.rollback();
-			throw new Exception("Não foi possível salvar este encaminhamento\nErro: " + e.toString());
+			throw new Exception("NÃ£o foi possÃ­vel salvar esta Encaminhamento\nErro: " + e.toString());
 		} finally {
 			connection.close();
 		}

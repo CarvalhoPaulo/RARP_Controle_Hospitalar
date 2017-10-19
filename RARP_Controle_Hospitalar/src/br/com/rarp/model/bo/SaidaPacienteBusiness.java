@@ -11,7 +11,7 @@ public class SaidaPacienteBusiness {
 
 	public void salvar(SaidaPaciente saidaPaciente) throws Exception {
 		if(saidaPaciente == null)
-			throw new Exception("A saÌda de paciente n„o foi inst‚nciada");
+			throw new Exception("A sa√≠da de paciente n√£o foi inst√¢nciada");
 		
 		if(saidaPaciente.isStatus())
 			validarSaidaPaciente(saidaPaciente);
@@ -30,7 +30,7 @@ public class SaidaPacienteBusiness {
 			throw new Exception("A hora informada deve ser menor que a hora atual");
 		
 		if(saidaPaciente.getEntradaPaciente() != null && !saidaPaciente.getEntradaPaciente().isAlta())
-			throw new Exception("O paciente da entrada de paciente relacionada n„o ganhou alta, portanto n„o È possÌvel realizar a saÌda do mesmo");
+			throw new Exception("O paciente da entrada de paciente relacionada n√£o ganhou alta, portanto n√£o √© poss√≠vel realizar a sa√≠da do mesmo");
 	}
 
 	public List<SaidaPaciente> consultar(String campo, String comparacao, String termo) throws Exception {

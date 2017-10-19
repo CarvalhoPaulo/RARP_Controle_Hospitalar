@@ -9,7 +9,7 @@ public class EspecialidadeBusiness {
 
 	public void salvar(Especialidade especialidade) throws Exception {
 		if(especialidade == null)
-			throw new Exception("A especialidade n„o foi inst‚nciada");
+			throw new Exception("A especialidade n√£o foi inst√¢nciada");
 		
 		if(especialidade.isStatus())
 			validarEspecialidade(especialidade);

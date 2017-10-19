@@ -11,7 +11,7 @@ public class EncaminhamentoBusiness {
 
 	public void salvar(Encaminhamento encaminhamento) throws Exception {
 		if(encaminhamento == null)
-			throw new Exception("O encaminhamento não foi instânciada");
+			throw new Exception("O encaminhamento nÃ£o foi instÃ¢nciada");
 		
 		try {
 			if (encaminhamento.isStatus())
@@ -34,7 +34,7 @@ public class EncaminhamentoBusiness {
 	}
 
 	private void validarDesativacao(Encaminhamento encaminhamento) throws Exception {
-		throw new Exception("Não é possivel desativar um encaminhamento. Dica: Realize um nome rencaminhamento de estorno");
+		throw new Exception("NÃ£o Ã© possivel desativar um encaminhamento. Dica: Realize um nome rencaminhamento de estorno");
 	}
 
 	private void validarEncaminhamento(Encaminhamento encaminhamento) throws Exception {
@@ -45,7 +45,7 @@ public class EncaminhamentoBusiness {
 			throw new Exception("A hora informada deve ser menor que a hora atual");
 		
 		if(encaminhamento.getCodigo() != 0)
-			throw new Exception("Não é possivel alterar um encaminhamento realizado. Realize um novo encaminhamento.");
+			throw new Exception("NÃ£o Ã© possivel alterar um encaminhamento realizado. Realize um novo encaminhamento.");
 		
 		if(encaminhamento.getOrigem().getPaciente() == null)
 			throw new Exception("O leito de origem deve possuir um paciente para realizar o encaminhamento");
@@ -55,7 +55,7 @@ public class EncaminhamentoBusiness {
 		
 		if(encaminhamento.getEntradaPaciente().getSaidaPaciente() != null 
 				&& encaminhamento.getEntradaPaciente().getSaidaPaciente().getCodigo() > 0)
-			throw new Exception("Não é possível realizar o encaminhamento para um paciente que saiu do hospital");
+			throw new Exception("NÃ£o e possÃ­vel realizar o encaminhamento para um paciente que saiu do hospital");
 	}
 
 	public List<Encaminhamento> consultar(String campo, String comparacao, String termo) throws Exception {

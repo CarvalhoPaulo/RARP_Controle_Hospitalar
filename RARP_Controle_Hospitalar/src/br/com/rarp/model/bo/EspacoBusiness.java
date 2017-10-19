@@ -9,7 +9,7 @@ import br.com.rarp.model.dao.EspacoDAO;
 public class EspacoBusiness {
 	public void salvar(Espaco espaco) throws Exception {
 		if(espaco == null)
-			throw new Exception("A espaço não foi instânciada");
+			throw new Exception("A espaÃ§o nÃ£o foi instÃ¢nciada");
 		
 		if(espaco.isStatus())
 			validarEspaco(espaco);
@@ -18,7 +18,7 @@ public class EspacoBusiness {
 	}
 
 	private void validarEspaco(Espaco espaco) {
-		//Valida o espaço
+		//Valida o espaï¿½o
 	}
 
 	public List<Espaco> consultar(String campo, String comparacao, String termo) throws Exception {

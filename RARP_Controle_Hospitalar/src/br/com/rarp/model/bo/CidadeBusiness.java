@@ -19,7 +19,7 @@ public class CidadeBusiness {
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			List<Cidade> cidades = cidadeDAO.consultar("cid.nome", " = ", cidade.getNome());
 			if(cidades.size() > 0)
-				throw new Exception("Esta cidade ja est· cadastrada.");
+				throw new Exception("Esta cidade ja est√° cadastrada.");
 		}
 	}
 

@@ -9,7 +9,7 @@ public class CargoBusiness {
 
 	public void salvar(Cargo cargo) throws Exception {
 		if(cargo == null)
-			throw new Exception("A espaÁo n„o foi inst‚nciada");
+			throw new Exception("A espa√ßo n√£o foi inst√¢nciada");
 		
 		if(cargo.isStatus())
 			validarCargo(cargo);

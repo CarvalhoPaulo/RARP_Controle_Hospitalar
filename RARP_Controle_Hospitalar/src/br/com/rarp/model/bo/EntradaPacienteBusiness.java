@@ -18,14 +18,14 @@ public class EntradaPacienteBusiness {
 
 	public void salvar(EntradaPaciente entradaPaciente) throws Exception {
 		if(entradaPaciente == null)
-			throw new Exception("A entrada de paciente n„o foi inst‚nciada");
+			throw new Exception("A entrada de paciente n√£o foi inst√¢nciada");
 		
 		if(entradaPaciente.isStatus())
 			validarEntradaPaciente(entradaPaciente);
 		else
 			validarDesativacao(entradaPaciente);
 		
-		//Coloca o paciente em um leito da recepÁ„o
+		//Coloca o paciente em um leito da recepÔøΩÔøΩo
 		Espaco recepcao = new EspacoDAO().getRecepcao();
 		if(recepcao == null) {
 			recepcao = SistemaCtrl.getInstance().getRecepcao();
@@ -56,13 +56,13 @@ public class EntradaPacienteBusiness {
 			try {
 			new AtendimentoBusiness().validarDesativacao(a);
 			} catch (Exception e) {
-				throw new Exception("N„o È possÌvel desativar uma entrada de paciente que possui atendimentos realizados");
+				throw new Exception("N√£o foi poss√≠vel desativar uma entrada de paciente que possui atendimentos realizados");
 			}
 			a.setStatus(false);
 		}
 		
 		if(entradaPaciente.getEncaminhamentos().size() > 0)
-			throw new Exception("N„o È possÌvel desativar uma entrada de paciente que possui encaminhamentos realizados");
+			throw new Exception("N√£o ? poss√≠vel desativar uma entrada de paciente que possui encaminhamentos realizados");
 	}
 
 	private void validarEntradaPaciente(EntradaPaciente entradaPaciente) throws Exception {
@@ -74,10 +74,10 @@ public class EntradaPacienteBusiness {
 				throw new Exception("A hora informada deve ser menor que a hora atual");
 			
 			if (entradaPaciente.getMedico() == null && entradaPaciente.getAtendimentos().size() > 0)
-				throw new Exception("Para cadastrar os atendimentos para esta entrada de paciente È necess·rio informar o mÈdico");			
+				throw new Exception("Para cadastrar os atendimentos para esta entrada de paciente √© necess√°rio informar o m√©dico");			
 			if(entradaPaciente.isAlta()) {
 				if (entradaPaciente.getMedico() == null)
-					throw new Exception("Para cadastrar uma entrada de paciente È necess·rio informar o mÈdico");
+					throw new Exception("Para cadastrar uma entrada de paciente e necess√°rio informar o m√©dico");
 				
 				boolean realizado = !entradaPaciente.getAtendimentos().isEmpty();
 				for(Atendimento a: entradaPaciente.getAtendimentos()) {
@@ -88,7 +88,7 @@ public class EntradaPacienteBusiness {
 				}	
 				
 				if(!realizado)
-					throw new Exception("Para cadastrar uma entrada de paciente È necess·rio possuir pelo menos um atendimento realizado");		
+					throw new Exception("Para cadastrar uma entrada de paciente √© necess√°rio possuir pelo menos um atendimento realizado");		
 			}
 			
 			for(Atendimento atendimento: entradaPaciente.getAtendimentos())
@@ -97,7 +97,7 @@ public class EntradaPacienteBusiness {
 			List<EntradaPaciente> entradas = new EntradaPacienteDAO().getEntradasByPaciente(entradaPaciente.getPaciente());
 			for (EntradaPaciente e : entradas)
 				if ((e.getSaidaPaciente() == null || e.getSaidaPaciente().getCodigo() <= 0) && e.getCodigo() != entradaPaciente.getCodigo())
-					throw new Exception("N„o ser· possÌvel cadastrar um entrada para este paciente, pois o mesmo possui uma entrada em aberto.");
+					throw new Exception("N√£o ser√° poss√≠vel cadastrar um entrada para este paciente, pois o mesmo possui uma entrada em aberto.");
 		}
 	}
 

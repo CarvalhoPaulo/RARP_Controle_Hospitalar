@@ -16,7 +16,7 @@ public class ConvenioBusiness {
 
 	public void salvar(Convenio convenio) throws Exception {
 		if(convenio == null)
-			throw new Exception("A convÍnio n„o foi inst‚nciada");
+			throw new Exception("A conv√™nio n√£o foi inst√¢nciada");
 		
 		if(convenio.isStatus())
 			validarConvenio(convenio);
@@ -29,7 +29,7 @@ public class ConvenioBusiness {
 			throw new Exception("A data de nascimento informada deve ser menor que a data atual");
 		
 		if(!Utilitarios.isCNPJ(convenio.getCnpjSemMascara()))
-			throw new Exception("CNPJ Inv·lido");
+			throw new Exception("CNPJ Inv√°lido");
 	}
 
 }

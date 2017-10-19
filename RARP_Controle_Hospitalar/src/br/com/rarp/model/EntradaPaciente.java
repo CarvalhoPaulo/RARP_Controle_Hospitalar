@@ -76,7 +76,7 @@ public class EntradaPaciente extends Movimentacao {
 		if(getPaciente() != null)
 			return getPaciente().getNome() 
 				+ " - " + getDtMovimentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) 
-				+ " às " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+				+ " / " + getHrMovimentacao().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 		return "";
 	}
 	public SaidaPaciente getSaidaPaciente() {

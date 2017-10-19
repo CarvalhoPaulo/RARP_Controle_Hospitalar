@@ -21,7 +21,7 @@ public class AtendimentoDAO {
 			throw new Exception("Crie a tabela de entrada de pacientes antes de criar a tabela de atendimento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("movimentacao"))
-			throw new Exception("Crie a tabela de movimentações antes de criar a tabela de atendimento");
+			throw new Exception("Crie a tabela de movimentaÃ§Ãµes antes de criar a tabela de atendimento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("receita"))
 			throw new Exception("Crie a tabela de receitas antes de criar a tabela de atendimento");

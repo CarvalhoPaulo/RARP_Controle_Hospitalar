@@ -17,7 +17,7 @@ import br.com.rarp.model.PessoaJuridica;
 public class ConvenioDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if(!SistemaCtrl.getInstance().tabelaExiste("pessoajuridica"))
-			throw new Exception("Crie a tabela de pessoa juridica antes de criar a tabela de convênio");
+			throw new Exception("Crie a tabela de pessoa juridica antes de criar a tabela de convÃªnio");
 		
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";

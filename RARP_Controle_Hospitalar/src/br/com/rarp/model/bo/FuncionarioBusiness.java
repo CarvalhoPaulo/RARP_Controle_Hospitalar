@@ -10,7 +10,7 @@ public class FuncionarioBusiness {
 
 	public void salvar(Funcionario funcionario) throws Exception {
 		if(funcionario == null)
-			throw new Exception("O funcion·rio n„o foi inst‚nciado");
+			throw new Exception("O funcion√°rio n√£o foi inst√¢nciado");
 		
 		if(funcionario.isStatus())
 			validarFuncionario(funcionario);
@@ -23,7 +23,7 @@ public class FuncionarioBusiness {
 			throw new Exception("A data informada deve ser menor que a data atual");
 		
 		if(!Utilitarios.isCPF(funcionario.getCpfSemMascara()))
-			throw new Exception("CPF inv·lido");
+			throw new Exception("CPF inv√°lido");
 	}
 
 	public List<Funcionario> consultar(String campo, String comparacao, String termo) throws Exception {

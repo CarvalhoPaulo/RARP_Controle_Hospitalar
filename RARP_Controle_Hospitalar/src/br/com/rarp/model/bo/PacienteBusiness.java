@@ -16,7 +16,7 @@ public class PacienteBusiness {
 
 	public void salvar(Paciente paciente) throws Exception {
 		if(paciente == null)
-			throw new Exception("O paciente n„o foi inst‚nciado");
+			throw new Exception("O paciente n√£o foi inst√¢nciado");
 		
 		if(paciente.isStatus())
 			validarPaciente(paciente);
@@ -29,7 +29,7 @@ public class PacienteBusiness {
 			throw new Exception("A data informada deve ser menor que a data atual");
 		
 		if (!Utilitarios.isMaiorIdade(paciente.getDtNascimento()) && paciente.getResponsavel() == null) {
-			throw new Exception("Para cadastrar um paciente menor que 18 anos È necess·rio informar o respons·vel");
+			throw new Exception("Para cadastrar um paciente menor que 18 anos √© necess√°rio informar o respons√°vel");
 		}
 	}
 

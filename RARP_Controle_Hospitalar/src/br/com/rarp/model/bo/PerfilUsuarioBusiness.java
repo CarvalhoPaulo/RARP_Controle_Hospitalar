@@ -12,7 +12,7 @@ public class PerfilUsuarioBusiness {
 
 	public void salvar(PerfilUsuario perfilUsuario) throws Exception {
 		if(perfilUsuario == null)
-			throw new Exception("O perfil de usuário não foi instânciado");
+			throw new Exception("O perfil de usuÃ¡rio nÃ£o foi instÃ¢nciado");
 			
 		if(perfilUsuario.isStatus())
 			validarPerfilUsuario(perfilUsuario);
@@ -26,11 +26,11 @@ public class PerfilUsuarioBusiness {
 
 	private void validarDesativacao(PerfilUsuario perfilUsuario) throws Exception {
 		if(new UsuarioDAO().consultar("codigo_perfilusuario", " = ", perfilUsuario.getCodigo() + "").size() > 0)
-			throw new Exception("Não é possível desativar um perfil de usuário que possui usuários");
+			throw new Exception("NÃ£o Ã© possÃ­vel desativar um perfil de usuÃ¡rio que possui usuÃ¡rios");
 	}
 
 	private void validarPerfilUsuario(PerfilUsuario perfilUsuario) {
-		// valida o perfil de usuário
+		// valida o perfil de usuï¿½rio
 	}
 
 	public List<PerfilUsuario> consultar(String campo, String comparacao, String termo) throws SQLException, Exception {

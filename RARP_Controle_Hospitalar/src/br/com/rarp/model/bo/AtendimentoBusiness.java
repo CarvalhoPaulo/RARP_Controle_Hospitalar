@@ -12,7 +12,7 @@ public class AtendimentoBusiness {
 
 	public void salvar(Atendimento atendimento) throws Exception {
 		if(atendimento == null)
-			throw new Exception("A entrada de paciente n„o foi inst‚nciada");
+			throw new Exception("A entrada de paciente n√£o foi inst√¢nciada");
 		
 		if(atendimento.isStatus())
 			validarAtendimento(atendimento);
@@ -32,10 +32,10 @@ public class AtendimentoBusiness {
 			
 			if(atendimento.getCodigo() == 0) {
 				if (atendimento.getDataAtendimento().isBefore(LocalDate.now()) && atendimento.getStatusAtendimento() != StatusAtendimento.realizado) 
-					throw new Exception("N„o È possÌvel cadastrar um atendimento n„o realizado com data retroativa");
+					throw new Exception("N√£o √© poss√≠vel cadastrar um atendimento n√£o realizado com data retroativa");
 				
 				if (atendimento.getHoraFim().isBefore(LocalTime.now()) && atendimento.getStatusAtendimento() != StatusAtendimento.realizado) 
-					throw new Exception("N„o È possÌvel cadastrar um atendimento n„o realizado com hora retroativa");
+					throw new Exception("N√£o √© poss√≠vel cadastrar um atendimento n√£o realizado com hora retroativa");
 			}
 		}
 	}
@@ -46,7 +46,7 @@ public class AtendimentoBusiness {
 
 	public void validarDesativacao(Atendimento a) throws Exception {
 		if(a.getStatusAtendimento() == StatusAtendimento.realizado)
-			throw new Exception("N„o È possÌvel desativar um atendimento j· realizado");
+			throw new Exception("N√£o √© poss√≠vel desativar um atendimento j√° realizado");
 	}
 
 }
