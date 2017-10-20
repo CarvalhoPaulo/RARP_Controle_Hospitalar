@@ -138,7 +138,7 @@ public class ControleEntradaController extends Application implements Initializa
 			new CadastroFuncionarioController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("N„o foi possÌvel inserir um funcion·rio.\n" + e.getMessage());
+			Utilitarios.erro("N√£o foi possivel inserir um funcion√°rio.\n" + e.getMessage());
 			e.printStackTrace();
 		}  	
     }
@@ -149,7 +149,7 @@ public class ControleEntradaController extends Application implements Initializa
 			new CadastroMedicoController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("N„o foi possÌvel inserir um mÈdico.\n" + e.getMessage());
+			Utilitarios.erro("N√£o foi poss√≠vel inserir um m√©dico.\n" + e.getMessage());
 			e.printStackTrace();
 		}  	
     }
@@ -160,7 +160,7 @@ public class ControleEntradaController extends Application implements Initializa
 			new CadastroPacienteController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("N„o foi possÌvel inserir um paciente.\n" + e.getMessage());
+			Utilitarios.erro("N√£o foi poss√≠vel inserir um paciente.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -168,7 +168,7 @@ public class ControleEntradaController extends Application implements Initializa
     @FXML
     void inserirAtendimento(ActionEvent event) throws Exception {
     	if(cmbMedico.getValue() == null) {
-    		Utilitarios.atencao("Para inserir um atendimento È necess·rio selecionar um mÈdico.");
+    		Utilitarios.atencao("Para inserir um atendimento √© necess√°rio selecionar um m√©dico.");
     		cmbMedico.requestFocus();
     	} else {
 	    	ControleAtendimentoController controller = new ControleAtendimentoController();
@@ -204,7 +204,7 @@ public class ControleEntradaController extends Application implements Initializa
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar a entrada de paciente.\n" + "DescriÁ„o: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar a entrada de paciente.\n" + "Descri√ß√£o: " + e.getMessage());
 		}
 		entradaPacienteCtrl = null;
     }
@@ -443,17 +443,17 @@ public class ControleEntradaController extends Application implements Initializa
 	
 	private void setObrigatoriedadeMedico(boolean obrigatorio) {
 		if(obrigatorio) {
-			lblMedico.setText("MÈdico(ObrigatÛrio):");
+			lblMedico.setText("M√©dico(Obrigat√≥rio):");
 			lblMedico.getStyleClass().add("obrigatorio");
 		} else {
-			lblMedico.setText("MÈdico:");
+			lblMedico.setText("M√©dico:");
 			lblMedico.getStyleClass().removeAll("obrigatorio");
 		}
 	}
 	
 	private void setObrigatoriedadeAtendimentos(boolean obrigatorio) {
 		if(obrigatorio) {
-			lblAtendimentos.setText("Atendimentos(ObrigatÛrio):");
+			lblAtendimentos.setText("Atendimentos(Obrigat√≥rio):");
 			lblAtendimentos.getStyleClass().add("obrigatorio");
 		} else {
 			lblAtendimentos.setText("Atendimentos:");

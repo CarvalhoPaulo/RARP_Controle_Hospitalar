@@ -29,7 +29,7 @@ public class LimpezaController extends ManutencaoController {
 		getLblTitle().setStyle("-fx-background-color: #00008B;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Limpeza, String> codigo = new TableColumn<>("CÛdigo");
+		TableColumn<Limpeza, String> codigo = new TableColumn<>("C√≥digo");
 		codigo.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Limpeza,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -43,7 +43,7 @@ public class LimpezaController extends ManutencaoController {
 			}
 		});
 		
-		TableColumn<Limpeza, String> funcionarioLimpeza = new TableColumn<>("Respons·vel");
+		TableColumn<Limpeza, String> funcionarioLimpeza = new TableColumn<>("Respons√°vel");
 		funcionarioLimpeza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Limpeza,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -111,7 +111,7 @@ public class LimpezaController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("LIM.codigo", "CÛdigo", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("LIM.codigo", "C√≥digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("LIM.status", "Ativado", TipoCampo.booleano));
 	}
@@ -126,7 +126,7 @@ public class LimpezaController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as limpezas.\n" + "DescriÁ„o: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as limpezas.\n" + "Descri√ß√£o: " + e.getMessage());
 		}
 	}
 

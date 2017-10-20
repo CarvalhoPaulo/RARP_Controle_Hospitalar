@@ -22,11 +22,11 @@ public class FuncionarioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Funcionários");
+		getLblTitle().setText("ManutenÃ§Ã£o de FuncionÃ¡rios");
 		getLblTitle().setStyle("-fx-background-color: #5AFF57;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Funcionario, String> codigo = new TableColumn<>("Código");
+		TableColumn<Funcionario, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Funcionario, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -65,7 +65,7 @@ public class FuncionarioController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("func.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("func.codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("pe.nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("pf.cpf", "CPF", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("ca.nome", "Nome do Cargo", TipoCampo.texto));
@@ -82,7 +82,7 @@ public class FuncionarioController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as entradas de pacientes.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as entradas de pacientes.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 

@@ -81,7 +81,7 @@ public class CadastroMedicoController extends Application implements Initializab
 			new CadastroFuncionarioController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possÃ­vel inserir um funcionÃ¡rio.\n" + e.getMessage());
 			e.printStackTrace();
 		}  	
     }
@@ -92,7 +92,7 @@ public class CadastroMedicoController extends Application implements Initializab
 			new CadastroEspecialidadeController().inserir();
 			preencherTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir uma especialidade.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possÃ­vel inserir uma especialidade.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -232,10 +232,10 @@ public class CadastroMedicoController extends Application implements Initializab
 					limparCampos();
 				}
 			} else {
-				Utilitarios.atencao("Este cadastro esta aberto apenas para visualização");
+				Utilitarios.atencao("Este cadastro esta aberto apenas para visualizaï¿½ï¿½o");
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o Medico.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o Medico.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 

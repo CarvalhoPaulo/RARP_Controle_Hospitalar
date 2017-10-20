@@ -101,7 +101,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 			new CadastroEspacoController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir um espaço.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possÃ­vel inserir um espaÃ§o.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -251,8 +251,8 @@ public class ControleEncaminhamentoController extends Application implements Ini
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar espaço.\n"
-						   + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar espaï¿½o.\n"
+						   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 		encaminhamentoCtrl = null;
 	}

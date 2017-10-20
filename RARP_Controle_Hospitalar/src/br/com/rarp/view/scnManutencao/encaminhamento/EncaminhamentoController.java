@@ -28,7 +28,7 @@ public class EncaminhamentoController extends ManutencaoController {
 		getLblTitle().setStyle("-fx-background-color: #000000;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Encaminhamento, String> codigo = new TableColumn<>("Código");
+		TableColumn<Encaminhamento, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
 		TableColumn<Encaminhamento, String> origem = new TableColumn<>("Leito de origem");
@@ -62,7 +62,7 @@ public class EncaminhamentoController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("ENC.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("ENC.codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("ORI.nome", "Leito de Origem", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("DEST.nome", "Leito de Destino", TipoCampo.texto));
@@ -81,7 +81,7 @@ public class EncaminhamentoController extends ManutencaoController {
 			if(tblManutencao.getItems() == null || (tblManutencao.getItems() != null && tblManutencao.getItems().size() == 0))
 				Utilitarios.atencao("Nenhum registro foi encontrado.");
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os encaminhamentos.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os encaminhamentos.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 

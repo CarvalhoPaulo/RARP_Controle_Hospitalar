@@ -22,11 +22,11 @@ public class ConvenioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Convênios");
+		getLblTitle().setText("ManutenÃ§Ã£o de ConvÃ©nios");
 		getLblTitle().setStyle("-fx-background-color: #f9dd02;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Convenio, String> codigo = new TableColumn<>("Código");
+		TableColumn<Convenio, String> codigo = new TableColumn<>("Cï¿½digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Convenio, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -74,7 +74,7 @@ public class ConvenioController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("conv.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("conv.codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("pe.nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("pj.cnpj", "CNPJ", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("conv.ans", "Registro da ANS", TipoCampo.texto));
@@ -91,7 +91,7 @@ public class ConvenioController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os convênios.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os convÃ©nios.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

@@ -62,7 +62,7 @@ public class ControleSaidaController extends Application implements Initializabl
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ControleSaida.fxml"))));
-		stage.setTitle("Cadastro de Saída de Pacientes");
+		stage.setTitle("Cadastro de SaÃ­da de Pacientes");
 		setStage(stage);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -156,12 +156,12 @@ public class ControleSaidaController extends Application implements Initializabl
 		try {
 			preencherObjeto();
 			if (saidaPacienteCtrl.salvar()) {
-				Utilitarios.message("Saída de paciente salva com sucesso.");
+				Utilitarios.message("SaÃ­da de paciente salva com sucesso.");
 				limparCampos();
 			}
 			voltar(new ActionEvent());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar saída de paciente.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar saï¿½da de paciente.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 		saidaPacienteCtrl = null;
 	}

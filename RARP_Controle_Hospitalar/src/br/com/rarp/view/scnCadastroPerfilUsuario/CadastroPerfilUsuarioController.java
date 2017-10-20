@@ -54,7 +54,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroPerfilUsuario.fxml"))));
-		stage.setTitle("Cadastro de Perfil de Usuário");
+		stage.setTitle("Cadastro de Perfil de UsuÃ¡rio");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -214,12 +214,12 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 		preencherObjeto();
 		try {
 			if(perfilUsuarioCtrl.salvar()) {
-				Utilitarios.message("Perfil de usuário salvo com sucesso.");
+				Utilitarios.message("Perfil de usuÃ¡rio salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
-						   + "Descrição: " + e.getMessage());
+						   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 	
@@ -238,7 +238,7 @@ public class CadastroPerfilUsuarioController extends Application implements Init
 			tela.setStatus(true);
 			perfilUsuarioCtrl.getPerfilUsuario().getTelas().add(tela);
 		}
-		//Adiciona telas não permitidas
+		//Adiciona telas nï¿½o permitidas
 		for(Tela tela: lvTelas.getItems()) {
 			tela.setStatus(false);
 			tela.setPodeAlterar(false);

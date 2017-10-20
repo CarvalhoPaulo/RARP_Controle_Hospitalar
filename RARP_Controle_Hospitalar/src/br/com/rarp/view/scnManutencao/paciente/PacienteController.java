@@ -22,11 +22,11 @@ public class PacienteController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Pacientes");
+		getLblTitle().setText("ManutenÃ§Ã£o de Pacientes");
 		getLblTitle().setStyle("-fx-background-color: #0BDFF2;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Paciente, String> codigo = new TableColumn<>("Código");
+		TableColumn<Paciente, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Paciente, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -62,7 +62,7 @@ public class PacienteController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("pac.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("pac.codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("pe.nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("pf.cpf", "CPF", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("pac.status", "Ativado", TipoCampo.booleano));
@@ -78,7 +78,7 @@ public class PacienteController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os pacientes.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os pacientes.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

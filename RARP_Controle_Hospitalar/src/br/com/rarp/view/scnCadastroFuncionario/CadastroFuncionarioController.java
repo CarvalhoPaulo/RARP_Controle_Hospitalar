@@ -132,7 +132,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 			new CadastroCargoController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("N„o foi possÌvel inserir um cargo.\n" + e.getMessage());
+			Utilitarios.erro("N√£o foi poss√≠vel inserir um cargo.\n" + e.getMessage());
 			e.printStackTrace();
 		}  	
     }
@@ -141,7 +141,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroFuncionario.fxml"))));
-		stage.setTitle("Cadastro de Funcion·rios");
+		stage.setTitle("Cadastro de Funcion√°rios");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -399,11 +399,11 @@ public class CadastroFuncionarioController extends Application implements Initia
 		preencherObjeto();
 		try {
 			if(funcionarioCtrl.salvar()) {
-				Utilitarios.message("Funcion·rio salvo com sucesso.");
+				Utilitarios.message("Funcion√°rio salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o funcion·rio.\n" + "DescriÁ„o: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o funcion√°rio.\n" + "Descri√ß√£o: " + e.getMessage());
 		}
 	}
 	

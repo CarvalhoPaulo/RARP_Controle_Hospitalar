@@ -23,12 +23,12 @@ public class CidadeController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Cidades");
+		getLblTitle().setText("Manutenï¿½ï¿½o de Cidades");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #471B1B;"
 				+ "-fx-font-weight: bold");
 		
-		TableColumn<Cidade, String> codigo = new TableColumn<>("Código");
+		TableColumn<Cidade, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Cidade, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -53,7 +53,7 @@ public class CidadeController extends ManutencaoController {
 	}
 
 	private void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("uf_estado", "Sigla do Estado", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
@@ -70,7 +70,7 @@ public class CidadeController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar as cidades.\n"
-					   + "Descrição: " + e.getMessage());
+					   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

@@ -18,11 +18,11 @@ public class EspacoController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Espaços");
+		getLblTitle().setText("ManutenÃ§Ã£o de EspaÃ§os");
 		getLblTitle().setStyle("-fx-background-color: #FDE10C;"
 				+ "-fx-font-weight: bold");
 		
-		TableColumn<Espaco, String> codigo = new TableColumn<>("Código");
+		TableColumn<Espaco, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
 		TableColumn<Espaco, String> numero = new TableColumn<>("Nome");
@@ -44,7 +44,7 @@ public class EspacoController extends ManutencaoController {
 	}
 
 	private void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("bloco", "Bloco", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("andar", "Andar", TipoCampo.texto));
@@ -61,7 +61,7 @@ public class EspacoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os espaços.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os espaÃ§os.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

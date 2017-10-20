@@ -87,12 +87,12 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
 			SistemaCtrl.getInstance().getConexao();
-			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
+			Utilitarios.message("ConfiguraÃ§Ãµes do servidor de banco de dados gravadas com sucesso.");
 			
 			if(stage != null)
 				stage.hide();
 		} catch (Exception e) {
-			Utilitarios.atencao("Falha ao fravar configurações do servidor de banco de dados.");
+			Utilitarios.atencao("Falha ao fravar configuraÃ§Ãµes do servidor de banco de dados.");
 		}
 	}
 

@@ -9,7 +9,7 @@ public class Main {
 			MainController.abrir();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Utilitarios.erro("Erro ao inicializar a aplicação. "
+			Utilitarios.erro("Erro ao inicializar a aplicaÃ§Ã£o. "
 					+ e.getMessage()
 					+ "\n\tEntre em contato com o grupo RARP telefone: (62)"
 					+ " 98526-4619\\ (62) 98548-3271");		

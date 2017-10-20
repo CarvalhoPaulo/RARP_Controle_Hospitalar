@@ -114,7 +114,7 @@ public class CadastroConvenioController extends Application implements Initializ
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroConvenio.fxml"))));
-		stage.setTitle("Cadastro de Convênios");
+		stage.setTitle("Cadastro de ConvÃªnios");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -175,7 +175,7 @@ public class CadastroConvenioController extends Application implements Initializ
 			txtCodigo.setDisable(true);
 			txtCodigo.setFocusTraversable(true);
 			cmbTipo.getItems().add("Particular");
-			cmbTipo.getItems().add("Público");
+			cmbTipo.getItems().add("PÃºblico");
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
@@ -342,11 +342,11 @@ public class CadastroConvenioController extends Application implements Initializ
 		preencherObjeto();
 		try {
 			if(convenioCtrl.salvar()) {
-				Utilitarios.message("Convênio salvo com sucesso.");
+				Utilitarios.message("ConvÃªnio salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o convênio.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o convÃªnio.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 	

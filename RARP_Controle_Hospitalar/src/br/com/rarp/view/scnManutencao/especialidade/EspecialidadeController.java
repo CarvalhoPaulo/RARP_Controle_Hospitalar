@@ -19,9 +19,9 @@ public class EspecialidadeController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Especialidades");
+		getLblTitle().setText("ManutenÃ§Ã£o de Especialidades");
 
-		TableColumn<Especialidade, Especialidade> codigo = new TableColumn<>("Código");
+		TableColumn<Especialidade, Especialidade> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Especialidade, Especialidade> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -37,9 +37,9 @@ public class EspecialidadeController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		// Adicionar todos os campos que são strings numéricos ou booleanos,
+		// Adicionar todos os campos que sï¿½o strings numï¿½ricos ou booleanos,
 		// para pesquisa.
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Status", TipoCampo.booleano));
 		cmbCampo.setVisibleRowCount(3);
@@ -55,7 +55,7 @@ public class EspecialidadeController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

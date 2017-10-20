@@ -31,7 +31,7 @@ public class EntradaPacienteController extends ManutencaoController {
 				+ "-fx-font-weight: bold;"
 				+ "-fx-color: white");
 		
-		TableColumn<EntradaPaciente, String> codigo = new TableColumn<>("Código");
+		TableColumn<EntradaPaciente, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
 		TableColumn<EntradaPaciente, String> data = new TableColumn<>("Data");
@@ -90,10 +90,10 @@ public class EntradaPacienteController extends ManutencaoController {
 	}
 
 	private void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("ENT.codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("ENT.codigo", "Codigo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("MOV.data", "Data da entrada", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("PAC.nome", "Nome do(a) Paciente", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("MED.nome", "Nome do(a) Médico(a)", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("MED.nome", "Nome do(a) Mï¿½dico(a)", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("ENF.nome", "Nome do(a) Enfermeiro(a)", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("ATE.nome", "Nome do(a) Atendente(a)", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("USU.nome", "Nome do(a) Usuario(a)", TipoCampo.texto));
@@ -110,7 +110,7 @@ public class EntradaPacienteController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as entradas de paciente.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as entradas de paciente.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

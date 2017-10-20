@@ -49,7 +49,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroUsuario.fxml"))));
-		stage.setTitle("Cadastro de Usuários");
+		stage.setTitle("Cadastro de Usuï¿½rios");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -139,12 +139,12 @@ public class CadastroUsuarioController extends Application implements Initializa
     	preencherObjeto();
 		try {
 			if(usuarioCtrl.salvar()) {
-				Utilitarios.message("Usuário salvo com sucesso.");
+				Utilitarios.message("UsuÃ¡rio salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar perfil de usuario.\n"
-						   + "Descrição: " + e.getMessage());
+						   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
     }
     

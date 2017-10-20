@@ -24,12 +24,12 @@ public class SaidaController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Controle de Saída de Paciente");
+		getLblTitle().setText("Controle de SaÃ­da de Paciente");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #4682B4;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<SaidaPaciente, String> codigo = new TableColumn<>("Código");
+		TableColumn<SaidaPaciente, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SaidaPaciente,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -96,8 +96,8 @@ public class SaidaController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("SAI.codigo", "Código", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("MOV.data", "Data da Saída", TipoCampo.data));
+		cmbCampo.getItems().add(new Campo("SAI.codigo", "CÃ³digo", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data da Saï¿½da", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("SAI.status", "Ativado", TipoCampo.booleano));
 	}
 
@@ -111,7 +111,7 @@ public class SaidaController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar as saidas de pacientes.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar as saidas de pacientes.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

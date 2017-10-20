@@ -74,7 +74,7 @@ public class ControleLimpezaController extends Application implements Initializa
 			new CadastroFuncionarioController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possvel inserir um funcionÃ¡rio.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -214,7 +214,7 @@ public class ControleLimpezaController extends Application implements Initializa
 			}
 			voltar(new ActionEvent());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar atendimento.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 		limpezaCtrl = null;
 	}

@@ -23,18 +23,18 @@ public class CargoController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Cargos");
+		getLblTitle().setText("ManutenÃ§Ã£o de Cargos");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #8F929C;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Cargo, String> codigo = new TableColumn<>("Código");
+		TableColumn<Cargo, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		
 		TableColumn<Cargo, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
-		TableColumn<Cargo, String> funcao = new TableColumn<>("Função");
+		TableColumn<Cargo, String> funcao = new TableColumn<>("FunÃ§Ã£o");
 		funcao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Cargo,String>, ObservableValue<String>>() {
 
 			@Override
@@ -46,7 +46,7 @@ public class CargoController extends ManutencaoController {
 			}
 		});
 		
-		TableColumn<Cargo, String> nivel = new TableColumn<>("Nível");
+		TableColumn<Cargo, String> nivel = new TableColumn<>("NÃ­vel");
 		nivel.setCellValueFactory(new PropertyValueFactory<>("nivel"));
 		
 		TableColumn<Cargo, String> status = new TableColumn<>("Status");
@@ -76,10 +76,10 @@ public class CargoController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("funcao", "Função", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("nivel", "Nível", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("funcao", "FunÃ§Ã£o", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("nivel", "NÃ­vel", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
@@ -93,7 +93,7 @@ public class CargoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os cargos.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os cargos.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

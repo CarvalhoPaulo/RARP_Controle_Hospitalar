@@ -12,11 +12,13 @@ import org.com.rarp.interfaces.Requisicao;
 import org.com.rarp.interfaces.Resposta;
 import org.com.rarp.soap.ConsultaSOAP;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.TextFieldFormatter;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +29,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class ConsultaController extends Application implements Initializable {
 
@@ -73,8 +78,22 @@ public class ConsultaController extends Application implements Initializable {
 		list.add("SUS");
 		
 		cmbTipoDocumento.setItems(FXCollections.observableList(list));
+		
+		
 		tipoDocumentoChange();
 		
+//		TableColumn<EntradaPaciente, String> data = new TableColumn<>("Data");
+//		paciente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<EntradaPaciente,String>, ObservableValue<String>>() {
+//					
+//					@Override
+//					public ObservableValue<String> call(CellDataFeatures<EntradaPaciente, String> param) {
+//						String value = "";
+//						if(param.getValue() != null && param.getValue().getPaciente() != null) {
+//							value = param.getValue().getPaciente().getNome();
+//						}
+//						return new SimpleStringProperty(value);
+//					}
+//				});
 	
 	}
 

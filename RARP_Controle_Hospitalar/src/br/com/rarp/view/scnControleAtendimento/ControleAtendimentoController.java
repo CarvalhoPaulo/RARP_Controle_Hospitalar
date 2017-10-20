@@ -124,7 +124,7 @@ public class ControleAtendimentoController extends Application implements Initia
 			new ControleEntradaController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir uma entrada.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possÃ­vel inserir uma entrada.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -135,7 +135,7 @@ public class ControleAtendimentoController extends Application implements Initia
 			new CadastroFuncionarioController().inserir();
 			prepararTela();
 		} catch (Exception e) {
-			Utilitarios.erro("Não foi possível inserir um funcionário.\n" + e.getMessage());
+			Utilitarios.erro("NÃ£o foi possÃ­vel inserir uma funcionÃ¡rio.\n" + e.getMessage());
 			e.printStackTrace();
 		}  
     }
@@ -423,7 +423,7 @@ public class ControleAtendimentoController extends Application implements Initia
 			if (!salvar)
 				voltar(new ActionEvent());
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 

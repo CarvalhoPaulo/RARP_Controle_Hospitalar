@@ -29,7 +29,7 @@ public class AtendimentoController extends ManutencaoController {
 		getLblTitle().setStyle("-fx-background-color: #FF4500;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Atendimento, String> codigo = new TableColumn<>("CÛdigo");
+		TableColumn<Atendimento, String> codigo = new TableColumn<>("C√≥digo");
 		codigo.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Atendimento,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -43,7 +43,7 @@ public class AtendimentoController extends ManutencaoController {
 			}
 		});
 		
-		TableColumn<Atendimento, String> responsavel = new TableColumn<>("Respons·vel");
+		TableColumn<Atendimento, String> responsavel = new TableColumn<>("Respons√°vel");
 		responsavel.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Atendimento,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -126,7 +126,7 @@ public class AtendimentoController extends ManutencaoController {
 	}
 
 	public void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("ATE.codigo", "CÛdigo", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("ATE.codigo", "C√≥digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("MOV.data", "Data", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("ATE.status", "Ativado", TipoCampo.booleano));
 	}
@@ -141,7 +141,7 @@ public class AtendimentoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os atendimentos.\n" + "DescriÁ„o: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os atendimentos.\n" + "Descri√ß√£o: " + e.getMessage());
 		}
 	}
 

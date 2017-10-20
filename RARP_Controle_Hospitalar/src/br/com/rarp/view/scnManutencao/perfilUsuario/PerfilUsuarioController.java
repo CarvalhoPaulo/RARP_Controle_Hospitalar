@@ -18,11 +18,11 @@ public class PerfilUsuarioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Perfil de Usuário");
+		getLblTitle().setText("ManutenÃ§Ã£o de Perfil de UsuÃ¡rio");
 		getLblTitle().setStyle("-fx-background-color: #F34227;"
 				+ "-fx-font-weight: bold");
 		
-		TableColumn<PerfilUsuario, String> codigo = new TableColumn<>("Código");
+		TableColumn<PerfilUsuario, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		codigo.setPrefWidth(100);
 		
@@ -38,7 +38,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 	}
 
 	private void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
@@ -54,7 +54,7 @@ public class PerfilUsuarioController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar os perfis de usuario.\n"
-					   + "Descrição: " + e.getMessage());
+					   + "Descriï¿½ï¿½o: " + e.getMessage());
 		}
 	}
 

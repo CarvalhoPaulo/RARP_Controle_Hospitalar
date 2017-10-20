@@ -22,17 +22,17 @@ public class UsuarioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Usuários");
+		getLblTitle().setText("ManutenÃ§Ã£oo de UsuÃ¡rios");
 		getLblTitle().setStyle("-fx-background-color: #72c4fb;"
 				+ "-fx-font-weight: bold");
 		
-		TableColumn<Usuario, String> codigo = new TableColumn<>("Código");
+		TableColumn<Usuario, String> codigo = new TableColumn<>("CÃ³digo");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Usuario, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		TableColumn<Usuario, String> usuario = new TableColumn<>("Usuário");
+		TableColumn<Usuario, String> usuario = new TableColumn<>("UsuÃ¡rio");
 		usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-		TableColumn<Usuario, String> funcionario = new TableColumn<>("Funcionário");
+		TableColumn<Usuario, String> funcionario = new TableColumn<>("FuncionÃ¡rio");
 		funcionario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario,String>, ObservableValue<String>>() {
 			
 			@Override
@@ -60,9 +60,9 @@ public class UsuarioController extends ManutencaoController {
 	}
 
 	private void adicionarCampos() {
-		cmbCampo.getItems().add(new Campo("codigo", "Código", TipoCampo.numerico));
+		cmbCampo.getItems().add(new Campo("codigo", "CÃ³digo", TipoCampo.numerico));
 		cmbCampo.getItems().add(new Campo("nome", "Nome", TipoCampo.texto));
-		cmbCampo.getItems().add(new Campo("usuario", "Usuário", TipoCampo.texto));
+		cmbCampo.getItems().add(new Campo("usuario", "UsuÃ¡rio", TipoCampo.texto));
 		cmbCampo.getItems().add(new Campo("status", "Ativado", TipoCampo.booleano));
 	}
 
@@ -76,8 +76,8 @@ public class UsuarioController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue() : txtTermo.getText()));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os usuários.\n"
-					   + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os usuÃ¡rios.\n"
+					   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 
