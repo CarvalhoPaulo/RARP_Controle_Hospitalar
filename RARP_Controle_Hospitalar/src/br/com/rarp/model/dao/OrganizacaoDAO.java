@@ -52,7 +52,7 @@ public class OrganizacaoDAO {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception("Falha ao salvar organiza�ao");
+			throw new Exception("Falha ao salvar organização");
 		} finally {
 			conexao.close();
 		}
@@ -71,7 +71,7 @@ public class OrganizacaoDAO {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception("Falha ao salvar organiza�ao");
+			throw new Exception("Falha ao salvar organização");
 		} finally {
 			conexao.close();
 		}

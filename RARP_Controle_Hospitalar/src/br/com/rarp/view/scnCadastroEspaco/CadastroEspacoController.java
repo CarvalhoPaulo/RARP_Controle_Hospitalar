@@ -94,7 +94,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroEspaco.fxml"))));
-		stage.setTitle("Cadastro de Espaço");
+		stage.setTitle("Cadastro de EspaÃ§o");
 		setStage(stage);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -183,12 +183,12 @@ public class CadastroEspacoController extends Application implements Initializab
 		preencherObjeto();
 		try {
 			if(espacoCtrl.salvar()) {
-				Utilitarios.message("Espaço salvo com sucesso.");
+				Utilitarios.message("EspaÃ§o salvo com sucesso.");
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar espaço.\n"
-						   + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar espaÃ§o.\n"
+						   + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 

@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de SaidaPaciente complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="SaidaPaciente"&gt;
@@ -39,7 +39,7 @@ public class SaidaPaciente
     protected EntradaPaciente entradaPaciente;
 
     /**
-     * Obtém o valor da propriedade estadoPaciente.
+     * ObtÃ©m o valor da propriedade estadoPaciente.
      * 
      * @return
      *     possible object is
@@ -63,7 +63,7 @@ public class SaidaPaciente
     }
 
     /**
-     * Obtém o valor da propriedade entradaPaciente.
+     * ObtÃ©m o valor da propriedade entradaPaciente.
      * 
      * @return
      *     possible object is

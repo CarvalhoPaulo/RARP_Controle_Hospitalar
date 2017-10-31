@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Requisicao complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Requisicao"&gt;
@@ -43,7 +43,7 @@ public class Requisicao {
     protected PessoaFisica pessoaFisica;
 
     /**
-     * Obtém o valor da propriedade serie.
+     * ObtÃ©m o valor da propriedade serie.
      * 
      */
     public long getSerie() {
@@ -59,7 +59,7 @@ public class Requisicao {
     }
 
     /**
-     * Obtém o valor da propriedade numeracao.
+     * ObtÃ©m o valor da propriedade numeracao.
      * 
      */
     public long getNumeracao() {
@@ -75,7 +75,7 @@ public class Requisicao {
     }
 
     /**
-     * Obtém o valor da propriedade usuario.
+     * ObtÃ©m o valor da propriedade usuario.
      * 
      * @return
      *     possible object is
@@ -99,7 +99,7 @@ public class Requisicao {
     }
 
     /**
-     * Obtém o valor da propriedade pessoaFisica.
+     * ObtÃ©m o valor da propriedade pessoaFisica.
      * 
      * @return
      *     possible object is

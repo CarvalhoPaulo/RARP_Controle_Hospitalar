@@ -81,7 +81,7 @@ public class Propriedades {
 	}
 
 	public void setPropriedades() {
-		//Propriedades da conexão
+		//Propriedades da conexï¿½o
 		prop.setProperty("conexao.database", database);
 		prop.setProperty("conexao.user", user);
 		prop.setProperty("conexao.password", password);
@@ -91,7 +91,7 @@ public class Propriedades {
 		//Propriedades do login
 		prop.setProperty("login.lastUsername", lastUsername);
 		
-		//Opções do sistema
+		//OpÃ§Ãµes do sistema
 
 		 
 		try {

@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Cidade complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Cidade"&gt;
@@ -46,7 +46,7 @@ public class Cidade {
     protected Boolean status;
 
     /**
-     * Obtém o valor da propriedade codigo.
+     * ObtÃ©m o valor da propriedade codigo.
      * 
      */
     public int getCodigo() {
@@ -62,7 +62,7 @@ public class Cidade {
     }
 
     /**
-     * Obtém o valor da propriedade nome.
+     * ObtÃ©m o valor da propriedade nome.
      * 
      * @return
      *     possible object is
@@ -86,7 +86,7 @@ public class Cidade {
     }
 
     /**
-     * Obtém o valor da propriedade estado.
+     * ObtÃ©m o valor da propriedade estado.
      * 
      * @return
      *     possible object is
@@ -110,7 +110,7 @@ public class Cidade {
     }
 
     /**
-     * Obtém o valor da propriedade codigoIBGE.
+     * ObtÃ©m o valor da propriedade codigoIBGE.
      * 
      */
     public int getCodigoIBGE() {
@@ -126,7 +126,7 @@ public class Cidade {
     }
 
     /**
-     * Obtém o valor da propriedade status.
+     * ObtÃ©m o valor da propriedade status.
      * 
      * @return
      *     possible object is

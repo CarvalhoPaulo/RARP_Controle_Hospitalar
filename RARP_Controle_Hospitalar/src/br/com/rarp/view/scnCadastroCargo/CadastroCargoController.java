@@ -202,7 +202,7 @@ public class CadastroCargoController extends Application implements Initializabl
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o cargo.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o cargo.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 	

@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de pessoaJuridica complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="pessoaJuridica"&gt;
@@ -39,7 +39,7 @@ public class PessoaJuridica
     protected String razaoSocial;
 
     /**
-     * Obtém o valor da propriedade cnpj.
+     * ObtÃ©m o valor da propriedade cnpj.
      * 
      * @return
      *     possible object is
@@ -63,7 +63,7 @@ public class PessoaJuridica
     }
 
     /**
-     * Obtém o valor da propriedade razaoSocial.
+     * ObtÃ©m o valor da propriedade razaoSocial.
      * 
      * @return
      *     possible object is

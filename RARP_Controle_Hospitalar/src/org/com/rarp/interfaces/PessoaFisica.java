@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de PessoaFisica complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="PessoaFisica"&gt;
@@ -58,7 +58,7 @@ public class PessoaFisica
     protected String sus;
 
     /**
-     * Obtém o valor da propriedade cpf.
+     * ObtÃ©m o valor da propriedade cpf.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class PessoaFisica
     }
 
     /**
-     * Obtém o valor da propriedade rg.
+     * ObtÃ©m o valor da propriedade rg.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class PessoaFisica
     }
 
     /**
-     * Obtém o valor da propriedade sexo.
+     * ObtÃ©m o valor da propriedade sexo.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class PessoaFisica
     }
 
     /**
-     * Obtém o valor da propriedade possuiNecessidades.
+     * ObtÃ©m o valor da propriedade possuiNecessidades.
      * 
      */
     public boolean isPossuiNecessidades() {
@@ -146,7 +146,7 @@ public class PessoaFisica
     }
 
     /**
-     * Obtém o valor da propriedade certidaoNascimento.
+     * ObtÃ©m o valor da propriedade certidaoNascimento.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class PessoaFisica
     }
 
     /**
-     * Obtém o valor da propriedade sus.
+     * Obtem o valor da propriedade sus.
      * 
      * @return
      *     possible object is

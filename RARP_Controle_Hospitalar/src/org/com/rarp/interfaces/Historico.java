@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Historico complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Historico"&gt;
@@ -42,7 +42,7 @@ public class Historico {
     protected String descricao;
 
     /**
-     * Obtém o valor da propriedade tipo.
+     * ObtÃ©m o valor da propriedade tipo.
      * 
      * @return
      *     possible object is
@@ -95,7 +95,7 @@ public class Historico {
     }
 
     /**
-     * Obtém o valor da propriedade descricao.
+     * ObtÃ©m o valor da propriedade descricao.
      * 
      * @return
      *     possible object is
