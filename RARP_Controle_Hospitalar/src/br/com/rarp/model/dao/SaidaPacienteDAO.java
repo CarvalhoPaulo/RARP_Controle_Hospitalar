@@ -14,7 +14,7 @@ import br.com.rarp.model.SaidaPaciente;
 public class SaidaPacienteDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if (!SistemaCtrl.getInstance().tabelaExiste("movimentacao"))
-			throw new Exception("Crie a tabela de movimenta��o antes de criar a tabela de encaminhamento");
+			throw new Exception("Crie a tabela de movimentação antes de criar a tabela de encaminhamento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("entradapaciente"))
 			throw new Exception("Crie a tabela de entrada de pacientes antes de criar a tabela de encaminhamento");

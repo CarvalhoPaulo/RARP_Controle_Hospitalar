@@ -14,7 +14,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * <p>Classe Java de Pessoa complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Pessoa"&gt;
@@ -77,7 +77,7 @@ public class Pessoa {
     protected String email;
 
     /**
-     * Obtém o valor da propriedade codigo.
+     * ObtÃ©m o valor da propriedade codigo.
      * 
      */
     public int getCodigo() {
@@ -93,7 +93,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade nome.
+     * Obtï¿½m o valor da propriedade nome.
      * 
      * @return
      *     possible object is
@@ -117,7 +117,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade dtNascimento.
+     * Obtï¿½m o valor da propriedade dtNascimento.
      * 
      * @return
      *     possible object is
@@ -141,7 +141,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade logradouro.
+     * Obtï¿½m o valor da propriedade logradouro.
      * 
      * @return
      *     possible object is
@@ -165,7 +165,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade complemento.
+     * Obtï¿½m o valor da propriedade complemento.
      * 
      * @return
      *     possible object is
@@ -189,7 +189,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade numero.
+     * Obtï¿½m o valor da propriedade numero.
      * 
      * @return
      *     possible object is
@@ -213,7 +213,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade bairro.
+     * Obtï¿½m o valor da propriedade bairro.
      * 
      * @return
      *     possible object is
@@ -237,7 +237,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade cep.
+     * Obtï¿½m o valor da propriedade cep.
      * 
      * @return
      *     possible object is
@@ -290,7 +290,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade cidade.
+     * Obtï¿½m o valor da propriedade cidade.
      * 
      * @return
      *     possible object is
@@ -314,7 +314,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade status.
+     * Obtï¿½m o valor da propriedade status.
      * 
      */
     public boolean isStatus() {
@@ -330,7 +330,7 @@ public class Pessoa {
     }
 
     /**
-     * Obtém o valor da propriedade email.
+     * Obtï¿½m o valor da propriedade email.
      * 
      * @return
      *     possible object is

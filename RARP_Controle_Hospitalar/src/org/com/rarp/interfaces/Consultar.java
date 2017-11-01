@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de consultar complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="consultar"&gt;
@@ -34,7 +34,7 @@ public class Consultar {
     protected Requisicao requisicao;
 
     /**
-     * Obtém o valor da propriedade requisicao.
+     * ObtÃ©m o valor da propriedade requisicao.
      * 
      * @return
      *     possible object is

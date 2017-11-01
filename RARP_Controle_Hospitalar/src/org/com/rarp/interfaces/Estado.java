@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Estado complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Estado"&gt;
@@ -42,7 +42,7 @@ public class Estado {
     protected long codigo;
 
     /**
-     * Obtém o valor da propriedade nome.
+     * ObtÃ©m o valor da propriedade nome.
      * 
      * @return
      *     possible object is
@@ -66,7 +66,7 @@ public class Estado {
     }
 
     /**
-     * Obtém o valor da propriedade uf.
+     * ObtÃ©m o valor da propriedade uf.
      * 
      * @return
      *     possible object is
@@ -90,7 +90,7 @@ public class Estado {
     }
 
     /**
-     * Obtém o valor da propriedade codigo.
+     * Obtï¿½m o valor da propriedade codigo.
      * 
      */
     public long getCodigo() {

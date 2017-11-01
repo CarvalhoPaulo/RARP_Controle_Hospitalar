@@ -22,7 +22,7 @@ public class PacienteDAO {
 			throw new Exception("Crie a tabela de pessoa fisica antes de criar a tabela de pacientes");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("convenio"))
-			throw new Exception("Crie a tabela de pessoa convênio antes de criar a tabela de pacientes");
+			throw new Exception("Crie a tabela de pessoa convÃªnio antes de criar a tabela de pacientes");
 
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";

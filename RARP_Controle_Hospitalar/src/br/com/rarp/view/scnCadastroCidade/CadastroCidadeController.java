@@ -203,7 +203,7 @@ public class CadastroCidadeController extends Application implements Initializab
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar a cidade.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar a cidade.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 	

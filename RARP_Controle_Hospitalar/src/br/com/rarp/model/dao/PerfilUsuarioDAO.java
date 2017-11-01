@@ -99,11 +99,11 @@ public class PerfilUsuarioDAO {
 		}
 
 		sql = "INSERT INTO perfilusuario(codigo, nome, status) "
-				+ "VALUES(3, 'MÈdico', 'TRUE') "
+				+ "VALUES(3, 'M√©dico', 'TRUE') "
 				+ "ON CONFLICT (codigo) "
 				+ "DO UPDATE SET "
 				+ "codigo = 3, "
-				+ "nome = 'MÈdico', "
+				+ "nome = 'M√©dico', "
 				+ "status = 'TRUE' ";
 		st.executeUpdate(sql);
 		
@@ -145,11 +145,11 @@ public class PerfilUsuarioDAO {
 		}
 		
 		sql = "INSERT INTO perfilusuario(codigo, nome, status) "
-				+ "VALUES(4, 'Funcion·rio de Limpeza', 'TRUE') "
+				+ "VALUES(4, 'Funcion√°rio de Limpeza', 'TRUE') "
 				+ "ON CONFLICT (codigo) "
 				+ "DO UPDATE SET "
 				+ "codigo = 4, "
-				+ "nome = 'Funcion·rio de Limpeza', "
+				+ "nome = 'Funcion√°rio de Limpeza', "
 				+ "status = 'TRUE' ";
 		st.executeUpdate(sql);
 		

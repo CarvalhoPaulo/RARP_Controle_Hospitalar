@@ -13,7 +13,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * <p>Classe Java de Funcionario complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Funcionario"&gt;
@@ -51,7 +51,7 @@ public class Funcionario
     protected String ctps;
 
     /**
-     * Obtém o valor da propriedade dtAdmissao.
+     * ObtÃ©m o valor da propriedade dtAdmissao.
      * 
      * @return
      *     possible object is
@@ -75,7 +75,7 @@ public class Funcionario
     }
 
     /**
-     * Obtém o valor da propriedade salarioContratual.
+     * ObtÃ©m o valor da propriedade salarioContratual.
      * 
      */
     public double getSalarioContratual() {
@@ -91,7 +91,7 @@ public class Funcionario
     }
 
     /**
-     * Obtém o valor da propriedade ctps.
+     * ObtÃ©m o valor da propriedade ctps.
      * 
      * @return
      *     possible object is

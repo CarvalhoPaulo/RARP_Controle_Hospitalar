@@ -13,7 +13,7 @@ public class Maior implements Comparacao {
 	@Override
 	public String getTermo(String termo) throws Exception {
 		if(termo.isEmpty())
-			throw new Exception("O termo da consulta é obrigatório");
+			throw new Exception("O termo da consulta Ã© obrigatÃ³rio");
 		return Utilitarios.formatStringSQL(termo);
 	}
 	

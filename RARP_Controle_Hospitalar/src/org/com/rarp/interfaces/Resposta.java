@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Resposta complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Resposta"&gt;
@@ -40,7 +40,7 @@ public class Resposta {
     protected Historico historico;
 
     /**
-     * Obtém o valor da propriedade requisicao.
+     * ObtÃ©m o valor da propriedade requisicao.
      * 
      * @return
      *     possible object is
@@ -64,7 +64,7 @@ public class Resposta {
     }
 
     /**
-     * Obtém o valor da propriedade pessoaFisica.
+     * ObtÃ©m o valor da propriedade pessoaFisica.
      * 
      * @return
      *     possible object is
@@ -88,7 +88,7 @@ public class Resposta {
     }
 
     /**
-     * Obtém o valor da propriedade historico.
+     * ObtÃ©m o valor da propriedade historico.
      * 
      * @return
      *     possible object is

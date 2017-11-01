@@ -414,7 +414,7 @@ public class CadastroPacienteController extends Application implements Initializ
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar o paciente.\n" + "Descrição: " + e.getMessage());
+			Utilitarios.erro("Erro ao salvar o paciente.\n" + "DescriÃ§Ã£o: " + e.getMessage());
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class Utilitarios {
 	public static void atencao(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setContentText(message);
-		alert.setHeaderText("Atenção");
+		alert.setHeaderText("AtenÃ§Ã£o");
 		alert.showAndWait();
 	}
 
@@ -92,7 +92,7 @@ public class Utilitarios {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setContentText(message);
 		ButtonType btnSim = new ButtonType("Sim");
-		ButtonType btnNao = new ButtonType("Não");
+		ButtonType btnNao = new ButtonType("NÃ£o");
 		alert.getButtonTypes().clear();
 		alert.getButtonTypes().addAll(btnSim, btnNao);
 		alert.showAndWait().ifPresent(b -> {
