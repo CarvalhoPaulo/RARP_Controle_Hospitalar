@@ -83,6 +83,14 @@ public class Atendimento extends Movimentacao {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof Atendimento && ((Atendimento) obj).getCodigo() > 0)
+			return ((Atendimento) obj).getCodigo() == getCodigo();
+		else
+			return super.equals(obj);
+	}
+	
+	@Override
 	public Atendimento clone() {
 		Atendimento atendimento = new Atendimento();
 		atendimento.setCodigo(getCodigo());

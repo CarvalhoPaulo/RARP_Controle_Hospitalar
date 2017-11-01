@@ -13,7 +13,7 @@ public class Conexao {
 
     public Connection getConexao() throws ClassNotFoundException, SQLException {
     	
-    	if (conecta != null)
+    	if (conecta != null && !conecta.isClosed())
     		return conecta;
     	
     	

@@ -175,9 +175,11 @@ public class ControleEntradaController extends Application implements Initializa
 	    	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
 	    	atendimentoCtrl.novoAtendimento();
 	    	atendimentoCtrl.getAtendimento().setResponsavel(cmbMedico.getValue());
+	    	atendimentoCtrl.setAtendimentos(tblAtendimentos.getItems());
 	    	atendimentoCtrl.getAtendimento().setStatus(true);
 	    	if(controller.abrir(atendimentoCtrl) && !tblAtendimentos.getItems().contains(atendimentoCtrl.getAtendimento()))
 	    		tblAtendimentos.getItems().add(atendimentoCtrl.getAtendimento());
+	    	tblAtendimentos.refresh();
     	}
     }
 
@@ -185,8 +187,10 @@ public class ControleEntradaController extends Application implements Initializa
     void alterarAtendimento(ActionEvent event) throws Exception {
     	ControleAtendimentoController controller = new ControleAtendimentoController();
     	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
+    	atendimentoCtrl.setAtendimentos(tblAtendimentos.getItems());
     	atendimentoCtrl.setAtendimento(tblAtendimentos.getSelectionModel().getSelectedItem());
     	controller.abrir(atendimentoCtrl);
+    	tblAtendimentos.refresh();
     }
 
     @FXML

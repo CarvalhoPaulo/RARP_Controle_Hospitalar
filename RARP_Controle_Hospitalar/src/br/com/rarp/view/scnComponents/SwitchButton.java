@@ -49,7 +49,7 @@ public class SwitchButton extends Label
                 }
                 else
                 {
-                    setText("N√O");
+                    setText("N√ÉO");
                     setStyle( "-fx-font-size: 12px;"
                     		+ "-fx-background-color: red;"
                     		+ "-fx-text-fill: white;"

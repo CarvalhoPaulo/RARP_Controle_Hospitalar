@@ -1,15 +1,25 @@
 package br.com.rarp.control;
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Atendimento;
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.bo.AtendimentoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.Agenda.Appointment;
+import jfxtras.scene.control.agenda.Agenda.AppointmentImpl;
 
 public class AtendimentoCtrl {
 	private Atendimento atendimento;
+	private List<Atendimento> atendimentos = new ArrayList<>();
 
 	public Atendimento getAtendimento() {
 		return atendimento;
@@ -76,5 +86,35 @@ public class AtendimentoCtrl {
 		AtendimentoCtrl a = new AtendimentoCtrl();
 		a.setAtendimento(atendimento.clone());
 		return a;
+	}
+
+	public List<Appointment> getAppointmentByFuncionario(Funcionario value) throws ClassNotFoundException, SQLException, Exception {
+		List<Appointment> appointments = new ArrayList<>();
+		List<Atendimento> atendimentos = new AtendimentoBusiness().getByFuncionario(value);
+		for(Atendimento a: this.atendimentos) {
+			if(a.getResponsavel().equals(value) && !atendimentos.contains(a))
+				atendimentos.add(a);
+		}
+		if(atendimentos != null && atendimentos.size() > 0)
+			for(Atendimento a: atendimentos) {
+				if (!a.equals(atendimento)) {
+					Appointment appointment = new AppointmentImpl();
+					appointment.setStartLocalDateTime(LocalDateTime.of(a.getDataAtendimento(), a.getHoraIni()));
+					appointment.setEndLocalDateTime(LocalDateTime.of(a.getDataAtendimento(), a.getHoraFim()));
+					appointment.setDescription(a.getDescricao());
+					appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl());
+					appointment.getAppointmentGroup().setStyleClass("group7");
+					appointments.add(appointment);
+				}
+			}
+		return appointments;
+	}
+
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
+	}
+
+	public void setAtendimentos(List<Atendimento> atendimentos) {
+		this.atendimentos = atendimentos;
 	}
 }

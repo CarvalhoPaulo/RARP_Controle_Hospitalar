@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 
 public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler<KeyEvent> {
@@ -16,6 +17,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 	private boolean moveCaretToPos = false;
 	private boolean digited = false;
 	private int caretPos;
+	private boolean clicou = false;
 	private boolean literal = true;
 	private boolean negativeIndex = true;
 	private boolean hideOutside = true;
@@ -40,6 +42,14 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 			}
 		});
 		setOnHidden(onHide);
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				clicou = true;
+			}
+		});
 		
 		focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(!newValue && oldValue && literal && getItems().size() > 0) {
@@ -98,7 +108,7 @@ public class AutoCompleteComboBox<T> extends ComboBox<T> implements EventHandler
 		@Override
 		public void handle(Event event) {
 			Platform.runLater(() -> {
-				if(getItems().size() > 0 && (negativeIndex ? getEditor().getText().length() > 0 : true))
+				if(getItems().size() > 0 && !clicou && (negativeIndex ? getEditor().getText().length() > 0 : true))
 					getEditor().setText(getItems().get(0).toString());
 		        if ((getEditor().isFocused() || isFocused()) && !getEditor().getText().isEmpty() && !space) 
 		            getEditor().selectAll();

@@ -115,7 +115,7 @@ public class EntradaPacienteDAO {
 			ps.setBoolean(8, entradaPaciente.isStatus());	
 			ps.setInt(9, entradaPaciente.getCodigo());
 			ps.executeUpdate();
-			entradaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao("entradapaciente", entradaPaciente.getCodigo()));
+			entradaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "entradapaciente", entradaPaciente.getCodigo()));
 			if(entradaPaciente.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(conexao, entradaPaciente);
 			ps.close();

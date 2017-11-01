@@ -47,6 +47,7 @@ import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.LocalTimeTextField;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
+import jfxtras.scene.control.agenda.Agenda.LocalDateTimeRange;
 
 public class ControleAtendimentoController extends Application implements Initializable {
 
@@ -285,6 +286,25 @@ public class ControleAtendimentoController extends Application implements Initia
 		cmbStatusAtendimento.getSelectionModel().select(0);
 		agdAtendimento.setSkin(new AgendaWeekSkin(agdAtendimento));
 		
+		cmbFuncionario.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if(atendimentoCtrl == null)
+						atendimentoCtrl = new AtendimentoCtrl();
+					agdAtendimento.appointments().setAll(atendimentoCtrl.getAppointmentByFuncionario(cmbFuncionario.getValue()));
+					agdAtendimento.refresh();
+					agdAtendimento.setAllowDragging(agdAtendimento.appointments().size() == 0);
+					agdAtendimento.setAllowResize(agdAtendimento.appointments().size() == 0);
+				} catch (Exception e) {
+					Utilitarios.atencao("Não foi possível obter os atendimentos agendados."
+							+ "\nMotivo: " + e.getMessage());
+					e.printStackTrace();
+				} 
+			}
+		});
+		
 		pnlPrincipal.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override
@@ -338,6 +358,7 @@ public class ControleAtendimentoController extends Application implements Initia
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		
 		agdAtendimento.editAppointmentCallbackProperty().set((param) -> {
 			if (param == appointment) {
 				ControleApontamentoController controller = new ControleApontamentoController();
@@ -365,18 +386,36 @@ public class ControleAtendimentoController extends Application implements Initia
 		});
 
 		agdAtendimento.newAppointmentCallbackProperty().set((localDateTimeRange) -> {
-			txtDataAtendimento
-					.setValue(Utilitarios.localDateTimeToLocalDate(localDateTimeRange.getStartLocalDateTime()));
-			txtHoraInicial.setLocalTime(localDateTimeRange.getStartLocalDateTime().toLocalTime());
-			txtHoraFinal.setLocalTime(localDateTimeRange.getEndLocalDateTime().toLocalTime());
-			if (appointment == null) {
-				appointment = newAppointment();
-				return appointment;
-			} else {
-				return null;
+			if(horarioLivre(localDateTimeRange)) {
+				txtDataAtendimento
+						.setValue(Utilitarios.localDateTimeToLocalDate(localDateTimeRange.getStartLocalDateTime()));
+				txtHoraInicial.setLocalTime(localDateTimeRange.getStartLocalDateTime().toLocalTime());
+				txtHoraFinal.setLocalTime(localDateTimeRange.getEndLocalDateTime().toLocalTime());
+				if (appointment == null) {
+					appointment = newAppointment();
+					return appointment;	
+				}
 			}
+			return null;
 		});
 
+	}
+
+	private boolean horarioLivre(LocalDateTimeRange localDateTimeRange) {
+		for(Appointment ap: agdAtendimento.appointments()) {
+			if(ap.equals(appointment))
+				continue;
+			if(localDateTimeRange.getStartLocalDateTime().isAfter(ap.getStartLocalDateTime()) 
+				&& localDateTimeRange.getStartLocalDateTime().isBefore(ap.getEndLocalDateTime()))
+				return false;
+			if(localDateTimeRange.getEndLocalDateTime().isAfter(ap.getStartLocalDateTime()) 
+				&& localDateTimeRange.getEndLocalDateTime().isBefore(ap.getEndLocalDateTime()))
+				return false;
+			if(localDateTimeRange.getStartLocalDateTime().isBefore(ap.getStartLocalDateTime()) 
+				&& localDateTimeRange.getEndLocalDateTime().isAfter(ap.getEndLocalDateTime()))
+				return false;
+		}
+		return true;
 	}
 
 	private void bloquearTela() {
@@ -421,7 +460,7 @@ public class ControleAtendimentoController extends Application implements Initia
 				limparCampos();
 			}
 			if (!salvar)
-				voltar(new ActionEvent());
+				voltar(event);
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao salvar atendimento.\n" + "Descri��o: " + e.getMessage());
 		}
@@ -429,7 +468,7 @@ public class ControleAtendimentoController extends Application implements Initia
 
 	@FXML
 	private void voltar(ActionEvent event) {
-		if(salvar)
+		if(event.getSource().equals(btnVoltar))
 			atendimentoCtrl = null;
 		appointment = null;
 		stage.hide();
@@ -470,6 +509,9 @@ public class ControleAtendimentoController extends Application implements Initia
 	}
 
 	private void preencherTela() {
+		if(atendimentoCtrl.getAtendimento().getResponsavel() != null)
+			cmbFuncionario.getSelectionModel().select(atendimentoCtrl.getAtendimento().getResponsavel());
+		cmbFuncionario.getOnAction().handle(new ActionEvent());
 		txtCodigo.setText(atendimentoCtrl.getAtendimento().getCodigo() + "");
 		if(atendimentoCtrl.getAtendimento().getDtMovimentacao() != null)
 			txtData.setValue(atendimentoCtrl.getAtendimento().getDtMovimentacao());
@@ -489,8 +531,6 @@ public class ControleAtendimentoController extends Application implements Initia
 			lsSintomas.getItems().addAll(atendimentoCtrl.getAtendimento().getSintomas());
 		if(atendimentoCtrl.getAtendimento().getEntradaPaciente() != null)
 			cmbEntradaPaciente.getSelectionModel().select(atendimentoCtrl.getAtendimento().getEntradaPaciente());
-		if(atendimentoCtrl.getAtendimento().getResponsavel() != null)
-			cmbFuncionario.getSelectionModel().select(atendimentoCtrl.getAtendimento().getResponsavel());
 		if(atendimentoCtrl.getAtendimento().getStatusAtendimento() != null)
 			cmbStatusAtendimento.getSelectionModel().select(atendimentoCtrl.getAtendimento().getStatusAtendimento());
 		sbAtivado.setValue(atendimentoCtrl.getAtendimento().isStatus());
@@ -503,6 +543,7 @@ public class ControleAtendimentoController extends Application implements Initia
 		visualizando = false;
 		start(SistemaCtrl.getInstance().getStage());
 		stage.showAndWait();
+		atendimentoCtrl = this.atendimentoCtrl;
 		return atendimentoCtrl != null;
 	}
 }

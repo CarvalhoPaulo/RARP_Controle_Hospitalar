@@ -14,7 +14,7 @@ import br.com.rarp.model.SaidaPaciente;
 public class SaidaPacienteDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if (!SistemaCtrl.getInstance().tabelaExiste("movimentacao"))
-			throw new Exception("Crie a tabela de movimentação antes de criar a tabela de encaminhamento");
+			throw new Exception("Crie a tabela de movimentaï¿½ï¿½o antes de criar a tabela de encaminhamento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("entradapaciente"))
 			throw new Exception("Crie a tabela de entrada de pacientes antes de criar a tabela de encaminhamento");
@@ -99,7 +99,7 @@ public class SaidaPacienteDAO {
 			
 			ps.executeUpdate();
 			
-			saidaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao("saidapaciente", saidaPaciente.getCodigo()));
+			saidaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "saidapaciente", saidaPaciente.getCodigo()));
 			if(saidaPaciente.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(conexao, saidaPaciente);
     		
