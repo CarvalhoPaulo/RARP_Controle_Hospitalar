@@ -86,7 +86,7 @@ public class OpcoesController extends Application implements Initializable {
 		try {
 			preencherConfiguracoes();
 			SistemaCtrl.getInstance().salvarConfiguracoes();
-			stage.hide();
+			stage.close();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			Utilitarios.erro(e1.toString());

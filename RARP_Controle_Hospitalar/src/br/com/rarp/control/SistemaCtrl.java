@@ -225,12 +225,9 @@ public class SistemaCtrl {
 	}
 	
 	public Conexao getConexao() throws Exception {
-		if (conexao !=  null) {
-			
-			conexao.getConexao().close();
-			conexao = null;
-		}
-		conexao = new Conexao();
+		if(conexao == null)
+			conexao = new Conexao();
+		conexao.getConexao();
 		return conexao;
 	}
 	

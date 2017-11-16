@@ -24,23 +24,68 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class CadastroUsuarioController extends Application implements Initializable {
 
 	private static Stage stage;
 	
-    @FXML private Button btnSalvar;
-    @FXML private Button btnVoltar;
-    @FXML private IntegerTextField txtCodigo;
-    @FXML private TextField txtNome;
-    @FXML private TextField txtUsuario;
-    @FXML private ComboBox<PerfilUsuario> cmbPerfilUsuario;
-    @FXML private ComboBox<Funcionario> cmbFuncionario;
-    @FXML private SwitchButton sbAtivado;
+    @FXML 
+    private Button btnSalvar;
+    
+    @FXML 
+    private Button btnVoltar;
+    
+    @FXML 
+    private IntegerTextField txtCodigo;
+    
+    @FXML 
+    private TextField txtNome;
+    
+    @FXML 
+    private TextField txtUsuario;
+    
+    @FXML 
+    private ComboBox<PerfilUsuario> cmbPerfilUsuario;
+    
+    @FXML 
+    private ComboBox<Funcionario> cmbFuncionario;
+    
+    @FXML 
+    private SwitchButton sbAtivado;
+    
+    @FXML
+    private Label lblSenha;
+
+    @FXML
+    private TextField txtSenha;
+
+    @FXML
+    private Label lblSenha1;
+
+    @FXML
+    private TextField txtSenha1;
+
+    @FXML
+    private Label lblSenha2;
+
+    @FXML
+    private TextField txtSenha2;
+
+    @FXML
+    private SwitchButton sbNovaSenha;
+
+    @FXML
+    private AnchorPane pnlPrincipal;
+    
+    @FXML
+    private Label lblsbNovaSenha;
     
 	private static UsuarioCtrl usuarioCtrl;
 	private static boolean visualizando;
@@ -86,21 +131,57 @@ public class CadastroUsuarioController extends Application implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		sbAtivado.switchOnProperty().set(true);
-		txtCodigo.setDisable(true);
-		try {
-			cmbPerfilUsuario.setItems(new PerfilUsuarioCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
-			cmbFuncionario.setItems(new FuncionarioCtrl().consultar(new Campo("func.status", "", TipoCampo.booleano), new Ativado(), "ativado"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		prepararTela();
 		if(usuarioCtrl != null && usuarioCtrl.getClass() != null)
 			preencheTela();
 		if(visualizando)
 			bloquearTela();
 	}
 	
+	private void prepararTela() {
+		sbAtivado.switchOnProperty().set(true);
+		txtCodigo.setDisable(true);
+		try {
+			cmbPerfilUsuario.setItems(new PerfilUsuarioCtrl().consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+			cmbFuncionario.setItems(new FuncionarioCtrl().consultar(new Campo("func.status", "", TipoCampo.booleano), new Ativado(), "ativado"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(usuarioCtrl == null) {
+			sbNovaSenha.setVisible(false);
+			lblsbNovaSenha.setVisible(false);
+			lblSenha2.setDisable(true);
+			txtSenha2.setDisable(true);
+		} else {
+			lblSenha1.setText("Nova Senha(Obrigatório):");
+			txtSenha.setDisable(true);
+			txtSenha.setDisable(true);
+			lblSenha1.setDisable(true);
+			txtSenha1.setDisable(true);
+			lblSenha2.setDisable(true);
+			txtSenha2.setDisable(true);
+		}
+	}
+	
+    @FXML
+    void novaSenha(MouseEvent event) {
+    	if(sbNovaSenha.getValue()) {
+			txtSenha.setDisable(false);
+			txtSenha.setDisable(false);
+			lblSenha1.setDisable(false);
+			txtSenha1.setDisable(false);
+			lblSenha2.setDisable(false);
+			txtSenha2.setDisable(false);
+    	} else {
+			txtSenha.setDisable(true);
+			txtSenha.setDisable(true);
+			lblSenha1.setDisable(true);
+			txtSenha1.setDisable(true);
+			lblSenha2.setDisable(true);
+			txtSenha2.setDisable(true);
+    	}
+    }
+
 	private void bloquearTela() {
 		txtCodigo.setDisable(true);
 		txtNome.setDisable(true);
@@ -136,8 +217,8 @@ public class CadastroUsuarioController extends Application implements Initializa
 	
     @FXML
     private void salvar(ActionEvent event) {
-    	preencherObjeto();
 		try {
+			preencherObjeto();
 			if(usuarioCtrl.salvar()) {
 				Utilitarios.message("Usuário salvo com sucesso.");
 				limparCampos();
@@ -155,9 +236,16 @@ public class CadastroUsuarioController extends Application implements Initializa
     	visualizando = false;
     }
 
-    private void preencherObjeto() {
-		if(usuarioCtrl == null)
+    private void preencherObjeto() throws Exception {    	
+		if (usuarioCtrl == null)
 			usuarioCtrl = new UsuarioCtrl();
+		else if (usuarioCtrl.getUsuario() != null && !sbNovaSenha.isDisable() && sbNovaSenha.getValue()) {
+			if (txtSenha.getText().hashCode() != usuarioCtrl.getUsuario().getSenha())
+				throw new Exception("A senha atual não confere com a senha digitada");
+			
+			if (sbNovaSenha.isVisible() && sbNovaSenha.getValue() && txtSenha1.getText().hashCode() != txtSenha2.getText().hashCode())
+				throw new Exception("A nova senha e a confirmação da nova senha não conferem");
+		}
 		
 		if(usuarioCtrl.getUsuario() == null)
 			usuarioCtrl.novoUsuario();
@@ -167,6 +255,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 		usuarioCtrl.getUsuario().setUsuario(txtUsuario.getText());
 		usuarioCtrl.getUsuario().setPerfilUsuario(cmbPerfilUsuario.getValue());
 		usuarioCtrl.getUsuario().setFuncionario(cmbFuncionario.getValue());
+		usuarioCtrl.getUsuario().setSenha(txtSenha1.getText().hashCode());
 		usuarioCtrl.getUsuario().setStatus(sbAtivado.switchOnProperty().get());
 	}
     

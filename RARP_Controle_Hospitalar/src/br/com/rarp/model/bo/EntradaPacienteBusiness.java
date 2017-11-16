@@ -9,7 +9,11 @@ import br.com.rarp.enums.StatusAtendimento;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Leito;
+import br.com.rarp.model.Medico;
+import br.com.rarp.model.Paciente;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.EntradaPacienteDAO;
 import br.com.rarp.model.dao.EspacoDAO;
 import br.com.rarp.model.dao.LeitoDAO;
@@ -104,6 +108,13 @@ public class EntradaPacienteBusiness {
 	public List<EntradaPaciente> consultar(String campo, String comparacao, String termo) throws Exception {
 		EntradaPacienteDAO entradaPacienteDAO = new EntradaPacienteDAO();
 		return entradaPacienteDAO.consultar(campo, comparacao, termo);
+	}
+
+	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario,
+			String preTriagem) throws ClassNotFoundException, Exception {
+		return new EntradaPacienteDAO().consultar(dataIni, dataFin, horaIni, horaFin,
+				atendente, enfermeira, medico, paciente, usuario, preTriagem);
 	}
 
 }

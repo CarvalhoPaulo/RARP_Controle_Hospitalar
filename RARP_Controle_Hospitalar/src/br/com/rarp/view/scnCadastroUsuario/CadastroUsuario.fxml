@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="302.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController">
+<AnchorPane fx:id="pnlPrincipal" prefHeight="439.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroUsuario.CadastroUsuarioController">
 	<children>
-		<BorderPane layoutX="14.0" layoutY="14.0" prefHeight="293.0" prefWidth="437.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+		<BorderPane layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" prefHeight="460.0" prefWidth="504.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane BorderPane.alignment="CENTER">
+				<AnchorPane prefWidth="388.0" snapToPixel="false" BorderPane.alignment="CENTER">
 					<children>
                   <AutoCompleteComboBox fx:id="cmbFuncionario" layoutY="259.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="256.0" />
                   <AutoCompleteComboBox fx:id="cmbPerfilUsuario" layoutX="28.0" layoutY="201.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="198.0" />
@@ -66,11 +66,47 @@
 							</font>
 						</Label>
 						<SwitchButton fx:id="sbAtivado" layoutX="262.0" layoutY="43.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+                  <Label fx:id="lblSenha" layoutY="294.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Senha(Obrigatório):" AnchorPane.topAnchor="290.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSenha" accessibleText="Este campo define o nome do usuário utilizado para relaizar o login" layoutX="-3.0" layoutY="321.0" prefHeight="30.0" prefWidth="312.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="314.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblSenha1" layoutX="3.0" layoutY="378.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Confirma Senha(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="348.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSenha1" accessibleText="Este campo define o nome do usuário utilizado para relaizar o login" layoutX="3.0" layoutY="398.0" prefHeight="30.0" prefWidth="312.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="372.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblSenha2" layoutX="3.0" layoutY="402.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Confirma Nova Senha(Obrigatório):" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="406.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSenha2" accessibleText="Este campo define o nome do usuário utilizado para relaizar o login" layoutX="3.0" layoutY="422.0" prefHeight="30.0" prefWidth="312.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="430.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblsbNovaSenha" layoutX="122.0" layoutY="4.0" text="Nova Senha:" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <SwitchButton fx:id="sbNovaSenha" layoutX="122.0" layoutY="24.0" AnchorPane.leftAnchor="130.0" />
 					</children>
 				</AnchorPane>
 			</center>
 			<right>
-				<AnchorPane prefHeight="384.0" prefWidth="106.0" BorderPane.alignment="CENTER">
+				<AnchorPane prefWidth="106.0" BorderPane.alignment="CENTER">
 					<children>
 						<ImageView fitHeight="108.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<image>

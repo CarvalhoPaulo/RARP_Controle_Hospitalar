@@ -1,11 +1,13 @@
 package br.com.rarp.model.bo;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.enums.StatusAtendimento;
 import br.com.rarp.model.Atendimento;
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.dao.AtendimentoDAO;
 
 public class AtendimentoBusiness {
@@ -34,7 +36,7 @@ public class AtendimentoBusiness {
 				if (atendimento.getDataAtendimento().isBefore(LocalDate.now()) && atendimento.getStatusAtendimento() != StatusAtendimento.realizado) 
 					throw new Exception("Não é possível cadastrar um atendimento não realizado com data retroativa");
 				
-				if (atendimento.getHoraFim().isBefore(LocalTime.now()) && atendimento.getStatusAtendimento() != StatusAtendimento.realizado) 
+				if (atendimento.getDataAtendimento().isEqual(LocalDate.now()) && atendimento.getHoraFim().isBefore(LocalTime.now()) && atendimento.getStatusAtendimento() != StatusAtendimento.realizado) 
 					throw new Exception("Não é possível cadastrar um atendimento não realizado com hora retroativa");
 			}
 		}
@@ -47,6 +49,10 @@ public class AtendimentoBusiness {
 	public void validarDesativacao(Atendimento a) throws Exception {
 		if(a.getStatusAtendimento() == StatusAtendimento.realizado)
 			throw new Exception("Não é possível desativar um atendimento já realizado");
+	}
+
+	public List<Atendimento> getByFuncionario(Funcionario value) throws ClassNotFoundException, SQLException, Exception {
+		return new AtendimentoDAO().consultar("ATE.codigo_funcionario = " + value.getCodigo() + " AND ATE.status = 'TRUE'");
 	}
 
 }

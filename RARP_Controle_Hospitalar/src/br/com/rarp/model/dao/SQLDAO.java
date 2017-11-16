@@ -19,16 +19,13 @@ public class SQLDAO {
 		st.executeUpdate(sql);
 	}
 	
-	public static int getCodigoMovimentacao(String nomeTabela, int codigo) throws Exception {
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
-			String sql = "SELECT codigo_mov FROM " + nomeTabela + " WHERE codigo = " + codigo;
-			ResultSet rs = conexao.prepareStatement(sql).executeQuery();
-			if(rs.next())
-				return rs.getInt("codigo_mov");			
-		} finally {
-			conexao.close();
-		}
+	public static int getCodigoMovimentacao(Connection conexao, String nomeTabela, int codigo) throws Exception {
+		if(conexao == null || conexao.isClosed())
+			conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		String sql = "SELECT codigo_mov FROM " + nomeTabela + " WHERE codigo = " + codigo;
+		ResultSet rs = conexao.prepareStatement(sql).executeQuery();
+		if(rs.next())
+			return rs.getInt("codigo_mov");			
 		return 0;	
 	}
 }

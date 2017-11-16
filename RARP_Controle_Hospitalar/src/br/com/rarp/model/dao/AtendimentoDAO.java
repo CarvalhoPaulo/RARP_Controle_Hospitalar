@@ -17,11 +17,12 @@ import br.com.rarp.model.EntradaPaciente;
 
 public class AtendimentoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
+		
 		if (!SistemaCtrl.getInstance().tabelaExiste("entradapaciente"))
 			throw new Exception("Crie a tabela de entrada de pacientes antes de criar a tabela de atendimento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("movimentacao"))
-			throw new Exception("Crie a tabela de movimentações antes de criar a tabela de atendimento");
+			throw new Exception("Crie a tabela de movimenta��es antes de criar a tabela de atendimento");
 		
 		if (!SistemaCtrl.getInstance().tabelaExiste("receita"))
 			throw new Exception("Crie a tabela de receitas antes de criar a tabela de atendimento");
@@ -51,6 +52,7 @@ public class AtendimentoDAO {
 	public void salvar(Connection connection, EntradaPaciente entradaPaciente) throws Exception {
 		List<Atendimento> listaInserir = new ArrayList<>(), listaAlterar = new ArrayList<>();
 		for(Atendimento a: entradaPaciente.getAtendimentos()) {
+			a.setEntradaPaciente(entradaPaciente);
 			if(a != null) {
 				if(a.getCodigo() == 0)
 					listaInserir.add(a);
@@ -114,7 +116,7 @@ public class AtendimentoDAO {
     		ps.setInt(12, a.getCodigo());
     		ps.addBatch();
     		
-    		a.setCodigo(SQLDAO.getCodigoMovimentacao("atendimento", a.getCodigo()));
+    		a.setCodigo(SQLDAO.getCodigoMovimentacao(connection, "atendimento", a.getCodigo()));
 			if(a.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(connection, a);
             i++;
@@ -223,6 +225,10 @@ public class AtendimentoDAO {
 	}
 
 	public List<Atendimento> consultar(String campo, String comparacao, String termo) throws ClassNotFoundException, Exception {
+		return consultar(campo + comparacao + termo);
+	}
+
+	public List<Atendimento> consultar(String consulta) throws ClassNotFoundException, SQLException, Exception {
 		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
@@ -247,7 +253,7 @@ public class AtendimentoDAO {
 					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
 					+ "LEFT JOIN receita REC ON ATE.codigo_receita = REC.codigo "
 					+ "WHERE "
-					+ campo + comparacao + termo;
+					+ consulta;
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {

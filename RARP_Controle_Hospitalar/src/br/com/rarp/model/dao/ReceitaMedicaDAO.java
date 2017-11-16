@@ -32,7 +32,7 @@ public class ReceitaMedicaDAO {
 
 	private void alterar(Connection connection, ReceitaMedica receitaMedica) throws SQLException {
 		String sql= "UPDATE receita SET "
-				+ "descricao = ?, "
+				+ "descricao = ? "
 				+ "WHERE "
 				+ "codigo = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);

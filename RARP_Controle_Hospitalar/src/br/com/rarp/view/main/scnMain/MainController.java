@@ -10,6 +10,7 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.relatorios.RelatorioEntradaController;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnConsulta.ConsultaController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -463,9 +464,32 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
     }
+    
+    @FXML
+    void relatorioAtendimento(ActionEvent event) {
+    	
+    }
 
     @FXML
-    void controlarReceitaMedica(ActionEvent event) {
+    void relatorioEncaminhamento(ActionEvent event) {
+
+    }
+
+    @FXML
+    void relatorioEntrada(ActionEvent event) {
+    	try {
+    		RelatorioEntradaController relatorioEntrada = new RelatorioEntradaController();
+			pnMain.setCenter(relatorioEntrada.getNode());
+			focarToolBar(false);
+			relatorioEntrada.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao abrir relatório de entrada de pacientes");
+			e.printStackTrace();
+		}
+    }
+
+    @FXML
+    void relatorioLimpeza(ActionEvent event) {
 
     }
 

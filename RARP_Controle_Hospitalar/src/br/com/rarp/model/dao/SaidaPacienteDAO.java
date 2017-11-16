@@ -99,7 +99,7 @@ public class SaidaPacienteDAO {
 			
 			ps.executeUpdate();
 			
-			saidaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao("saidapaciente", saidaPaciente.getCodigo()));
+			saidaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "saidapaciente", saidaPaciente.getCodigo()));
 			if(saidaPaciente.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(conexao, saidaPaciente);
     		

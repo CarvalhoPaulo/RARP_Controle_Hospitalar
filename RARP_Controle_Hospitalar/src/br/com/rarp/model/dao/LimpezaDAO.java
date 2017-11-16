@@ -25,6 +25,7 @@ public class LimpezaDAO {
 		
 		if(!SistemaCtrl.getInstance().tabelaExiste("funcionario"))
 			throw new Exception("Crie a tabela de funcionário antes de criar a tabela de limpeza e limpeza_leitos");
+
 		
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
@@ -152,7 +153,7 @@ public class LimpezaDAO {
 			ps.close();	
 			salvarLeitosLimpeza(conexao, limpeza);
 			
-			limpeza.setCodigo(SQLDAO.getCodigoMovimentacao("limpeza", limpeza.getCodigo()));
+			limpeza.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "limpeza", limpeza.getCodigo()));
 			if(limpeza.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(conexao, limpeza);
 			

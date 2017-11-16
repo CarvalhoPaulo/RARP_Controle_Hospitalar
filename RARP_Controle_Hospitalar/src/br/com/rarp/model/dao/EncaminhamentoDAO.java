@@ -72,7 +72,7 @@ public class EncaminhamentoDAO {
 			ps.setInt(4, e.getCodigo());
 			ps.addBatch();
 			
-			e.setCodigo(SQLDAO.getCodigoMovimentacao("encaminhamento", e.getCodigo()));
+			e.setCodigo(SQLDAO.getCodigoMovimentacao(connection, "encaminhamento", e.getCodigo()));
 			if(e.getCodigo() > 0)
 				new MovimentacaoDAO().salvar(connection, e);
             i++;

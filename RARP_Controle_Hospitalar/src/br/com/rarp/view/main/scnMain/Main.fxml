@@ -113,7 +113,34 @@
 								</MenuItem>
 							</items>
 						</Menu>
-						<Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios" />
+						<Menu fx:id="mnRelatorios" mnemonicParsing="false" text="Relatórios">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#relatorioEntrada" text="Entrada de Pacientes">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#relatorioAtendimento" text="Atendimentos">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#relatorioEncaminhamento" text="Encaminhamentos">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Saida de Pacientes">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#relatorioLimpeza" text="Limpeza">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="L" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Consultas">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="C" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator></MenuItem>
+                     </items></Menu>
 						<Menu fx:id="mnSeguranca" mnemonicParsing="false" text="Segurança">
 							<items>
 								<CheckMenuItem fx:id="mniControleAcesso" mnemonicParsing="false" onAction="#ativarDesativarControleAcesso" text="Controle de Acesso" />
