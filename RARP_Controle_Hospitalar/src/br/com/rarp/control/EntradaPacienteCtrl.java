@@ -1,10 +1,16 @@
 package br.com.rarp.control;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Medico;
+import br.com.rarp.model.Paciente;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.EntradaPacienteBusiness;
 import br.com.rarp.model.dao.EntradaPacienteDAO;
 import br.com.rarp.utils.Campo;
@@ -82,6 +88,12 @@ public class EntradaPacienteCtrl {
 
 	public List<EntradaPaciente> getEntradasAbertas() throws Exception {
 		return new EntradaPacienteDAO().getEntradasAbertas();
+	}
+
+	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario, String preTriagem) throws ClassNotFoundException, Exception {
+		return new EntradaPacienteBusiness().consultar(dataIni, dataFin, horaIni, horaFin,
+				atendente, enfermeira, medico, paciente, usuario, preTriagem);
 	}
 
 }

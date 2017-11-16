@@ -1,19 +1,26 @@
 package br.com.rarp.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.model.SaidaPaciente;
+import br.com.rarp.model.Usuario;
 
 public class EntradaPacienteDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -272,6 +279,107 @@ public class EntradaPacienteDAO {
 				return entradaPacientes.get(0);
 		}
 		return null;
+	}
+
+	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario,
+			String preTriagem) throws ClassNotFoundException, Exception {
+		List<EntradaPaciente> entradas = new ArrayList<EntradaPaciente>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			Integer vcount = 0;
+			String sql = "SELECT "
+					+ "ENT.codigo AS codigo_entrada, "
+					+ "ENT.pretriagem, "
+					+ "ENT.emergencia, "
+					+ "ENT.alta, "
+					+ "ENT.status AS status_entrada, "
+					+ "MOV.data, "
+					+ "MOV.hora, "
+					+ "MOV.codigo AS codigo_mov, "
+					+ "USU.codigo AS codigo_usuario, "
+					+ "MED.codigo AS codigo_medico, "
+					+ "ENF.codigo AS codigo_enfermeira, "
+					+ "PAC.codigo AS codigo_paciente, "
+					+ "SAI.codigo AS codigo_saida, "
+					+ "ATE.codigo AS codigo_atendente "
+					+ "FROM entradapaciente ENT "
+					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN medico MED ON ENT.codigo_medico = MED.codigo "
+					+ "LEFT JOIN funcionario ENF ON ENT.enfermeira_funcionario = ENF.codigo "
+					+ "LEFT JOIN paciente PAC ON ENT.codigo_paciente = PAC.codigo "
+					+ "LEFT JOIN funcionario ATE ON ENT.atendente_funcionario = ATE.codigo "
+					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
+					+ "LEFT JOIN saidapaciente SAI ON SAI.codigo_entrada = ENT.codigo "
+					+ "WHERE "
+					+ "ENT.codigo > -1 ";
+					if(dataIni != null)
+						sql += "AND (MOV.data >= ?) ";
+					if(dataFin != null) 
+						sql += "AND (MOV.data <= ?) ";
+					if(horaIni != null) 
+						sql += "AND (MOV.hora >= ?) ";
+					if(horaFin != null) 
+						sql += "AND (MOV.hora <= ?) ";
+					if(atendente != null)
+						sql += "AND (ATE.codigo = ?) ";
+					if(enfermeira != null)
+						sql += "AND (ENF.codigo = ?) ";
+					if(medico != null) 
+						sql += "AND (MED.codigo = ?) ";
+					if(paciente != null) 
+						sql += "AND (PAC.codigo = ?) ";
+					if(usuario != null) 
+						sql += "AND (USU.codigo = ?) ";
+					if(!preTriagem.equals(""))
+						sql += "AND (ENT.pretriagem LIKE ?)";
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			if(dataIni != null)
+				ps.setDate(++vcount, Date.valueOf(dataIni));
+			if(dataFin != null)
+				ps.setDate(++vcount, Date.valueOf(dataFin));
+			if(horaIni != null)
+				ps.setTime(++vcount, Time.valueOf(horaIni));
+			if(horaFin != null)
+				ps.setTime(++vcount, Time.valueOf(horaFin));
+			if(atendente != null)
+				ps.setInt(++vcount, atendente.getCodigo());
+			if(enfermeira != null)
+				ps.setInt(++vcount, enfermeira.getCodigo());
+			if(medico != null)
+				ps.setInt(++vcount, medico.getCodigoMedico());
+			if(paciente != null)
+				ps.setInt(++vcount, paciente.getCodigo());
+			if(usuario != null)
+				ps.setInt(++vcount, usuario.getCodigo());
+			if(!preTriagem.equals(""))
+				ps.setString(++vcount, "%" + preTriagem + "%");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				EntradaPaciente entradaPaciente = new EntradaPaciente();
+				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
+				entradaPaciente.setPreTriagem(rs.getString("pretriagem"));
+				entradaPaciente.setEmergencia(rs.getBoolean("emergencia"));
+				entradaPaciente.setAlta(rs.getBoolean("alta"));
+				entradaPaciente.setStatus(rs.getBoolean("status_entrada"));
+				if(rs.getDate("data") != null)
+					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
+				if(rs.getDate("hora") != null)
+					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
+				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
+				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
+				entradaPaciente.setAtendimentos(new AtendimentoDAO().getAtendimentos(entradaPaciente.getCodigo()));
+				entradaPaciente.setSaidaPaciente(new SaidaPaciente());
+				entradaPaciente.getSaidaPaciente().setCodigo(rs.getInt("codigo_saida"));
+				entradas.add(entradaPaciente);
+			}
+			return entradas;	
+		} finally {
+			conexao.close();
+		}
 	}
 
 }

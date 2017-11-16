@@ -2,11 +2,13 @@ package br.com.rarp.control;
 
 import java.util.List;
 
+import br.com.rarp.enums.TipoCampo;
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.UsuarioBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.utils.comparacao.Igual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,8 +82,12 @@ public class UsuarioCtrl {
 	}
 
 	public boolean isEmpty() throws Exception {
-		UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
-		usuarios = usuarioBusiness.consultar("status", new Igual().getComparacao(), "TRUE");
+		usuarios = getUsuarios();
 		return usuarios.size() == 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Usuario> getUsuarios() throws Exception {
+		return consultar(new Campo("status", "", TipoCampo.booleano), new Ativado(), "Ativado");
 	}
 }

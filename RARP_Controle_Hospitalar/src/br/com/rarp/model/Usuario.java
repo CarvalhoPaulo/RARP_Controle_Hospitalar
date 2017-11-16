@@ -61,6 +61,9 @@ public class Usuario {
 	public void setSenha(int senha) {
 		this.senha = senha;
 	}
-	
+	@Override
+	public String toString() {
+		return usuario;
+	}
 	
 }
