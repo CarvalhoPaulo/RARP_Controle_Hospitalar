@@ -12,6 +12,13 @@ import br.com.rarp.view.scnManutencao.ManutencaoController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class MedicoController extends ManutencaoController {
 
@@ -58,6 +65,16 @@ public class MedicoController extends ManutencaoController {
 					cmbComparacao.getSelectionModel().getSelectedItem(),
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
+			
+			try {
+				JasperReport report = JasperCompileManager.compileReport(getClass().getResource("Blank_A4.jrxml").getFile());
+				JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblManutencao.getItems()));
+				String outputFilename = "D:\\MeuRelatorio.pdf";
+				JasperExportManager.exportReportToPdfFile(print, outputFilename );
+	    	} catch (JRException e) {
+				Utilitarios.erro("Erro ao imprimir relatório");
+				e.printStackTrace();
+			}	
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descricão: " + e.getMessage());
 		}
