@@ -27,7 +27,7 @@ public class UsuarioDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(200), ";
 		sql += "usuario VARCHAR(100) NOT NULL UNIQUE, ";
-		sql += "password VARCHAR(50), ";
+		sql += "password INTEGER, ";
 		sql += "codigo_funcionario INTEGER REFERENCES funcionario(codigo), ";
 		sql += "codigo_perfilusuario Integer REFERENCES perfilusuario(codigo), ";
 		sql += "status BOOLEAN)";
@@ -49,7 +49,7 @@ public class UsuarioDAO {
             ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getSenha());
+            ps.setInt(3, usuario.getSenha());
             
             if(usuario.getFuncionario() != null)
             	ps.setInt(4, usuario.getFuncionario().getCodigo());
@@ -80,7 +80,7 @@ public class UsuarioDAO {
             ps = conexao.prepareStatement(sql);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getSenha());
+            ps.setInt(3, usuario.getSenha());
             if(usuario.getFuncionario() != null)
             	ps.setInt(4, usuario.getFuncionario().getCodigo());
             else
@@ -112,7 +112,7 @@ public class UsuarioDAO {
             	usuario.setCodigo(rs.getInt("codigo"));
             	usuario.setNome(rs.getString("nome"));
             	usuario.setUsuario(rs.getString("usuario"));
-            	usuario.setSenha(rs.getString("password"));
+            	usuario.setSenha(rs.getInt("password"));
             	
             	PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
             	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("codigo_perfilusuario")));

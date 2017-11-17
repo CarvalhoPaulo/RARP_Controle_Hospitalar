@@ -4,11 +4,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SplashController extends Application implements Initializable {
@@ -21,6 +25,12 @@ public class SplashController extends Application implements Initializable {
 
 	@FXML
 	private ProgressBar pgsSplash;
+	
+    @FXML
+    private ImageView img;
+    
+    @FXML
+    private AnchorPane pnlPrincipal;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -47,13 +57,26 @@ public class SplashController extends Application implements Initializable {
 			this.count = count;
 		start(new Stage());
 		stage.setResizable(false);
-		
 		stage.show();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+		pnlPrincipal.heightProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				img.setFitHeight(pnlPrincipal.getHeight());
+			}
+		});
+		
+		pnlPrincipal.widthProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				img.setFitWidth(pnlPrincipal.getWidth());
+			}
+		});
 	}
 	
 }

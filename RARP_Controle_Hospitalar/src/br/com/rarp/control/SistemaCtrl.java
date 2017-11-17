@@ -133,7 +133,14 @@ public class SistemaCtrl {
 		telas.add(new Tela(13, "controleAtendimento", "Controle de Atendimentos"));
 		telas.add(new Tela(14, "controleSaida", "Controle de Atendimentos"));
 		telas.add(new Tela(15, "controleLimpeza", "Controle de Atendimentos"));
+		telas.add(new Tela(16, "controleAcesso", "Controle de Acesso"));
+		telas.add(new Tela(17, "controleConsulta", "Consulta Online"));
 		return telas;
+	}
+	
+	public void liberarControleAcesso() throws Exception {
+		if(!podeLiberar("controleAcesso", TipoMovimentacao.acesso))
+			throw new Exception("Acesso negado a essa área");
 	}
 	
 	public void liberarManutencaoUsuario(TipoMovimentacao tipoMovimentacao) throws Exception {
@@ -323,7 +330,6 @@ public class SistemaCtrl {
 	}
 	
 	public void getOrganizacaoDB() throws Exception {
-		// TODO Auto-generated method stub 
 		new OrganizacaoDAO().getOrganizacao();
 	}
 
@@ -339,7 +345,9 @@ public class SistemaCtrl {
 		return espaco;
 	}
 
-	
-	
+	public void criarRegistrosPadroes() throws Exception {
+		TelaDAO.criarRegistrosPadroes();
+		PerfilUsuarioDAO.criarRegistrosPadroes();
+	}
 
 }

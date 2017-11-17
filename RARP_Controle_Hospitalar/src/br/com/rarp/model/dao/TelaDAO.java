@@ -13,34 +13,10 @@ import br.com.rarp.model.PerfilUsuario;
 import br.com.rarp.model.Tela;
 
 public class TelaDAO {
-	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
-		if(SistemaCtrl.getInstance().tabelaExiste("perfilUsuario"))
-			throw new Exception("Crie a tabela de perfil de usuario antes de criar a tabela de tela");
-		
+	public static void criarRegistrosPadroes() throws Exception {
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
-		String sql = "CREATE TABLE IF NOT EXISTS ";
-		sql += "tela(";
-		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
-		sql += "nome VARCHAR(100), ";
-		sql += "descricao VARCHAR(255), ";
-		sql += "status boolean)";
-		st.executeUpdate(sql);
-		
-		sql = "CREATE TABLE IF NOT EXISTS ";
-		sql += "tela_perfilusuario(";
-		sql += "codigo SERIAL, ";
-		sql += "codigo_tela INTEGER REFERENCES tela(codigo), ";
-		sql += "codigo_perfilusuario INTEGER REFERENCES perfilusuario(codigo), ";
-		sql += "podeInserir BOOLEAN, ";
-		sql += "podeAlterar BOOLEAN, ";
-		sql += "podeVisualizar BOOLEAN, ";
-		sql += "podeDesativar BOOLEAN, ";
-		sql += "status boolean, ";
-		sql += "PRIMARY KEY(codigo,codigo_perfilusuario,codigo_tela))";
-		st.executeUpdate(sql);
-		
 		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
-			sql = "INSERT INTO tela(codigo, nome, descricao, status) ";
+			String sql = "INSERT INTO tela(codigo, nome, descricao, status) ";
 			sql += "VALUES(";
 			sql +=  (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1) + ", ";
 			sql +=  "'" + t.getNome() + "', ";
@@ -53,36 +29,6 @@ public class TelaDAO {
 			sql += "descricao = '" + t.getDescricao() + "', ";
 			sql += "status = 'TRUE'";
 			st.executeUpdate(sql);
-			
-//			sql = "INSERT INTO tela(codigo, nome, descricao, status) ";
-//			sql += "SELECT ";
-//			sql +=  (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1) + ", '"; 
-//			sql +=  t.getNome() + "', '"; 
-//			sql +=  t.getDescricao() + "', ";
-//			sql +=  "'TRUE' ";
-//			sql +=  "WHERE NOT EXISTS(";
-//			sql +=  	"SELECT ";
-//			sql += 		"codigo ";
-//			sql += 		"FROM tela ";
-//			sql += 		"WHERE ";
-//			sql += 		"codigo = " + (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1);
-//			sql +=  ")";
-//			st.executeUpdate(sql);
-//			
-//			sql = "UPDATE tela SET ";
-//			sql += "SELECT ";
-//			sql += "codigo = " + (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1) + ", "; 
-//			sql += "nome = '" +  t.getNome() + "', "; 
-//			sql += "descricao = '" +  t.getDescricao() + "', ";
-//			sql += "status = 'TRUE' ";
-//			sql +=  "WHERE EXISTS(";
-//			sql +=  	"SELECT ";
-//			sql += 		"codigo ";
-//			sql += 		"FROM tela ";
-//			sql += 		"WHERE ";
-//			sql += 		"codigo = " + (SistemaCtrl.getInstance().getTelas().indexOf(t) + 1);
-//			sql +=  ")";
-//			st.executeUpdate(sql);
 			
 			sql = "INSERT INTO tela_perfilusuario(";
 			sql += "codigo_tela, ";
@@ -112,6 +58,33 @@ public class TelaDAO {
 			sql += ")";
 			st.executeUpdate(sql);
 		}
+	}
+	
+	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
+		if(SistemaCtrl.getInstance().tabelaExiste("perfilUsuario"))
+			throw new Exception("Crie a tabela de perfil de usuario antes de criar a tabela de tela");
+		
+		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
+		String sql = "CREATE TABLE IF NOT EXISTS ";
+		sql += "tela(";
+		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
+		sql += "nome VARCHAR(100), ";
+		sql += "descricao VARCHAR(255), ";
+		sql += "status boolean)";
+		st.executeUpdate(sql);
+		
+		sql = "CREATE TABLE IF NOT EXISTS ";
+		sql += "tela_perfilusuario(";
+		sql += "codigo SERIAL, ";
+		sql += "codigo_tela INTEGER REFERENCES tela(codigo), ";
+		sql += "codigo_perfilusuario INTEGER REFERENCES perfilusuario(codigo), ";
+		sql += "podeInserir BOOLEAN, ";
+		sql += "podeAlterar BOOLEAN, ";
+		sql += "podeVisualizar BOOLEAN, ";
+		sql += "podeDesativar BOOLEAN, ";
+		sql += "status boolean, ";
+		sql += "PRIMARY KEY(codigo,codigo_perfilusuario,codigo_tela))";
+		st.executeUpdate(sql);
 	}
 
 	public void salvar(PerfilUsuario perfilUsuario) throws Exception {

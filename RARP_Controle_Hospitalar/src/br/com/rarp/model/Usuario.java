@@ -7,7 +7,7 @@ public class Usuario {
 	private int codigo;
 	private String nome;
 	private String usuario;
-	private String senha;
+	private int senha;
 	private Funcionario funcionario;
 	private PerfilUsuario perfilUsuario;
 	private List<Movimentacao> movimentacoes;
@@ -30,12 +30,6 @@ public class Usuario {
 	}
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -60,6 +54,12 @@ public class Usuario {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public int getSenha() {
+		return senha;
+	}
+	public void setSenha(int senha) {
+		this.senha = senha;
 	}
 	
 	

@@ -187,7 +187,6 @@ public class ControleEntradaController extends Application implements Initializa
     	AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
     	atendimentoCtrl.setAtendimento(tblAtendimentos.getSelectionModel().getSelectedItem());
     	controller.abrir(atendimentoCtrl);
-    	tblAtendimentos.refresh();
     }
 
     @FXML

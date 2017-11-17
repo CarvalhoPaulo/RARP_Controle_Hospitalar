@@ -95,8 +95,7 @@ public class LoginController extends Application implements Initializable, Event
 				try {
 					if (!newValue && !txtUsuario.getText().isEmpty()) {
 						usuarioCtrl.consultar(txtUsuario.getText());
-						if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == null
-								|| usuarioCtrl.getUsuario().getSenha().isEmpty())) {
+						if (usuarioCtrl.getUsuario() != null && (usuarioCtrl.getUsuario().getSenha() == 0)) {
 							pnContent.setPrefHeight(pnContent.getPrefHeight() + 116);
 							pnFrame.setPrefHeight(pnFrame.getPrefHeight() + 120);
 							stage.sizeToScene();
@@ -145,15 +144,15 @@ public class LoginController extends Application implements Initializable, Event
 				if (txtNovaSenha.getText().isEmpty())
 					throw new Exception("Digite a nova senha");
 				if (txtConfirmaSenha.getText().isEmpty())
-					throw new Exception("Digite a confirmaï¿½ï¿½o da nova senha");
+					throw new Exception("Digite a confirmação da nova senha");
 				if (!txtConfirmaSenha.getText().equals(txtNovaSenha.getText()))
-					throw new Exception("As senhas digitadas sï¿½o diferentes");
-				usuarioCtrl.getUsuario().setSenha(txtNovaSenha.getText());
+					throw new Exception("As senhas digitadas são diferentes");
+				usuarioCtrl.getUsuario().setSenha(txtNovaSenha.getText().hashCode());
 				usuarioCtrl.salvar();
 			} else {
 				if (usuarioCtrl.getUsuario() == null)
-					throw new Exception("Este usuï¿½rio nï¿½o existe");
-				if (!usuarioCtrl.getUsuario().getSenha().equals(String.valueOf(txtSenha.getText().hashCode()))) {
+					throw new Exception("Este usuário não existe");
+				if (!(usuarioCtrl.getUsuario().getSenha() == txtSenha.getText().hashCode())) {
 					tentativas++;
 					throw new Exception("Senha incorreta");
 				}
@@ -171,7 +170,7 @@ public class LoginController extends Application implements Initializable, Event
 					
 		} catch (Exception e) {
 			if (tentativas > MAX_TENTATIVAS) {
-				Utilitarios.atencao("Vocï¿½ atingiu o limite de 3 tentativas");
+				Utilitarios.atencao("Você atingiu o limite de 3 tentativas");
 				cancelar(event);
 			} else {
 				Utilitarios.atencao(e.getMessage());
@@ -181,18 +180,15 @@ public class LoginController extends Application implements Initializable, Event
 
 	@FXML
 	private void entrarKeyPress(KeyEvent event) {
-		
-		
-			if (event.getCode() == KeyCode.ENTER)
-				btnEntrar.fire();
+		if (event.getCode() == KeyCode.ENTER)
+			btnEntrar.fire();
 	}
 	
 	@Override
 	public void handle(KeyEvent e) {
 		if (!txtUsuario.getText().equals("") && !txtSenha.getText().equals(""))
 			if (e.getCode() == KeyCode.ENTER) {
-				btnEntrar.fire();
-				
+				btnEntrar.fire();	
 			}
 	}
 	

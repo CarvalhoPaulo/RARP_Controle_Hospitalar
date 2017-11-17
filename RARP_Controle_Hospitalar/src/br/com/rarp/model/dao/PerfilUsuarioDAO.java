@@ -10,8 +10,181 @@ import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.PerfilUsuario;
+import br.com.rarp.model.Tela;
 
 public class PerfilUsuarioDAO {
+	public static void criarRegistrosPadroes() throws ClassNotFoundException, SQLException, Exception {
+		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
+		String sql = "INSERT INTO perfilusuario(codigo, nome, status) "
+				+ "VALUES(1, 'Administrador', 'TRUE') "
+				+ "ON CONFLICT (codigo) "
+				+ "DO UPDATE SET "
+				+ "codigo = 1, "
+				+ "nome = 'Administrador', "
+				+ "status = 'TRUE' ";
+		st.executeUpdate(sql);
+		
+		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
+			sql = "INSERT INTO tela_perfilusuario("
+					+ "codigo_tela, "
+					+ "codigo_perfilusuario, "
+					+ "podeInserir, "
+					+ "podeAlterar, "
+					+ "podeVisualizar, "
+					+ "podeDesativar, "
+					+ "status) "
+					+ "VALUES("
+					+ t.getCodigo() + ", "
+					+ "1, "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE') "
+					+ "ON CONFLICT (codigo,codigo_perfilusuario,codigo_tela) "
+					+ "DO UPDATE SET "
+					+ "codigo_tela = " + t.getCodigo() + ", "
+					+ "codigo_perfilusuario = 1, "
+					+ "podeInserir = 'TRUE', "
+					+ "podeAlterar = 'TRUE', "
+					+ "podeVisualizar = 'TRUE', "
+					+ "podeDesativar = 'TRUE', "
+					+ "status  = 'TRUE' ";
+			st.executeUpdate(sql);
+		}
+		
+		sql = "INSERT INTO perfilusuario(codigo, nome, status) "
+				+ "VALUES(2, 'Atendente', 'TRUE') "
+				+ "ON CONFLICT (codigo) "
+				+ "DO UPDATE SET "
+				+ "codigo = 2, "
+				+ "nome = 'Atendente', "
+				+ "status = 'TRUE' ";
+		st.executeUpdate(sql);
+		
+		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
+			if(t.getCodigo() != 14
+					&& t.getCodigo() != 7
+					&& t.getCodigo() != 11
+					&& t.getCodigo() != 13
+					&& t.getCodigo() != 12)
+				continue;
+			
+			sql = "INSERT INTO tela_perfilusuario("
+					+ "codigo_tela, "
+					+ "codigo_perfilusuario, "
+					+ "podeInserir, "
+					+ "podeAlterar, "
+					+ "podeVisualizar, "
+					+ "podeDesativar, "
+					+ "status) "
+					+ "VALUES("
+					+ t.getCodigo() + ", "
+					+ "2, "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE') "
+					+ "ON CONFLICT (codigo,codigo_perfilusuario,codigo_tela) "
+					+ "DO UPDATE SET "
+					+ "codigo_tela = " + t.getCodigo() + ", "
+					+ "codigo_perfilusuario = 2, "
+					+ "podeInserir = 'TRUE', "
+					+ "podeAlterar = 'TRUE', "
+					+ "podeVisualizar = 'TRUE', "
+					+ "podeDesativar = 'TRUE', "
+					+ "status  = 'TRUE' ";
+			st.executeUpdate(sql);
+		}
+
+		sql = "INSERT INTO perfilusuario(codigo, nome, status) "
+				+ "VALUES(3, 'Médico', 'TRUE') "
+				+ "ON CONFLICT (codigo) "
+				+ "DO UPDATE SET "
+				+ "codigo = 3, "
+				+ "nome = 'Médico', "
+				+ "status = 'TRUE' ";
+		st.executeUpdate(sql);
+		
+		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
+			if(t.getCodigo() != 14
+					&& t.getCodigo() != 7
+					&& t.getCodigo() != 11
+					&& t.getCodigo() != 13
+					&& t.getCodigo() != 12
+					&& t.getCodigo() != 17)
+				continue;
+			
+			sql = "INSERT INTO tela_perfilusuario("
+					+ "codigo_tela, "
+					+ "codigo_perfilusuario, "
+					+ "podeInserir, "
+					+ "podeAlterar, "
+					+ "podeVisualizar, "
+					+ "podeDesativar, "
+					+ "status) "
+					+ "VALUES("
+					+ t.getCodigo() + ", "
+					+ "3, "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE') "
+					+ "ON CONFLICT (codigo,codigo_perfilusuario,codigo_tela) "
+					+ "DO UPDATE SET "
+					+ "codigo_tela = " + t.getCodigo() + ", "
+					+ "codigo_perfilusuario = 3, "
+					+ "podeInserir = 'TRUE', "
+					+ "podeAlterar = 'TRUE', "
+					+ "podeVisualizar = 'TRUE', "
+					+ "podeDesativar = 'TRUE', "
+					+ "status  = 'TRUE' ";
+			st.executeUpdate(sql);
+		}
+		
+		sql = "INSERT INTO perfilusuario(codigo, nome, status) "
+				+ "VALUES(4, 'Funcionário de Limpeza', 'TRUE') "
+				+ "ON CONFLICT (codigo) "
+				+ "DO UPDATE SET "
+				+ "codigo = 4, "
+				+ "nome = 'Funcionário de Limpeza', "
+				+ "status = 'TRUE' ";
+		st.executeUpdate(sql);
+		
+		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
+			if(t.getCodigo() != 14)
+				continue;
+			
+			sql = "INSERT INTO tela_perfilusuario("
+					+ "codigo_tela, "
+					+ "codigo_perfilusuario, "
+					+ "podeInserir, "
+					+ "podeAlterar, "
+					+ "podeVisualizar, "
+					+ "podeDesativar, "
+					+ "status) "
+					+ "VALUES("
+					+ t.getCodigo() + ", "
+					+ "4, "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE', "
+					+ "'TRUE') "
+					+ "ON CONFLICT (codigo,codigo_perfilusuario,codigo_tela) "
+					+ "DO UPDATE SET "
+					+ "codigo_tela = " + t.getCodigo() + ", "
+					+ "codigo_perfilusuario = 4, "
+					+ "podeInserir = 'TRUE', "
+					+ "podeAlterar = 'TRUE', "
+					+ "podeVisualizar = 'TRUE', "
+					+ "podeDesativar = 'TRUE', "
+					+ "status  = 'TRUE' ";
+			st.executeUpdate(sql);
+		}
+	}
 	
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {			
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
@@ -20,13 +193,6 @@ public class PerfilUsuarioDAO {
 		sql += "codigo SERIAL NOT NULL PRIMARY KEY, ";
 		sql += "nome VARCHAR(100), ";
 		sql += "status boolean)";
-		st.executeUpdate(sql);
-		
-		sql = "INSERT INTO perfilUsuario(codigo, nome, status) "
-				+ "SELECT 1, 'Super Administrador', 'TRUE' WHERE NOT EXISTS "
-				+ "("
-					+ "SELECT codigo FROM perfilUsuario WHERE codigo = 1"
-				+ ")";
 		st.executeUpdate(sql);
 	}
 	
