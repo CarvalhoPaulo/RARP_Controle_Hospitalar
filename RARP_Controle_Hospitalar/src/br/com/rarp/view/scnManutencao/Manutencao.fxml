@@ -17,7 +17,7 @@
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <AnchorPane prefHeight="73.0" prefWidth="720.0" stylesheets="@../style/style.css">
+            <AnchorPane prefHeight="73.0" prefWidth="720.0" styleClass="font" stylesheets="@../style/style.css">
                <children>
                   <AutoCompleteComboBox fx:id="cmbCampo" layoutX="8.0" layoutY="28.0" onAction="#cmbCampoChange" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <AutoCompleteComboBox fx:id="cmbComparacao" layoutX="224.0" layoutY="32.0" prefHeight="30.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" />
@@ -81,7 +81,7 @@
       </BorderPane>
    </top>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="font" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="8.0" left="8.0" />
          </padding>
@@ -94,7 +94,7 @@
       </BorderPane>
    </center>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="130.0" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="130.0" styleClass="font" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnInserir" contentDisplay="TOP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserir" prefHeight="60.0" text="Inserir" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>

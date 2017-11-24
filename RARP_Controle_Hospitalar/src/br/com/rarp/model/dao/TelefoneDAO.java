@@ -23,28 +23,25 @@ public class TelefoneDAO {
 		st.executeUpdate(sql);
 	}
 
-	public void salvar(List<Telefone> telefones, int codigo_pessoa) throws Exception {
-		remover(codigo_pessoa);
-		inserir(telefones, codigo_pessoa);
+	public void salvar(List<Telefone> telefones, int codigo_pessoa, Connection connection) throws Exception {
+		remover(codigo_pessoa, connection);
+		inserir(telefones, codigo_pessoa, connection);
 	}
 	
-	private void remover(int codigo_pessoa) throws Exception {
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		PreparedStatement ps = conexao.prepareStatement("DELETE FROM telefone WHERE codigo_pessoa = ?");
+	private void remover(int codigo_pessoa, Connection connection) throws Exception {
+		PreparedStatement ps = connection.prepareStatement("DELETE FROM telefone WHERE codigo_pessoa = ?");
 		try {
 			ps.setInt(1, codigo_pessoa);
 			ps.executeUpdate();
 		} finally {
 			ps.close();
-			conexao.close();
 		}
 	}
 
-	public void inserir(List<Telefone> telefones, int codigo_pessoa) throws Exception {
+	public void inserir(List<Telefone> telefones, int codigo_pessoa, Connection connection) throws Exception {
 		if (telefones.size() > 0) {
-			Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 			String sql = "INSERT INTO telefone(numero, codigo_pessoa) VALUES(?,?)";
-			PreparedStatement ps = conexao.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql);
 			try {
 				int i = 0;
 				for (Telefone t : telefones) {
@@ -60,7 +57,6 @@ public class TelefoneDAO {
 				ps.executeBatch();
 			} finally {
 				ps.close();
-				conexao.close();
 			} 
 		}         
 	}

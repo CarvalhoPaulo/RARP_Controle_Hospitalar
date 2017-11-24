@@ -53,7 +53,7 @@ public class PessoaJuridicaDAO {
 				Pessoa pessoa = pessoaJuridica.clone();
 				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
 				PessoaDAO pessoaDAO = new PessoaDAO();
-				pessoaDAO.salvar(pessoa);
+				pessoaDAO.salvar(pessoa, conexao);
 			}
 		} finally {
 			conexao.close();
@@ -65,7 +65,7 @@ public class PessoaJuridicaDAO {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoaDAO.salvar(pessoaJuridica);
+			pessoaDAO.salvar(pessoaJuridica, conexao);
 
 			String sql = "INSERT INTO pessoajuridica(cnpj, razaosocial, codigo_pessoa, status) VALUES(?,?,?,?)";
 			ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

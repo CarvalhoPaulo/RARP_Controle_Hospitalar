@@ -19,8 +19,6 @@ public class SelectionNode<T extends Node> extends FlowPane {
 	
 	public SelectionNode() {
 		super();
-		setWidth(400);
-		setHeight(400);
 		
 		selectionModel.selectedItemProperty().addListener(new ChangeListener<T>() {
 

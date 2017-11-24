@@ -5,6 +5,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 import br.com.rarp.model.Encaminhamento;
+import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Leito;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.EncaminhamentoDAO;
 
 public class EncaminhamentoBusiness {
@@ -60,6 +63,12 @@ public class EncaminhamentoBusiness {
 
 	public List<Encaminhamento> consultar(String campo, String comparacao, String termo) throws Exception {
 		return new EncaminhamentoDAO().consultar(campo, comparacao, termo);
+	}
+
+	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {		
+		return new EncaminhamentoDAO().consultar(dataIni, dataFin, horaIni, horaFin,
+				origem, destino, entrada, usuario, status);
 	}
 
 }

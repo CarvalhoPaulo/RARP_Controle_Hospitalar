@@ -59,6 +59,7 @@ public class PacienteDAO {
 	private void alterar(Paciente paciente) throws Exception {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
 			String sql = "UPDATE paciente SET codigo_convenio = ?, codigo_resp = ?, status = ? WHERE codigo = ?";
 			ps = conexao.prepareStatement(sql);
@@ -82,8 +83,11 @@ public class PacienteDAO {
 				PessoaFisica pf = paciente.clone();
 				pf.setCodigo(rs.getInt("codigo_pf"));
 				PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-				pessoaFisicaDAO.salvar(pf);
+				pessoaFisicaDAO.salvar(pf, conexao);
 			}
+			conexao.commit();
+		} catch (Exception e) {
+			conexao.rollback();
 		} finally {
 			conexao.close();
 		}
@@ -92,9 +96,10 @@ public class PacienteDAO {
 	private void inserir(Paciente paciente) throws Exception {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-			pessoaFisicaDAO.salvar(paciente);
+			pessoaFisicaDAO.salvar(paciente, conexao);
 			
 			String sql = "INSERT INTO paciente(codigo_convenio, codigo_pf, codigo_resp, status) VALUES(?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -115,6 +120,9 @@ public class PacienteDAO {
 			if (rs.next())
 				paciente.setCodigo(rs.getInt("codigo"));
 			ps.close();
+			conexao.commit();
+		} catch (Exception e) {
+			conexao.rollback();
 		} finally {
 			conexao.close();
 		}

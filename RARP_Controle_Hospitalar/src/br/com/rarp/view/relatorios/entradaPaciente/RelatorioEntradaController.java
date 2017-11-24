@@ -1,7 +1,13 @@
-package br.com.rarp.view.relatorios;
+package br.com.rarp.view.relatorios.entradaPaciente;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
@@ -14,6 +20,7 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
 import br.com.rarp.model.Usuario;
+import br.com.rarp.utils.ChartPizzaValue;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import javafx.beans.property.SimpleStringProperty;
@@ -118,19 +125,137 @@ public class RelatorioEntradaController implements Initializable {
     private TableColumn<EntradaPaciente, String> cmnStatus;
 
     @FXML
-    void imprimir(ActionEvent event) {
+    void imprimir(ActionEvent event)  {
     	try {
 			JasperReport report = JasperCompileManager.compileReport(getClass().getResource("RelatorioEntrada.jrxml").getFile());
-			JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblEntradas.getItems()));
+			Map<String, Object> params = new HashMap<>();
+			params.put("ORG_NAME", "Organizações RARP");
+			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
+			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
+			params.put("ORG_FONE", "(62) 98526-4519");
+			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("TITLE", "Relatório de Entrada de Pacientes");
+			params.put("EntradasPorAtendente", agruparPorAtendente());
+			params.put("EntradasPorMedico", agruparPorMedicos());
+			params.put("QTDE_ENTRADAS", tblEntradas.getItems().size()+"");
+			int qtdeAtendimentos = getQtdeAtendimentos();
+			params.put("QTDE_ATENDIMENTO", qtdeAtendimentos + "");
+			params.put("MED_ATENDIMENTO", qtdeAtendimentos == 0 ? "0" : (qtdeAtendimentos / tblEntradas.getItems().size()) + "");
+			int qtdeEncaminhamentos = getQtdeEncaminhamentos();
+			params.put("QTDE_ENCAMINHAMENTO", qtdeEncaminhamentos + "");
+			params.put("MED_ENCAMINHAMENTO",  qtdeEncaminhamentos == 0 ? "0" : (qtdeEncaminhamentos / tblEntradas.getItems().size()) + "");
+			params.put("QTDE_EM_ANDAMENTO", getQtdeEmAndamento() + "");
+			params.put("QTDE_FINALIZADO", getQtdeFinalizado() + "");
+			params.put("QTDE_DESATIVADO", getQtdeDesativado() + "");
+			params.put("PathGraficoPizza", "src/br/com/rarp/view/relatorios/GraficoPizza.jasper");
+			
+			JasperPrint print = JasperFillManager.fillReport(report, params, new JRBeanCollectionDataSource(tblEntradas.getItems()));
 			String outputFilename = "D:\\MeuRelatorio.pdf";
 			JasperExportManager.exportReportToPdfFile(print, outputFilename );
+			Desktop.getDesktop().open(new File("D:\\MeuRelatorio.pdf"));
     	} catch (JRException e) {
 			Utilitarios.erro("Erro ao imprimir relatório");
+			e.printStackTrace();
+		} catch (IOException e) {
+			Utilitarios.erro("Não foi possível abrir o arquivo \"D:\\MeuRelatorio.pdf\"");
 			e.printStackTrace();
 		}
     }
 
-    @FXML
+    private Object getQtdeDesativado() {
+    	int result = 0;
+		for(EntradaPaciente e: tblEntradas.getItems())
+			if (!e.isStatus()) 
+				result++;
+		return result;
+	}
+
+	private int getQtdeFinalizado() {
+    	int result = 0;
+		for(EntradaPaciente e: tblEntradas.getItems())
+			if (e.isStatus() && e.isAlta()) 
+				result++;
+		return result;
+	}
+
+	private int getQtdeEmAndamento() {
+		int result = 0;
+		for(EntradaPaciente e: tblEntradas.getItems())
+			if (e.isStatus() && !e.isAlta()) 
+				result++;
+		return result;
+	}
+
+	private int getQtdeEncaminhamentos() {
+    	int result = 0;
+		for(EntradaPaciente e: tblEntradas.getItems())
+			result += e.getEncaminhamentos() == null ? 0 : e.getEncaminhamentos().size();
+		return result;
+	}
+
+	private int getQtdeAtendimentos() {
+		int result = 0;
+		for(EntradaPaciente e: tblEntradas.getItems())
+			result += e.getAtendimentos() == null ? 0 : e.getAtendimentos().size();
+		return result;
+	}
+
+	private Object agruparPorMedicos() {
+		List<ChartPizzaValue> values = new ArrayList<>();
+		for(EntradaPaciente e: tblEntradas.getItems()) {
+			ChartPizzaValue value = new ChartPizzaValue();
+			if(e.getMedico() == null || e.getMedico().getNome().equals(""))
+				value.setLegend("Sem Médico");
+			else
+				value.setLegend(e.getMedico().getNome());
+			value.setValue(1);
+			if(values.contains(value)) {
+				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
+			} else if(values.size() >= 11) {
+				value.setLegend("Outros");
+				if(values.contains(value))
+					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
+				else
+					values.add(value);
+			} else {
+				values.add(value);
+			}
+		}
+		for(ChartPizzaValue value : values)
+			value.setLabel(String.format("%.1f", Utilitarios
+					.getPercentual(tblEntradas.getItems().size(), value.getValue())) + " %");
+		return values;
+	}
+
+	private List<ChartPizzaValue> agruparPorAtendente() {
+		List<ChartPizzaValue> values = new ArrayList<>();
+		for(EntradaPaciente e: tblEntradas.getItems()) {
+			ChartPizzaValue value = new ChartPizzaValue();
+			if(e.getAtendente() == null || e.getAtendente().getNome().equals(""))
+				value.setLegend("Sem atendente");
+			else
+				value.setLegend(e.getAtendente().getNome());
+			value.setValue(1);
+			if(values.contains(value)) {
+				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
+			} else if(values.size() >= 11) {
+				value.setLegend("Outros");
+				if(values.contains(value))
+					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
+				else
+					values.add(value);
+			} else {
+				values.add(value);
+			}
+		}
+		for(ChartPizzaValue value : values)
+			value.setLabel(String.format("%.1f", Utilitarios
+					.getPercentual(tblEntradas.getItems().size(), value.getValue())) + " %");
+
+		return values;
+	}
+
+	@FXML
     void voltar(ActionEvent event) {
     	if(((BorderPane) node.getParent()) != null)
 			((BorderPane) node.getParent()).setCenter(null);
@@ -169,6 +294,7 @@ public class RelatorioEntradaController implements Initializable {
 					cmbPaciente.getSelectedValue(),
 					cmbUsuario.getSelectedValue(),
 					txtPreTriagem.getText()));
+			Utilitarios.message("Consulta realizada com sucesso");
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao consultar as entradas de pacientes.\n" + "Descrição: " + e.getMessage());
 			e.printStackTrace();

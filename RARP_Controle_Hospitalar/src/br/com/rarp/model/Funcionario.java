@@ -71,4 +71,13 @@ public class Funcionario extends PessoaFisica {
 	public void setDtAdmissao(LocalDate dtAdmissao) {
 		this.dtAdmissao = dtAdmissao;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			return ((Funcionario) obj).getCodigo() == getCodigo();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

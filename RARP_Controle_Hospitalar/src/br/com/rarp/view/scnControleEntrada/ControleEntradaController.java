@@ -225,6 +225,7 @@ public class ControleEntradaController extends Application implements Initializa
 		sbAlta.setValue(false);
 		sbAtivado.setValue(true);
 		tblAtendimentos.getItems().clear();
+		prepararTela();
 	}
 
 	private void preencherObjeto() {
@@ -398,17 +399,23 @@ public class ControleEntradaController extends Application implements Initializa
 		});
 		
 		try {
+			Funcionario func = cmbAtendente.getValue(); 
 			cmbAtendente.setItems(new FuncionarioCtrl().getFuncionarios(Funcao.atendente));
+			cmbAtendente.setValue(func);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
+			Funcionario func = cmbEnfermeira.getValue();
 			cmbEnfermeira.setItems(new FuncionarioCtrl().getFuncionarios(Funcao.enfermeira));
+			cmbEnfermeira.setValue(func);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
+			Medico medico = cmbMedico.getValue();
 			cmbMedico.setItems(new MedicoCtrl().getMedicos());
+			cmbMedico.setValue(medico);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -416,6 +423,23 @@ public class ControleEntradaController extends Application implements Initializa
 			cmbPaciente.setItems(new PacienteCtrl().getPacientes());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if (SistemaCtrl.getInstance().getUsuarioSessao() != null 
+				&& SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario() != null
+				&& SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario().getCargo() != null) {
+			switch (SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario().getCargo().getFuncao()) {
+			case atendente:
+				cmbAtendente.setValue(SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario());
+				break;
+			case enfermeira:
+				cmbEnfermeira.setValue(SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario());
+				break;
+			case medico:
+				cmbMedico.setValue(new MedicoCtrl().getMedicoByFuncionario(SistemaCtrl.getInstance().getUsuarioSessao().getFuncionario()));
+				break;
+			default:
+				break;
+			}
 		}
 		txtData.setValue(LocalDate.now());
 		txtHora.setLocalTime(LocalTime.now());

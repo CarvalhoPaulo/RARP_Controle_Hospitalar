@@ -10,7 +10,9 @@ import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.TipoMovimentacao;
 import br.com.rarp.utils.Utilitarios;
-import br.com.rarp.view.relatorios.RelatorioEntradaController;
+import br.com.rarp.view.relatorios.atendimento.RelatorioAtendimentoController;
+import br.com.rarp.view.relatorios.encaminhamento.RelatorioEncaminhamentoController;
+import br.com.rarp.view.relatorios.entradaPaciente.RelatorioEntradaController;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnConsulta.ConsultaController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -277,14 +279,19 @@ public class MainController extends Application implements Initializable {
 
 	@FXML
 	private void trocarUsuario(ActionEvent event) {
-		LoginController login = new LoginController();
-		try {
-			if(login.logar()) {
-				lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
-				pnMain.setCenter(null);
+		if(mniControleAcesso.isSelected()) {
+			LoginController login = new LoginController();
+			try {
+				if(login.logar()) {
+					lblUsuarioSessao.setText(SistemaCtrl.getInstance().getUsuarioSessao().getNome());
+					pnMain.setCenter(null);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			mniControleAcesso.setSelected(true);
+			ativarDesativarControleAcesso();
 		}
 	}
 
@@ -467,12 +474,28 @@ public class MainController extends Application implements Initializable {
     
     @FXML
     void relatorioAtendimento(ActionEvent event) {
-    	
+    	try {
+    		RelatorioAtendimentoController relatorioAtendimento = new RelatorioAtendimentoController();
+			pnMain.setCenter(relatorioAtendimento.getNode());
+			focarToolBar(false);
+			relatorioAtendimento.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao abrir relatório de atendimentos");
+			e.printStackTrace();
+		}    	
     }
 
     @FXML
     void relatorioEncaminhamento(ActionEvent event) {
-
+    	try {
+    		RelatorioEncaminhamentoController relatorioEncaminhamento = new RelatorioEncaminhamentoController();
+			pnMain.setCenter(relatorioEncaminhamento.getNode());
+			focarToolBar(false);
+			relatorioEncaminhamento.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao abrir relatório de encaminhamento");
+			e.printStackTrace();
+		}  
     }
 
     @FXML

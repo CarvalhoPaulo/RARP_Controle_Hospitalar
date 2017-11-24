@@ -1,7 +1,14 @@
 package br.com.rarp.control;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Encaminhamento;
+import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Leito;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.EncaminhamentoBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -66,6 +73,24 @@ public class EncaminhamentoCtrl {
 
 	public ObservableList<Encaminhamento> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		return FXCollections.observableList(new EncaminhamentoBusiness().consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
+	}
+
+	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {
+		String statusAux = null;
+		if (status != null) {
+			switch (status) {
+			case "Ativado":
+				statusAux = "TRUE";
+				break;
+
+			case "Desativado":
+				statusAux = "FALSE";
+				break;
+			}
+		}
+		return new EncaminhamentoBusiness().consultar(dataIni, dataFin, horaIni, horaFin,
+				origem, destino, entrada, usuario, statusAux);
 	}
 
 }

@@ -32,77 +32,66 @@ public class PessoaDAO {
 		st.executeUpdate(sql);
 	}
 
-	public void salvar(Pessoa pessoa) throws Exception {
+	public void salvar(Pessoa pessoa, Connection connection) throws Exception {
 		if (pessoa.getCodigo() == 0)
-			inserir(pessoa);
+			inserir(pessoa, connection);
 		else
-			alterar(pessoa);
+			alterar(pessoa, connection);
 	}
 
-	private void alterar(Pessoa pessoa) throws Exception {
+	private void alterar(Pessoa pessoa, Connection connection) throws Exception {
 		PreparedStatement ps;
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
-			String sql = "UPDATE pessoa SET nome = ?,logradouro = ?, complemento = ?, numero = ?, bairro = ?, cep = ?, codigo_cidade = ?, datanascimento = ?, status = ? WHERE codigo = ?";
-			ps = conexao.prepareStatement(sql);
-			ps.setString(1, pessoa.getNome());
-			ps.setString(2, pessoa.getLogradouro());
-			ps.setString(3, pessoa.getComplemento());
-			ps.setString(4, pessoa.getNumero());
-			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCepSemMascara());
-			if(pessoa.getCidade() != null && pessoa.getCidade().getCodigo() > 0)
-				ps.setInt(7, pessoa.getCidade().getCodigo());
-			else
-				ps.setNull(7, Types.INTEGER);
-			if(pessoa.getDtNascimento() != null)
-				ps.setDate(8, Date.valueOf(pessoa.getDtNascimento()));
-			else
-				ps.setNull(8, Types.TIMESTAMP);
-			ps.setBoolean(9, pessoa.isStatus());
-			ps.setInt(10, pessoa.getCodigo());
-			ps.executeUpdate();
-			ps.close();
-			
-			TelefoneDAO telefoneDAO = new TelefoneDAO();
-			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
-		} finally {
-			conexao.close();
-		}
+		String sql = "UPDATE pessoa SET nome = ?,logradouro = ?, complemento = ?, numero = ?, bairro = ?, cep = ?, codigo_cidade = ?, datanascimento = ?, status = ? WHERE codigo = ?";
+		ps = connection.prepareStatement(sql);
+		ps.setString(1, pessoa.getNome());
+		ps.setString(2, pessoa.getLogradouro());
+		ps.setString(3, pessoa.getComplemento());
+		ps.setString(4, pessoa.getNumero());
+		ps.setString(5, pessoa.getBairro());
+		ps.setString(6, pessoa.getCepSemMascara());
+		if (pessoa.getCidade() != null && pessoa.getCidade().getCodigo() > 0)
+			ps.setInt(7, pessoa.getCidade().getCodigo());
+		else
+			ps.setNull(7, Types.INTEGER);
+		if (pessoa.getDtNascimento() != null)
+			ps.setDate(8, Date.valueOf(pessoa.getDtNascimento()));
+		else
+			ps.setNull(8, Types.TIMESTAMP);
+		ps.setBoolean(9, pessoa.isStatus());
+		ps.setInt(10, pessoa.getCodigo());
+		ps.executeUpdate();
+		ps.close();
 
+		TelefoneDAO telefoneDAO = new TelefoneDAO();
+		telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo(), connection);
 	}
 
-	private void inserir(Pessoa pessoa) throws Exception {
+	private void inserir(Pessoa pessoa, Connection connection) throws Exception {
 		PreparedStatement ps;
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
-			String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, datanascimento, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setString(1, pessoa.getNome());
-			ps.setString(2, pessoa.getLogradouro());
-			ps.setString(3, pessoa.getComplemento());
-			ps.setString(4, pessoa.getNumero());
-			ps.setString(5, pessoa.getBairro());
-			ps.setString(6, pessoa.getCepSemMascara());
-			if(pessoa.getDtNascimento() != null)
-				ps.setDate(7, Date.valueOf(pessoa.getDtNascimento()));
-			else
-				ps.setNull(7, Types.TIMESTAMP);
-			if(pessoa.getCidade() != null)
-				ps.setInt(8, pessoa.getCidade().getCodigo());
-			else
-				ps.setNull(8, Types.INTEGER);
-			ps.setBoolean(9, pessoa.isStatus());
-			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
-			if(rs.next())
-				pessoa.setCodigo(rs.getInt(1));
-			ps.close();
-			
-			TelefoneDAO telefoneDAO = new TelefoneDAO();
-			telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo());
-		} finally {
-			conexao.close();
-		}
+		String sql = "INSERT INTO pessoa(nome, logradouro, complemento, numero, bairro, cep, datanascimento, codigo_cidade, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		ps.setString(1, pessoa.getNome());
+		ps.setString(2, pessoa.getLogradouro());
+		ps.setString(3, pessoa.getComplemento());
+		ps.setString(4, pessoa.getNumero());
+		ps.setString(5, pessoa.getBairro());
+		ps.setString(6, pessoa.getCepSemMascara());
+		if (pessoa.getDtNascimento() != null)
+			ps.setDate(7, Date.valueOf(pessoa.getDtNascimento()));
+		else
+			ps.setNull(7, Types.TIMESTAMP);
+		if (pessoa.getCidade() != null)
+			ps.setInt(8, pessoa.getCidade().getCodigo());
+		else
+			ps.setNull(8, Types.INTEGER);
+		ps.setBoolean(9, pessoa.isStatus());
+		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
+		if (rs.next())
+			pessoa.setCodigo(rs.getInt(1));
+		ps.close();
+
+		TelefoneDAO telefoneDAO = new TelefoneDAO();
+		telefoneDAO.salvar(pessoa.getTelefones(), pessoa.getCodigo(), connection);
 	}
 }

@@ -16,6 +16,8 @@ import br.com.rarp.utils.comparacao.Ativado;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -106,8 +107,9 @@ public class CadastroUsuarioController extends Application implements Initializa
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinWidth(450);
-		stage.setMinHeight(302);
+		//stage.setMinWidth(520);
+		//stage.setMinHeight(476);
+		stage.setResizable(false);
 	}
 
 	public Stage getStage() {
@@ -122,11 +124,14 @@ public class CadastroUsuarioController extends Application implements Initializa
 		txtCodigo.clear();
 		txtNome.clear();
 		txtUsuario.clear();
+		txtSenha.clear();
+		txtSenha1.clear();
+		txtSenha2.clear();
 		
-		cmbFuncionario.getSelectionModel().select(-1);
-		cmbPerfilUsuario.getSelectionModel().select(-1);
-		
-		sbAtivado.switchOnProperty().set(true);
+		cmbFuncionario.getSelectionModel().clearSelection();
+		cmbPerfilUsuario.getSelectionModel().clearSelection();
+		sbNovaSenha.setValue(false);
+		sbAtivado.setValue(true);
 	}
 
 	@Override
@@ -150,6 +155,10 @@ public class CadastroUsuarioController extends Application implements Initializa
 		if(usuarioCtrl == null) {
 			sbNovaSenha.setVisible(false);
 			lblsbNovaSenha.setVisible(false);
+			lblSenha.setDisable(false);
+			txtSenha.setDisable(false);
+			lblSenha1.setDisable(false);
+			txtSenha1.setDisable(false);
 			lblSenha2.setDisable(true);
 			txtSenha2.setDisable(true);
 		} else {
@@ -161,19 +170,26 @@ public class CadastroUsuarioController extends Application implements Initializa
 			lblSenha2.setDisable(true);
 			txtSenha2.setDisable(true);
 		}
+		sbNovaSenha.switchOnProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				novaSenha();
+			}
+		});
 	}
 	
     @FXML
-    void novaSenha(MouseEvent event) {
+    void novaSenha() {
     	if(sbNovaSenha.getValue()) {
-			txtSenha.setDisable(false);
+    		lblSenha.setDisable(false);
 			txtSenha.setDisable(false);
 			lblSenha1.setDisable(false);
 			txtSenha1.setDisable(false);
 			lblSenha2.setDisable(false);
 			txtSenha2.setDisable(false);
     	} else {
-			txtSenha.setDisable(true);
+    		lblSenha.setDisable(true);
 			txtSenha.setDisable(true);
 			lblSenha1.setDisable(true);
 			txtSenha1.setDisable(true);

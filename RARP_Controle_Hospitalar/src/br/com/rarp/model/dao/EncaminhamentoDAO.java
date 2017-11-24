@@ -1,17 +1,23 @@
 package br.com.rarp.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Leito;
+import br.com.rarp.model.Usuario;
 
 public class EncaminhamentoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -180,6 +186,94 @@ public class EncaminhamentoDAO {
 					+ "WHERE "
 					+ consulta;
 			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Encaminhamento encaminhamento = new Encaminhamento();
+				encaminhamentos.add(encaminhamento);
+				
+				encaminhamento.setCodigo(rs.getInt("codigo_enc"));
+				encaminhamento.setDestino(new LeitoDAO().getLeito(rs.getInt("destino_leito")));
+				encaminhamento.setOrigem(new LeitoDAO().getLeito(rs.getInt("origem_leito")));
+				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
+				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
+				encaminhamento.setStatus(rs.getBoolean("status_enc"));
+				
+				EntradaPaciente entradaPaciente = new EntradaPaciente();
+				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+				entradaPaciente.setDtMovimentacao(rs.getDate("dtmov_ent").toLocalDate());
+				entradaPaciente.setHrMovimentacao(rs.getTime("hrmov_ent").toLocalTime());
+				
+				encaminhamento.setEntradaPaciente(entradaPaciente);
+			}
+			return encaminhamentos;	
+		} finally {
+			conexao.close();
+		}
+	}
+
+	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {
+		List<Encaminhamento> encaminhamentos = new ArrayList<>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "SELECT "
+					+ "ENC.codigo codigo_enc, "
+					+ "ENC.origem_leito, "
+					+ "ENC.destino_leito, "
+					+ "MOV.data dtmov_enc, "
+					+ "MOV.hora hrmov_enc, "
+					+ "ENC.codigo_entrada, "
+					+ "ENC.status status_enc, "
+					+ "ENT.codigo_paciente, "
+					+ "MOV1.data dtmov_ent, "
+					+ "MOV1.hora hrmov_ent "
+					+ "FROM encaminhamento ENC "
+					+ "LEFT JOIN entradapaciente ENT ON ENC.codigo_entrada = ENT.codigo "
+					+ "LEFT JOIN movimentacao MOV ON ENC.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN movimentacao MOV1 ON ENT.codigo_mov = MOV1.codigo "		
+					+ "LEFT JOIN leito ORI ON ENC.origem_leito = ORI.codigo "
+					+ "LEFT JOIN leito DEST ON ENC.destino_leito = DEST.codigo "
+					+ "WHERE "
+					+ "ENC.codigo > 0";
+			if(dataIni != null)
+				sql += " AND MOV.data >= ?";
+			if(dataFin != null)
+				sql += " AND MOV.data <= ?";
+			if(horaIni != null)
+				sql += " AND MOV.hora >= ?";
+			if(horaFin != null)
+				sql += " AND MOV.hora <= ?";
+			if(origem != null)
+				sql += " AND ENC.origem_leito = ?";
+			if(destino != null)
+				sql += " AND ENC.destino_leito = ?";
+			if(entrada != null)
+				sql += " AND ENT.codigo_paciente = ?";
+			if(usuario != null)
+				sql += " AND MOV.codigo_usuario = ?";
+			if(status != null)
+				sql += " AND ENC.status = ?";
+			
+			int paramCount = 0;
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			if(dataIni != null)
+				ps.setDate(++paramCount, Date.valueOf(dataIni));
+			if(dataFin != null)
+				ps.setDate(++paramCount, Date.valueOf(dataFin));
+			if(horaIni != null)
+				ps.setTime(++paramCount, Time.valueOf(horaIni));
+			if(horaFin != null)
+				ps.setTime(++paramCount, Time.valueOf(horaFin));
+			if(origem != null)
+				ps.setInt(++paramCount, origem.getCodigo());
+			if(destino != null)
+				ps.setInt(++paramCount, destino.getCodigo());
+			if(entrada != null)
+				ps.setInt(++paramCount, entrada.getCodigo());
+			if(usuario != null)
+				ps.setInt(++paramCount, usuario.getCodigo());
+			if(status != null)
+				ps.setString(++paramCount, status);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Encaminhamento encaminhamento = new Encaminhamento();

@@ -90,7 +90,7 @@ public class CadastroMedicoController extends Application implements Initializab
     void inserirEspecialidade(ActionEvent event) {
     	try {
 			new CadastroEspecialidadeController().inserir();
-			preencherTela();
+			prepararTela();
 		} catch (Exception e) {
 			Utilitarios.erro("Não foi possível inserir uma especialidade.\n" + e.getMessage());
 			e.printStackTrace();

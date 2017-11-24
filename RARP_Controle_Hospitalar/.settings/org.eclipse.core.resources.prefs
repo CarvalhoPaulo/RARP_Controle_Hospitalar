@@ -1,6 +1,9 @@
 eclipse.preferences.version=1
-encoding//sqls/cidades_estados.sql=UTF-8
 encoding//src/br/com/rarp/control/SistemaCtrl.java=UTF-8
-encoding//src/br/com/rarp/view/relatorios/RelatorioEntrada.jrxml=UTF-8
+encoding//src/br/com/rarp/view/relatorios/GraficoPizza.jrxml=UTF-8
+encoding//src/br/com/rarp/view/relatorios/atendimento/RelatorioAtendimento.jrxml=UTF-8
+encoding//src/br/com/rarp/view/relatorios/encaminhamento/RelatorioEncaminhamento.jrxml=UTF-8
+encoding//src/br/com/rarp/view/relatorios/entradaPaciente/RelatorioEntrada.jrxml=UTF-8
+encoding//src/br/com/rarp/view/scnManutencao/medico/Blank_A4.jrxml=UTF-8
 encoding//src/br/com/rarp/view/scnManutencao/medico/MedicoController.java=UTF-8
 separateDerivedEncodings=true

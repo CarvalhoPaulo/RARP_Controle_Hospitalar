@@ -7,13 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.enums.StatusAtendimento;
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Usuario;
 
 public class AtendimentoDAO {
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
@@ -275,11 +281,147 @@ public class AtendimentoDAO {
 					break;
 					
 				case "Em Andamento":
-					atendimento.setStatusAtendimento(StatusAtendimento.emAberto);
+					atendimento.setStatusAtendimento(StatusAtendimento.emAndamento);
 					break;
 					
 				case "Realizado":
+					atendimento.setStatusAtendimento(StatusAtendimento.realizado);
+					break;
+				}
+				if(rs.getDate("dtmovimentacao") != null)
+					atendimento.setDtMovimentacao(rs.getDate("dtmovimentacao").toLocalDate());
+				if(rs.getDate("hrmovimentacao") != null)
+					atendimento.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
+				
+				EntradaPaciente entradaPaciente = new EntradaPaciente();
+				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
+				atendimento.setEntradaPaciente(entradaPaciente);
+				
+				atendimento.setReceitaMedica(new ReceitaMedicaDAO().getReceita(rs.getInt("codigo_receita")));
+				atendimento.setResponsavel(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
+				atendimento.setStyleClass(rs.getString("styleclass"));
+				atendimento.setStatus(rs.getBoolean("status_atendimento"));
+				
+			}
+			return atendimentos;	
+		} finally {
+			conexao.close();
+		}
+	}
+
+	public List<Atendimento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			LocalDate dataIniAtend, LocalTime horaIniAtend, LocalDate dataFinAtend, LocalTime horaFinAtend,
+			EntradaPaciente entrada, Funcionario responsavel, Usuario usuario, StatusAtendimento statusAtendimento,
+			String status) throws ClassNotFoundException, Exception {
+		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "SELECT "
+					+ "ATE.codigo AS codigo_atendimento, "
+					+ "ATE.dataatendimento, "
+					+ "ATE.horaini, "
+					+ "ATE.horafim, "
+					+ "ATE.detalhemedico, "
+					+ "ATE.descricao AS descricao_atendimento, "
+					+ "ATE.statusatendimento, "
+					+ "MOV.data AS dtmovimentacao, "
+					+ "MOV.hora AS hrmovimentacao, "
+					+ "ATE.codigo_entrada, "
+					+ "ATE.codigo_receita, "
+					+ "ATE.codigo_funcionario, "
+					+ "ATE.styleclass, "
+					+ "ATE.status AS status_atendimento "
+					+ "FROM atendimento ATE "
+					+ "LEFT JOIN movimentacao MOV ON ATE.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN funcionario FUNC ON ATE.codigo_funcionario = FUNC.codigo "
+					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
+					+ "LEFT JOIN receita REC ON ATE.codigo_receita = REC.codigo "
+					+ "WHERE "
+					+ "ATE.codigo > 0";
+			if(dataIni != null)
+				sql += " AND MOV.data >= ?";
+			if(dataFin != null)
+				sql += " AND MOV.data <= ?";
+			if(horaIni != null)
+				sql += " AND MOV.hora >= ?";
+			if(horaFin != null)
+				sql += " AND MOV.hora <= ?";
+			LocalDateTime dataHoraIni = null;
+			if(dataIniAtend != null && horaIniAtend != null)
+				dataHoraIni = LocalDateTime.of(dataIniAtend, horaIniAtend);
+			if(dataIniAtend != null && horaIniAtend == null)
+				dataHoraIni = LocalDateTime.of(dataIniAtend.getYear(), dataIniAtend.getMonth(), dataIniAtend.getDayOfMonth(), 0, 0);
+			if(dataHoraIni != null)
+				sql += " AND (ATE.dataatendimento + ATE.horaini) >= ?";
+			
+			LocalDateTime dataHoraFin = null;
+			if(dataFinAtend != null && horaFinAtend != null)
+				dataHoraFin = LocalDateTime.of(dataFinAtend, horaFinAtend);
+			if(dataFinAtend != null && horaFinAtend == null)
+				dataHoraIni = LocalDateTime.of(dataFinAtend.getYear(), dataFinAtend.getMonth(), dataFinAtend.getDayOfMonth(), 0, 0);
+			if(dataHoraFin != null)
+				sql += " AND (ATE.dataatendimento + ATE.horafim) <= ?";
+			
+			if(entrada != null)
+				sql += " AND ATE.codigo_entrada = ?";
+			if(responsavel != null)
+				sql += " AND ATE.codigo_funcionario = ?";
+			if(usuario != null)
+				sql += " AND MOV.codigo_usuario = ?";
+			if(statusAtendimento != null)
+				sql += " AND ATE.statusatendimento = ?";
+			if(status != null)
+				sql += " AND ATE.status = ?";
+			
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			int paramCount = 0;
+			if(dataIni != null)
+				ps.setDate(++paramCount, Date.valueOf(dataIni));
+			if(dataFin != null)
+				ps.setDate(++paramCount, Date.valueOf(dataFin));
+			if(horaIni != null)
+				ps.setTime(++paramCount, Time.valueOf(horaIni));
+			if(horaFin != null)
+				ps.setTime(++paramCount, Time.valueOf(horaFin));
+			if(dataHoraIni != null)
+				ps.setTimestamp(++paramCount, Timestamp.valueOf(dataHoraIni));
+			if(dataHoraFin != null)
+				ps.setTimestamp(++paramCount, Timestamp.valueOf(dataHoraFin));
+			if(entrada != null)
+				ps.setInt(++paramCount, entrada.getCodigo());
+			if(responsavel != null)
+				ps.setInt(++paramCount, responsavel.getCodigo());
+			if(usuario != null)
+				ps.setInt(++paramCount, usuario.getCodigo());
+			if(statusAtendimento != null)
+				ps.setString(++paramCount, statusAtendimento.toString());
+			if(status != null)
+				ps.setString(++paramCount, status);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Atendimento atendimento = new Atendimento();
+				atendimentos.add(atendimento);
+				
+				atendimento.setCodigo(rs.getInt("codigo_atendimento"));
+				if(rs.getDate("dataatendimento") != null)
+					atendimento.setDataAtendimento(rs.getDate("dataatendimento").toLocalDate());
+				if(rs.getTime("horaini") != null)
+					atendimento.setHoraIni(rs.getTime("horaini").toLocalTime());
+				if(rs.getTime("horafim") != null)
+					atendimento.setHoraFim(rs.getTime("horafim").toLocalTime());
+				atendimento.setDetalheMedico(rs.getString("detalhemedico"));
+				atendimento.setDescricao(rs.getString("descricao_atendimento"));
+				switch (rs.getString("statusatendimento")) {
+				case "Em Aberto":
 					atendimento.setStatusAtendimento(StatusAtendimento.emAberto);
+					break;
+					
+				case "Em Andamento":
+					atendimento.setStatusAtendimento(StatusAtendimento.emAndamento);
+					break;
+					
+				case "Realizado":
+					atendimento.setStatusAtendimento(StatusAtendimento.realizado);
 					break;
 				}
 				if(rs.getDate("dtmovimentacao") != null)

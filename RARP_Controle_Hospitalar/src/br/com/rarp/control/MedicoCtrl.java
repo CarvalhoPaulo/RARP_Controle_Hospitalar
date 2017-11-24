@@ -1,6 +1,7 @@
 package br.com.rarp.control;
 
 import br.com.rarp.interfaces.Comparacao;
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.bo.MedicoBusiness;
 import br.com.rarp.utils.Campo;
@@ -74,6 +75,18 @@ public class MedicoCtrl {
 	public ObservableList<Medico> getMedicos() throws Exception {
 		MedicoBusiness MedicoBusiness = new MedicoBusiness();
 		return FXCollections.observableArrayList(MedicoBusiness.consultar("MED.codigo", " > ", "0"));
+	}
+
+	public Medico getMedicoByFuncionario(Funcionario funcionario) {
+		try {
+			for (Medico medico : getMedicos()) {
+				if (funcionario.equals(medico)) 
+					return medico;
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
 	}
 
 }

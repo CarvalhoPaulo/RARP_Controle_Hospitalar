@@ -179,9 +179,10 @@ public class FuncionarioDAO {
 	private void inserir(Funcionario funcionario) throws Exception {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
 			PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-			pessoaFisicaDAO.salvar(funcionario);
+			pessoaFisicaDAO.salvar(funcionario, conexao);
 			
 			String sql = "INSERT INTO funcionario(dataAdmissao, salarioContratual, ctps, codigo_cargo, codigo_pf, status) VALUES(?,?,?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -200,6 +201,9 @@ public class FuncionarioDAO {
 			if (rs.next())
 				funcionario.setCodigo(rs.getInt("codigo"));
 			ps.close();
+			conexao.commit();
+		} catch (Exception e) {
+			conexao.rollback();
 		} finally {
 			conexao.close();
 		}
@@ -208,6 +212,7 @@ public class FuncionarioDAO {
 	private void alterar(Funcionario funcionario) throws Exception {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
 		try {
 			String sql = "UPDATE funcionario SET dataAdmissao = ?, salarioContratual = ?, ctps = ?, codigo_cargo = ?, status = ? WHERE codigo = ?";
 			ps = conexao.prepareStatement(sql);
@@ -228,8 +233,11 @@ public class FuncionarioDAO {
 				PessoaFisica pf = funcionario.clone();
 				pf.setCodigo(rs.getInt("codigo_pf"));
 				PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-				pessoaFisicaDAO.salvar(pf);
+				pessoaFisicaDAO.salvar(pf, conexao);
 			}
+			conexao.commit();
+		}catch (Exception e) {
+			conexao.rollback();
 		} finally {
 			conexao.close();
 		}

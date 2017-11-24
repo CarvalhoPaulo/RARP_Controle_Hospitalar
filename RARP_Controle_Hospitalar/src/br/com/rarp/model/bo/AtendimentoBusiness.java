@@ -7,7 +7,9 @@ import java.util.List;
 
 import br.com.rarp.enums.StatusAtendimento;
 import br.com.rarp.model.Atendimento;
+import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.AtendimentoDAO;
 
 public class AtendimentoBusiness {
@@ -53,6 +55,20 @@ public class AtendimentoBusiness {
 
 	public List<Atendimento> getByFuncionario(Funcionario value) throws ClassNotFoundException, SQLException, Exception {
 		return new AtendimentoDAO().consultar("ATE.codigo_funcionario = " + value.getCodigo() + " AND ATE.status = 'TRUE'");
+	}
+
+	public List<Atendimento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			LocalDate dataIniAtend, LocalTime horaIniAtend, LocalDate dataFinAtend, LocalTime horaFinAtend,
+			EntradaPaciente entrada, Funcionario responsavel, Usuario usuario, StatusAtendimento statusAtendimento,
+			String status) throws ClassNotFoundException, Exception {
+		if(horaIniAtend != null && dataIniAtend == null)
+			throw new Exception("Para informar a hora de inicio dos atendimentos é neccessário informar a data de inicio");
+		if(horaIniAtend != null && dataIniAtend == null)
+			throw new Exception("Para informar a hora de termino dos atendimentos é neccessário informar a data termino");
+		return new AtendimentoDAO().consultar(dataIni, dataFin, horaIni, horaFin,
+			dataIniAtend, horaIniAtend, dataFinAtend, horaFinAtend,
+			entrada, responsavel, usuario, statusAtendimento,
+			status);
 	}
 
 }

@@ -29,66 +29,57 @@ public class PessoaFisicaDAO {
 		st.executeUpdate(sql);
 	}
 
-	public void salvar(PessoaFisica pessoaFisica) throws Exception {
+	public void salvar(PessoaFisica pessoaFisica, Connection connection) throws Exception {
 		if (pessoaFisica.getCodigo() == 0)
-			inserir(pessoaFisica);
+			inserir(pessoaFisica, connection);
 		else
-			alterar(pessoaFisica);
+			alterar(pessoaFisica, connection);
 	}
 
-	private void alterar(PessoaFisica pessoaFisica) throws Exception {
+	private void alterar(PessoaFisica pessoaFisica, Connection connection) throws Exception {
 		PreparedStatement ps;
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
 
-			String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, status=? WHERE codigo = ?";
-			ps = conexao.prepareStatement(sql);
-			ps.setString(1, pessoaFisica.getCpfSemMascara());
-			ps.setString(2, pessoaFisica.getRg());
-			ps.setString(3, pessoaFisica.getSexo());
-			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
-			ps.setString(5, pessoaFisica.getCertidaoNascimento());
-			ps.setBoolean(6, pessoaFisica.isStatus());
-			ps.setInt(7, pessoaFisica.getCodigo());
-			
-			ps.executeUpdate();
-			ps.close();
-				
-			ResultSet rs = conexao.createStatement().executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
-			if (rs.next()) {
-				Pessoa pessoa = pessoaFisica.clone();
-				pessoa.setCodigo(rs.getInt("codigo_pessoa"));
-				PessoaDAO pessoaDAO = new PessoaDAO();
-				pessoaDAO.salvar(pessoa);
-			}
-		} finally {
-			conexao.close();
-		}
-	}
+		String sql = "UPDATE pessoafisica SET cpf=?, rg=?, sexo=?, possuiNecessidades=?, certidaoNascimento=?, status=? WHERE codigo = ?";
+		ps = connection.prepareStatement(sql);
+		ps.setString(1, pessoaFisica.getCpfSemMascara());
+		ps.setString(2, pessoaFisica.getRg());
+		ps.setString(3, pessoaFisica.getSexo());
+		ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
+		ps.setString(5, pessoaFisica.getCertidaoNascimento());
+		ps.setBoolean(6, pessoaFisica.isStatus());
+		ps.setInt(7, pessoaFisica.getCodigo());
 
-	private void inserir(PessoaFisica pessoaFisica) throws Exception {
-		PreparedStatement ps;
-		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
+		ps.executeUpdate();
+		ps.close();
+
+		ResultSet rs = connection.createStatement()
+				.executeQuery("SELECT codigo_pessoa FROM pessoafisica WHERE codigo = " + pessoaFisica.getCodigo());
+		if (rs.next()) {
+			Pessoa pessoa = pessoaFisica.clone();
+			pessoa.setCodigo(rs.getInt("codigo_pessoa"));
 			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoaDAO.salvar(pessoaFisica);
-
-			String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
-			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setString(1, pessoaFisica.getCpfSemMascara());
-			ps.setString(2, pessoaFisica.getRg());
-			ps.setString(3, pessoaFisica.getSexo());
-			ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
-			ps.setString(5, pessoaFisica.getCertidaoNascimento());
-			ps.setInt(6, pessoaFisica.getCodigo());
-			ps.setBoolean(7, pessoaFisica.isStatus());
-			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
-			if(rs.next())
-				pessoaFisica.setCodigo(rs.getInt(1));
-			ps.close();
-		} finally {
-			conexao.close();
+			pessoaDAO.salvar(pessoa, connection);
 		}
+	}
+
+	private void inserir(PessoaFisica pessoaFisica, Connection connection) throws Exception {
+		PreparedStatement ps;
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoaDAO.salvar(pessoaFisica, connection);
+
+		String sql = "INSERT INTO pessoaFisica(cpf, rg, sexo, possuiNecessidades, certidaoNascimento,  codigo_pessoa, status) VALUES(?,?,?,?,?,?,?)";
+		ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		ps.setString(1, pessoaFisica.getCpfSemMascara());
+		ps.setString(2, pessoaFisica.getRg());
+		ps.setString(3, pessoaFisica.getSexo());
+		ps.setBoolean(4, pessoaFisica.isPossuiNecessidades());
+		ps.setString(5, pessoaFisica.getCertidaoNascimento());
+		ps.setInt(6, pessoaFisica.getCodigo());
+		ps.setBoolean(7, pessoaFisica.isStatus());
+		ps.executeUpdate();
+		ResultSet rs = ps.getGeneratedKeys();
+		if (rs.next())
+			pessoaFisica.setCodigo(rs.getInt(1));
+		ps.close();
 	}
 }

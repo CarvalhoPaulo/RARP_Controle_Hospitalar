@@ -251,7 +251,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 				limparCampos();
 			}
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao salvar espa�o.\n"
+			Utilitarios.erro("Erro ao salvar espaço.\n"
 						   + "Descrição: " + e.getMessage());
 		}
 		encaminhamentoCtrl = null;

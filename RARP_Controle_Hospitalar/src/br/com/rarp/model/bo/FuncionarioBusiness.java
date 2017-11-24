@@ -19,7 +19,7 @@ public class FuncionarioBusiness {
 	}
 
 	private void validarFuncionario(Funcionario funcionario) throws Exception {
-		if(funcionario.getDtNascimento().isAfter(LocalDate.now()))
+		if(funcionario.getDtNascimento() != null && funcionario.getDtNascimento().isAfter(LocalDate.now()))
 			throw new Exception("A data informada deve ser menor que a data atual");
 		
 		if(!Utilitarios.isCPF(funcionario.getCpfSemMascara()))

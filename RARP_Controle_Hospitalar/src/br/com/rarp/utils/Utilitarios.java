@@ -27,6 +27,13 @@ public class Utilitarios {
 			event.consume();
 		}
 	};
+	
+	public static double getPercentual(double valorTotal, double parteValor) {
+		if(valorTotal > 0)
+			return parteValor * 100 / valorTotal;
+		else
+			return 0;
+	}
 
 	public static void atencao(String message) {
 		Alert alert = new Alert(AlertType.WARNING);

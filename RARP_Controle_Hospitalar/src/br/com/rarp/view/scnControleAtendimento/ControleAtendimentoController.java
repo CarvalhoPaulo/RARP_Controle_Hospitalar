@@ -293,7 +293,8 @@ public class ControleAtendimentoController extends Application implements Initia
 				try {
 					if(atendimentoCtrl == null)
 						atendimentoCtrl = new AtendimentoCtrl();
-					agdAtendimento.appointments().setAll(atendimentoCtrl.getAppointmentByFuncionario(cmbFuncionario.getValue()));
+					if(cmbFuncionario.getValue() != null)
+						agdAtendimento.appointments().setAll(atendimentoCtrl.getAppointmentByFuncionario(cmbFuncionario.getValue()));
 					agdAtendimento.refresh();
 					agdAtendimento.setAllowDragging(agdAtendimento.appointments().size() == 0);
 					agdAtendimento.setAllowResize(agdAtendimento.appointments().size() == 0);
