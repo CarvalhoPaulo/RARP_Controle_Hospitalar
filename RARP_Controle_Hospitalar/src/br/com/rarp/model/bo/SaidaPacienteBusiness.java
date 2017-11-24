@@ -1,10 +1,13 @@
 package br.com.rarp.model.bo;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.SaidaPaciente;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.SaidaPacienteDAO;
 
 public class SaidaPacienteBusiness {
@@ -35,6 +38,12 @@ public class SaidaPacienteBusiness {
 
 	public List<SaidaPaciente> consultar(String campo, String comparacao, String termo) throws Exception {
 		return new SaidaPacienteDAO().consultar(campo, comparacao, termo);
+	}
+
+	public List<SaidaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			EntradaPaciente entrada, Usuario usuario, String estadoPaciente, Boolean statusAux) throws ClassNotFoundException, SQLException, Exception {
+		return new SaidaPacienteDAO().consultar(dataIni, dataFin, horaIni, horaFin, entrada, usuario,
+				estadoPaciente, statusAux);
 	}
 
 }

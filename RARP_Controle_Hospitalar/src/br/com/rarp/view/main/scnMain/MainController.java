@@ -13,6 +13,7 @@ import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.relatorios.atendimento.RelatorioAtendimentoController;
 import br.com.rarp.view.relatorios.encaminhamento.RelatorioEncaminhamentoController;
 import br.com.rarp.view.relatorios.entradaPaciente.RelatorioEntradaController;
+import br.com.rarp.view.relatorios.saidaPaciente.RelatorioSaidaController;
 import br.com.rarp.view.scnAcesso.AcessoController;
 import br.com.rarp.view.scnConsulta.ConsultaController;
 import br.com.rarp.view.scnLogin.LoginController;
@@ -510,7 +511,20 @@ public class MainController extends Application implements Initializable {
 			e.printStackTrace();
 		}
     }
-
+    
+    @FXML
+    void relatorioSaida(ActionEvent event) {
+    	try {
+    		RelatorioSaidaController relatorioSaida = new RelatorioSaidaController();
+			pnMain.setCenter(relatorioSaida.getNode());
+			focarToolBar(false);
+			relatorioSaida.getNode().requestFocus();
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao abrir relatório de saida de pacientes");
+			e.printStackTrace();
+		}
+    }
+    
     @FXML
     void relatorioLimpeza(ActionEvent event) {
 

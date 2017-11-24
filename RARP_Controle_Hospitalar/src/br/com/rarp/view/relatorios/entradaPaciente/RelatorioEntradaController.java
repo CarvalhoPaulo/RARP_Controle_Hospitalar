@@ -43,7 +43,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -90,6 +89,9 @@ public class RelatorioEntradaController implements Initializable {
 
     @FXML
     private AutoCompleteComboBox<Medico> cmbMedico;
+    
+    @FXML
+    private AutoCompleteComboBox<String> cmbStatus;
 
     @FXML
     private TextField txtPreTriagem;
@@ -153,11 +155,8 @@ public class RelatorioEntradaController implements Initializable {
 			String outputFilename = "D:\\MeuRelatorio.pdf";
 			JasperExportManager.exportReportToPdfFile(print, outputFilename );
 			Desktop.getDesktop().open(new File("D:\\MeuRelatorio.pdf"));
-    	} catch (JRException e) {
-			Utilitarios.erro("Erro ao imprimir relatório");
-			e.printStackTrace();
-		} catch (IOException e) {
-			Utilitarios.erro("Não foi possível abrir o arquivo \"D:\\MeuRelatorio.pdf\"");
+    	} catch (Exception e) {
+			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());	
 			e.printStackTrace();
 		}
     }
@@ -293,7 +292,8 @@ public class RelatorioEntradaController implements Initializable {
 					cmbMedico.getSelectedValue(),
 					cmbPaciente.getSelectedValue(),
 					cmbUsuario.getSelectedValue(),
-					txtPreTriagem.getText()));
+					txtPreTriagem.getText(),
+					cmbStatus.getSelectedValue()));
 			Utilitarios.message("Consulta realizada com sucesso");
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao consultar as entradas de pacientes.\n" + "Descrição: " + e.getMessage());
@@ -329,6 +329,11 @@ public class RelatorioEntradaController implements Initializable {
 		}
 		try {
 			cmbUsuario.getItems().setAll(new UsuarioCtrl().getUsuarios());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			cmbStatus.getItems().addAll("Ativado", "Desativado");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

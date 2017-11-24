@@ -121,19 +121,16 @@ public class LoginController extends Application implements Initializable, Event
 					e.printStackTrace();
 				}
 			}
-		});
-		
-		
-		
+		});	
 	}
 
 	@FXML
 	private void cancelar(ActionEvent event) {
 		if(stage != null) 
-			stage.hide();
+			stage.close();
 		else {
 			if (AcessoController.getStage() != null)
-				AcessoController.getStage().hide();
+				AcessoController.getStage().close();
 		}
 	}
 
@@ -195,6 +192,7 @@ public class LoginController extends Application implements Initializable, Event
 	public Node getNode() throws Exception {
 		if(node == null)
 			start(SistemaCtrl.getInstance().getStage());
+		stage = null;
 		return node;
 	}
 

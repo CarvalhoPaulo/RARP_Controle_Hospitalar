@@ -127,7 +127,7 @@
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
                            </accelerator></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Saida de Pacientes">
+                        <MenuItem mnemonicParsing="false" onAction="#relatorioSaida" text="Saida de Pacientes">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
                            </accelerator>

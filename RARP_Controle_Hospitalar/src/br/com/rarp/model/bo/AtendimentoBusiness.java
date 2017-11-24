@@ -60,7 +60,7 @@ public class AtendimentoBusiness {
 	public List<Atendimento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
 			LocalDate dataIniAtend, LocalTime horaIniAtend, LocalDate dataFinAtend, LocalTime horaFinAtend,
 			EntradaPaciente entrada, Funcionario responsavel, Usuario usuario, StatusAtendimento statusAtendimento,
-			String status) throws ClassNotFoundException, Exception {
+			Boolean statusAux) throws ClassNotFoundException, Exception {
 		if(horaIniAtend != null && dataIniAtend == null)
 			throw new Exception("Para informar a hora de inicio dos atendimentos é neccessário informar a data de inicio");
 		if(horaIniAtend != null && dataIniAtend == null)
@@ -68,7 +68,7 @@ public class AtendimentoBusiness {
 		return new AtendimentoDAO().consultar(dataIni, dataFin, horaIni, horaFin,
 			dataIniAtend, horaIniAtend, dataFinAtend, horaFinAtend,
 			entrada, responsavel, usuario, statusAtendimento,
-			status);
+			statusAux);
 	}
 
 }

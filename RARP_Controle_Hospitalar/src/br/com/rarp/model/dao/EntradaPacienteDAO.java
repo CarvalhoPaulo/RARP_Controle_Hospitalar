@@ -283,7 +283,7 @@ public class EntradaPacienteDAO {
 
 	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
 			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario,
-			String preTriagem) throws ClassNotFoundException, Exception {
+			String preTriagem, Boolean status) throws ClassNotFoundException, Exception {
 		List<EntradaPaciente> entradas = new ArrayList<EntradaPaciente>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
@@ -331,8 +331,10 @@ public class EntradaPacienteDAO {
 						sql += "AND (PAC.codigo = ?) ";
 					if(usuario != null) 
 						sql += "AND (USU.codigo = ?) ";
-					if(!preTriagem.equals(""))
+					if(preTriagem != null && !preTriagem.isEmpty())
 						sql += "AND (ENT.pretriagem LIKE ?)";
+					if(status != null)
+						sql += "AND (ENT.status = ?)";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			if(dataIni != null)
 				ps.setDate(++vcount, Date.valueOf(dataIni));
@@ -352,8 +354,10 @@ public class EntradaPacienteDAO {
 				ps.setInt(++vcount, paciente.getCodigo());
 			if(usuario != null)
 				ps.setInt(++vcount, usuario.getCodigo());
-			if(!preTriagem.equals(""))
+			if(preTriagem != null && !preTriagem.isEmpty())
 				ps.setString(++vcount, "%" + preTriagem + "%");
+			if(status != null)
+				ps.setBoolean(++vcount, status);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				EntradaPaciente entradaPaciente = new EntradaPaciente();
@@ -377,6 +381,60 @@ public class EntradaPacienteDAO {
 				entradas.add(entradaPaciente);
 			}
 			return entradas;	
+		} finally {
+			conexao.close();
+		}
+	}
+
+	public EntradaPaciente getEntradaSemListas(int codigo) throws Exception {
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		try {
+			String sql = "SELECT "
+					+ "ENT.codigo AS codigo_entrada, "
+					+ "ENT.pretriagem, "
+					+ "ENT.emergencia, "
+					+ "ENT.alta, "
+					+ "ENT.status AS status_entrada, "
+					+ "MOV.data, "
+					+ "MOV.hora, "
+					+ "MOV.codigo AS codigo_mov, "
+					+ "USU.codigo AS codigo_usuario, "
+					+ "MED.codigo AS codigo_medico, "
+					+ "ENF.codigo AS codigo_enfermeira, "
+					+ "PAC.codigo AS codigo_paciente, "
+					+ "SAI.codigo AS codigo_saida, "
+					+ "ATE.codigo AS codigo_atendente "
+					+ "FROM entradapaciente ENT "
+					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN medico MED ON ENT.codigo_medico = MED.codigo "
+					+ "LEFT JOIN funcionario ENF ON ENT.enfermeira_funcionario = ENF.codigo "
+					+ "LEFT JOIN paciente PAC ON ENT.codigo_paciente = PAC.codigo "
+					+ "LEFT JOIN funcionario ATE ON ENT.atendente_funcionario = ATE.codigo "
+					+ "LEFT JOIN usuario USU ON MOV.codigo_usuario = USU.codigo "
+					+ "LEFT JOIN saidapaciente SAI ON SAI.codigo_entrada = ENT.codigo "
+					+ "WHERE ENT.codigo = " + codigo;
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			EntradaPaciente entradaPaciente = new EntradaPaciente();
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
+				entradaPaciente.setPreTriagem(rs.getString("pretriagem"));
+				entradaPaciente.setEmergencia(rs.getBoolean("emergencia"));
+				entradaPaciente.setAlta(rs.getBoolean("alta"));
+				entradaPaciente.setStatus(rs.getBoolean("status_entrada"));
+				if(rs.getDate("data") != null)
+					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
+				if(rs.getDate("hora") != null)
+					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
+				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
+				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
+				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
+				entradaPaciente.setSaidaPaciente(new SaidaPaciente());
+				entradaPaciente.getSaidaPaciente().setCodigo(rs.getInt("codigo_saida"));
+			}
+			return entradaPaciente;	
 		} finally {
 			conexao.close();
 		}

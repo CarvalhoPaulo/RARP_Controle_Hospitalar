@@ -242,6 +242,7 @@ public class ControleLimpezaController extends Application implements Initializa
 			limpezaCtrl.getLimpeza().getLeitos().add(img.getLeito());
 		limpezaCtrl.getLimpeza().setFuncionarioLimpeza(cmbFuncionarioLimpeza.getValue());
 		limpezaCtrl.getLimpeza().setStatus(sbAtivado.getValue());
+		limpezaCtrl.getLimpeza().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}
 
 	private void preencherTela() {

@@ -91,9 +91,21 @@ public class EntradaPacienteCtrl {
 	}
 
 	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario, String preTriagem) throws ClassNotFoundException, Exception {
+			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario, String preTriagem, String status) throws ClassNotFoundException, Exception {
+		Boolean statusAux = null;
+		if (status != null) {
+			switch (status) {
+			case "Ativado":
+				statusAux = true;
+				break;
+
+			case "Desativado":
+				statusAux = false;
+				break;
+			}
+		}
 		return new EntradaPacienteBusiness().consultar(dataIni, dataFin, horaIni, horaFin,
-				atendente, enfermeira, medico, paciente, usuario, preTriagem);
+				atendente, enfermeira, medico, paciente, usuario, preTriagem, statusAux);
 	}
 
 }

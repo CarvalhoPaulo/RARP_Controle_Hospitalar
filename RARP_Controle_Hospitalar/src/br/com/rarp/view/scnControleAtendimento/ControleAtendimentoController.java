@@ -499,6 +499,7 @@ public class ControleAtendimentoController extends Application implements Initia
 		if(appointment != null && appointment.getAppointmentGroup() != null)
 			atendimentoCtrl.getAtendimento().setStyleClass(appointment.getAppointmentGroup().getStyleClass());
 		atendimentoCtrl.getAtendimento().setStatus(sbAtivado.getValue());
+		atendimentoCtrl.getAtendimento().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}
 	
 	private Appointment newAppointment() {

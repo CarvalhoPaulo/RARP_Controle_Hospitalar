@@ -42,7 +42,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -162,11 +161,8 @@ public class RelatorioAtendimentoController implements Initializable {
 			String outputFilename = "MeuRelatorio.pdf";
 			JasperExportManager.exportReportToPdfFile(print, outputFilename);
 			Desktop.getDesktop().open(new File("MeuRelatorio.pdf"));
-		} catch (JRException e) {
-			Utilitarios.erro("Erro ao imprimir relatório");
-			e.printStackTrace();
-		} catch (IOException e) {
-			Utilitarios.erro("Não foi possível abrir o arquivo \"MeuRelatorio.pdf\"");
+		} catch (Exception e) {
+			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());	
 			e.printStackTrace();
 		}
 	}

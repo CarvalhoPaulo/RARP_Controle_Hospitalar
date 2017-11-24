@@ -77,15 +77,15 @@ public class EncaminhamentoCtrl {
 
 	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
 			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {
-		String statusAux = null;
+		Boolean statusAux = null;
 		if (status != null) {
 			switch (status) {
 			case "Ativado":
-				statusAux = "TRUE";
+				statusAux = true;
 				break;
 
 			case "Desativado":
-				statusAux = "FALSE";
+				statusAux = false;
 				break;
 			}
 		}

@@ -112,9 +112,9 @@ public class EntradaPacienteBusiness {
 
 	public List<EntradaPaciente> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
 			Funcionario atendente, Funcionario enfermeira, Medico medico, Paciente paciente, Usuario usuario,
-			String preTriagem) throws ClassNotFoundException, Exception {
+			String preTriagem, Boolean status) throws ClassNotFoundException, Exception {
 		return new EntradaPacienteDAO().consultar(dataIni, dataFin, horaIni, horaFin,
-				atendente, enfermeira, medico, paciente, usuario, preTriagem);
+				atendente, enfermeira, medico, paciente, usuario, preTriagem, status);
 	}
 
 }

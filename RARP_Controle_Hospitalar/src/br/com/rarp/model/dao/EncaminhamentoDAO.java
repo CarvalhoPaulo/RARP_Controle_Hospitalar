@@ -172,6 +172,7 @@ public class EncaminhamentoDAO {
 					+ "ENC.destino_leito, "
 					+ "MOV.data dtmov_enc, "
 					+ "MOV.hora hrmov_enc, "
+					+ "MOV.codigo_usuario, "
 					+ "ENC.codigo_entrada, "
 					+ "ENC.status status_enc, "
 					+ "ENT.codigo_paciente, "
@@ -197,6 +198,7 @@ public class EncaminhamentoDAO {
 				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
 				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
 				encaminhamento.setStatus(rs.getBoolean("status_enc"));
+				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
 				
 				EntradaPaciente entradaPaciente = new EntradaPaciente();
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -212,7 +214,7 @@ public class EncaminhamentoDAO {
 	}
 
 	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {
+			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, Boolean statusAux) throws ClassNotFoundException, Exception {
 		List<Encaminhamento> encaminhamentos = new ArrayList<>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
@@ -222,6 +224,7 @@ public class EncaminhamentoDAO {
 					+ "ENC.destino_leito, "
 					+ "MOV.data dtmov_enc, "
 					+ "MOV.hora hrmov_enc, "
+					+ "MOV.codigo_usuario, "
 					+ "ENC.codigo_entrada, "
 					+ "ENC.status status_enc, "
 					+ "ENT.codigo_paciente, "
@@ -248,10 +251,10 @@ public class EncaminhamentoDAO {
 			if(destino != null)
 				sql += " AND ENC.destino_leito = ?";
 			if(entrada != null)
-				sql += " AND ENT.codigo_paciente = ?";
+				sql += " AND ENC.codigo_entrada = ?";
 			if(usuario != null)
 				sql += " AND MOV.codigo_usuario = ?";
-			if(status != null)
+			if(statusAux != null)
 				sql += " AND ENC.status = ?";
 			
 			int paramCount = 0;
@@ -272,8 +275,8 @@ public class EncaminhamentoDAO {
 				ps.setInt(++paramCount, entrada.getCodigo());
 			if(usuario != null)
 				ps.setInt(++paramCount, usuario.getCodigo());
-			if(status != null)
-				ps.setString(++paramCount, status);
+			if(statusAux != null)
+				ps.setBoolean(++paramCount, statusAux);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Encaminhamento encaminhamento = new Encaminhamento();
@@ -285,6 +288,7 @@ public class EncaminhamentoDAO {
 				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
 				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
 				encaminhamento.setStatus(rs.getBoolean("status_enc"));
+				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
 				
 				EntradaPaciente entradaPaciente = new EntradaPaciente();
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));

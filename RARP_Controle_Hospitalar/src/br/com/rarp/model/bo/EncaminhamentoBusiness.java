@@ -66,9 +66,9 @@ public class EncaminhamentoBusiness {
 	}
 
 	public List<Encaminhamento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, String status) throws ClassNotFoundException, Exception {		
+			Leito origem, Leito destino, EntradaPaciente entrada, Usuario usuario, Boolean statusAux) throws ClassNotFoundException, Exception {		
 		return new EncaminhamentoDAO().consultar(dataIni, dataFin, horaIni, horaFin,
-				origem, destino, entrada, usuario, status);
+				origem, destino, entrada, usuario, statusAux);
 	}
 
 }

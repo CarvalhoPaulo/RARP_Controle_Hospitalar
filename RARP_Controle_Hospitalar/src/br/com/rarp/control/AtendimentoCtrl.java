@@ -131,15 +131,15 @@ public class AtendimentoCtrl {
 			LocalDate dataIniAtend, LocalTime horaIniAtend, LocalDate dataFinAtend, LocalTime horaFinAtend,
 			EntradaPaciente entrada, Funcionario responsavel, Usuario usuario, StatusAtendimento statusAtendimento,
 			String status) throws ClassNotFoundException, Exception {
-		String statusAux = null;
+		Boolean statusAux = null;
 		if (status != null) {
 			switch (status) {
 			case "Ativado":
-				statusAux = "TRUE";
+				statusAux = true;
 				break;
 
 			case "Desativado":
-				statusAux = "FALSE";
+				statusAux = false;
 				break;
 			}
 		}

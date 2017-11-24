@@ -186,6 +186,7 @@ public class ControleSaidaController extends Application implements Initializabl
 		saidaPacienteCtrl.getSaidaPaciente().setEntradaPaciente(cmbEntradaPaciente.getValue());
 		saidaPacienteCtrl.getSaidaPaciente().setEstadoPaciente(txtEstadoPaciente.getText());
 		saidaPacienteCtrl.getSaidaPaciente().setStatus(sbAtivado.getValue());
+		saidaPacienteCtrl.getSaidaPaciente().setUsuario(SistemaCtrl.getInstance().getUsuarioSessao());
 	}
 
 	private void preencherTela() {

@@ -252,7 +252,8 @@ public class AtendimentoDAO {
 					+ "ATE.codigo_receita, "
 					+ "ATE.codigo_funcionario, "
 					+ "ATE.styleclass, "
-					+ "ATE.status AS status_atendimento "
+					+ "ATE.status AS status_atendimento,"
+					+ "MOV.codigo_usuario "
 					+ "FROM atendimento ATE "
 					+ "LEFT JOIN movimentacao MOV ON ATE.codigo_mov = MOV.codigo "
 					+ "LEFT JOIN funcionario FUNC ON ATE.codigo_funcionario = FUNC.codigo "
@@ -292,11 +293,8 @@ public class AtendimentoDAO {
 					atendimento.setDtMovimentacao(rs.getDate("dtmovimentacao").toLocalDate());
 				if(rs.getDate("hrmovimentacao") != null)
 					atendimento.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
-				
-				EntradaPaciente entradaPaciente = new EntradaPaciente();
-				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
-				atendimento.setEntradaPaciente(entradaPaciente);
-				
+				atendimento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				atendimento.setEntradaPaciente(new EntradaPacienteDAO().getEntradaSemListas(rs.getInt("codigo_entrada")));				
 				atendimento.setReceitaMedica(new ReceitaMedicaDAO().getReceita(rs.getInt("codigo_receita")));
 				atendimento.setResponsavel(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
 				atendimento.setStyleClass(rs.getString("styleclass"));
@@ -312,7 +310,7 @@ public class AtendimentoDAO {
 	public List<Atendimento> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
 			LocalDate dataIniAtend, LocalTime horaIniAtend, LocalDate dataFinAtend, LocalTime horaFinAtend,
 			EntradaPaciente entrada, Funcionario responsavel, Usuario usuario, StatusAtendimento statusAtendimento,
-			String status) throws ClassNotFoundException, Exception {
+			Boolean statusAux) throws ClassNotFoundException, Exception {
 		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
@@ -330,7 +328,8 @@ public class AtendimentoDAO {
 					+ "ATE.codigo_receita, "
 					+ "ATE.codigo_funcionario, "
 					+ "ATE.styleclass, "
-					+ "ATE.status AS status_atendimento "
+					+ "ATE.status AS status_atendimento, "
+					+ "MOV.codigo_usuario "
 					+ "FROM atendimento ATE "
 					+ "LEFT JOIN movimentacao MOV ON ATE.codigo_mov = MOV.codigo "
 					+ "LEFT JOIN funcionario FUNC ON ATE.codigo_funcionario = FUNC.codigo "
@@ -370,7 +369,7 @@ public class AtendimentoDAO {
 				sql += " AND MOV.codigo_usuario = ?";
 			if(statusAtendimento != null)
 				sql += " AND ATE.statusatendimento = ?";
-			if(status != null)
+			if(statusAux != null)
 				sql += " AND ATE.status = ?";
 			
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -395,8 +394,8 @@ public class AtendimentoDAO {
 				ps.setInt(++paramCount, usuario.getCodigo());
 			if(statusAtendimento != null)
 				ps.setString(++paramCount, statusAtendimento.toString());
-			if(status != null)
-				ps.setString(++paramCount, status);
+			if(statusAux != null)
+				ps.setBoolean(++paramCount, statusAux);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Atendimento atendimento = new Atendimento();
@@ -428,11 +427,8 @@ public class AtendimentoDAO {
 					atendimento.setDtMovimentacao(rs.getDate("dtmovimentacao").toLocalDate());
 				if(rs.getDate("hrmovimentacao") != null)
 					atendimento.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
-				
-				EntradaPaciente entradaPaciente = new EntradaPaciente();
-				entradaPaciente.setCodigo(rs.getInt("codigo_entrada"));
-				atendimento.setEntradaPaciente(entradaPaciente);
-				
+				atendimento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				atendimento.setEntradaPaciente(new EntradaPacienteDAO().getEntradaSemListas(rs.getInt("codigo_entrada")));				
 				atendimento.setReceitaMedica(new ReceitaMedicaDAO().getReceita(rs.getInt("codigo_receita")));
 				atendimento.setResponsavel(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
 				atendimento.setStyleClass(rs.getString("styleclass"));
