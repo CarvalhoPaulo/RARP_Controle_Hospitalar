@@ -244,13 +244,64 @@ public class LimpezaDAO {
 	}
 
 	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {
-		// TODO Auto-generated method stub
 		return consultar(campo + comparacao + termo);
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) {
-		return null;
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
+		List<Limpeza> limpezas = new ArrayList<>();
+		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		conexao.setAutoCommit(false);
+		try {
+			String sql = "SELECT "
+					+ "LIM.codigo AS codigo_limpeza, "
+					+ "LIM.codigo_mov, "
+					+ "MOV.data AS dtmovimentacao, "
+					+ "MOV.hora AS hrmovimentacao, "
+					+ "MOV.codigo_usuario, "
+					+ "LIM.codigo_funcionario, "
+					+ "LIM.status AS status_limpeza "
+					+ "FROM "
+					+ "limpeza LIM "
+					+ "LEFT JOIN movimentacao MOV ON LIM.codigo_mov = MOV.codigo "
+					+ "LEFT JOIN limpeza_leito LL ON LL.codigo_limpeza = LIM.codigo "
+					+ "WHERE "
+					+ "LIM.codigo > 0";
+			if(dataIni != null)
+				sql += " AND MOV.data >= ?";
+			if(dataFin != null)
+				sql += " AND MOV.data <= ?";
+			if(horaIni != null)
+				sql += " AND MOV.hora >= ?";
+			if(horaFin != null)
+				sql += " AND MOV.hora <= ?";
+			if(funcionarioLimpeza != null)
+				sql += " AND LIM.codigo_funcionario = ?";
+			if(leito != null)
+				sql += " AND LL.codigo_leito = ?";
+			if(usuario != null)
+				sql += " AND MOV.codigo_usuario = ?";
+			if(status != null)
+				sql += " AND LIM.status = ?";
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Limpeza limpeza = new Limpeza();
+				limpeza.setCodigo(rs.getInt("codigo_limpeza"));
+				limpeza.setDtMovimentacao(rs.getDate("dtMovimentacao").toLocalDate());
+				limpeza.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
+				limpeza.setFuncionarioLimpeza(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
+				limpeza.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				limpeza.setStatus(rs.getBoolean("status_limpeza"));
+				limpeza.setLeitos(getLeitosLimpeza(conexao, limpeza.getCodigo()));
+				limpezas.add(limpeza);
+			}
+			ps.close();
+		} finally {
+			conexao.close();
+		} 
+		return limpezas;
 	}
 
 }

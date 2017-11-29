@@ -1,5 +1,6 @@
 package br.com.rarp.model.bo;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -44,7 +45,7 @@ public class LimpezaBusiness {
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) {
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
 		return new LimpezaDAO().consultar(dataIni, dataFin, horaIni, horaFin,
 				funcionarioLimpeza, leito, usuario, status);
 	}

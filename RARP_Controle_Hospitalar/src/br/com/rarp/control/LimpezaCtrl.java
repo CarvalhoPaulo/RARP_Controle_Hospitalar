@@ -1,5 +1,6 @@
 package br.com.rarp.control;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -67,7 +68,7 @@ public class LimpezaCtrl {
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, String status) {
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, String status) throws ClassNotFoundException, SQLException, Exception {
 		Boolean statusAux = null;
 		if (status != null) {
 			switch (status) {
