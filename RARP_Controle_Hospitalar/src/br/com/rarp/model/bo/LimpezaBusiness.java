@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Leito;
 import br.com.rarp.model.Limpeza;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.dao.LimpezaDAO;
 
 public class LimpezaBusiness {
@@ -39,6 +41,12 @@ public class LimpezaBusiness {
 
 	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {
 		return new LimpezaDAO().consultar(campo, comparacao, termo);
+	}
+
+	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) {
+		return new LimpezaDAO().consultar(dataIni, dataFin, horaIni, horaFin,
+				funcionarioLimpeza, leito, usuario, status);
 	}
 
 }

@@ -1,7 +1,14 @@
 package br.com.rarp.control;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
 import br.com.rarp.interfaces.Comparacao;
+import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Leito;
 import br.com.rarp.model.Limpeza;
+import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.LimpezaBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
@@ -57,5 +64,23 @@ public class LimpezaCtrl {
 
 	public void setLimpeza(Object limpeza) {
 		this.limpeza = (Limpeza) limpeza;
+	}
+
+	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, String status) {
+		Boolean statusAux = null;
+		if (status != null) {
+			switch (status) {
+			case "Ativado":
+				statusAux = true;
+				break;
+
+			case "Desativado":
+				statusAux = false;
+				break;
+			}
+		}
+		return new LimpezaBusiness().consultar(dataIni, dataFin, horaIni, horaFin,
+				funcionarioLimpeza, leito, usuario, statusAux);
 	}
 }

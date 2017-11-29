@@ -6,13 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Espaco;
+import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Leito;
 import br.com.rarp.model.Limpeza;
+import br.com.rarp.model.Usuario;
 
 public class LimpezaDAO {
 	
@@ -242,6 +246,11 @@ public class LimpezaDAO {
 	public List<Limpeza> consultar(String campo, String comparacao, String termo) throws Exception {
 		// TODO Auto-generated method stub
 		return consultar(campo + comparacao + termo);
+	}
+
+	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
+			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) {
+		return null;
 	}
 
 }
