@@ -66,15 +66,7 @@ public class MedicoController extends ManutencaoController {
 					cmbCampo.getSelectionModel().getSelectedItem().getTipo() == TipoCampo.booleano ? cmbTermo.getValue()
 							: txtTermo.getText()));
 			
-			try {
-				JasperReport report = JasperCompileManager.compileReport(getClass().getResource("Blank_A4.jrxml").getFile());
-				JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblManutencao.getItems()));
-				String outputFilename = "D:\\MeuRelatorio.pdf";
-				JasperExportManager.exportReportToPdfFile(print, outputFilename );
-	    	} catch (JRException e) {
-				Utilitarios.erro("Erro ao imprimir relatório");
-				e.printStackTrace();
-			}	
+			
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao pesquisar as especialidades.\n" + "Descricão: " + e.getMessage());
 		}
