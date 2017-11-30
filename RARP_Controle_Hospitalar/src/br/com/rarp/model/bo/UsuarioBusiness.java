@@ -19,7 +19,7 @@ public class UsuarioBusiness {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.salvar(usuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
-			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getConexao().getConexao(), SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
 	}
 
 	private void validarDesativacao(Usuario usuario) throws Exception {
@@ -33,7 +33,7 @@ public class UsuarioBusiness {
 
 	public List<Usuario> consultar(String campo, String comparacao, String termo) throws Exception {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		return usuarioDAO.consultar(campo, comparacao, termo);
+		return usuarioDAO.consultar(SistemaCtrl.getInstance().getConexao().getConexao(), campo, comparacao, termo);
 	}
 
 }

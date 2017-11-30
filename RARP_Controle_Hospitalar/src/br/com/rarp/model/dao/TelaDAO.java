@@ -173,7 +173,7 @@ public class TelaDAO {
 				ps.close();
 			} 
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}  
 	}
 
@@ -212,7 +212,7 @@ public class TelaDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return telas;
 	}

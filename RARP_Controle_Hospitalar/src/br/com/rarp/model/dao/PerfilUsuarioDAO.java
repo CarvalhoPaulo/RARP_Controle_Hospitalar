@@ -222,7 +222,7 @@ public class PerfilUsuarioDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return perfilUsuarios;
 	}
@@ -253,7 +253,7 @@ public class PerfilUsuarioDAO {
             telaDAO.salvar(perfilUsuario);
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 	}
 	
@@ -271,7 +271,7 @@ public class PerfilUsuarioDAO {
             telaDAO.salvar(perfilUsuario);
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }		
 	}
 	

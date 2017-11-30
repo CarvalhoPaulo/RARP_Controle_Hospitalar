@@ -68,7 +68,7 @@ public class UsuarioDAO {
 				usuario.setCodigo(rs.getInt(1));
 			ps.close();
         } finally {
-        	conexao.close();
+        	//conexao.close();
 		}
 	}
 
@@ -95,44 +95,39 @@ public class UsuarioDAO {
             ps.executeUpdate();
             ps.close();
         } finally {
-        	conexao.close();
+        	//conexao.close();
 		}
 	}
 
-	public List<Usuario> consultar(String campo, String comparacao, String termo) throws Exception {
+	public List<Usuario> consultar(Connection conexao, String campo, String comparacao, String termo) throws Exception {
 		List<Usuario> usuarios = new ArrayList<>();
-        PreparedStatement ps;
-        Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-        try {
-        	String sql = "SELECT usuario.codigo, usuario.nome, usuario.usuario, usuario.password, usuario.codigo_funcionario, usuario.codigo_perfilusuario as cf , usuario.status FROM usuario WHERE " + campo + comparacao + termo;
-            ps = conexao.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-            	Usuario usuario = new Usuario();
-            	usuario.setCodigo(rs.getInt("codigo"));
-            	usuario.setNome(rs.getString("nome"));
-            	usuario.setUsuario(rs.getString("usuario"));
-            	usuario.setSenha(rs.getInt("password"));
-            	
-            	PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
-            	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("cf")));
-            	
-            	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-            	usuario.setFuncionario(funcionarioDAO.getFuncionario(rs.getInt("codigo_funcionario")));
-            			
-            	usuario.setStatus(rs.getBoolean("status"));
-            	usuarios.add(usuario);
-            }
-            ps.close();
-        } finally{
-            conexao.close();
+        PreparedStatement ps;      
+    	String sql = "SELECT usuario.codigo, usuario.nome, usuario.usuario, usuario.password, usuario.codigo_funcionario, usuario.codigo_perfilusuario as cf , usuario.status FROM usuario WHERE " + campo + comparacao + termo;
+        ps = conexao.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) {
+        	Usuario usuario = new Usuario();
+        	usuario.setCodigo(rs.getInt("codigo"));
+        	usuario.setNome(rs.getString("nome"));
+        	usuario.setUsuario(rs.getString("usuario"));
+        	usuario.setSenha(rs.getInt("password"));
+        	
+        	PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
+        	usuario.setPerfilUsuario(perfilUsuarioDAO.consultar(rs.getInt("cf")));
+        	
+        	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        	usuario.setFuncionario(funcionarioDAO.getFuncionario(rs.getInt("codigo_funcionario")));
+        			
+        	usuario.setStatus(rs.getBoolean("status"));
+        	usuarios.add(usuario);
         }
+        ps.close();
 		return usuarios;
 	}
 
-	public Usuario getUsuario(int codigo) throws Exception {
+	public Usuario getUsuario(Connection conexao, int codigo) throws Exception {
 		if (codigo > 0) {
-			List<Usuario> usuarios = consultar("codigo", " = ", "" + codigo);
+			List<Usuario> usuarios = consultar(conexao, "codigo", " = ", "" + codigo);
 			return usuarios.get(0);
 		}
 		return null;

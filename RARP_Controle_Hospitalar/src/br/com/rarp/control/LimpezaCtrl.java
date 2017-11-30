@@ -3,6 +3,7 @@ package br.com.rarp.control;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rarp.interfaces.Comparacao;
@@ -13,6 +14,7 @@ import br.com.rarp.model.Usuario;
 import br.com.rarp.model.bo.LimpezaBusiness;
 import br.com.rarp.utils.Campo;
 import br.com.rarp.utils.Utilitarios;
+import br.com.rarp.view.scnComponents.ImageCard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -68,7 +70,7 @@ public class LimpezaCtrl {
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, String status) throws ClassNotFoundException, SQLException, Exception {
+			Funcionario funcionarioLimpeza, List<ImageCard> imageCards, Usuario usuario, String status) throws ClassNotFoundException, SQLException, Exception {
 		Boolean statusAux = null;
 		if (status != null) {
 			switch (status) {
@@ -81,7 +83,10 @@ public class LimpezaCtrl {
 				break;
 			}
 		}
+		List<Leito> leitos = new ArrayList<Leito>();
+		for(ImageCard img: imageCards)
+			leitos.add(img.getLeito());
 		return new LimpezaBusiness().consultar(dataIni, dataFin, horaIni, horaFin,
-				funcionarioLimpeza, leito, usuario, statusAux);
+				funcionarioLimpeza, leitos, usuario, statusAux);
 	}
 }

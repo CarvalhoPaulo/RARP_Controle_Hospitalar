@@ -131,7 +131,7 @@ public class EntradaPacienteDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -196,7 +196,7 @@ public class EntradaPacienteDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -246,7 +246,7 @@ public class EntradaPacienteDAO {
 					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
 				if(rs.getDate("hora") != null)
 					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
-				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));	
 				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
 				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -258,7 +258,7 @@ public class EntradaPacienteDAO {
 			}
 			return entradas;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -370,7 +370,7 @@ public class EntradaPacienteDAO {
 					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
 				if(rs.getDate("hora") != null)
 					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
-				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));	
 				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
 				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -382,7 +382,7 @@ public class EntradaPacienteDAO {
 			}
 			return entradas;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -426,7 +426,7 @@ public class EntradaPacienteDAO {
 					entradaPaciente.setDtMovimentacao(rs.getDate("data").toLocalDate());
 				if(rs.getDate("hora") != null)
 					entradaPaciente.setHrMovimentacao(rs.getTime("hora").toLocalTime());
-				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));	
+				entradaPaciente.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));	
 				entradaPaciente.setMedico(new MedicoDAO().getMedico(rs.getInt("codigo_medico")));
 				entradaPaciente.setEnfermeira(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_enfermeira")));
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -436,7 +436,7 @@ public class EntradaPacienteDAO {
 			}
 			return entradaPaciente;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 

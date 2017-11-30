@@ -51,7 +51,7 @@ public class EspacoDAO {
             LeitoDAO leitoDAO = new LeitoDAO();
             leitoDAO.salvar(espaco);
         } finally {
-        	conexao.close();
+        	//conexao.close();
 		}
 	}
 
@@ -73,7 +73,7 @@ public class EspacoDAO {
             ps.executeUpdate();
             ps.close();
         } finally {
-        	conexao.close();
+        	//conexao.close();
 		}
 	}
 
@@ -100,7 +100,7 @@ public class EspacoDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return espacos;
 	}
@@ -143,7 +143,7 @@ public class EspacoDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return espacos;
 	}

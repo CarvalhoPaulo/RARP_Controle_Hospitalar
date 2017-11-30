@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import br.com.rarp.control.EspacoCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.LimpezaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.Espaco;
 import br.com.rarp.model.Funcionario;
+import br.com.rarp.model.Leito;
 import br.com.rarp.model.Limpeza;
 import br.com.rarp.model.Usuario;
 import br.com.rarp.utils.ChartPizzaValue;
@@ -87,9 +89,6 @@ public class RelatorioLimpezaController implements Initializable {
     private TableColumn<Limpeza, String> cmnHora;
 
     @FXML
-    private TableColumn<Limpeza, String> cmnLeito;
-
-    @FXML
     private TableColumn<Limpeza, String> cmnUsuario;
 
     @FXML
@@ -117,7 +116,7 @@ public class RelatorioLimpezaController implements Initializable {
 	void imprimir(ActionEvent event) {
 		try {
 			JasperReport report = JasperCompileManager
-					.compileReport(getClass().getResource("RelatorioAtendimento.jrxml").getFile());
+					.compileReport(getClass().getResource("RelatorioLimpeza.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
 			params.put("ORG_NAME", "Organizações RARP");
 			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
@@ -128,7 +127,7 @@ public class RelatorioLimpezaController implements Initializable {
 			params.put("BY_USUARIO", agruparPorUsuario());
 			params.put("BY_FUNCIONARIOLIMPEZA", agruparPorFuncionarioLimpeza());
 			params.put("QTDE_LIMPEZA", tblLimpezas.getItems().size() + "");
-			params.put("MED_RESPONSAVEL", getMediaPorResponsavel() + "");
+			params.put("MED_FUNCIONARIOLIMPEZA", getMediaPorFuncionarioLimpeza() + "");
 			params.put("QTDE_DESATIVADO", getQtdeDesativado() + "");
 			params.put("PathGraficoPizza", "src/br/com/rarp/view/relatorios/GraficoPizza.jasper");
 
@@ -151,7 +150,7 @@ public class RelatorioLimpezaController implements Initializable {
 		return result;
 	}
 	
-	private double getMediaPorResponsavel() {
+	private double getMediaPorFuncionarioLimpeza() {
 		List<Funcionario> funcionarios = new ArrayList<>();
 		for (Limpeza l: tblLimpezas.getItems()) {
 			if (!funcionarios.contains(l.getFuncionarioLimpeza()))
@@ -225,7 +224,7 @@ public class RelatorioLimpezaController implements Initializable {
 	public RelatorioLimpezaController() throws Exception {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("RelatorioAtendimento.fxml"));
+			loader.setLocation(getClass().getResource("RelatorioLimpeza.fxml"));
 			loader.setController(this);
 			node = loader.load();
 			node.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -250,7 +249,7 @@ public class RelatorioLimpezaController implements Initializable {
 							txtHoraIni.getLocalTime(), 
 							txtHoraFin.getLocalTime(), 
 							cmbFuncionarioLimpeza.getSelectedValue(),
-							pnlLeitos.getSelectionModel().getSelectedItem().getLeito(),
+							pnlLeitos.getSelectionModel().getSelectedItems(),
 							cmbUsuario.getSelectedValue(),  
 							cmbStatus.getSelectedValue()));
 			Utilitarios.message("Consulta realizada com sucesso");
@@ -281,6 +280,24 @@ public class RelatorioLimpezaController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			cmbEspaco.getItems().setAll(new EspacoCtrl().getEspacos());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		cmbEspaco.setOnAction((vent) -> {
+			if(cmbEspaco.getValue() != null 
+				&& cmbEspaco.getValue().getLeitos() != null) {
+				pnlLeitos.getItems().clear();
+				for (Leito leito: cmbEspaco.getValue().getLeitos()) {
+					ImageCard img = new ImageCard();
+					img.setLeito(leito);
+					img.getPathImage().set(getClass().getResource("../../img/leitos.png").toString());
+					pnlLeitos.getItems().add(img);
+				}
+			}
+		});
 		cmnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		cmnData.setCellValueFactory(new PropertyValueFactory<>("dtMovimentacao"));
 		cmnHora.setCellValueFactory(new PropertyValueFactory<>("hrMovimentacao"));

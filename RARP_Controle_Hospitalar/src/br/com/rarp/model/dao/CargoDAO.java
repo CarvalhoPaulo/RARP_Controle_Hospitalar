@@ -52,7 +52,7 @@ public class CargoDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -75,7 +75,7 @@ public class CargoDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -120,7 +120,7 @@ public class CargoDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return cargos;
 	}

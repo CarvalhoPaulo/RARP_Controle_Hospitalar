@@ -83,7 +83,7 @@ public class MedicoDAO {
 
 		} finally {
 
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -104,7 +104,7 @@ public class MedicoDAO {
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
 
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -216,7 +216,7 @@ public class MedicoDAO {
 			System.out.println(e.getMessage());
 			throw new Exception("Erro a consultar medico");
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return medicos;
 	}
@@ -284,7 +284,7 @@ public class MedicoDAO {
 			throw new Exception("Erro ao salvar Medico");
 		} finally {
 
-			conexao.close();
+			//conexao.close();
 		}
 
 	}

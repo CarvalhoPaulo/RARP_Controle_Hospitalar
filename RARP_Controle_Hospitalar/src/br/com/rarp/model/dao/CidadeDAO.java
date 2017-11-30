@@ -62,7 +62,7 @@ public class CidadeDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -83,7 +83,7 @@ public class CidadeDAO {
 			ps.executeUpdate();
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -119,7 +119,7 @@ public class CidadeDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return cidades;
 	}

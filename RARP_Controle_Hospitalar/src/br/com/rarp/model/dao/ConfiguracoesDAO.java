@@ -159,7 +159,7 @@ public class ConfiguracoesDAO {
 	        	e.printStackTrace();
 				throw new Exception("Erro a obter Configuracoes");
 			} finally{
-	            conexao.close();
+	            //conexao.close();
 	        }
 		
 
@@ -208,7 +208,7 @@ public class ConfiguracoesDAO {
 			throw new Exception("Erro ao salvar Configuracoes");
 		} finally {
 
-			conexao.close();
+			//conexao.close();
 		}
 
 	}

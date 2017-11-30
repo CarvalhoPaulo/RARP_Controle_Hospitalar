@@ -54,7 +54,7 @@ public class OrganizacaoDAO {
 			// TODO: handle exception
 			throw new Exception("Falha ao salvar organização");
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class OrganizacaoDAO {
 			// TODO: handle exception
 			throw new Exception("Falha ao salvar organização");
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -129,7 +129,7 @@ public class OrganizacaoDAO {
 
 			throw new Exception("falha ao consultar empresa");
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 
 	}

@@ -30,6 +30,7 @@ public class SelectionNode<T extends Node> extends FlowPane {
 		selectionModel.getItems().addListener(new ListChangeListener<T>() {
 			@Override
 			public void onChanged(Change<? extends T> c) {
+				selectionModel.clearSelection();
 				getChildren().clear();
 				for (Node node : c.getList()) {
 					node.setOnMouseClicked(onClick);

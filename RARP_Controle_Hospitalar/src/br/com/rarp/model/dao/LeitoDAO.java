@@ -82,7 +82,7 @@ public class LeitoDAO {
         	ps.executeBatch();
 		} finally {
 			ps.close();
-			conexao.close();
+			//conexao.close();
 		}         
 	}
 	
@@ -112,7 +112,7 @@ public class LeitoDAO {
         	ps.executeBatch();
 		} finally {
 			ps.close();
-			conexao.close();
+			//conexao.close();
 		}  
 	}
 
@@ -155,7 +155,7 @@ public class LeitoDAO {
             }
             ps.close();
         } finally{
-            conexao.close();
+            //conexao.close();
         }
 		return leitos;		
 	}
@@ -200,7 +200,7 @@ public class LeitoDAO {
 
 		} finally {
 			ps.close();
-			conexao.close();
+			//conexao.close();
 		}         
 	}
 	

@@ -39,7 +39,7 @@ public class EstadoDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return estados;
 	}

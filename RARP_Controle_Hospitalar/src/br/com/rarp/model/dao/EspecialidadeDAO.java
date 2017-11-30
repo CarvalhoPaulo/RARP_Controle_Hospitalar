@@ -54,7 +54,7 @@ public class EspecialidadeDAO {
 			
 		}finally {
 		
-			conexao.close();
+			//conexao.close();
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class EspecialidadeDAO {
 		}catch(Exception e){
 			throw new Exception("Erro a alterar Especialidade");
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class EspecialidadeDAO {
 			
 			
 		} finally {
-			conexao.getConexao().close();
+			//conexao.getConexao().close();
 		}
 	}
 
@@ -119,7 +119,7 @@ public class EspecialidadeDAO {
         	e.printStackTrace();
 			throw new Exception("Erro a consultar Especialidade");
 		} finally{
-            conexao.close();
+            //conexao.close();
         }
 		return especialidades;
 	}

@@ -1,10 +1,12 @@
 package br.com.rarp.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -111,14 +113,17 @@ public class LimpezaDAO {
 				limpeza.setDtMovimentacao(rs.getDate("dtMovimentacao").toLocalDate());
 				limpeza.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
 				limpeza.setFuncionarioLimpeza(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
-				limpeza.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				limpeza.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				limpeza.setStatus(rs.getBoolean("status_limpeza"));
 				limpeza.setLeitos(getLeitosLimpeza(conexao, limpeza.getCodigo()));
 				limpezas.add(limpeza);
 			}
 			ps.close();
+			conexao.commit();
+		} catch (Exception e) {
+			conexao.rollback();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 		return limpezas;
 	}
@@ -166,7 +171,7 @@ public class LimpezaDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 	
@@ -239,7 +244,7 @@ public class LimpezaDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -248,12 +253,11 @@ public class LimpezaDAO {
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
+			Funcionario funcionarioLimpeza, List<Leito> leitos, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
 		List<Limpeza> limpezas = new ArrayList<>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		conexao.setAutoCommit(false);
 		try {
-			String sql = "SELECT "
+			String sql = "SELECT DISTINCT "
 					+ "LIM.codigo AS codigo_limpeza, "
 					+ "LIM.codigo_mov, "
 					+ "MOV.data AS dtmovimentacao, "
@@ -277,13 +281,37 @@ public class LimpezaDAO {
 				sql += " AND MOV.hora <= ?";
 			if(funcionarioLimpeza != null)
 				sql += " AND LIM.codigo_funcionario = ?";
-			if(leito != null)
-				sql += " AND LL.codigo_leito = ?";
+			if(leitos != null && leitos.size() > 0) {
+				sql += " AND LL.codigo_leito IN (";
+				for (int i = 0; i < leitos.size(); i++)
+					sql += "?,";
+				sql = sql.substring(0, sql.length() - 1);
+				sql += ")";
+			}
 			if(usuario != null)
 				sql += " AND MOV.codigo_usuario = ?";
 			if(status != null)
 				sql += " AND LIM.status = ?";
 			PreparedStatement ps = conexao.prepareStatement(sql);
+			
+			int paramCount = 0;
+			if(dataIni != null)
+				ps.setDate(++paramCount, Date.valueOf(dataIni));
+			if(dataFin != null)
+				ps.setDate(++paramCount, Date.valueOf(dataFin));
+			if(horaIni != null)
+				ps.setTime(++paramCount, Time.valueOf(horaIni));
+			if(horaFin != null)
+				ps.setTime(++paramCount, Time.valueOf(horaFin));
+			if(funcionarioLimpeza != null)
+				ps.setInt(++paramCount, funcionarioLimpeza.getCodigo());
+			if(leitos != null) 
+				for(Leito l: leitos) 
+					ps.setInt(++paramCount, l.getCodigo());
+			if(usuario != null)
+				ps.setInt(++paramCount, usuario.getCodigo());
+			if(status != null)
+				ps.setBoolean(++paramCount, status);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -292,14 +320,14 @@ public class LimpezaDAO {
 				limpeza.setDtMovimentacao(rs.getDate("dtMovimentacao").toLocalDate());
 				limpeza.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
 				limpeza.setFuncionarioLimpeza(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
-				limpeza.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				limpeza.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				limpeza.setStatus(rs.getBoolean("status_limpeza"));
 				limpeza.setLeitos(getLeitosLimpeza(conexao, limpeza.getCodigo()));
 				limpezas.add(limpeza);
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 		return limpezas;
 	}

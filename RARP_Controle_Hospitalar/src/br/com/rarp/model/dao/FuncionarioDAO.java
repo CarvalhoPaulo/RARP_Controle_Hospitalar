@@ -42,121 +42,117 @@ public class FuncionarioDAO {
 		List<Funcionario> funcionarios = new ArrayList<>();
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
-		try {
-			String sql = "SELECT " 
-					+ "FUNC.codigo AS codigo_func, " 
-					+ "FUNC.dataAdmissao, "
-					+ "FUNC.ctps, "
-					+ "FUNC.salarioContratual, "
-					+ "FUNC.status AS status_func, "
-					+ "PF.cpf, " 
-					+ "PF.rg, "
-					+ "PF.sexo, "
-					+ "PF.possuinecessidades, " 
-					+ "PF.certidaonascimento, " 
-					+ "PF.status AS status_pf, "
-					+ "PE.codigo AS codigo_pessoa, " 
-					+ "PE.nome AS nome_pessoa, "
-					+ "PE.logradouro, "
-					+ "PE.datanascimento, "
-					+ "PE.complemento, " 
-					+ "PE.numero, " 
-					+ "PE.bairro, " 
-					+ "PE.cep, "
-					+ "PE.status AS status_pessoa, "
-					+ "CID.codigo AS codigo_cidade, " 
-					+ "CID.nome AS nome_cidade, "
-					+ "CID.status AS status_cidade, "
-					+ "ES.codigo AS codigo_estado, "
-					+ "ES.uf, "
-					+ "ES.nome AS nome_estado, "
-					+ "CA.codigo AS codigo_cargo, "
-					+ "CA.nome AS nome_cargo, "
-					+ "CA.funcao, "
-					+ "CA.nivel, "
-					+ "CA.requisitos, "
-					+ "CA.status AS status_cargo "
-					+ "FROM funcionario AS FUNC "
-					+ "LEFT JOIN cargo AS CA ON FUNC.codigo_cargo = CA.codigo "
-					+ "LEFT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
-					+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
-					+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
-					+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
-			ps = conexao.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Funcionario funcionario = new Funcionario();
-				funcionarios.add(funcionario);
-				
-				funcionario.setCodigo(rs.getInt("codigo_func"));
-				if(rs.getDate("dataAdmissao") != null)
-					funcionario.setDtAdmissao(rs.getDate("dataAdmissao").toLocalDate());
-				funcionario.setCTPS(rs.getString("ctps"));
-				funcionario.setSalarioContratual(rs.getDouble("salarioContratual"));
-				funcionario.setStatus(rs.getBoolean("status_func"));
-				funcionario.setCpf(rs.getString("cpf"));
-				funcionario.setRg(rs.getString("rg"));
-				funcionario.setSexo(rs.getString("sexo"));
-				funcionario.setPossuiNecessidades(rs.getBoolean("possuinecessidades"));
-				funcionario.setCertidaoNascimento(rs.getString("certidaonascimento"));
-				funcionario.setNome(rs.getString("nome_pessoa"));
-				funcionario.setLogradouro(rs.getString("logradouro"));
-				if(rs.getDate("datanascimento") != null)
-					funcionario.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
-				funcionario.setComplemento(rs.getString("complemento"));
-				funcionario.setNumero(rs.getString("numero"));
-				funcionario.setBairro(rs.getString("bairro"));
-				funcionario.setCep(rs.getString("cep"));
-				
-				Cidade cidade = new Cidade();
-				cidade.setCodigo(rs.getInt("codigo_cidade"));
-				cidade.setNome(rs.getString("nome_cidade"));
-				cidade.setStatus(rs.getBoolean("status_cidade"));
+		String sql = "SELECT " 
+				+ "FUNC.codigo AS codigo_func, " 
+				+ "FUNC.dataAdmissao, "
+				+ "FUNC.ctps, "
+				+ "FUNC.salarioContratual, "
+				+ "FUNC.status AS status_func, "
+				+ "PF.cpf, " 
+				+ "PF.rg, "
+				+ "PF.sexo, "
+				+ "PF.possuinecessidades, " 
+				+ "PF.certidaonascimento, " 
+				+ "PF.status AS status_pf, "
+				+ "PE.codigo AS codigo_pessoa, " 
+				+ "PE.nome AS nome_pessoa, "
+				+ "PE.logradouro, "
+				+ "PE.datanascimento, "
+				+ "PE.complemento, " 
+				+ "PE.numero, " 
+				+ "PE.bairro, " 
+				+ "PE.cep, "
+				+ "PE.status AS status_pessoa, "
+				+ "CID.codigo AS codigo_cidade, " 
+				+ "CID.nome AS nome_cidade, "
+				+ "CID.status AS status_cidade, "
+				+ "ES.codigo AS codigo_estado, "
+				+ "ES.uf, "
+				+ "ES.nome AS nome_estado, "
+				+ "CA.codigo AS codigo_cargo, "
+				+ "CA.nome AS nome_cargo, "
+				+ "CA.funcao, "
+				+ "CA.nivel, "
+				+ "CA.requisitos, "
+				+ "CA.status AS status_cargo "
+				+ "FROM funcionario AS FUNC "
+				+ "LEFT JOIN cargo AS CA ON FUNC.codigo_cargo = CA.codigo "
+				+ "LEFT JOIN pessoafisica AS PF ON FUNC.codigo_pf = PF.codigo "
+				+ "LEFT JOIN pessoa AS PE ON PF.codigo_pessoa = PE.codigo "
+				+ "LEFT JOIN cidade AS CID ON PE.codigo_cidade = CID.codigo "
+				+ "LEFT JOIN estado AS ES ON CID.codigo_estado = ES.codigo " + "WHERE " + campo + comparacao + termo;
+		ps = conexao.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Funcionario funcionario = new Funcionario();
+			funcionarios.add(funcionario);
+			
+			funcionario.setCodigo(rs.getInt("codigo_func"));
+			if(rs.getDate("dataAdmissao") != null)
+				funcionario.setDtAdmissao(rs.getDate("dataAdmissao").toLocalDate());
+			funcionario.setCTPS(rs.getString("ctps"));
+			funcionario.setSalarioContratual(rs.getDouble("salarioContratual"));
+			funcionario.setStatus(rs.getBoolean("status_func"));
+			funcionario.setCpf(rs.getString("cpf"));
+			funcionario.setRg(rs.getString("rg"));
+			funcionario.setSexo(rs.getString("sexo"));
+			funcionario.setPossuiNecessidades(rs.getBoolean("possuinecessidades"));
+			funcionario.setCertidaoNascimento(rs.getString("certidaonascimento"));
+			funcionario.setNome(rs.getString("nome_pessoa"));
+			funcionario.setLogradouro(rs.getString("logradouro"));
+			if(rs.getDate("datanascimento") != null)
+				funcionario.setDtNascimento(rs.getDate("datanascimento").toLocalDate());
+			funcionario.setComplemento(rs.getString("complemento"));
+			funcionario.setNumero(rs.getString("numero"));
+			funcionario.setBairro(rs.getString("bairro"));
+			funcionario.setCep(rs.getString("cep"));
+			
+			Cidade cidade = new Cidade();
+			cidade.setCodigo(rs.getInt("codigo_cidade"));
+			cidade.setNome(rs.getString("nome_cidade"));
+			cidade.setStatus(rs.getBoolean("status_cidade"));
 
-				Estado estado = new Estado();
-				estado.setCodigo(rs.getInt("codigo_estado"));
-				estado.setNome(rs.getString("nome_estado"));
-				estado.setUF(rs.getString("uf"));
+			Estado estado = new Estado();
+			estado.setCodigo(rs.getInt("codigo_estado"));
+			estado.setNome(rs.getString("nome_estado"));
+			estado.setUF(rs.getString("uf"));
 
-				cidade.setEstado(estado);
-				funcionario.setCidade(cidade);
+			cidade.setEstado(estado);
+			funcionario.setCidade(cidade);
+			
+			Cargo cargo = new Cargo();
+			cargo.setCodigo(rs.getInt("codigo_cargo"));
+			cargo.setNome(rs.getString("nome_cargo"));
+			switch (rs.getString("funcao")) {
+			case "Limpeza":
+				cargo.setFuncao(Funcao.limpeza);
+				break;
 				
-				Cargo cargo = new Cargo();
-				cargo.setCodigo(rs.getInt("codigo_cargo"));
-				cargo.setNome(rs.getString("nome_cargo"));
-				switch (rs.getString("funcao")) {
-				case "Limpeza":
-					cargo.setFuncao(Funcao.limpeza);
-					break;
-					
-				case "Atendente":
-					cargo.setFuncao(Funcao.atendente);
-					break;
-					
-				case "Enfermeira":
-					cargo.setFuncao(Funcao.enfermeira);
-					break;
+			case "Atendente":
+				cargo.setFuncao(Funcao.atendente);
+				break;
 				
-				case "Medico":
-					cargo.setFuncao(Funcao.medico);
-					break;
-					
-				default:
-					cargo.setFuncao(Funcao.outros);
-					break;
-				}
-				cargo.setNivel(rs.getString("nivel"));
-				cargo.setRequisitos(rs.getString("requisitos"));
-				cargo.setStatus(rs.getBoolean("status_cargo"));
-				funcionario.setCargo(cargo);
+			case "Enfermeira":
+				cargo.setFuncao(Funcao.enfermeira);
+				break;
+			
+			case "Medico":
+				cargo.setFuncao(Funcao.medico);
+				break;
 				
-				TelefoneDAO telefoneDAO = new TelefoneDAO();
-				funcionario.setTelefones(telefoneDAO.getTelefones(rs.getInt("codigo_pessoa")));
+			default:
+				cargo.setFuncao(Funcao.outros);
+				break;
 			}
-			ps.close();
-		} finally {
-			conexao.close();
+			cargo.setNivel(rs.getString("nivel"));
+			cargo.setRequisitos(rs.getString("requisitos"));
+			cargo.setStatus(rs.getBoolean("status_cargo"));
+			funcionario.setCargo(cargo);
+			
+			TelefoneDAO telefoneDAO = new TelefoneDAO();
+			funcionario.setTelefones(telefoneDAO.getTelefones(rs.getInt("codigo_pessoa")));
 		}
+		ps.close();
 		return funcionarios;
 	}
 
@@ -205,7 +201,7 @@ public class FuncionarioDAO {
 		} catch (Exception e) {
 			conexao.rollback();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -239,7 +235,7 @@ public class FuncionarioDAO {
 		}catch (Exception e) {
 			conexao.rollback();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 

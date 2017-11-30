@@ -89,7 +89,7 @@ public class PacienteDAO {
 		} catch (Exception e) {
 			conexao.rollback();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -124,7 +124,7 @@ public class PacienteDAO {
 		} catch (Exception e) {
 			conexao.rollback();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -211,7 +211,7 @@ public class PacienteDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return pacientes;
 	}

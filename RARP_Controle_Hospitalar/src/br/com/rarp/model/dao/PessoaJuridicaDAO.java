@@ -56,7 +56,7 @@ public class PessoaJuridicaDAO {
 				pessoaDAO.salvar(pessoa, conexao);
 			}
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -80,7 +80,7 @@ public class PessoaJuridicaDAO {
 				pessoaJuridica.setCodigo(rs.getInt("codigo"));
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 }

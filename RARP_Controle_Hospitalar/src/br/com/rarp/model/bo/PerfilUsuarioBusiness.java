@@ -21,11 +21,11 @@ public class PerfilUsuarioBusiness {
 		PerfilUsuarioDAO perfilUsuarioDAO = new PerfilUsuarioDAO();
 		perfilUsuarioDAO.salvar(perfilUsuario);
 		if(SistemaCtrl.getInstance().getUsuarioSessao() != null)
-			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
+			SistemaCtrl.getInstance().setUsuarioSessao(new UsuarioDAO().getUsuario(SistemaCtrl.getInstance().getConexao().getConexao(), SistemaCtrl.getInstance().getUsuarioSessao().getCodigo()));
 	}
 
 	private void validarDesativacao(PerfilUsuario perfilUsuario) throws Exception {
-		if(new UsuarioDAO().consultar("codigo_perfilusuario", " = ", perfilUsuario.getCodigo() + "").size() > 0)
+		if(new UsuarioDAO().consultar(SistemaCtrl.getInstance().getConexao().getConexao(), "codigo_perfilusuario", " = ", perfilUsuario.getCodigo() + "").size() > 0)
 			throw new Exception("Não é possível desativar um perfil de usuário que possui usuários");
 	}
 

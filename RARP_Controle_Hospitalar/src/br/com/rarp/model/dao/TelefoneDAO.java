@@ -77,7 +77,7 @@ public class TelefoneDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return telefones;
 	}

@@ -154,7 +154,7 @@ public class EncaminhamentoDAO {
 			connection.rollback();
 			throw new Exception("Não foi possível salvar esta Encaminhamento\nErro: " + e.toString());
 		} finally {
-			connection.close();
+			//connection.close();
 		}
 	}
 
@@ -198,7 +198,7 @@ public class EncaminhamentoDAO {
 				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
 				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
 				encaminhamento.setStatus(rs.getBoolean("status_enc"));
-				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				
 				EntradaPaciente entradaPaciente = new EntradaPaciente();
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -209,7 +209,7 @@ public class EncaminhamentoDAO {
 			}
 			return encaminhamentos;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -288,7 +288,7 @@ public class EncaminhamentoDAO {
 				encaminhamento.setDtMovimentacao(rs.getDate("dtmov_enc").toLocalDate());
 				encaminhamento.setHrMovimentacao(rs.getTime("hrmov_enc").toLocalTime());
 				encaminhamento.setStatus(rs.getBoolean("status_enc"));
-				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				encaminhamento.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				
 				EntradaPaciente entradaPaciente = new EntradaPaciente();
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
@@ -299,7 +299,7 @@ public class EncaminhamentoDAO {
 			}
 			return encaminhamentos;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 }

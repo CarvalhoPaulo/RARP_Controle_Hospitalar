@@ -293,7 +293,7 @@ public class AtendimentoDAO {
 					atendimento.setDtMovimentacao(rs.getDate("dtmovimentacao").toLocalDate());
 				if(rs.getDate("hrmovimentacao") != null)
 					atendimento.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
-				atendimento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				atendimento.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				atendimento.setEntradaPaciente(new EntradaPacienteDAO().getEntradaSemListas(rs.getInt("codigo_entrada")));				
 				atendimento.setReceitaMedica(new ReceitaMedicaDAO().getReceita(rs.getInt("codigo_receita")));
 				atendimento.setResponsavel(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
@@ -303,7 +303,7 @@ public class AtendimentoDAO {
 			}
 			return atendimentos;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -427,7 +427,7 @@ public class AtendimentoDAO {
 					atendimento.setDtMovimentacao(rs.getDate("dtmovimentacao").toLocalDate());
 				if(rs.getDate("hrmovimentacao") != null)
 					atendimento.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
-				atendimento.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				atendimento.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				atendimento.setEntradaPaciente(new EntradaPacienteDAO().getEntradaSemListas(rs.getInt("codigo_entrada")));				
 				atendimento.setReceitaMedica(new ReceitaMedicaDAO().getReceita(rs.getInt("codigo_receita")));
 				atendimento.setResponsavel(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_funcionario")));
@@ -437,7 +437,7 @@ public class AtendimentoDAO {
 			}
 			return atendimentos;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 }

@@ -62,12 +62,12 @@ public class SaidaPacienteDAO {
 				saidaPaciente.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
 				saidaPaciente.setEntradaPaciente(new EntradaPacienteDAO().getEntrada(rs.getInt("codigo_entrada")));
 				saidaPaciente.setStatus(rs.getBoolean("status_saida"));
-				saidaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				saidaPaciente.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				saidas.add(saidaPaciente);
 			}
 			return saidas;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -117,7 +117,7 @@ public class SaidaPacienteDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -153,7 +153,7 @@ public class SaidaPacienteDAO {
 			conexao.rollback();
 			throw e;
 		} finally {
-			conexao.close();
+			//conexao.close();
 		} 
 	}
 
@@ -221,12 +221,12 @@ public class SaidaPacienteDAO {
 				saidaPaciente.setHrMovimentacao(rs.getTime("hrmovimentacao").toLocalTime());
 				saidaPaciente.setEntradaPaciente(new EntradaPacienteDAO().getEntrada(rs.getInt("codigo_entrada")));
 				saidaPaciente.setStatus(rs.getBoolean("status_saida"));
-				saidaPaciente.setUsuario(new UsuarioDAO().getUsuario(rs.getInt("codigo_usuario")));
+				saidaPaciente.setUsuario(new UsuarioDAO().getUsuario(conexao, rs.getInt("codigo_usuario")));
 				saidas.add(saidaPaciente);
 			}
 			return saidas;	
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 }

@@ -45,9 +45,9 @@ public class LimpezaBusiness {
 	}
 
 	public List<Limpeza> consultar(LocalDate dataIni, LocalDate dataFin, LocalTime horaIni, LocalTime horaFin,
-			Funcionario funcionarioLimpeza, Leito leito, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
+			Funcionario funcionarioLimpeza, List<Leito> leitos, Usuario usuario, Boolean status) throws ClassNotFoundException, SQLException, Exception {
 		return new LimpezaDAO().consultar(dataIni, dataFin, horaIni, horaFin,
-				funcionarioLimpeza, leito, usuario, status);
+				funcionarioLimpeza, leitos, usuario, status);
 	}
 
 }

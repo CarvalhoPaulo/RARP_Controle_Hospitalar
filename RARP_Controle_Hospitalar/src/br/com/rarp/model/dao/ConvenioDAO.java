@@ -101,7 +101,7 @@ public class ConvenioDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return convenios;
 	}
@@ -144,7 +144,7 @@ public class ConvenioDAO {
 				pessoaJuridicaDAO.salvar(pj);
 			}
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 
@@ -168,7 +168,7 @@ public class ConvenioDAO {
 				convenio.setCodigo(rs.getInt("codigo"));
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 	}
 }

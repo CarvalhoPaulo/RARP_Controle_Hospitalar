@@ -80,7 +80,7 @@ public class ReceitaMedicaDAO {
 			}
 			ps.close();
 		} finally {
-			conexao.close();
+			//conexao.close();
 		}
 		return receitaMedicas;
 	}

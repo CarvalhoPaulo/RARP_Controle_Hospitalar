@@ -142,7 +142,6 @@ public class SingleMultipleSelectionModel<T> extends MultipleSelectionModel<T> {
 	}
 
 	public void clearSelecteds() {
-		items.removeAll(getSelectedItems());
 		clearSelection();
 	}
 }
