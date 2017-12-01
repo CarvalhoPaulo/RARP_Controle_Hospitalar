@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.com.rarp.interfaces.Consulta;
 import org.com.rarp.interfaces.Exception_Exception;
 import org.com.rarp.interfaces.PessoaFisica;
 import org.com.rarp.interfaces.Requisicao;
 import org.com.rarp.interfaces.Resposta;
 import org.com.rarp.soap.ConsultaSOAP;
+
+import br.com.rarp.control.CosultaCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.utils.Utilitarios;
@@ -46,11 +50,20 @@ public class ConsultaController extends Application implements Initializable {
     @FXML // fx:id="tbvResultado"
     private TableView<?> tbvResultado; // Value injected by FXMLLoader
 
-    @FXML // fx:id="tbcData"
-    private TableColumn<?, ?> tbcData; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<?, ?> tbcDataEntrada;
 
-    @FXML // fx:id="tbcDescricao"
-    private TableColumn<?, ?> tbcDescricao; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<EntradaPaciente, ?> tbcHora;
+
+    @FXML
+    private TableColumn<?, ?> tblMedico;
+
+    @FXML
+    private TableColumn<?, ?> tbcDescricaoMedica;
+
+    @FXML
+    private TableColumn<?, ?> tbcReceituario;
     
     @FXML
     private Button btnVoltar;
@@ -123,6 +136,9 @@ public class ConsultaController extends Application implements Initializable {
 	private void consultar() {
 		
 		try {
+			/**
+			 * 
+			 *
 			ConsultaSOAP consultaSOAP = new ConsultaSOAP();
 			Consulta consulta = consultaSOAP.getConsultaSOAPPort();
 			consulta.sevidorOn(SistemaCtrl.getInstance().getConfiguracoes().getUsuarioRARP());
@@ -146,9 +162,22 @@ public class ConsultaController extends Application implements Initializable {
 			if ((list != null) && (list.size() > 0)) {
 				Utilitarios.message("soufoda");
 			}
+		*/
 			
+			CosultaCtrl cosultaCtrl= new CosultaCtrl();
+			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 0) {
+				cosultaCtrl.getPessoaFisica().setCep(txtPesquisa.getText());
+			}
+			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 1) {
+				cosultaCtrl.getPessoaFisica().setRg(txtPesquisa.getText());
+			}
+			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 2) {
+				cosultaCtrl.getPessoaFisica().setSUS(txtPesquisa.getText());
+			}
 			
-		} catch (Exception_Exception e) {
+			tbvResultado.getItems().setAll(cosultaCtrl.consultar());
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Utilitarios.atencao("Falha ao Consultar "+e.getMessage());
 		}

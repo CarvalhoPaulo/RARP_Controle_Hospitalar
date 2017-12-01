@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de EntradaPaciente complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="EntradaPaciente"&gt;
@@ -56,7 +56,7 @@ public class EntradaPaciente
     protected boolean emergencia;
 
     /**
-     * ObtÃ©m o valor da propriedade preTriagem.
+     * Obtém o valor da propriedade preTriagem.
      * 
      * @return
      *     possible object is
@@ -80,7 +80,7 @@ public class EntradaPaciente
     }
 
     /**
-     * ObtÃ©m o valor da propriedade medico.
+     * Obtém o valor da propriedade medico.
      * 
      * @return
      *     possible object is
@@ -104,7 +104,7 @@ public class EntradaPaciente
     }
 
     /**
-     * ObtÃ©m o valor da propriedade paciente.
+     * Obtém o valor da propriedade paciente.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class EntradaPaciente
     }
 
     /**
-     * ObtÃ©m o valor da propriedade saidaPaciente.
+     * Obtém o valor da propriedade saidaPaciente.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class EntradaPaciente
     }
 
     /**
-     * ObtÃ©m o valor da propriedade alta.
+     * Obtém o valor da propriedade alta.
      * 
      */
     public boolean isAlta() {
@@ -197,7 +197,7 @@ public class EntradaPaciente
     }
 
     /**
-     * ObtÃ©m o valor da propriedade emergencia.
+     * Obtém o valor da propriedade emergencia.
      * 
      */
     public boolean isEmergencia() {

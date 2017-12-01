@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Atendimento complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Atendimento"&gt;
@@ -67,7 +67,7 @@ public class Atendimento
     protected String styleClass;
 
     /**
-     * ObtÃ©m o valor da propriedade dataAtendimento.
+     * Obtém o valor da propriedade dataAtendimento.
      * 
      * @return
      *     possible object is
@@ -91,7 +91,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade horaIni.
+     * Obtém o valor da propriedade horaIni.
      * 
      * @return
      *     possible object is
@@ -115,7 +115,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade horaFim.
+     * Obtém o valor da propriedade horaFim.
      * 
      * @return
      *     possible object is
@@ -139,7 +139,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade detalheMedico.
+     * Obtém o valor da propriedade detalheMedico.
      * 
      * @return
      *     possible object is
@@ -163,7 +163,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade descricao.
+     * Obtém o valor da propriedade descricao.
      * 
      * @return
      *     possible object is
@@ -187,7 +187,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade receitaMedica.
+     * Obtém o valor da propriedade receitaMedica.
      * 
      * @return
      *     possible object is
@@ -211,7 +211,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade statusAtendimento.
+     * Obtém o valor da propriedade statusAtendimento.
      * 
      * @return
      *     possible object is
@@ -235,7 +235,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade entradaPaciente.
+     * Obtém o valor da propriedade entradaPaciente.
      * 
      * @return
      *     possible object is
@@ -288,7 +288,7 @@ public class Atendimento
     }
 
     /**
-     * ObtÃ©m o valor da propriedade styleClass.
+     * Obtém o valor da propriedade styleClass.
      * 
      * @return
      *     possible object is

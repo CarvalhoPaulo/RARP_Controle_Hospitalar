@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Medico complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Medico"&gt;
@@ -41,7 +41,7 @@ public class Medico
     protected String crm;
 
     /**
-     * ObtÃ©m o valor da propriedade codigoMedico.
+     * Obtém o valor da propriedade codigoMedico.
      * 
      */
     public int getCodigoMedico() {
@@ -57,7 +57,7 @@ public class Medico
     }
 
     /**
-     * ObtÃ©m o valor da propriedade crm.
+     * Obtém o valor da propriedade crm.
      * 
      * @return
      *     possible object is
