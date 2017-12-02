@@ -1,5 +1,8 @@
 package br.com.rarp.model.dao;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,11 +12,84 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Estado;
 
 public class CidadeDAO {
+	public static void criarRegistrosPadroes() {
+		List<Cidade> cidades = new ArrayList<>();
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject json = (JSONObject) parser.parse(new FileReader("src/br/com/rarp/model/dao/estados-cidades.json"));
+			JSONArray estadosJSON = (JSONArray) json.get("estados");
+			List<Estado> estados = new EstadoDAO().consultar("codigo", " > ", "0");
+			for (Object estado: estadosJSON) {
+				JSONObject estadoJSON = (JSONObject) estado;
+				Estado e = new Estado();
+				e.setUF("" + estadoJSON.get("sigla"));
+				e = estados.get(estados.indexOf(e));
+				JSONArray cidadesJSON = (JSONArray) estadoJSON.get("cidades");
+				for(Object cidade: cidadesJSON) {
+					cidades.add(new Cidade(cidade + "", e));
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("O arquivo não foi encontrado");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Não foi possível ler o arquivo");
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("O arquivo não está no formato JSON");
+			e.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			new CidadeDAO().salvar(cidades);
+		} catch (Exception e) {
+			System.out.println("Não foi possível salvar as cidades");
+			e.printStackTrace();
+		}
+	}
+	
+	private void salvar(List<Cidade> cidades) throws ClassNotFoundException, SQLException, Exception {
+		if (cidades.size() > 0) {
+			String sql = "INSERT INTO cidade (nome, codigo_estado)";
+			sql += "SELECT ?, ? ";
+			sql += "WHERE NOT EXISTS (SELECT nome FROM estado WHERE nome = ?)";
+
+			PreparedStatement ps = SistemaCtrl.getInstance().getConexao().getConexao().prepareStatement(sql);
+			try {
+				int i = 0;
+				for (Cidade c : cidades) {
+					ps.setString(1, c.getNome());
+					ps.setInt(2, c.getEstado().getCodigo());
+					ps.setString(3, c.getNome());
+					ps.addBatch();
+					i++;
+
+					if (i == cidades.size()) {
+						ps.executeBatch();
+					}
+				}
+				ps.executeBatch();
+			} finally {
+				ps.close();
+			} 
+		}
+	}
+
 	public static void criarTabela() throws ClassNotFoundException, SQLException, Exception {
 		if (!SistemaCtrl.getInstance().tabelaExiste("estado"))
 			throw new Exception("Crie a tabela de estado antes de criar a tabela de cidade");

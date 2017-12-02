@@ -386,6 +386,8 @@ public class SistemaCtrl {
 	public void criarRegistrosPadroes() throws Exception {
 		TelaDAO.criarRegistrosPadroes();
 		PerfilUsuarioDAO.criarRegistrosPadroes();
+		EstadoDAO.criarRegistrosPadroes();
+		CidadeDAO.criarRegistrosPadroes();
 	}
 
 }

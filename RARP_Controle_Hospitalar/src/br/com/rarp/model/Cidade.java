@@ -7,6 +7,16 @@ public class Cidade {
 	private Estado estado;
 	private int codigoIBGE;
 	private Boolean status;
+	
+	public Cidade() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Cidade(String nome, Estado estado) {
+		setNome(nome);
+		setEstado(estado);
+		setStatus(true);
+	}
 
 	public Boolean isStatus() {
 		return status;
