@@ -23,7 +23,7 @@ public class CidadeController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manuten��o de Cidades");
+		getLblTitle().setText("Manutenção de Cidades");
 		getLblTitle().setTextFill(Paint.valueOf("#FFFFFF"));
 		getLblTitle().setStyle("-fx-background-color: #471B1B;"
 				+ "-fx-font-weight: bold");

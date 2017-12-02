@@ -22,7 +22,7 @@ public class ConvenioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutenção de Convénios");
+		getLblTitle().setText("Manutenção de Convênios");
 		getLblTitle().setStyle("-fx-background-color: #f9dd02;"
 				+ "-fx-font-weight: bold");
 

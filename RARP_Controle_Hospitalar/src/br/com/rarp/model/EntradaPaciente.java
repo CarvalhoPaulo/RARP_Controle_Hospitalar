@@ -10,6 +10,7 @@ public class EntradaPaciente extends Movimentacao {
 	private Paciente paciente;
 	private Funcionario atendente;
 	private Funcionario enfermeira;
+	private Convenio convenio;
 	private List<Atendimento> atendimentos;
 	private List<Encaminhamento> encaminhamentos;
 	private SaidaPaciente saidaPaciente;
@@ -84,5 +85,11 @@ public class EntradaPaciente extends Movimentacao {
 	}
 	public void setSaidaPaciente(SaidaPaciente saidaPaciente) {
 		this.saidaPaciente = saidaPaciente;
+	}
+	public Convenio getConvenio() {
+		return convenio;
+	}
+	public void setConvenio(Convenio convenio) {
+		this.convenio = convenio;
 	}
 }

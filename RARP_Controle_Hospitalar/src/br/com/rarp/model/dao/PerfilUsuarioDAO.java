@@ -154,7 +154,7 @@ public class PerfilUsuarioDAO {
 		st.executeUpdate(sql);
 		
 		for(Tela t: SistemaCtrl.getInstance().getTelas()) {
-			if(t.getCodigo() != 14)
+			if(t.getCodigo() != 15)
 				continue;
 			
 			sql = "INSERT INTO tela_perfilusuario("

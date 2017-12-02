@@ -80,7 +80,7 @@ public class PessoaDAO {
 			ps.setDate(7, Date.valueOf(pessoa.getDtNascimento()));
 		else
 			ps.setNull(7, Types.TIMESTAMP);
-		if (pessoa.getCidade() != null)
+		if (pessoa.getCidade() != null && pessoa.getCidade().getCodigo() > 0)
 			ps.setInt(8, pessoa.getCidade().getCodigo());
 		else
 			ps.setNull(8, Types.INTEGER);

@@ -30,6 +30,9 @@ public class EntradaPacienteDAO {
 		if (!SistemaCtrl.getInstance().tabelaExiste("funcionario"))
 			throw new Exception("Crie a tabela de funcionario antes de criar a tabela de entrada de pacientes");
 		
+		if (!SistemaCtrl.getInstance().tabelaExiste("convenio"))
+			throw new Exception("Crie a tabela de convênio antes de criar a tabela de entrada de pacientes");
+		
 		if (!SistemaCtrl.getInstance().tabelaExiste("medico"))
 			throw new Exception("Crie a tabela de medicos antes de criar a tabela de entrada de pacientes");
 		
@@ -44,11 +47,15 @@ public class EntradaPacienteDAO {
 		sql += "atendente_funcionario INTEGER REFERENCES funcionario(codigo), ";
 		sql += "enfermeira_funcionario INTEGER REFERENCES funcionario(codigo), ";
 		sql += "codigo_medico INTEGER REFERENCES medico(codigo), ";
+		//sql += "codigo_conv INTEGER REFERENCES convenio(codigo), ";
 		sql += "codigo_mov INTEGER REFERENCES movimentacao(codigo), ";
 		sql += "pretriagem VARCHAR, ";
 		sql += "alta BOOLEAN, ";
 		sql += "emergencia BOOLEAN, ";
 		sql += "status boolean)";
+		st.executeUpdate(sql);
+		
+		sql = "ALTER TABLE entradapaciente ADD IF NOT EXISTS codigo_conv INTEGER REFERENCES convenio(codigo)";
 		st.executeUpdate(sql);
 		
 		st.close();
@@ -87,7 +94,8 @@ public class EntradaPacienteDAO {
 					+ "pretriagem = ?, "
 					+ "alta = ?, "
 					+ "emergencia = ?, "
-					+ "status = ? "
+					+ "status = ?, "
+					+ "codigo_conv = ? "
 					+ "WHERE "
 					+ "codigo = ?";
 			ps = conexao.prepareStatement(sql);
@@ -121,6 +129,11 @@ public class EntradaPacienteDAO {
 			ps.setBoolean(7, entradaPaciente.isEmergencia());
 			ps.setBoolean(8, entradaPaciente.isStatus());	
 			ps.setInt(9, entradaPaciente.getCodigo());
+			if(entradaPaciente.getConvenio() != null)
+				ps.setInt(10, entradaPaciente.getConvenio().getCodigo());
+			else
+				ps.setNull(10, Types.INTEGER);
+			
 			ps.executeUpdate();
 			entradaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "entradapaciente", entradaPaciente.getCodigo()));
 			if(entradaPaciente.getCodigo() > 0)
@@ -140,7 +153,7 @@ public class EntradaPacienteDAO {
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		conexao.setAutoCommit(false);
 		try {
-			String sql = "INSERT INTO entradapaciente(codigo_paciente, atendente_funcionario, enfermeira_funcionario, codigo_medico, pretriagem, alta, emergencia, codigo_mov, status) VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO entradapaciente(codigo_paciente, atendente_funcionario, enfermeira_funcionario, codigo_medico, pretriagem, alta, emergencia, codigo_mov, status, codigo_conv) VALUES(?,?,?,?,?,?,?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
@@ -175,6 +188,10 @@ public class EntradaPacienteDAO {
 			ps.setBoolean(7, entradaPaciente.isEmergencia());
 			ps.setInt(8, entradaPaciente.getCodigo());
 			ps.setBoolean(9, entradaPaciente.isStatus());
+			if(entradaPaciente.getConvenio() != null)
+				ps.setInt(10, entradaPaciente.getConvenio().getCodigo());
+			else
+				ps.setNull(10, Types.INTEGER);
 			
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -222,7 +239,8 @@ public class EntradaPacienteDAO {
 					+ "ENF.codigo AS codigo_enfermeira, "
 					+ "PAC.codigo AS codigo_paciente, "
 					+ "SAI.codigo AS codigo_saida, "
-					+ "ATE.codigo AS codigo_atendente "
+					+ "ATE.codigo AS codigo_atendente,"
+					+ "ENT.codigo_conv "
 					+ "FROM entradapaciente ENT "
 					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
 					+ "LEFT JOIN medico MED ON ENT.codigo_medico = MED.codigo "
@@ -252,6 +270,7 @@ public class EntradaPacienteDAO {
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
 				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
 				entradaPaciente.setAtendimentos(new AtendimentoDAO().getAtendimentos(entradaPaciente.getCodigo()));
+				entradaPaciente.setConvenio(new ConvenioDAO().get(rs.getInt("codigo_conv")));
 				entradaPaciente.setSaidaPaciente(new SaidaPaciente());
 				entradaPaciente.getSaidaPaciente().setCodigo(rs.getInt("codigo_saida"));
 				entradas.add(entradaPaciente);
@@ -302,7 +321,8 @@ public class EntradaPacienteDAO {
 					+ "ENF.codigo AS codigo_enfermeira, "
 					+ "PAC.codigo AS codigo_paciente, "
 					+ "SAI.codigo AS codigo_saida, "
-					+ "ATE.codigo AS codigo_atendente "
+					+ "ATE.codigo AS codigo_atendente, "
+					+ "ENT.codigo_conv "
 					+ "FROM entradapaciente ENT "
 					+ "LEFT JOIN movimentacao MOV ON ENT.codigo_mov = MOV.codigo "
 					+ "LEFT JOIN medico MED ON ENT.codigo_medico = MED.codigo "
@@ -376,6 +396,7 @@ public class EntradaPacienteDAO {
 				entradaPaciente.setPaciente(new PacienteDAO().getPaciente(rs.getInt("codigo_paciente")));
 				entradaPaciente.setAtendente(new FuncionarioDAO().getFuncionario(rs.getInt("codigo_atendente")));
 				entradaPaciente.setAtendimentos(new AtendimentoDAO().getAtendimentos(entradaPaciente.getCodigo()));
+				entradaPaciente.setConvenio(new ConvenioDAO().get(rs.getInt("codigo_conv")));
 				entradaPaciente.setSaidaPaciente(new SaidaPaciente());
 				entradaPaciente.getSaidaPaciente().setCodigo(rs.getInt("codigo_saida"));
 				entradas.add(entradaPaciente);

@@ -11,8 +11,7 @@ import br.com.rarp.control.SistemaCtrl;
 public class Conexao {
     private Connection conecta;
 
-    public Connection getConexao() throws ClassNotFoundException, SQLException {
-    	
+    public Connection getConexao() throws ClassNotFoundException, SQLException {    	
     	if (conecta != null && !conecta.isClosed())
     		return conecta;
     	

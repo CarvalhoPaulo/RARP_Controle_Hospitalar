@@ -67,6 +67,7 @@ public class SistemaCtrl {
 	}
 	
 	public void salvarConfiguracoes() throws Exception {
+		new OrganizacaoDAO().salvar();
 		new ConfiguracoesDAO().salvar();
 	}
 	
@@ -133,10 +134,17 @@ public class SistemaCtrl {
 		telas.add(new Tela(11, "controleEntradaPaciente", "Controle de Entrada de Paciente"));
 		telas.add(new Tela(12, "controleEncaminhamento", "Controle de Encaminhamentos"));
 		telas.add(new Tela(13, "controleAtendimento", "Controle de Atendimentos"));
-		telas.add(new Tela(14, "controleSaida", "Controle de Atendimentos"));
-		telas.add(new Tela(15, "controleLimpeza", "Controle de Atendimentos"));
+		telas.add(new Tela(14, "controleSaida", "Controle de Saida de Paciente"));
+		telas.add(new Tela(15, "controleLimpeza", "Controle de Limpeza"));
 		telas.add(new Tela(16, "controleAcesso", "Controle de Acesso"));
 		telas.add(new Tela(17, "controleConsulta", "Consulta Online"));
+		
+		telas.add(new Tela(18, "relatorioEntradaPaciente", "Relatório de Entrada de Paciente"));
+		telas.add(new Tela(19, "relatorioEncaminhamento", "Relatório de Encaminhamentos"));
+		telas.add(new Tela(20, "relatorioAtendimento", "Relatório de Atendimentos"));
+		telas.add(new Tela(21, "relatorioSaida", "Relatório de Saida de Paciente"));
+		telas.add(new Tela(22, "relatorioLimpeza", "Relatório de Limpeza"));
+		telas.add(new Tela(23, "relatorioConsulta", "Relatório de Consultas Online"));
 		return telas;
 	}
 	
@@ -220,6 +228,31 @@ public class SistemaCtrl {
 			throw new Exception("Acesso negado a essa área");
 	}
 	
+	public void liberarRelatorioLimpeza(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("relatorioLimpeza", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+
+	public void liberarRelatorioSaida(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("relatorioSaida", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+
+	public void liberarRelatorioEntrada(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("relatorioEntrada", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+
+	public void liberarRelatorioEncaminhamento(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("relatorioEncaminhamento", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+
+	public void liberarRelatorioAtendimento(TipoMovimentacao tipoMovimentacao) throws Exception {
+		if(!podeLiberar("relatorioAtendimento", tipoMovimentacao))
+			throw new Exception("Acesso negado a essa área");
+	}
+	
 	public Propriedades getPropriedades() {
 		return Propriedades.getInstance();
 	}
@@ -243,7 +276,7 @@ public class SistemaCtrl {
 				SistemaCtrl.getInstance().getConexao().getConexao();
 			}catch(Exception e2) {
 				System.out.println(e.getMessage());
-				SistemaCtrl.getInstance().getConexao().criarDataBase();
+				new Conexao().criarDataBase();
 			}
 		}
 	}

@@ -22,7 +22,7 @@ public class UsuarioController extends ManutencaoController {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepararTela() {
-		getLblTitle().setText("Manutençãoo de Usuários");
+		getLblTitle().setText("Manutenção de Usuários");
 		getLblTitle().setStyle("-fx-background-color: #72c4fb;"
 				+ "-fx-font-weight: bold");
 		

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.AtendimentoCtrl;
+import br.com.rarp.control.ConvenioCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.MedicoCtrl;
@@ -14,6 +15,7 @@ import br.com.rarp.control.PacienteCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.Atendimento;
+import br.com.rarp.model.Convenio;
 import br.com.rarp.model.Funcionario;
 import br.com.rarp.model.Medico;
 import br.com.rarp.model.Paciente;
@@ -80,6 +82,9 @@ public class ControleEntradaController extends Application implements Initializa
 
     @FXML
     private AutoCompleteComboBox<Funcionario> cmbEnfermeira;
+    
+    @FXML
+    private AutoCompleteComboBox<Convenio> cmbConvenio;
 
     @FXML
     private TextArea txtPreTriagem;
@@ -313,6 +318,7 @@ public class ControleEntradaController extends Application implements Initializa
 		cmbEnfermeira.setEditable(false);
 		cmbMedico.setEditable(false);
 		cmbPaciente.setEditable(false);
+		cmbConvenio.setDisable(true);
 		btnInserir.setDisable(true);
 		btnSalvar.setDisable(true);
 		btnAlterar.setDisable(true);
@@ -334,6 +340,7 @@ public class ControleEntradaController extends Application implements Initializa
 			cmbEnfermeira.getSelectionModel().select(entradaPacienteCtrl.getEntradaPaciente().getEnfermeira());
 			cmbMedico.getSelectionModel().select(entradaPacienteCtrl.getEntradaPaciente().getMedico());
 			cmbPaciente.getSelectionModel().select(entradaPacienteCtrl.getEntradaPaciente().getPaciente());
+			cmbConvenio.setValue(entradaPacienteCtrl.getEntradaPaciente().getConvenio());
 			sbAlta.setValue(entradaPacienteCtrl.getEntradaPaciente().isAlta());
 			sbAtivado.setValue(entradaPacienteCtrl.getEntradaPaciente().isStatus());
 			tblAtendimentos.getItems().setAll(FXCollections.observableList(entradaPacienteCtrl.getEntradaPaciente().getAtendimentos()));
@@ -404,6 +411,11 @@ public class ControleEntradaController extends Application implements Initializa
 			cmbAtendente.setValue(func);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		try {
+			cmbConvenio.getItems().setAll(new ConvenioCtrl().getConvenios());
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 		try {
 			Funcionario func = cmbEnfermeira.getValue();

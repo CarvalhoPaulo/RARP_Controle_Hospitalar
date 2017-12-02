@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.AtendimentoCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.Funcao;
 import br.com.rarp.enums.StatusAtendimento;
@@ -130,9 +131,9 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	@FXML
 	private AutoCompleteComboBox<String> cmbStatus;
-	
-    @FXML
-    private AutoCompleteComboBox<Usuario> cmbUsuario;
+
+	@FXML
+	private AutoCompleteComboBox<Usuario> cmbUsuario;
 
 	@FXML
 	void imprimir(ActionEvent event) {
@@ -140,11 +141,48 @@ public class RelatorioAtendimentoController implements Initializable {
 			JasperReport report = JasperCompileManager
 					.compileReport(getClass().getResource("RelatorioAtendimento.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
-			params.put("ORG_NAME", "Organizações RARP");
-			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
-			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
-			params.put("ORG_FONE", "(62) 98526-4519");
-			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
+			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
+			String endereco = SistemaCtrl.getInstance().getOrganizacao().getLogradouro();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getNumero() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getNumero().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getNumero();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getBairro() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getBairro().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getBairro();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+					&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome();
+			
+			params.put("ORG_END", endereco);
+			params.put("ORG_FONE",
+					SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0
+							? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero()
+							: "");
+			if(SistemaCtrl.getInstance().getOrganizacao().getEmail() != null)
+				params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
+			else
+				params.put("ORG_EMAIL", "");
 			params.put("TITLE", "Relatório de Atendimentos");
 			params.put("BY_USUARIO", agruparPorUsuario());
 			params.put("BY_RESPONSAVEL", agruparPorResponsável());
@@ -162,14 +200,14 @@ public class RelatorioAtendimentoController implements Initializable {
 			JasperExportManager.exportReportToPdfFile(print, outputFilename);
 			Desktop.getDesktop().open(new File("MeuRelatorio.pdf"));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());	
+			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	private int getQtdeDesativado() {
 		int result = 0;
-		for(Atendimento a: tblAtendimentos.getItems())
+		for (Atendimento a : tblAtendimentos.getItems())
 			if (!a.isStatus())
 				result++;
 		return result;
@@ -177,7 +215,7 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	private int getQtdeEmAndamento() {
 		int result = 0;
-		for(Atendimento a: tblAtendimentos.getItems())
+		for (Atendimento a : tblAtendimentos.getItems())
 			if (a.isStatus() && a.getStatusAtendimento() == StatusAtendimento.emAndamento)
 				result++;
 		return result;
@@ -185,7 +223,7 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	private int getQtdeRealizado() {
 		int result = 0;
-		for(Atendimento a: tblAtendimentos.getItems())
+		for (Atendimento a : tblAtendimentos.getItems())
 			if (a.isStatus() && a.getStatusAtendimento() == StatusAtendimento.realizado)
 				result++;
 		return result;
@@ -193,7 +231,7 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	private int getQtdeEmAberto() {
 		int result = 0;
-		for(Atendimento a: tblAtendimentos.getItems())
+		for (Atendimento a : tblAtendimentos.getItems())
 			if (a.isStatus() && a.getStatusAtendimento() == StatusAtendimento.emAberto)
 				result++;
 		return result;
@@ -201,7 +239,7 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	private double getMediaPorResponsavel() {
 		List<Funcionario> funcionarios = new ArrayList<>();
-		for (Atendimento a: tblAtendimentos.getItems()) {
+		for (Atendimento a : tblAtendimentos.getItems()) {
 			if (!funcionarios.contains(a.getResponsavel()))
 				funcionarios.add(a.getResponsavel());
 		}
@@ -210,18 +248,18 @@ public class RelatorioAtendimentoController implements Initializable {
 
 	private List<ChartPizzaValue> agruparPorResponsável() {
 		List<ChartPizzaValue> values = new ArrayList<>();
-		for(Atendimento a: tblAtendimentos.getItems()) {
+		for (Atendimento a : tblAtendimentos.getItems()) {
 			ChartPizzaValue value = new ChartPizzaValue();
-			if(a.getResponsavel() == null || a.getResponsavel().getNome().equals(""))
+			if (a.getResponsavel() == null || a.getResponsavel().getNome().equals(""))
 				value.setLegend("Sem Responsavel");
 			else
 				value.setLegend(a.getResponsavel().getNome());
 			value.setValue(1);
-			if(values.contains(value)) {
+			if (values.contains(value)) {
 				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-			} else if(values.size() >= 11) {
+			} else if (values.size() >= 11) {
 				value.setLegend("Outros");
-				if(values.contains(value))
+				if (values.contains(value))
 					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
 				else
 					values.add(value);
@@ -229,27 +267,27 @@ public class RelatorioAtendimentoController implements Initializable {
 				values.add(value);
 			}
 		}
-		for(ChartPizzaValue value : values)
-			value.setLabel(String.format("%.1f", Utilitarios
-					.getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
+		for (ChartPizzaValue value : values)
+			value.setLabel(String.format("%.1f",
+					Utilitarios.getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
 
 		return values;
 	}
 
 	private List<ChartPizzaValue> agruparPorUsuario() {
 		List<ChartPizzaValue> values = new ArrayList<>();
-		for(Atendimento a: tblAtendimentos.getItems()) {
+		for (Atendimento a : tblAtendimentos.getItems()) {
 			ChartPizzaValue value = new ChartPizzaValue();
-			if(a.getUsuario() == null || a.getUsuario().getNome().equals(""))
+			if (a.getUsuario() == null || a.getUsuario().getNome().equals(""))
 				value.setLegend("Sem Usuario");
 			else
 				value.setLegend(a.getUsuario().getNome());
 			value.setValue(1);
-			if(values.contains(value)) {
+			if (values.contains(value)) {
 				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-			} else if(values.size() >= 11) {
+			} else if (values.size() >= 11) {
 				value.setLegend("Outros");
-				if(values.contains(value))
+				if (values.contains(value))
 					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
 				else
 					values.add(value);
@@ -257,9 +295,9 @@ public class RelatorioAtendimentoController implements Initializable {
 				values.add(value);
 			}
 		}
-		for(ChartPizzaValue value : values)
-			value.setLabel(String.format("%.1f", Utilitarios
-					.getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
+		for (ChartPizzaValue value : values)
+			value.setLabel(String.format("%.1f",
+					Utilitarios.getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
 
 		return values;
 	}
@@ -294,18 +332,11 @@ public class RelatorioAtendimentoController implements Initializable {
 		AtendimentoCtrl atendimentoCtrl = new AtendimentoCtrl();
 		try {
 			tblAtendimentos.getItems()
-					.setAll(atendimentoCtrl.consultar(txtDataIni.getValue(), 
-							txtDataFin.getValue(), 
-							txtHoraIni.getLocalTime(), 
-							txtHoraFin.getLocalTime(), 
-							txtDataIniAtend.getValue(),
-							txtHoraIniAtend.getLocalTime(), 
-							txtDataFinAtend.getValue(), 
-							txtHoraFinAtend.getLocalTime(), 
-							cmbEntradaPaciente.getSelectedValue(),
-							cmbResponsavel.getSelectedValue(), 
-							cmbUsuario.getSelectedValue(), 
-							cmbStatusAtendimento.getSelectedValue(), 
+					.setAll(atendimentoCtrl.consultar(txtDataIni.getValue(), txtDataFin.getValue(),
+							txtHoraIni.getLocalTime(), txtHoraFin.getLocalTime(), txtDataIniAtend.getValue(),
+							txtHoraIniAtend.getLocalTime(), txtDataFinAtend.getValue(), txtHoraFinAtend.getLocalTime(),
+							cmbEntradaPaciente.getSelectedValue(), cmbResponsavel.getSelectedValue(),
+							cmbUsuario.getSelectedValue(), cmbStatusAtendimento.getSelectedValue(),
 							cmbStatus.getSelectedValue()));
 			Utilitarios.message("Consulta realizada com sucesso");
 		} catch (Exception e) {

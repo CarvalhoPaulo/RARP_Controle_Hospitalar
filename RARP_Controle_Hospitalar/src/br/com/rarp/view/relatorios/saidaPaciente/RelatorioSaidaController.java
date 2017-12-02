@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.SaidaPacienteCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.SaidaPaciente;
@@ -50,73 +51,86 @@ public class RelatorioSaidaController implements Initializable {
 
 	private Node node;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private Button btnAtualizar;
 
-    @FXML
-    private Button btnImprimir;
+	@FXML
+	private Button btnImprimir;
 
-    @FXML
-    private Button btnVoltar;
+	@FXML
+	private Button btnVoltar;
 
-    @FXML
-    private DatePicker txtDataIni;
+	@FXML
+	private DatePicker txtDataIni;
 
-    @FXML
-    private LocalTimeTextField txtHoraIni;
+	@FXML
+	private LocalTimeTextField txtHoraIni;
 
-    @FXML
-    private DatePicker txtDataFin;
+	@FXML
+	private DatePicker txtDataFin;
 
-    @FXML
-    private LocalTimeTextField txtHoraFin;
+	@FXML
+	private LocalTimeTextField txtHoraFin;
 
-    @FXML
-    private TableView<SaidaPaciente> tblSaidas;
+	@FXML
+	private TableView<SaidaPaciente> tblSaidas;
 
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnCodigo;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnCodigo;
 
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnData;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnData;
 
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnHora;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnHora;
 
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnEntradaPaciente;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnEntradaPaciente;
 
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnEstadoPaciente;
-    
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnUsuario;
-    
-    @FXML
-    private TableColumn<SaidaPaciente, String> cmnStatus;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnEstadoPaciente;
 
-    @FXML
-    private AutoCompleteComboBox<EntradaPaciente> cmbEntradaPaciente;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnUsuario;
 
-    @FXML
-    private AutoCompleteComboBox<Usuario> cmbUsuario;
+	@FXML
+	private TableColumn<SaidaPaciente, String> cmnStatus;
 
-    @FXML
-    private TextField txtEstadoPaciente;
+	@FXML
+	private AutoCompleteComboBox<EntradaPaciente> cmbEntradaPaciente;
 
-    @FXML
-    private AutoCompleteComboBox<String> cmbStatus;
+	@FXML
+	private AutoCompleteComboBox<Usuario> cmbUsuario;
+
+	@FXML
+	private TextField txtEstadoPaciente;
+
+	@FXML
+	private AutoCompleteComboBox<String> cmbStatus;
+
 	@FXML
 	void imprimir(ActionEvent event) {
 		try {
 			JasperReport report = JasperCompileManager
 					.compileReport(getClass().getResource("RelatorioSaida.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
-			params.put("ORG_NAME", "Organizações RARP");
-			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
-			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
-			params.put("ORG_FONE", "(62) 98526-4519");
-			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
+			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
+			params.put("ORG_END", SistemaCtrl.getInstance().getOrganizacao().getLogradouro() + ", Número"
+					+ SistemaCtrl.getInstance().getOrganizacao().getNumero() + ", "
+					+ SistemaCtrl.getInstance().getOrganizacao().getBairro()
+					+ SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+							? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome()
+							: "" + SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+									&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
+											? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado()
+													.getNome()
+											: "" + ", Brasil");
+			params.put("ORG_FONE",
+					SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0
+							? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero()
+							: "");
+			params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
 			params.put("TITLE", "Relatório de Atendimentos");
 			params.put("BY_USUARIO", agruparPorUsuario());
 			params.put("QTDE_SAIDA", tblSaidas.getItems().size() + "");
@@ -129,14 +143,14 @@ public class RelatorioSaidaController implements Initializable {
 			JasperExportManager.exportReportToPdfFile(print, outputFilename);
 			Desktop.getDesktop().open(new File("MeuRelatorio.pdf"));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());	
+			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	private int getQtdeDesativado() {
 		int result = 0;
-		for(SaidaPaciente s: tblSaidas.getItems())
+		for (SaidaPaciente s : tblSaidas.getItems())
 			if (!s.isStatus())
 				result++;
 		return result;
@@ -144,18 +158,18 @@ public class RelatorioSaidaController implements Initializable {
 
 	private List<ChartPizzaValue> agruparPorUsuario() {
 		List<ChartPizzaValue> values = new ArrayList<>();
-		for(SaidaPaciente s: tblSaidas.getItems()) {
+		for (SaidaPaciente s : tblSaidas.getItems()) {
 			ChartPizzaValue value = new ChartPizzaValue();
-			if(s.getUsuario() == null || s.getUsuario().getNome().equals(""))
+			if (s.getUsuario() == null || s.getUsuario().getNome().equals(""))
 				value.setLegend("Sem Usuario");
 			else
 				value.setLegend(s.getUsuario().getNome());
 			value.setValue(1);
-			if(values.contains(value)) {
+			if (values.contains(value)) {
 				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-			} else if(values.size() >= 11) {
+			} else if (values.size() >= 11) {
 				value.setLegend("Outros");
-				if(values.contains(value))
+				if (values.contains(value))
 					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
 				else
 					values.add(value);
@@ -163,9 +177,10 @@ public class RelatorioSaidaController implements Initializable {
 				values.add(value);
 			}
 		}
-		for(ChartPizzaValue value : values)
-			value.setLabel(String.format("%.1f", Utilitarios
-					.getPercentual(tblSaidas.getItems().size(), value.getValue())) + " %");
+		for (ChartPizzaValue value : values)
+			value.setLabel(
+					String.format("%.1f", Utilitarios.getPercentual(tblSaidas.getItems().size(), value.getValue()))
+							+ " %");
 
 		return values;
 	}
@@ -199,14 +214,9 @@ public class RelatorioSaidaController implements Initializable {
 	void atualizar(ActionEvent event) {
 		try {
 			tblSaidas.getItems()
-					.setAll(new SaidaPacienteCtrl().consultar(txtDataIni.getValue(), 
-							txtDataFin.getValue(), 
-							txtHoraIni.getLocalTime(), 
-							txtHoraFin.getLocalTime(), 
-							cmbEntradaPaciente.getSelectedValue(),
-							cmbUsuario.getSelectedValue(), 
-							txtEstadoPaciente.getText(), 
-							cmbStatus.getSelectedValue()));
+					.setAll(new SaidaPacienteCtrl().consultar(txtDataIni.getValue(), txtDataFin.getValue(),
+							txtHoraIni.getLocalTime(), txtHoraFin.getLocalTime(), cmbEntradaPaciente.getSelectedValue(),
+							cmbUsuario.getSelectedValue(), txtEstadoPaciente.getText(), cmbStatus.getSelectedValue()));
 			Utilitarios.message("Consulta realizada com sucesso");
 		} catch (Exception e) {
 			Utilitarios.erro("Erro ao consultar os atendimentos.\n" + "Descrição: " + e.getMessage());

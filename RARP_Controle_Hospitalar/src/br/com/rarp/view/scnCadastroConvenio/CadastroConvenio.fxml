@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import jfxtras.scene.control.LocalDateTextField?>
 <?import jfxtras.scene.control.ImageViewButton?>
 <?import jfxtras.scene.control.ListView?>
+<?import jfxtras.scene.control.LocalDateTextField?>
 
 <AnchorPane fx:id="pnlPrincipal" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.rarp.view.scnCadastroConvenio.CadastroConvenioController">
 	<children>
@@ -106,7 +106,7 @@
 														</AnchorPane>
                         														<AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                         															<children>
-                        																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="139.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Nascimento(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+                        																<Label layoutX="21.0" layoutY="16.0" prefHeight="20.0" prefWidth="228.0" styleClass="obrigatorio" stylesheets="@../style/style.css" text="Data de Nascimento(Obrigatório):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
                         																	<font>
                         																		<Font size="14.0" />
                         																	</font>

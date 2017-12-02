@@ -13,6 +13,7 @@ import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.MedicoCtrl;
 import br.com.rarp.control.PacienteCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.EntradaPaciente;
@@ -131,11 +132,16 @@ public class RelatorioEntradaController implements Initializable {
     	try {
 			JasperReport report = JasperCompileManager.compileReport(getClass().getResource("RelatorioEntrada.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
-			params.put("ORG_NAME", "Organizações RARP");
-			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
-			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
-			params.put("ORG_FONE", "(62) 98526-4519");
-			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
+			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
+			params.put("ORG_END", SistemaCtrl.getInstance().getOrganizacao().getLogradouro() 
+					+ ", Número" + SistemaCtrl.getInstance().getOrganizacao().getNumero() 
+					+ ", " + SistemaCtrl.getInstance().getOrganizacao().getBairro()
+					+ SistemaCtrl.getInstance().getOrganizacao().getCidade() != null ? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome() : ""
+					+ SistemaCtrl.getInstance().getOrganizacao().getCidade() != null && SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null ? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome() : "" 
+					+ ", Brasil");
+			params.put("ORG_FONE", SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0 ? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero() : "");
+			params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
 			params.put("TITLE", "Relatório de Entrada de Pacientes");
 			params.put("EntradasPorAtendente", agruparPorAtendente());
 			params.put("EntradasPorMedico", agruparPorMedicos());
