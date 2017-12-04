@@ -1,9 +1,13 @@
 package br.com.rarp.control;
 
+import static org.mockito.Matchers.anyShort;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeFactory;
 
 import org.com.rarp.interfaces.Consulta;
 import org.com.rarp.interfaces.Exception_Exception;
@@ -14,10 +18,16 @@ import org.com.rarp.soap.ConsultaSOAP;
 
 import br.com.rarp.model.Atendimento;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.EntradaPacienteWS;
+import br.com.rarp.model.Medico;
 import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class CosultaCtrl {
 	private ConsultaSOAP consultaSOAP = new ConsultaSOAP();
@@ -29,25 +39,66 @@ public class CosultaCtrl {
 		try {
 			List<Resposta> list;
 			consulta.sevidorOn(SistemaCtrl.getInstance().getConfiguracoes().getUsuarioRARP());
-			consulta.sevidorOn(SistemaCtrl.getInstance().getConfiguracoes().getUsuarioRARP());
 			
-
+			requisicao.setUsuario(SistemaCtrl.getInstance().getConfiguracoes().getUsuarioRARP());
 			requisicao.setPessoaFisica(pessoaFisica);
 			list = consulta.consultar(requisicao);
 
-			List<Atendimento> listA = new ArrayList<>();
+			List<EntradaPacienteWS> listEn = new ArrayList<>();
 			if ((list != null) && (list.size() > 0)) {
 				
 				for (Resposta resposta : list) {
 					
+					boolean valida = false;
+					for (EntradaPacienteWS entradaPacienteWS : listEn) {
+						if((resposta.getHistorico().getPessoaJuridica() == null) ||(resposta.getHistorico().getPessoaJuridica().getNome() == null)
+								||(resposta.getHistorico().getPessoaJuridica().getNome().equals("")) || ( entradaPacienteWS.getHospital().equals(resposta.getHistorico().getPessoaJuridica().getNome()))) {
+							valida = true;
+							break;
+						}
+							
+					}
+					
+				if (valida)
+					continue;
+					
 					for(org.com.rarp.interfaces.EntradaPaciente entradaPaciente : resposta.getHistorico().getEntradaPacientes()) {
+						EntradaPacienteWS entrada = new EntradaPacienteWS();
+						entrada.setAlta(entradaPaciente.isAlta());
+						Date utilDate = entradaPaciente.getDtMovimentacao().toGregorianCalendar().getTime();
 						
-						EntradaPaciente ep = new EntradaPaciente();
-						ep  = (EntradaPaciente) copyAttributesFromTo(ep,entradaPaciente);
+						entrada.setDtMovimentacao( LocalDateTime.ofInstant( utilDate.toInstant(), ZoneId.systemDefault() ).toLocalDate());
+						entrada.setEmergencia(entradaPaciente.isEmergencia());
+						entrada.setPreTriagem(entradaPaciente.getPreTriagem());
+						//entrada.setHrMovimentacao(LocalTime.parse(entradaPaciente.getHrMovimentacao().toXMLFormat()));
+						
+						for (org.com.rarp.interfaces.Atendimento atendimentoWS : entradaPaciente.getAtendimentos()) {
+						
+							Atendimento atendimento = new Atendimento();
+							
+							//atendimento.setDataAtendimento( LocalDate.parse(atendimentoWS.getDtMovimentacao().toXMLFormat()));
+							atendimento.setDescricao(atendimentoWS.getDescricao());
+							atendimento.setDetalheMedico(atendimento.getDetalheMedico());
+							
+							if (entrada.getAtendimentos() == null ){
+								entrada.setAtendimentos(new ArrayList<Atendimento>());
+							}
+							entrada.getAtendimentos().add(atendimento);
+						}
+						if (entradaPaciente.getMedico() != null ) {
+							entrada.setMedico(new Medico());
+							entrada.getMedico().setNome(entradaPaciente.getMedico().getNome());
+							
+						}
+						
+						if (resposta.getHistorico().getPessoaJuridica() != null) {
+							entrada.setHospital(resposta.getHistorico().getPessoaJuridica().getNome());
+						}
+						listEn.add(entrada);
 					}
 				}
 			}
-			return FXCollections.observableArrayList(listA);
+			return FXCollections.observableArrayList(listEn);
 
 		} catch (Exception e) {
 			throw new Exception("Falha realizar consulta");

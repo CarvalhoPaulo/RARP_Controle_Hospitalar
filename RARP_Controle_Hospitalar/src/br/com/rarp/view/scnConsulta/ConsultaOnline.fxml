@@ -91,10 +91,9 @@
             <TableView fx:id="tbvResultado" layoutX="11.0" layoutY="132.0" prefHeight="290.0" prefWidth="496.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="132.0">
               <columns>
                 <TableColumn fx:id="tbcDataEntrada" prefWidth="75.0" text="Data" />
-                <TableColumn fx:id="tbcHora" prefWidth="75.0" text="Hora" />
-                  <TableColumn fx:id="tblMedico" prefWidth="75.0" text="Médico" />
-                  <TableColumn fx:id="tbcDescricaoMedica" prefWidth="251.0" text="Descriçao Media" />
-                  <TableColumn fx:id="tbcReceituario" prefWidth="205.0" text="Receituario" />
+                <TableColumn fx:id="tbcHospital" prefWidth="146.0" text="Hospital" />
+                  <TableColumn fx:id="tblMedico" minWidth="4.0" prefWidth="176.0" text="Médico" />
+                  <TableColumn fx:id="tbcDescricaoMedica" prefWidth="288.0" text="Descriçao Medica" />
               </columns>
             </TableView>
          </children>

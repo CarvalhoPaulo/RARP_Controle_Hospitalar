@@ -17,6 +17,7 @@ import org.com.rarp.soap.ConsultaSOAP;
 import br.com.rarp.control.CosultaCtrl;
 import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.model.EntradaPaciente;
+import br.com.rarp.model.EntradaPacienteWS;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
@@ -48,22 +49,20 @@ public class ConsultaController extends Application implements Initializable {
     private Button btnPesquisar; // Value injected by FXMLLoader
 
     @FXML // fx:id="tbvResultado"
-    private TableView<?> tbvResultado; // Value injected by FXMLLoader
+    private TableView<EntradaPacienteWS> tbvResultado; // Value injected by FXMLLoader
 
     @FXML
-    private TableColumn<?, ?> tbcDataEntrada;
+    private TableColumn<EntradaPacienteWS, String> tbcDataEntrada;
 
     @FXML
-    private TableColumn<EntradaPaciente, ?> tbcHora;
+    private TableColumn<EntradaPacienteWS, String> tbcHospital;
 
     @FXML
-    private TableColumn<?, ?> tblMedico;
+    private TableColumn<EntradaPacienteWS, String> tblMedico;
 
     @FXML
-    private TableColumn<?, ?> tbcDescricaoMedica;
+    private TableColumn<EntradaPacienteWS, String> tbcDescricaoMedica;
 
-    @FXML
-    private TableColumn<?, ?> tbcReceituario;
     
     @FXML
     private Button btnVoltar;
@@ -88,7 +87,6 @@ public class ConsultaController extends Application implements Initializable {
 		
 		list.add("CPF");
 		list.add("RG");
-		list.add("SUS");
 		
 		cmbTipoDocumento.setItems(FXCollections.observableList(list));
 		
@@ -107,6 +105,13 @@ public class ConsultaController extends Application implements Initializable {
 //						return new SimpleStringProperty(value);
 //					}
 //				});
+		
+		try {
+			prepararTela();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 
@@ -165,8 +170,11 @@ public class ConsultaController extends Application implements Initializable {
 		*/
 			
 			CosultaCtrl cosultaCtrl= new CosultaCtrl();
+			br.com.rarp.model.PessoaFisica pf = new br.com.rarp.model.PessoaFisica();
 			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 0) {
-				cosultaCtrl.getPessoaFisica().setCep(txtPesquisa.getText());
+				
+				pf.setCpf(txtPesquisa.getText());
+				cosultaCtrl.getPessoaFisica().setCpf(pf.getCpfSemMascara());
 			}
 			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 1) {
 				cosultaCtrl.getPessoaFisica().setRg(txtPesquisa.getText());
@@ -174,6 +182,7 @@ public class ConsultaController extends Application implements Initializable {
 			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 2) {
 				cosultaCtrl.getPessoaFisica().setSUS(txtPesquisa.getText());
 			}
+			
 			
 			tbvResultado.getItems().setAll(cosultaCtrl.consultar());
 			
@@ -215,6 +224,15 @@ public class ConsultaController extends Application implements Initializable {
 		}
 	}
 
+	public void prepararTela() throws Exception {
+		   tbcDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dtMovimentacao"));
 
+		   tbcHospital.setCellValueFactory(new PropertyValueFactory<>("Hospital"));
+
+		   tblMedico.setCellValueFactory(new PropertyValueFactory<>("medico"));
+
+		   tbcDescricaoMedica.setCellValueFactory(new PropertyValueFactory<>("detalheMedico"));
+		    
+	}
 	
 }
