@@ -16,12 +16,14 @@ import org.com.rarp.soap.ConsultaSOAP;
 
 import br.com.rarp.control.CosultaCtrl;
 import br.com.rarp.control.SistemaCtrl;
+import br.com.rarp.control.Wai;
 import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.EntradaPacienteWS;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.TextFieldFormatter;
+import br.com.rarp.view.scnWait.WaiControler;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -140,7 +142,7 @@ public class ConsultaController extends Application implements Initializable {
 	@FXML 
 	private void consultar() {
 		
-		try {
+		
 			/**
 			 * 
 			 *
@@ -168,7 +170,9 @@ public class ConsultaController extends Application implements Initializable {
 				Utilitarios.message("soufoda");
 			}
 		*/
-			
+		Wai wai = new Wai();
+		try {
+		//	wai.abrir();
 			CosultaCtrl cosultaCtrl= new CosultaCtrl();
 			br.com.rarp.model.PessoaFisica pf = new br.com.rarp.model.PessoaFisica();
 			if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 0) {
@@ -189,6 +193,8 @@ public class ConsultaController extends Application implements Initializable {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Utilitarios.atencao("Falha ao Consultar "+e.getMessage());
+		}finally {
+			wai.fechar();
 		}
 		
 		
@@ -231,7 +237,7 @@ public class ConsultaController extends Application implements Initializable {
 
 		   tblMedico.setCellValueFactory(new PropertyValueFactory<>("medico"));
 
-		   tbcDescricaoMedica.setCellValueFactory(new PropertyValueFactory<>("detalheMedico"));
+		   tbcDescricaoMedica.setCellValueFactory(new PropertyValueFactory<>("Descrioes"));
 		    
 	}
 	

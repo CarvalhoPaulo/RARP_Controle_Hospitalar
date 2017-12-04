@@ -83,6 +83,8 @@ public class CosultaCtrl {
 							if (entrada.getAtendimentos() == null ){
 								entrada.setAtendimentos(new ArrayList<Atendimento>());
 							}
+							
+							entrada.setDescrioes(entrada.getDescrioes() +" "+atendimento.getDetalheMedico() );
 							entrada.getAtendimentos().add(atendimento);
 						}
 						if (entradaPaciente.getMedico() != null ) {

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class EntradaPacienteWS extends EntradaPaciente {
 	private String Hospital;
+	
+	private String Descrioes;
 
 	public String getHospital() {
 		return Hospital;
@@ -12,6 +14,14 @@ public class EntradaPacienteWS extends EntradaPaciente {
 
 	public void setHospital(String hospital) {
 		Hospital = hospital;
+	}
+
+	public String getDescrioes() {
+		return Descrioes;
+	}
+
+	public void setDescrioes(String descrioes) {
+		Descrioes = descrioes;
 	}
 	
 }
