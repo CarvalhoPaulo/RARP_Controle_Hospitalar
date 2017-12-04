@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Exception complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Exception"&gt;
@@ -34,7 +34,7 @@ public class Exception {
     protected String message;
 
     /**
-     * ObtÃ©m o valor da propriedade message.
+     * Obtém o valor da propriedade message.
      * 
      * @return
      *     possible object is

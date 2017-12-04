@@ -95,7 +95,7 @@ public class CadastroUsuarioController extends Application implements Initializa
 	public void start(Stage stage) throws Exception {
 		setStage(stage);
 		stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CadastroUsuario.fxml"))));
-		stage.setTitle("Cadastro de Usu�rios");
+		stage.setTitle("Cadastro de Usuários");
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 			@Override

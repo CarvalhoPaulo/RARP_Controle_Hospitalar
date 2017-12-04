@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Historico complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Historico"&gt;
@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="tipo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="pessoaJuridica" type="{http://interfaces.rarp.com.org/}pessoaJuridica" minOccurs="0"/&gt;
  *         &lt;element name="entradaPacientes" type="{http://interfaces.rarp.com.org/}EntradaPaciente" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="descricao" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -32,17 +33,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Historico", propOrder = {
     "tipo",
+    "pessoaJuridica",
     "entradaPacientes",
     "descricao"
 })
 public class Historico {
 
     protected String tipo;
+    protected PessoaJuridica pessoaJuridica;
     protected List<EntradaPaciente> entradaPacientes;
     protected String descricao;
 
     /**
-     * ObtÃ©m o valor da propriedade tipo.
+     * Obtém o valor da propriedade tipo.
      * 
      * @return
      *     possible object is
@@ -63,6 +66,30 @@ public class Historico {
      */
     public void setTipo(String value) {
         this.tipo = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade pessoaJuridica.
+     * 
+     * @return
+     *     possible object is
+     *     {@link PessoaJuridica }
+     *     
+     */
+    public PessoaJuridica getPessoaJuridica() {
+        return pessoaJuridica;
+    }
+
+    /**
+     * Define o valor da propriedade pessoaJuridica.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link PessoaJuridica }
+     *     
+     */
+    public void setPessoaJuridica(PessoaJuridica value) {
+        this.pessoaJuridica = value;
     }
 
     /**
@@ -95,7 +122,7 @@ public class Historico {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade descricao.
+     * Obtém o valor da propriedade descricao.
      * 
      * @return
      *     possible object is

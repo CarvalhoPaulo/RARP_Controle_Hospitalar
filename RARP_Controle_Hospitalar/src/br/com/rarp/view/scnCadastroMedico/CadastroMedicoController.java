@@ -78,6 +78,10 @@ public class CadastroMedicoController extends Application implements Initializab
     @FXML
     void inserirFuncionario(ActionEvent event) {
     	try {
+    		if (medicoCtrl != null) {
+    			medicoCtrl = new MedicoCtrl();
+
+    		}
 			new CadastroFuncionarioController().inserir();
 			prepararTela();
 		} catch (Exception e) {

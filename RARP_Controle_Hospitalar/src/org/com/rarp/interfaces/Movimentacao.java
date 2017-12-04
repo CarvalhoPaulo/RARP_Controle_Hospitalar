@@ -12,7 +12,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * <p>Classe Java de Movimentacao complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Movimentacao"&gt;
@@ -50,7 +50,7 @@ public class Movimentacao {
     protected XMLGregorianCalendar hrMovimentacao;
 
     /**
-     * ObtÃ©m o valor da propriedade codigo.
+     * Obtém o valor da propriedade codigo.
      * 
      */
     public int getCodigo() {
@@ -66,7 +66,7 @@ public class Movimentacao {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade dtMovimentacao.
+     * Obtém o valor da propriedade dtMovimentacao.
      * 
      * @return
      *     possible object is
@@ -90,7 +90,7 @@ public class Movimentacao {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade hrMovimentacao.
+     * Obtém o valor da propriedade hrMovimentacao.
      * 
      * @return
      *     possible object is

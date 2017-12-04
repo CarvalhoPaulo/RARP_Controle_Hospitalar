@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Telefone complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Telefone"&gt;
@@ -37,7 +37,7 @@ public class Telefone {
     protected int codigo;
 
     /**
-     * ObtÃ©m o valor da propriedade numero.
+     * Obtém o valor da propriedade numero.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class Telefone {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade codigo.
+     * Obtém o valor da propriedade codigo.
      * 
      */
     public int getCodigo() {

@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de Usuario complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteï¿½do esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="Usuario"&gt;
@@ -43,7 +43,7 @@ public class Usuario {
     protected PessoaJuridica pessoaJuridica;
 
     /**
-     * Obtï¿½m o valor da propriedade nome.
+     * Obtém o valor da propriedade nome.
      * 
      * @return
      *     possible object is
@@ -67,7 +67,7 @@ public class Usuario {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade senha.
+     * Obtém o valor da propriedade senha.
      * 
      * @return
      *     possible object is
@@ -91,7 +91,7 @@ public class Usuario {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade codigo.
+     * Obtém o valor da propriedade codigo.
      * 
      */
     public long getCodigo() {
@@ -107,7 +107,7 @@ public class Usuario {
     }
 
     /**
-     * ObtÃ©m o valor da propriedade pessoaJuridica.
+     * Obtém o valor da propriedade pessoaJuridica.
      * 
      * @return
      *     possible object is

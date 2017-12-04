@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de EnviaResposta complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteÃºdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="EnviaResposta"&gt;
@@ -34,7 +34,7 @@ public class EnviaResposta {
     protected Resposta resposta;
 
     /**
-     * ObtÃ©m o valor da propriedade resposta.
+     * Obtém o valor da propriedade resposta.
      * 
      * @return
      *     possible object is
