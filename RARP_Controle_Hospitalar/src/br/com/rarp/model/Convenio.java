@@ -4,6 +4,7 @@ public class Convenio extends PessoaJuridica {
 
 	private String ANS;
 	private int tipo;
+	private boolean autorizado;
 	
 	public String getANS() {
 		return ANS;
@@ -37,6 +38,18 @@ public class Convenio extends PessoaJuridica {
 		convenio.setStatus(isStatus());
 		convenio.setTelefones(getTelefones());
 		return convenio;
+	}
+	public boolean isAutorizado() {
+		return autorizado;
+	}
+	public void setAutorizado(boolean autorizado) {
+		this.autorizado = autorizado;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getNome() != null ? getNome() : "";
 	}
 
 }

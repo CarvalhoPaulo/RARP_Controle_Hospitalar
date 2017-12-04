@@ -144,7 +144,8 @@ public class RelatorioAtendimentoController implements Initializable {
 			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
 			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
 			String endereco = SistemaCtrl.getInstance().getOrganizacao().getLogradouro();
-			
+			if(endereco == null)
+				endereco = "";
 			if(!endereco.trim().isEmpty())
 				endereco += ", ";
 			

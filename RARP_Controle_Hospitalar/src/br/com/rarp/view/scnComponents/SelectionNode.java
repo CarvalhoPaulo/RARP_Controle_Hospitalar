@@ -42,7 +42,9 @@ public class SelectionNode<T extends Node> extends FlowPane {
 	}
 	
 	public void removeSelecteds() {
-		selectionModel.clearSelecteds();
+		for(Integer i: selectionModel.getSelectedIndices())
+			selectionModel.getItems().remove(selectionModel.getItems().get(i));
+		//selectionModel.clearSelecteds();
 	}
 	
 	public boolean isEditable() {

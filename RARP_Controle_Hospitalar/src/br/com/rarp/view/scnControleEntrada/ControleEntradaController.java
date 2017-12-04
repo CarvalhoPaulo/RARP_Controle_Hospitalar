@@ -230,6 +230,7 @@ public class ControleEntradaController extends Application implements Initializa
 		sbAlta.setValue(false);
 		sbAtivado.setValue(true);
 		tblAtendimentos.getItems().clear();
+		cmbConvenio.setValue(null);
 		prepararTela();
 	}
 
@@ -311,21 +312,7 @@ public class ControleEntradaController extends Application implements Initializa
 	}
 
 	private void bloquearTela() {
-		txtData.setOnKeyPressed(Utilitarios.getBloquear());
-		txtHora.setOnKeyPressed(Utilitarios.getBloquear());
-		txtPreTriagem.setOnKeyPressed(Utilitarios.getBloquear());
-		cmbAtendente.setEditable(false);
-		cmbEnfermeira.setEditable(false);
-		cmbMedico.setEditable(false);
-		cmbPaciente.setEditable(false);
-		cmbConvenio.setDisable(true);
-		btnInserir.setDisable(true);
-		btnSalvar.setDisable(true);
-		btnAlterar.setDisable(true);
-		btnRemover.setDisable(true);
-		sbAlta.setEditable(false);
-		sbAtivado.setEditable(false);
-		sbEmergencia.setEditable(false);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	private void preencherTela() {

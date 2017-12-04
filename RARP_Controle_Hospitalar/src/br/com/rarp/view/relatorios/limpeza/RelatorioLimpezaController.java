@@ -121,21 +121,47 @@ public class RelatorioLimpezaController implements Initializable {
 			Map<String, Object> params = new HashMap<>();
 			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
 			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
-			params.put("ORG_END", SistemaCtrl.getInstance().getOrganizacao().getLogradouro() + ", Número"
-					+ SistemaCtrl.getInstance().getOrganizacao().getNumero() + ", "
-					+ SistemaCtrl.getInstance().getOrganizacao().getBairro()
-					+ SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
-							? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome()
-							: "" + SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
-									&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
-											? ", " + SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado()
-													.getNome()
-											: "" + ", Brasil");
+			String endereco = SistemaCtrl.getInstance().getOrganizacao().getLogradouro();
+			if(endereco == null)
+				endereco = "";
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getNumero() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getNumero().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getNumero();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getBairro() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getBairro().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getBairro();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+					&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome();
+			
+			params.put("ORG_END", endereco);
 			params.put("ORG_FONE",
 					SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0
 							? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero()
 							: "");
-			params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
+			if(SistemaCtrl.getInstance().getOrganizacao().getEmail() != null)
+				params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
+			else
+				params.put("ORG_EMAIL", "");
 			params.put("TITLE", "Relatório de Limpezas");
 			params.put("BY_USUARIO", agruparPorUsuario());
 			params.put("BY_FUNCIONARIOLIMPEZA", agruparPorFuncionarioLimpeza());

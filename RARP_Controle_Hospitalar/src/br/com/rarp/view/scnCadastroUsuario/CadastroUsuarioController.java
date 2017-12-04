@@ -199,13 +199,7 @@ public class CadastroUsuarioController extends Application implements Initializa
     }
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		txtNome.setDisable(true);
-		txtUsuario.setDisable(true);
-		cmbFuncionario.setDisable(true);
-		cmbPerfilUsuario.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

@@ -3,7 +3,6 @@ package br.com.rarp.control;
 import java.util.List;
 
 import org.com.rarp.interfaces.Consulta;
-import org.com.rarp.interfaces.Exception_Exception;
 import org.com.rarp.interfaces.PessoaFisica;
 import org.com.rarp.interfaces.Requisicao;
 import org.com.rarp.interfaces.Resposta;

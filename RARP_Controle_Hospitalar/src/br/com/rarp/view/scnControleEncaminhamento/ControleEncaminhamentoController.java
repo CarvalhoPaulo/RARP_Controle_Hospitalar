@@ -205,16 +205,7 @@ public class ControleEncaminhamentoController extends Application implements Ini
 	};
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		txtData.setEditable(true);
-		txtHora.setOnKeyTyped(Utilitarios.getBloquear());
-		sbAtivado.setEditable(false);
-		cmbEntradaPaciente.setDisable(true);
-		cmbOrigem.setDisable(true);
-		cmbDestino.setDisable(true);
-		pnlOrigem.setEditable(false);
-		pnlDestino.setEditable(false);
-		btnSalvar.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

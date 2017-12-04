@@ -129,7 +129,7 @@ public class PacienteDAO {
 	}
 
 	public List<Paciente> getPacientesSemResponsavel() throws Exception {
-		return consultar("PAC.codigo_resp IS NULL");
+		return consultar("PAC.codigo_resp IS NULL AND PAC.status = TRUE");
 	}
 
 	private List<Paciente> consultar(String comparacao) throws Exception {

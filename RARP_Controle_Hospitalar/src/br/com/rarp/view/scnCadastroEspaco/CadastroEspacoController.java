@@ -107,8 +107,7 @@ public class CadastroEspacoController extends Application implements Initializab
 					voltar(new ActionEvent());
 			}
 		});
-		stage.setMinHeight(490);
-		stage.setMinWidth(680);
+		stage.setResizable(false);
 	}
 
 	public Stage getStage() {
@@ -143,16 +142,7 @@ public class CadastroEspacoController extends Application implements Initializab
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		txtAndar.setDisable(true);
-		txtNome.setDisable(true);
-		txtBloco.setDisable(true);
-		txtNumeroLeito.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnAdicionar.setDisable(true);
-		btnRemover.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

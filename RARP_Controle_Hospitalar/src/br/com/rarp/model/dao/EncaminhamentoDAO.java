@@ -165,6 +165,11 @@ public class EncaminhamentoDAO {
 	private List<Encaminhamento> consultar(String consulta) throws Exception {
 		List<Encaminhamento> encaminhamentos = new ArrayList<>();
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+		if(!conexao.getAutoCommit()) {
+			conexao.commit();
+			conexao.setAutoCommit(true);
+		}
+			
 		try {
 			String sql = "SELECT "
 					+ "ENC.codigo codigo_enc, "

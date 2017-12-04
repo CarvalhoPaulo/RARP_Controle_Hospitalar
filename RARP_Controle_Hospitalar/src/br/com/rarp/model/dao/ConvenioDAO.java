@@ -26,7 +26,10 @@ public class ConvenioDAO {
 		sql += "ans VARCHAR(50), ";
 		sql += "tipo INTEGER, ";
 		sql += "codigo_pj INTEGER REFERENCES pessoaJuridica(codigo), ";
-		sql += "status boolean)";
+		sql += "status boolean)";	
+		st.executeUpdate(sql);
+		
+		sql = "ALTER TABLE convenio ADD IF NOT EXISTS autorizado BOOLEAN";
 		st.executeUpdate(sql);
 	}
 
@@ -56,7 +59,8 @@ public class ConvenioDAO {
 					+ "CID.status AS status_cidade, "
 					+ "ES.codigo AS codigo_estado, "
 					+ "ES.uf, "
-					+ "ES.nome AS nome_estado "
+					+ "ES.nome AS nome_estado,"
+					+ "CONV.autorizado "
 					+ "FROM convenio AS CONV "
 					+ "LEFT JOIN pessoajuridica AS PJ ON CONV.codigo_pj = PJ.codigo "
 					+ "LEFT JOIN pessoa AS PE ON PJ.codigo_pessoa = PE.codigo "
@@ -82,6 +86,7 @@ public class ConvenioDAO {
 				convenio.setNumero(rs.getString("numero"));
 				convenio.setBairro(rs.getString("bairro"));
 				convenio.setCep(rs.getString("cep"));
+				convenio.setAutorizado(rs.getBoolean("autorizado"));
 				
 				Cidade cidade = new Cidade();
 				cidade.setCodigo(rs.getInt("codigo_cidade"));
@@ -127,12 +132,13 @@ public class ConvenioDAO {
 		PreparedStatement ps;
 		Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
 		try {
-			String sql = "UPDATE convenio SET ans = ?, tipo = ?, status = ? WHERE codigo = ?";
+			String sql = "UPDATE convenio SET ans = ?, tipo = ?, status = ?, autorizado = ? WHERE codigo = ?";
 			ps = conexao.prepareStatement(sql);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
 			ps.setBoolean(3, convenio.isStatus());
-			ps.setInt(4, convenio.getCodigo());
+			ps.setBoolean(4, convenio.isAutorizado());
+			ps.setInt(5, convenio.getCodigo());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -155,12 +161,13 @@ public class ConvenioDAO {
 			PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 			pessoaJuridicaDAO.salvar(convenio);
 			
-			String sql = "INSERT INTO convenio(ans, tipo, codigo_pj, status) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO convenio(ans, tipo, codigo_pj, status, autorizado) VALUES(?,?,?,?,?)";
 			ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, convenio.getANS());
 			ps.setInt(2, convenio.getTipo());
 			ps.setInt(3, convenio.getCodigo());
 			ps.setBoolean(4, convenio.isStatus());
+			ps.setBoolean(5, convenio.isAutorizado());
 
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();

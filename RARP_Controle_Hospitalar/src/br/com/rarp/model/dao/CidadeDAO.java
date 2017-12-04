@@ -67,7 +67,7 @@ public class CidadeDAO {
 		if (cidades.size() > 0) {
 			String sql = "INSERT INTO cidade (nome, codigo_estado)";
 			sql += "SELECT ?, ? ";
-			sql += "WHERE NOT EXISTS (SELECT nome FROM estado WHERE nome = ?)";
+			sql += "WHERE NOT EXISTS (SELECT nome FROM cidade WHERE nome = ?)";
 
 			PreparedStatement ps = SistemaCtrl.getInstance().getConexao().getConexao().prepareStatement(sql);
 			try {
@@ -94,7 +94,7 @@ public class CidadeDAO {
 		if (!SistemaCtrl.getInstance().tabelaExiste("estado"))
 			throw new Exception("Crie a tabela de estado antes de criar a tabela de cidade");
 		
-		boolean existe = SistemaCtrl.getInstance().tabelaExiste("cidade");
+//		boolean existe = SistemaCtrl.getInstance().tabelaExiste("cidade");
 			
 		Statement st = SistemaCtrl.getInstance().getConexao().getConexao().createStatement();
 		String sql = "CREATE TABLE IF NOT EXISTS ";
@@ -106,10 +106,10 @@ public class CidadeDAO {
 		sql += "status boolean DEFAULT TRUE)";
 		st.executeUpdate(sql);
 		
-		if(!existe) {
-			SQLDAO dao = new SQLDAO();
-	        dao.executarSQLFile("cidades_estados.sql");			
-		}
+//		if(!existe) {
+//			SQLDAO dao = new SQLDAO();
+//	        dao.executarSQLFile("cidades_estados.sql");			
+//		}
 
 	}
 

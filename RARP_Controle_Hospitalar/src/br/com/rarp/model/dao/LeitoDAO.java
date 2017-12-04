@@ -118,7 +118,7 @@ public class LeitoDAO {
 
 	public List<Leito> getLeitos(Espaco espaco) throws Exception {
 		if(espaco != null)
-			return consultar("codigo_espaco = " + espaco.getCodigo() + " ORDER BY numero ASC");
+			return consultar("codigo_espaco = " + espaco.getCodigo() + " AND LEI.status = TRUE ORDER BY numero ASC");
 		return null;
 	}
 	
@@ -228,7 +228,7 @@ public class LeitoDAO {
 
 	public List<Leito> getLeitosLivres(Espaco espaco) throws Exception {
 		if(espaco != null && espaco.getCodigo() > 0) {
-			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL AND NOT sujo";
+			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NULL AND NOT sujo AND LEI.status = TRUE";
 			return consultar(consulta);
 		}
 		return null;
@@ -236,7 +236,7 @@ public class LeitoDAO {
 
 	public List<Leito> getLeitosCheios(Espaco espaco, Paciente paciente) throws Exception {
 		if(espaco != null && espaco.getCodigo() > 0) {
-			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NOT NULL";
+			String consulta = "codigo_espaco = " + espaco.getCodigo() + " AND codigo_paciente IS NOT NULL AND LEI.status = TRUE";
 			if(paciente != null && paciente.getCodigo() > 0)
 				consulta += " AND codigo_paciente = " + paciente.getCodigo();
 			return consultar(consulta);

@@ -302,29 +302,7 @@ public class CadastroFuncionarioController extends Application implements Initia
 	}
 
 	private void bloquearTela() {
-		txtBairro.setEditable(false);
-		cmbCargo.setEditable(false);
-		txtCEP.setEditable(false);
-		txtCodigo.setEditable(false);
-		txtComplemento.setEditable(false);
-		txtCPF.setEditable(false);
-		txtCTPS.setEditable(false);
-		txtDataAdmissao.setDisable(true);
-		txtDataNasc.setDisable(true);
-		txtLogradouro.setEditable(false);
-		txtNome.setEditable(false);
-		txtNumero.setEditable(false);
-		txtRG.setEditable(false);
-		txtSalarioContratual.setEditable(false);
-		txtTelefone.setEditable(false);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
-		cmbCidade.setEditable(false);
-		rbFeminimo.setDisable(true);
-		rbMasculino.setDisable(true);
-		rbSim.setDisable(true);
-		rbNao.setDisable(true);
-		lsTelefones.setEditable(false);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	private void preencherObjeto() {

@@ -277,8 +277,8 @@ public class Utilitarios {
 
 	public static boolean isMaiorIdade(LocalDate dtNascimento) {
 		LocalDate date = LocalDate.now();
-		date.plusDays(-6570);
-		return !date.isBefore(dtNascimento);
+		LocalDate date2 = dtNascimento.plusYears(18);
+		return date.equals(date2) || !date.isBefore(date2);
 	}
 
 	public static EventHandler<KeyEvent> getBloquear() {

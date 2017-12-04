@@ -1,7 +1,6 @@
 package br.com.rarp.view.scnOpcoes;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import br.com.rarp.control.CidadeCtrl;
@@ -10,6 +9,7 @@ import br.com.rarp.model.Cidade;
 import br.com.rarp.model.Configuracoes;
 import br.com.rarp.model.Organizacao;
 import br.com.rarp.model.Telefone;
+import br.com.rarp.model.dao.OrganizacaoDAO;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
@@ -142,6 +142,7 @@ public class OpcoesController extends Application implements Initializable {
 		try {
 			preencherConfiguracoes();
 			SistemaCtrl.getInstance().salvarConfiguracoes();
+			new OrganizacaoDAO().salvar();
 			stage.close();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -176,6 +177,5 @@ public class OpcoesController extends Application implements Initializable {
 		SistemaCtrl.getInstance().getOrganizacao().setEmail(txtEmail.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setBairro(txtBairro.getText());
 		SistemaCtrl.getInstance().getOrganizacao().setTelefones(lsTelefones.getItems());
-
 	}
 }

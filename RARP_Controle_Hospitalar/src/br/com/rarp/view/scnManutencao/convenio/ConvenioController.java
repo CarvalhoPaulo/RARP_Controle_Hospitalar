@@ -26,7 +26,7 @@ public class ConvenioController extends ManutencaoController {
 		getLblTitle().setStyle("-fx-background-color: #f9dd02;"
 				+ "-fx-font-weight: bold");
 
-		TableColumn<Convenio, String> codigo = new TableColumn<>("C�digo");
+		TableColumn<Convenio, String> codigo = new TableColumn<>("Código");
 		codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		TableColumn<Convenio, String> nome = new TableColumn<>("Nome");
 		nome.setCellValueFactory(new PropertyValueFactory<>("nome"));

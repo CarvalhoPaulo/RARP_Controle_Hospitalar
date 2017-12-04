@@ -12,6 +12,7 @@ import br.com.rarp.model.Funcionario;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnCadastroEspecialidade.CadastroEspecialidadeController;
 import br.com.rarp.view.scnCadastroFuncionario.CadastroFuncionarioController;
+import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.SwitchButton;
 import br.com.rarp.view.scnComponents.TextFieldFormatter;
@@ -23,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,10 +40,10 @@ public class CadastroMedicoController extends Application implements Initializab
 	private IntegerTextField txtCodigo; // Value injected by FXMLLoader
 
 	@FXML // fx:id="cmbFuncionario"
-	private ComboBox<Funcionario> cmbFuncionario; // Value injected by FXMLLoader
+	private AutoCompleteComboBox<Funcionario> cmbFuncionario; // Value injected by FXMLLoader
 
 	@FXML // fx:id="cmbEspecialidades"
-	private ComboBox<Especialidade> cmbEspecialidades; // Value injected by FXMLLoader
+	private AutoCompleteComboBox<Especialidade> cmbEspecialidades; // Value injected by FXMLLoader
 
 	@FXML // fx:id="tbvEspecialidades"
 	private TableView<Especialidade> tbvEspecialidades; // Value injected by FXMLLoader
@@ -127,14 +127,7 @@ public class CadastroMedicoController extends Application implements Initializab
 	}
 
 	private void bloquearTela() {
-		cmbFuncionario.setEditable(false);
-		cmbEspecialidades.setEditable(false);
-		tbvEspecialidades.setEditable(false);
-		txtCRM.setEditable(false);
-		btnSalvar.setDisable(false);
-		btnAdd.setDisable(false);
-		btnRemove.setDisable(false);
-
+		btnSalvar.setDisable(visualizando);
 	}
 
 	@SuppressWarnings("static-access")
@@ -179,7 +172,7 @@ public class CadastroMedicoController extends Application implements Initializab
 
 		}
 
-		if (cmbFuncionario.getSelectionModel().getSelectedItem() != null) {
+		if (cmbFuncionario.getSelectedValue() != null) {
 			medicoCtrl.novoMedico();
 			medicoCtrl.getMedico().setCodigo(cmbFuncionario.getSelectionModel().getSelectedItem().getCodigo());
 

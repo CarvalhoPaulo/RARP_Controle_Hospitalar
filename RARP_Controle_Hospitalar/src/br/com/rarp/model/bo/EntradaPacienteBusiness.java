@@ -79,20 +79,24 @@ public class EntradaPacienteBusiness {
 			
 			if (entradaPaciente.getMedico() == null && entradaPaciente.getAtendimentos().size() > 0)
 				throw new Exception("Para cadastrar os atendimentos para esta entrada de paciente é necessário informar o médico");			
+			
+			if (entradaPaciente.getConvenio() != null && entradaPaciente.getConvenio().isAutorizado())
+				throw new Exception("O convênio selecionado não foi autorizado pela autorização do hospital");
+			
 			if(entradaPaciente.isAlta()) {
 				if (entradaPaciente.getMedico() == null)
 					throw new Exception("Para cadastrar uma entrada de paciente e necessário informar o médico");
 				
-				boolean realizado = !entradaPaciente.getAtendimentos().isEmpty();
+				boolean realizado = true;
 				for(Atendimento a: entradaPaciente.getAtendimentos()) {
-					if(a.getStatusAtendimento() == StatusAtendimento.realizado) {
-						realizado = true;
+					if(a.isStatus() && a.getStatusAtendimento() != StatusAtendimento.realizado) {
+						realizado = false;
 						break;
 					}
 				}	
 				
 				if(!realizado)
-					throw new Exception("Para cadastrar uma entrada de paciente é necessário possuir pelo menos um atendimento realizado");		
+					throw new Exception("Para dar alta ao paciente é necessário que todos os atendimentos agendados tenha sido realizados");		
 			}
 			
 			for(Atendimento atendimento: entradaPaciente.getAtendimentos())

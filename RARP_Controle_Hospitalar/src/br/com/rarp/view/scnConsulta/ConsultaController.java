@@ -12,13 +12,11 @@ import org.com.rarp.interfaces.Requisicao;
 import org.com.rarp.interfaces.Resposta;
 import org.com.rarp.soap.ConsultaSOAP;
 import br.com.rarp.control.SistemaCtrl;
-import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.utils.Utilitarios;
 import br.com.rarp.view.scnComponents.AutoCompleteComboBox;
 import br.com.rarp.view.scnComponents.IntegerTextField;
 import br.com.rarp.view.scnComponents.TextFieldFormatter;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,10 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ConsultaController extends Application implements Initializable {
 
@@ -111,6 +106,7 @@ public class ConsultaController extends Application implements Initializable {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	public void abrir() {
 		try {
 			start(this.stage);
@@ -159,7 +155,7 @@ public class ConsultaController extends Application implements Initializable {
 	@FXML
 	private void tipoDocumentoChange() {
 		 cmbTipoDocumento.valueProperty().addListener(new ChangeListener<String>() {
-		        public void changed(ObservableValue ov, String t, String t1) {
+		        public void changed(@SuppressWarnings("rawtypes") ObservableValue ov, String t, String t1) {
 		        	txtPesquisa.setText("");
 		    		if ( cmbTipoDocumento.getSelectionModel().getSelectedIndex() == 0) {
 		    			txtPesquisa.setMask("###.###.###-##");

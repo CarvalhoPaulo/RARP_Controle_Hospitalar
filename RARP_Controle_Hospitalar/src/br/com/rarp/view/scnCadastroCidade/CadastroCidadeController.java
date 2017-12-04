@@ -153,12 +153,7 @@ public class CadastroCidadeController extends Application implements Initializab
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
-		txtNome.setDisable(true);
-		txtIBGE.setDisable(true);
-		cmbEstado.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	private void preencherObjeto() {

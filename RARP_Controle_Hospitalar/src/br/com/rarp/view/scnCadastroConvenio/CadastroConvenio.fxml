@@ -25,7 +25,7 @@
 	<children>
 		<BorderPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
 			<center>
-				<AnchorPane BorderPane.alignment="CENTER">
+				<AnchorPane stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
 					<children>
 						<TabPane fx:id="tbPane" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
 							<tabs>
@@ -298,6 +298,8 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
+                  <SwitchButton fx:id="sbAutorizado" focusTraversable="false" layoutX="128.0" layoutY="24.0" />
+                  <Label layoutX="128.0" layoutY="6.0" text="Autorizado:" AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 			</center>

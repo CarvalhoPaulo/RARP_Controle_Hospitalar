@@ -19,4 +19,9 @@ public class Sintoma {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return descricao;
+	}
 }

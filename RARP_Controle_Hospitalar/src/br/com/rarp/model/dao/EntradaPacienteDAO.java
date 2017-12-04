@@ -128,11 +128,11 @@ public class EntradaPacienteDAO {
 			ps.setBoolean(6, entradaPaciente.isAlta());
 			ps.setBoolean(7, entradaPaciente.isEmergencia());
 			ps.setBoolean(8, entradaPaciente.isStatus());	
-			ps.setInt(9, entradaPaciente.getCodigo());
 			if(entradaPaciente.getConvenio() != null)
-				ps.setInt(10, entradaPaciente.getConvenio().getCodigo());
+				ps.setInt(9, entradaPaciente.getConvenio().getCodigo());
 			else
-				ps.setNull(10, Types.INTEGER);
+				ps.setNull(9, Types.INTEGER);
+			ps.setInt(10, entradaPaciente.getCodigo());
 			
 			ps.executeUpdate();
 			entradaPaciente.setCodigo(SQLDAO.getCodigoMovimentacao(conexao, "entradapaciente", entradaPaciente.getCodigo()));
