@@ -120,12 +120,7 @@ public class ControleSaidaController extends Application implements Initializabl
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		txtData.setEditable(false);
-		txtHora.setDisable(true);
-		cmbEntradaPaciente.setEditable(false);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

@@ -13,6 +13,7 @@ import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.FuncionarioCtrl;
 import br.com.rarp.control.MedicoCtrl;
 import br.com.rarp.control.PacienteCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.enums.Funcao;
 import br.com.rarp.model.EntradaPaciente;
@@ -131,11 +132,49 @@ public class RelatorioEntradaController implements Initializable {
     	try {
 			JasperReport report = JasperCompileManager.compileReport(getClass().getResource("RelatorioEntrada.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
-			params.put("ORG_NAME", "Organizações RARP");
-			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
-			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
-			params.put("ORG_FONE", "(62) 98526-4519");
-			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
+			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
+			String endereco = SistemaCtrl.getInstance().getOrganizacao().getLogradouro();
+			if(endereco == null)
+				endereco = "";
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getNumero() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getNumero().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getNumero();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getBairro() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getBairro().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getBairro();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+					&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome();
+			
+			params.put("ORG_END", endereco);
+			params.put("ORG_FONE",
+					SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0
+							? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero()
+							: "");
+			if(SistemaCtrl.getInstance().getOrganizacao().getEmail() != null)
+				params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
+			else
+				params.put("ORG_EMAIL", "");
 			params.put("TITLE", "Relatório de Entrada de Pacientes");
 			params.put("EntradasPorAtendente", agruparPorAtendente());
 			params.put("EntradasPorMedico", agruparPorMedicos());

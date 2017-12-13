@@ -420,10 +420,7 @@ public class ControleAtendimentoController extends Application implements Initia
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
-		sbAtivado.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

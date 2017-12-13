@@ -70,7 +70,7 @@ public class PacienteCtrl {
 	public ObservableList<Paciente> getPacientes() throws Exception {
 		PacienteBusiness pacienteBusiness = new PacienteBusiness();
 		return FXCollections.observableList(
-				pacienteBusiness.consultar("PAC.codigo",  " > ", "0"));
+				pacienteBusiness.consultar("PAC.status",  " = ", "TRUE"));
 	}
 
 	public List<Paciente> getPacientesSemResponsavel() throws Exception {

@@ -51,11 +51,12 @@ public class WaiControler extends Application implements Initializable {
 		
 		
 	}
+
 	public void Close() {
 		fechar = true;
 		
 		if (thread != null )
-			thread.destroy();
+			thread.interrupt();
 		
 		if (stage != null)
 			stage.hide();

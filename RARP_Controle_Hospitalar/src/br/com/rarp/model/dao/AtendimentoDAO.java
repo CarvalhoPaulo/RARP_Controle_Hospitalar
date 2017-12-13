@@ -93,9 +93,6 @@ public class AtendimentoDAO {
     		MovimentacaoDAO movimentacaoDAO =  new MovimentacaoDAO();
     		movimentacaoDAO.salvar(connection, a);
     		
-    		SintomaDAO sintomaDAO = new SintomaDAO();
-    		sintomaDAO.salvar(connection, a);
-    		
     		ps.setDate(1, Date.valueOf(a.getDataAtendimento()));
     		ps.setTime(2, Time.valueOf(a.getHoraIni()));
     		ps.setTime(3, Time.valueOf(a.getHoraFim()));
@@ -121,6 +118,8 @@ public class AtendimentoDAO {
     		ps.setBoolean(11, a.isStatus());
     		ps.setInt(12, a.getCodigo());
     		ps.addBatch();
+    		
+    		new SintomaDAO().salvar(connection, a);
     		
     		a.setCodigo(SQLDAO.getCodigoMovimentacao(connection, "atendimento", a.getCodigo()));
 			if(a.getCodigo() > 0)

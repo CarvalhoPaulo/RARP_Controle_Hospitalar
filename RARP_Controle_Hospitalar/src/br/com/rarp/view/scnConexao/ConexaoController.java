@@ -86,7 +86,6 @@ public class ConexaoController extends Application implements Initializable {
 			SistemaCtrl.getInstance().getPropriedades().setPassword(txtSenha.getText());
 			SistemaCtrl.getInstance().getPropriedades().setPropriedades();
 			SistemaCtrl.getInstance().getPropriedades().getPropriedades();
-			SistemaCtrl.getInstance().getConexao();
 			Utilitarios.message("Configurações do servidor de banco de dados gravadas com sucesso.");
 			
 			if(stage != null)

@@ -170,10 +170,7 @@ public class ControleLimpezaController extends Application implements Initializa
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
-		sbAtivado.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	public void inserir() throws Exception {

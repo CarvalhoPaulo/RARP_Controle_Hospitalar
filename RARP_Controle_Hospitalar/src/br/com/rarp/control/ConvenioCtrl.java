@@ -1,5 +1,7 @@
 package br.com.rarp.control;
 
+import java.util.List;
+
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Convenio;
 import br.com.rarp.model.bo.ConvenioBusiness;
@@ -12,8 +14,7 @@ public class ConvenioCtrl {
 	
 	private Convenio convenio;
 
-	@SuppressWarnings("rawtypes")
-	public ObservableList consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
+	public ObservableList<Convenio> consultar(Campo campo, Comparacao comparacao, String termo) throws Exception {
 		ConvenioBusiness convenioBusiness = new ConvenioBusiness();
 		return FXCollections.observableList(
 				convenioBusiness.consultar(campo.getNome(), comparacao.getComparacao(), comparacao.getTermo(termo)));
@@ -67,6 +68,11 @@ public class ConvenioCtrl {
 		if(convenio != null && !convenio.isStatus())
 			return Utilitarios.pergunta("Tem certeza que você deseja desativar este conênio?");
 		return true;
+	}
+
+	public List<Convenio> getConvenios() throws Exception {
+		ConvenioBusiness convenioBusiness = new ConvenioBusiness();
+		return convenioBusiness.consultar("conv.status", " = ", "TRUE");
 	}
 
 }

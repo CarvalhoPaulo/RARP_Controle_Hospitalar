@@ -1,32 +1,22 @@
 package br.com.rarp.control;
 
-import static org.mockito.Matchers.anyShort;
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.datatype.DatatypeFactory;
-
 import org.com.rarp.interfaces.Consulta;
-import org.com.rarp.interfaces.Exception_Exception;
 import org.com.rarp.interfaces.PessoaFisica;
 import org.com.rarp.interfaces.Requisicao;
 import org.com.rarp.interfaces.Resposta;
 import org.com.rarp.soap.ConsultaSOAP;
 
 import br.com.rarp.model.Atendimento;
-import br.com.rarp.model.EntradaPaciente;
 import br.com.rarp.model.EntradaPacienteWS;
 import br.com.rarp.model.Medico;
-import br.com.rarp.utils.Utilitarios;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 
 public class CosultaCtrl {
@@ -35,6 +25,7 @@ public class CosultaCtrl {
 	private PessoaFisica pessoaFisica = new PessoaFisica();
 	private Requisicao requisicao = new Requisicao();
 
+	@SuppressWarnings("rawtypes")
 	public ObservableList consultar() throws Exception {
 		try {
 			List<Resposta> list;

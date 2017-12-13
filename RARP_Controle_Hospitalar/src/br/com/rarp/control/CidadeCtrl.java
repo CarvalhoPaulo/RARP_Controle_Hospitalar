@@ -1,6 +1,7 @@
 package br.com.rarp.control;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.rarp.interfaces.Comparacao;
 import br.com.rarp.model.Cidade;
@@ -58,6 +59,10 @@ public class CidadeCtrl {
 
 	public void setCidade(Object object) {
 		this.cidade = (Cidade) object;
+	}
+
+	public List<Cidade> getCidades() throws SQLException, Exception {
+		return new CidadeBusiness().consultar("cid.status", " = ", "TRUE");
 	}
 
 

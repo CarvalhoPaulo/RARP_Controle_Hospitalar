@@ -103,6 +103,9 @@ public class CadastroConvenioController extends Application implements Initializ
 
     @FXML
     private Button btnVoltar;
+
+    @FXML
+    private SwitchButton sbAutorizado;
 	
 	private static ConvenioCtrl convenioCtrl;
 	
@@ -171,11 +174,11 @@ public class CadastroConvenioController extends Application implements Initializ
 	@SuppressWarnings("unchecked")
 	private void prepararTela() {
 		try {
+			sbAutorizado.setValue(false);
 			sbAtivado.setValue(true);
 			txtCodigo.setDisable(true);
 			txtCodigo.setFocusTraversable(true);
-			cmbTipo.getItems().add("Particular");
-			cmbTipo.getItems().add("Público");
+			cmbTipo.getItems().addAll("Particular", "Público");
 			
 			tbPane.requestFocus();
 			txtNome.requestFocus();
@@ -239,7 +242,7 @@ public class CadastroConvenioController extends Application implements Initializ
 	private void limparCampos() {
 		txtANS.clear();
 		txtRazaoSocial.clear();
-		cmbTipo.getSelectionModel().select(-1);
+		cmbTipo.getSelectionModel().clearSelection();
 		txtBairro.clear();
 		txtCEP.clear();
 		txtCodigo.clear();
@@ -252,29 +255,12 @@ public class CadastroConvenioController extends Application implements Initializ
 		txtTelefone.clear();
 		cmbCidade.getSelectionModel().select(-1);
 		sbAtivado.setValue(true);
+		sbAtivado.setValue(false);
 		lsTelefones.getItems().clear();
 	}
 
 	private void bloquearTela() {
-		txtANS.setDisable(visualizando);
-		txtRazaoSocial.setDisable(visualizando);
-		cmbTipo.setDisable(visualizando);
-		txtBairro.setDisable(visualizando);
-		txtCEP.setDisable(visualizando);
-		txtCodigo.setDisable(visualizando);
-		txtComplemento.setDisable(visualizando);
-		txtCNPJ.setDisable(visualizando);
-		txtDataNasc.setDisable(visualizando);
-		txtLogradouro.setDisable(visualizando);
-		txtNome.setDisable(visualizando);
-		txtNumero.setDisable(visualizando);
-		txtTelefone.setDisable(visualizando);
-		sbAtivado.setDisable(visualizando);
 		btnSalvar.setDisable(visualizando);
-		cmbCidade.setDisable(visualizando);
-		lsTelefones.setDisable(visualizando);
-		btnAdd.setDisable(visualizando);
-		btnRemove.setDisable(visualizando);
 	}
 
 	private void preencherObjeto() {
@@ -300,6 +286,7 @@ public class CadastroConvenioController extends Application implements Initializ
 		convenioCtrl.getConvenio().setStatus(sbAtivado.getValue());
 		convenioCtrl.getConvenio().setNome(txtNome.getText());
 		convenioCtrl.getConvenio().setTelefones(lsTelefones.getItems());
+		convenioCtrl.getConvenio().setAutorizado(sbAutorizado.getValue());
 	}
 
 	private void preencherTela() {
@@ -321,6 +308,7 @@ public class CadastroConvenioController extends Application implements Initializ
 		cmbCidade.getSelectionModel().select(convenioCtrl.getConvenio().getCidade());
 		lsTelefones.setItems(FXCollections.observableList(convenioCtrl.getConvenio().getTelefones()));
 		sbAtivado.setValue(convenioCtrl.getConvenio().isStatus());
+		sbAutorizado.setValue(convenioCtrl.getConvenio().isAutorizado());
 	}
 	
 	@FXML

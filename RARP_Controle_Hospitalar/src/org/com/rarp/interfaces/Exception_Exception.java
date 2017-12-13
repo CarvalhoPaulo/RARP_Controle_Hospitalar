@@ -10,6 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 3.1.12
  */
 
+@SuppressWarnings("serial")
 @WebFault(name = "Exception", targetNamespace = "http://interfaces.rarp.com.org/")
 public class Exception_Exception extends java.lang.Exception {
     

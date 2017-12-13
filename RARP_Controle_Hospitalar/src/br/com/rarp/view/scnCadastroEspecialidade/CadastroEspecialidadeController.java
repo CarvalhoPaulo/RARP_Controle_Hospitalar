@@ -70,10 +70,7 @@ public class CadastroEspecialidadeController extends Application implements Init
 	}
 
 	private void bloquearTela() {
-		txtNome.setEditable(false);
-		txtObservacoes.setEditable(false);
-		sbStatus.setDisable(false);
-		btnSalvar.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	@SuppressWarnings("static-access")

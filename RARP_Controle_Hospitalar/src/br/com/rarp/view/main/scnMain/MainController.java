@@ -180,6 +180,7 @@ public class MainController extends Application implements Initializable {
 			SistemaCtrl.getInstance().criarTabelas();
 			SistemaCtrl.getInstance().criarRegistrosPadroes();
 			SistemaCtrl.getInstance().getConfiguracoesDB();
+			SistemaCtrl.getInstance().getOrganizacaoDB();
 			splash.getStage().close();
 			if (SistemaCtrl.getInstance().getConfiguracoes().isControleAcesso()) {
 				UsuarioCtrl usuarioCtrl = new UsuarioCtrl();
@@ -477,6 +478,7 @@ public class MainController extends Application implements Initializable {
     @FXML
     void relatorioAtendimento(ActionEvent event) {
     	try {
+    		SistemaCtrl.getInstance().liberarRelatorioAtendimento(TipoMovimentacao.acesso);
     		RelatorioAtendimentoController relatorioAtendimento = new RelatorioAtendimentoController();
 			pnMain.setCenter(relatorioAtendimento.getNode());
 			focarToolBar(false);
@@ -490,6 +492,7 @@ public class MainController extends Application implements Initializable {
     @FXML
     void relatorioEncaminhamento(ActionEvent event) {
     	try {
+    		SistemaCtrl.getInstance().liberarRelatorioEncaminhamento(TipoMovimentacao.acesso);
     		RelatorioEncaminhamentoController relatorioEncaminhamento = new RelatorioEncaminhamentoController();
 			pnMain.setCenter(relatorioEncaminhamento.getNode());
 			focarToolBar(false);
@@ -503,6 +506,7 @@ public class MainController extends Application implements Initializable {
     @FXML
     void relatorioEntrada(ActionEvent event) {
     	try {
+    		SistemaCtrl.getInstance().liberarRelatorioEntrada(TipoMovimentacao.acesso);
     		RelatorioEntradaController relatorioEntrada = new RelatorioEntradaController();
 			pnMain.setCenter(relatorioEntrada.getNode());
 			focarToolBar(false);
@@ -516,6 +520,7 @@ public class MainController extends Application implements Initializable {
     @FXML
     void relatorioSaida(ActionEvent event) {
     	try {
+    		SistemaCtrl.getInstance().liberarRelatorioSaida(TipoMovimentacao.acesso);
     		RelatorioSaidaController relatorioSaida = new RelatorioSaidaController();
 			pnMain.setCenter(relatorioSaida.getNode());
 			focarToolBar(false);
@@ -529,6 +534,7 @@ public class MainController extends Application implements Initializable {
     @FXML
     void relatorioLimpeza(ActionEvent event) {
     	try {
+    		SistemaCtrl.getInstance().liberarRelatorioLimpeza(TipoMovimentacao.acesso);
     		RelatorioLimpezaController relatorioLimpeza = new RelatorioLimpezaController();
 			pnMain.setCenter(relatorioLimpeza.getNode());
 			focarToolBar(false);

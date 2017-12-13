@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import br.com.rarp.control.EncaminhamentoCtrl;
 import br.com.rarp.control.EntradaPacienteCtrl;
 import br.com.rarp.control.EspacoCtrl;
+import br.com.rarp.control.SistemaCtrl;
 import br.com.rarp.control.UsuarioCtrl;
 import br.com.rarp.model.Encaminhamento;
 import br.com.rarp.model.EntradaPaciente;
@@ -53,74 +54,74 @@ public class RelatorioEncaminhamentoController implements Initializable {
 
 	private Node node;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private Button btnAtualizar;
 
-    @FXML
-    private Button btnImprimir;
+	@FXML
+	private Button btnImprimir;
 
-    @FXML
-    private Button btnVoltar;
+	@FXML
+	private Button btnVoltar;
 
-    @FXML
-    private DatePicker txtDataIni;
+	@FXML
+	private DatePicker txtDataIni;
 
-    @FXML
-    private LocalTimeTextField txtHoraIni;
+	@FXML
+	private LocalTimeTextField txtHoraIni;
 
-    @FXML
-    private DatePicker txtDataFin;
+	@FXML
+	private DatePicker txtDataFin;
 
-    @FXML
-    private LocalTimeTextField txtHoraFin;
+	@FXML
+	private LocalTimeTextField txtHoraFin;
 
-    @FXML
-    private TableView<Encaminhamento> tblEncaminhamentos;
+	@FXML
+	private TableView<Encaminhamento> tblEncaminhamentos;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnCodigo;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnCodigo;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnData;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnData;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnHora;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnHora;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnOrigem;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnOrigem;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnDestino;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnDestino;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnEntradaPaciente;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnEntradaPaciente;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnUsuario;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnUsuario;
 
-    @FXML
-    private TableColumn<Encaminhamento, String> cmnStatus;
+	@FXML
+	private TableColumn<Encaminhamento, String> cmnStatus;
 
-    @FXML
-    private AutoCompleteComboBox<Usuario> cmbUsuario;
+	@FXML
+	private AutoCompleteComboBox<Usuario> cmbUsuario;
 
-    @FXML
-    private AutoCompleteComboBox<EntradaPaciente> cmbEntradaPaciente;
+	@FXML
+	private AutoCompleteComboBox<EntradaPaciente> cmbEntradaPaciente;
 
-    @FXML
-    private AutoCompleteComboBox<String> cmbStatus;
+	@FXML
+	private AutoCompleteComboBox<String> cmbStatus;
 
-    @FXML
-    private AutoCompleteComboBox<Espaco> cmbOrigem;
+	@FXML
+	private AutoCompleteComboBox<Espaco> cmbOrigem;
 
-    @FXML
-    private AutoCompleteComboBox<Espaco> cmbDestino;
+	@FXML
+	private AutoCompleteComboBox<Espaco> cmbDestino;
 
-    @FXML
-    private SelectionNode<ImageCard> pnlOrigem;
+	@FXML
+	private SelectionNode<ImageCard> pnlOrigem;
 
-    @FXML
-    private SelectionNode<ImageCard> pnlDestino;
+	@FXML
+	private SelectionNode<ImageCard> pnlDestino;
 
 	@FXML
 	void imprimir(ActionEvent event) {
@@ -128,11 +129,50 @@ public class RelatorioEncaminhamentoController implements Initializable {
 			JasperReport report = JasperCompileManager
 					.compileReport(getClass().getResource("RelatorioEncaminhamento.jrxml").getFile());
 			Map<String, Object> params = new HashMap<>();
-			params.put("ORG_NAME", "Organizações RARP");
-			params.put("ORG_CNPJ", "CNPJ: 12.345.678/0001-30");
-			params.put("ORG_END", "Rua 28, Número 429, Setor Oeste, Goianésia, Goiás, Brasil");
-			params.put("ORG_FONE", "(62) 98526-4519");
-			params.put("ORG_EMAIL", "teste@rarp.com.br");
+			params.put("ORG_NAME", SistemaCtrl.getInstance().getOrganizacao().getNome());
+			params.put("ORG_CNPJ", "CNPJ: " + SistemaCtrl.getInstance().getOrganizacao().getCnpj());
+			String endereco = SistemaCtrl.getInstance().getOrganizacao().getLogradouro();
+			if(endereco == null)
+				endereco = "";
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getNumero() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getNumero().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getNumero();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getBairro() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getBairro().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getBairro();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null 
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getNome();
+			
+			if(!endereco.trim().isEmpty())
+				endereco += ", ";
+			
+			if(SistemaCtrl.getInstance().getOrganizacao().getCidade() != null
+					&& SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado() != null
+					&& !SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome().isEmpty())
+				endereco += SistemaCtrl.getInstance().getOrganizacao().getCidade().getEstado().getNome();
+			
+			params.put("ORG_END", endereco);
+			params.put("ORG_FONE",
+					SistemaCtrl.getInstance().getOrganizacao().getTelefones().size() > 0
+							? SistemaCtrl.getInstance().getOrganizacao().getTelefones().get(0).getNumero()
+							: "");
+			if(SistemaCtrl.getInstance().getOrganizacao().getEmail() != null)
+				params.put("ORG_EMAIL", SistemaCtrl.getInstance().getOrganizacao().getEmail());
+			else
+				params.put("ORG_EMAIL", "");
 			params.put("TITLE", "Relatório de Encaminhamentos");
 			params.put("QTDE_ENCAMINHAMENTO", tblEncaminhamentos.getItems().size() + "");
 			params.put("MED_ENTRADA", getMediaPorEntrada() + "");
@@ -146,71 +186,73 @@ public class RelatorioEncaminhamentoController implements Initializable {
 			JasperExportManager.exportReportToPdfFile(print, outputFilename);
 			Desktop.getDesktop().open(new File("MeuRelatorio.pdf"));
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());	
+			Utilitarios.erro("Erro ao imprimir relatório\nMotivo: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-private int getQtdeDesativado() {
-	int i = 0;
-	for (Encaminhamento e: tblEncaminhamentos.getItems())
-		if(!e.isStatus())
-			i++;
-	return i;
-}
+	private int getQtdeDesativado() {
+		int i = 0;
+		for (Encaminhamento e : tblEncaminhamentos.getItems())
+			if (!e.isStatus())
+				i++;
+		return i;
+	}
 
-private double getMediaPorEntrada() {
-	List<EntradaPaciente> entradas = new ArrayList<>();
-	for (Encaminhamento e: tblEncaminhamentos.getItems())
-		if(entradas.contains(e.getEntradaPaciente()))
-			entradas.add(e.getEntradaPaciente());
-	if(entradas.size() > 0)
-		return tblEncaminhamentos.getItems().size() / entradas.size();
-	return 0;
-}
+	private double getMediaPorEntrada() {
+		List<EntradaPaciente> entradas = new ArrayList<>();
+		for (Encaminhamento e : tblEncaminhamentos.getItems())
+			if (entradas.contains(e.getEntradaPaciente()))
+				entradas.add(e.getEntradaPaciente());
+		if (entradas.size() > 0)
+			return tblEncaminhamentos.getItems().size() / entradas.size();
+		return 0;
+	}
 
-	//	private List<ChartPizzaValue> agruparPorResponsável() {
-//		List<ChartPizzaValue> values = new ArrayList<>();
-//		for(Atendimento a: tblAtendimentos.getItems()) {
-//			ChartPizzaValue value = new ChartPizzaValue();
-//			if(a.getResponsavel() == null || a.getResponsavel().getNome().equals(""))
-//				value.setLegend("Sem Responsavel");
-//			else
-//				value.setLegend(a.getResponsavel().getNome());
-//			value.setValue(1);
-//			if(values.contains(value)) {
-//				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-//			} else if(values.size() >= 11) {
-//				value.setLegend("Outros");
-//				if(values.contains(value))
-//					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-//				else
-//					values.add(value);
-//			} else {
-//				values.add(value);
-//			}
-//		}
-//		for(ChartPizzaValue value : values)
-//			value.setLabel(String.format("%.1f", Utilitarios
-//					.getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
-//
-//		return values;
-//	}
-//
+	// private List<ChartPizzaValue> agruparPorResponsável() {
+	// List<ChartPizzaValue> values = new ArrayList<>();
+	// for(Atendimento a: tblAtendimentos.getItems()) {
+	// ChartPizzaValue value = new ChartPizzaValue();
+	// if(a.getResponsavel() == null || a.getResponsavel().getNome().equals(""))
+	// value.setLegend("Sem Responsavel");
+	// else
+	// value.setLegend(a.getResponsavel().getNome());
+	// value.setValue(1);
+	// if(values.contains(value)) {
+	// values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue()
+	// + 1);
+	// } else if(values.size() >= 11) {
+	// value.setLegend("Outros");
+	// if(values.contains(value))
+	// values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue()
+	// + 1);
+	// else
+	// values.add(value);
+	// } else {
+	// values.add(value);
+	// }
+	// }
+	// for(ChartPizzaValue value : values)
+	// value.setLabel(String.format("%.1f", Utilitarios
+	// .getPercentual(tblAtendimentos.getItems().size(), value.getValue())) + " %");
+	//
+	// return values;
+	// }
+	//
 	private List<ChartPizzaValue> agruparPorUsuario() {
 		List<ChartPizzaValue> values = new ArrayList<>();
-		for(Encaminhamento e: tblEncaminhamentos.getItems()) {
+		for (Encaminhamento e : tblEncaminhamentos.getItems()) {
 			ChartPizzaValue value = new ChartPizzaValue();
-			if(e.getUsuario() == null || e.getUsuario().getNome().equals(""))
+			if (e.getUsuario() == null || e.getUsuario().getNome().equals(""))
 				value.setLegend("Sem Usuario");
 			else
 				value.setLegend(e.getUsuario().getNome());
 			value.setValue(1);
-			if(values.contains(value)) {
+			if (values.contains(value)) {
 				values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
-			} else if(values.size() >= 11) {
+			} else if (values.size() >= 11) {
 				value.setLegend("Outros");
-				if(values.contains(value))
+				if (values.contains(value))
 					values.get(values.indexOf(value)).setValue(values.get(values.indexOf(value)).getValue() + 1);
 				else
 					values.add(value);
@@ -218,9 +260,9 @@ private double getMediaPorEntrada() {
 				values.add(value);
 			}
 		}
-		for(ChartPizzaValue value : values)
-			value.setLabel(String.format("%.1f", Utilitarios
-					.getPercentual(tblEncaminhamentos.getItems().size(), value.getValue())) + " %");
+		for (ChartPizzaValue value : values)
+			value.setLabel(String.format("%.1f",
+					Utilitarios.getPercentual(tblEncaminhamentos.getItems().size(), value.getValue())) + " %");
 
 		return values;
 	}
@@ -254,14 +296,11 @@ private double getMediaPorEntrada() {
 	void atualizar(ActionEvent event) {
 		try {
 			tblEncaminhamentos.getItems()
-					.setAll(new EncaminhamentoCtrl().consultar(txtDataIni.getValue(), 
-							txtDataFin.getValue(), 
-							txtHoraIni.getLocalTime(), 
-							txtHoraFin.getLocalTime(), 
+					.setAll(new EncaminhamentoCtrl().consultar(txtDataIni.getValue(), txtDataFin.getValue(),
+							txtHoraIni.getLocalTime(), txtHoraFin.getLocalTime(),
 							pnlOrigem.getValue() != null ? pnlOrigem.getValue().getLeito() : null,
 							pnlDestino.getValue() != null ? pnlDestino.getValue().getLeito() : null,
-							cmbEntradaPaciente.getSelectedValue(),
-							cmbUsuario.getSelectedValue(), 
+							cmbEntradaPaciente.getSelectedValue(), cmbUsuario.getSelectedValue(),
 							cmbStatus.getSelectedValue()));
 			Utilitarios.message("Consulta realizada com sucesso");
 		} catch (Exception e) {
@@ -322,21 +361,21 @@ private double getMediaPorEntrada() {
 		cmbOrigem.setOnAction(onChange);
 		cmbDestino.setOnAction(onChange);
 	}
-	
+
 	EventHandler<ActionEvent> onChange = (event) -> {
-		if(event.getSource() == cmbOrigem && cmbOrigem.getValue() != null) {
+		if (event.getSource() == cmbOrigem && cmbOrigem.getValue() != null) {
 			pnlOrigem.getItems().clear();
-			for (Leito l: cmbOrigem.getValue().getLeitos()) {
+			for (Leito l : cmbOrigem.getValue().getLeitos()) {
 				ImageCard img = new ImageCard();
 				img.getPathImage().set(getClass().getResource("../../img/patient128x128.png").toString());
 				img.setLeito(l);
 				pnlOrigem.getItems().add(img);
 			}
 		}
-		
-		if(event.getSource() == cmbDestino && cmbDestino.getValue() != null) {
+
+		if (event.getSource() == cmbDestino && cmbDestino.getValue() != null) {
 			pnlDestino.getItems().clear();
-			for (Leito l: cmbDestino.getValue().getLeitos()) {
+			for (Leito l : cmbDestino.getValue().getLeitos()) {
 				ImageCard img = new ImageCard();
 				img.getPathImage().set(getClass().getResource("../../img/leitos.png").toString());
 				img.setLeito(l);

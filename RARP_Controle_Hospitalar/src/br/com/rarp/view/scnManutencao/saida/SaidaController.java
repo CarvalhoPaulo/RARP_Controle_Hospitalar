@@ -97,7 +97,7 @@ public class SaidaController extends ManutencaoController {
 
 	public void adicionarCampos() {
 		cmbCampo.getItems().add(new Campo("SAI.codigo", "Código", TipoCampo.numerico));
-		cmbCampo.getItems().add(new Campo("MOV.data", "Data da Sa�da", TipoCampo.data));
+		cmbCampo.getItems().add(new Campo("MOV.data", "Data da Saída", TipoCampo.data));
 		cmbCampo.getItems().add(new Campo("SAI.status", "Ativado", TipoCampo.booleano));
 	}
 

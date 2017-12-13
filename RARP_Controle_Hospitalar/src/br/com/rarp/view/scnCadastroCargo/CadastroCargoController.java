@@ -151,13 +151,7 @@ public class CadastroCargoController extends Application implements Initializabl
 	}
 
 	private void bloquearTela() {
-		txtCodigo.setDisable(true);
-		txtNome.setDisable(true);
-		cmbFuncao.setDisable(true);
-		txtNivel.setDisable(true);
-		txtRequisitos.setDisable(true);
-		sbAtivado.setDisable(true);
-		btnSalvar.setDisable(true);
+		btnSalvar.setDisable(visualizando);
 	}
 
 	private void preencherObjeto() {

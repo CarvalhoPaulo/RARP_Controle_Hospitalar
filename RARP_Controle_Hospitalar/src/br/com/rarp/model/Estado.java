@@ -6,8 +6,19 @@ public class Estado {
 	private String nome;
 	private String UF;
 	
-	public boolean equals(String uf) {
-		return this.getUF().equals(uf);
+	public Estado(String nome, String sigla) {
+		setNome(nome);
+		setUF(sigla);
+	}
+
+	public Estado() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public boolean equals(Object estado) {
+		if(estado != null && estado instanceof Estado)
+			return getUF().equals(((Estado) estado).getUF());
+		return false;
 	}
 	
 	public boolean equals(Estado estado) {

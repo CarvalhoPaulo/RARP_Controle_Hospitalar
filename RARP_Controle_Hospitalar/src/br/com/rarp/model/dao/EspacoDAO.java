@@ -34,6 +34,10 @@ public class EspacoDAO {
 	private void inserir(Espaco espaco) throws Exception {
 		PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+        if(!conexao.getAutoCommit()) {
+			conexao.commit();
+			conexao.setAutoCommit(true);
+		}
         try {
         	String sql= "INSERT INTO espaco(nome, bloco, andar, status) VALUES(?,?,?,?)";
             ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -58,6 +62,10 @@ public class EspacoDAO {
 	private void alterar(Espaco espaco) throws Exception {
 		PreparedStatement ps;
         Connection conexao = SistemaCtrl.getInstance().getConexao().getConexao();
+        if(!conexao.getAutoCommit()) {
+			conexao.commit();
+			conexao.setAutoCommit(true);
+		}
         try {
         	String sql= "Update espaco SET nome=?, bloco=?, andar=?, status=? WHERE codigo=?";
             ps = conexao.prepareStatement(sql);

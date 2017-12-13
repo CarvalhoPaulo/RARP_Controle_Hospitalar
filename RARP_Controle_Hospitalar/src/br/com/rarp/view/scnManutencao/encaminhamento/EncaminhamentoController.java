@@ -81,7 +81,7 @@ public class EncaminhamentoController extends ManutencaoController {
 			if(tblManutencao.getItems() == null || (tblManutencao.getItems() != null && tblManutencao.getItems().size() == 0))
 				Utilitarios.atencao("Nenhum registro foi encontrado.");
 		} catch (Exception e) {
-			Utilitarios.erro("Erro ao pesquisar os encaminhamentos.\n" + "Descri��o: " + e.getMessage());
+			Utilitarios.erro("Erro ao pesquisar os encaminhamentos.\n" + "Descrição: " + e.getMessage());
 		}
 	}
 
